@@ -28,11 +28,11 @@ const AdminLayout = () => {
             icon: "--type-requests",
             link: "/admin/theatreRequests"
         },
-        {
-            title: "Настройки",
-            icon: "--type-settings",
-            link: "/admin/settings"
-        },
+        // {
+        //     title: "Настройки",
+        //     icon: "--type-settings",
+        //     link: "/admin/settings"
+        // },
     ];
 
     const handleBurgerMenu = () => {

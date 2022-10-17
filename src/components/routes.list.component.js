@@ -16,6 +16,8 @@ import TheatrePage from "../pages/admin/theatres/theatre.page";
 import ProfilePage from "../pages/profile.page";
 import SchoolsPage from "../pages/admin/schools/schools.page";
 import SchoolPage from "../pages/admin/schools/school.page";
+import TheatreRequestsPage from "../pages/admin/theatreRequests/theatreRequests.page";
+import TheatreRequestPage from "../pages/admin/theatreRequests/theatreRequest.page";
 
 const RoutesList = () => {
 
@@ -45,6 +47,11 @@ const RoutesList = () => {
                         <Route index element={<TheatresPage/>}/>
                         <Route path=":id" element={<TheatrePage/>}/>
                         <Route path="new" element={<TheatrePage/>}/>
+                    </Route>
+                    <Route path="theatreRequests">
+                        <Route index element={<TheatreRequestsPage/>}/>
+                        <Route path=":id" element={<TheatreRequestPage/>}/>
+                        <Route path="new" element={<TheatreRequestPage/>}/>
                     </Route>
                 </Route>
                 <Route path="/profile" exact={true} element={<AdminLayout/>}>
