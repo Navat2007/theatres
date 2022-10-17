@@ -66,13 +66,6 @@ const SchoolsPage = () => {
             sorting: true,
         },
         {
-            header: "Баллы ШСК",
-            key: "hsk_score",
-            type: "int",
-            filter: "number",
-            sorting: true,
-        },
-        {
             header: "Статус",
             key: "active",
             type: "string",

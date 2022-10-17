@@ -9,7 +9,7 @@ export const loadSchools = createAsyncThunk('schools/loadSchools', async (params
         form.append(key, params[key]);
     }
 
-    const { data } = await axios.post(window.global.baseUrl + 'admin/new_models/admin/schools/load.php');
+    const { data } = await axios.post(window.global.baseUrl + 'php/models/admin/schools/load.php');
     return data.params;
 });
 

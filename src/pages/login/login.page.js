@@ -20,7 +20,6 @@ const LoginPage = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     const onSubmit = async data => {
-        console.log(data);
 
         const userData = await dispatch(loadUserData(data));
 
