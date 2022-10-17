@@ -144,8 +144,6 @@ const Table = ({title, itemsConfig, items, onItemClick, loading, withFilter = fa
                 for (const itemKey in itemValue)
                     tmpFilter[itemKey] = !!(itemValue[itemKey].toString().toLowerCase().includes(filterValue["search_string"].toLowerCase()));
 
-                console.log(tmpFilter);
-
                 if (Object.keys(tmpFilter).some(key => tmpFilter[key]))
                     return true;
 
