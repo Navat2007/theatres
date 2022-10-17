@@ -13,14 +13,14 @@ const UserLayout = () => {
             link: "/user/my_school"
         },
         {
-            title: "Мероприятия",
+            title: "Театры",
             icon: "",
             link: "/user/theatres"
         },
         {
-            title: "Заявки на участие",
+            title: "Заявки на театры",
             icon: "",
-            link: "/user/requests"
+            link: "/user/theatreRequests"
         },
     ];
 

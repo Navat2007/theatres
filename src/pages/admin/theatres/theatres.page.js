@@ -14,7 +14,7 @@ const TheatresPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const events = useSelector(state => state.theatres);
+    const theatres = useSelector(state => state.theatres);
 
     const onItemClick = (props) => {
         navigate(`/admin/theatres/${props}`);
@@ -87,8 +87,8 @@ const TheatresPage = () => {
                     />
                     <Table
                         title={"Таблица театров"}
-                        loading={events.status === "loading"}
-                        items={events.data.filter(item => item.active === 1)}
+                        loading={theatres.status === "loading"}
+                        items={theatres.data.filter(item => item.active === 1)}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
@@ -97,8 +97,8 @@ const TheatresPage = () => {
                 <Tab index={2} title={"Архив"}>
                     <Table
                         title={"Таблица архива театров"}
-                        loading={events.status === "loading"}
-                        items={events.data.filter(item => item.active === 0)}
+                        loading={theatres.status === "loading"}
+                        items={theatres.data.filter(item => item.active === 0)}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}

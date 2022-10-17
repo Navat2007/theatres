@@ -14,6 +14,8 @@ import MySchoolPage from "../pages/user/my.school.page";
 import TheatresPage from "../pages/admin/theatres/theatres.page";
 import TheatrePage from "../pages/admin/theatres/theatre.page";
 import ProfilePage from "../pages/profile.page";
+import SchoolsPage from "../pages/admin/schools/schools.page";
+import SchoolPage from "../pages/admin/schools/school.page";
 
 const RoutesList = () => {
 

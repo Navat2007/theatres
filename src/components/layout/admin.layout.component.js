@@ -19,35 +19,15 @@ const AdminLayout = () => {
             link: "/admin/schools"
         },
         {
-            title: "Мероприятия",
+            title: "Театры",
             icon: "--type-theatres",
             link: "/admin/theatres"
         },
         {
-            title: "Заявки на участие",
+            title: "Заявки на театры",
             icon: "--type-requests",
-            link: "/admin/requests"
+            link: "/admin/theatreRequests"
         },
-        {
-            title: "Расписание матчей",
-            icon: "--type-schedule",
-            link: "/admin/schedules"
-        },
-        {
-            title: "Регистрация участников",
-            icon: "--type-registrations",
-            link: "/admin/registrations"
-        },
-        {
-            title: "Победители",
-            icon: "--type-winners",
-            link: "/admin/winners"
-        },
-        // {
-        //     title: "Статистика",
-        //     icon: "--type-statistics",
-        //     link: "/admin/statistics"
-        // },
         {
             title: "Настройки",
             icon: "--type-settings",
