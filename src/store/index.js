@@ -15,6 +15,6 @@ export default configureStore({
         users: userReducer,
         schools: schoolsSlice,
         theatres: theatresSlice,
-        theatreRequestsSlice: theatreRequestsSlice,
+        theatreRequests: theatreRequestsSlice,
     }
 });
