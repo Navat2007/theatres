@@ -1,0 +1,58 @@
+.profile {
+  flex: none;
+  display: flex;
+  align-items: center;
+  background-color: var(--g100);
+  cursor: pointer;
+
+  &.--place-header {
+    display: none;
+  }
+
+  &.--place-menu {
+    color: var(--dark);
+  }
+
+  &__img {
+    flex: none;
+    min-width: 3.5em;
+    max-width: 3.5em;
+    align-self: stretch;
+    object-fit: cover;
+    @extend %alt-text-on-after;
+  }
+
+  &__info {
+    flex: auto;
+    padding: .5em .875em;
+    overflow: hidden;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 500;
+    @extend %cutText;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: var(--darkLow);
+    line-height: 150%;
+    font-size: .875em;
+    @extend %cutText;
+  }
+}
+
+@include media(sm) {
+  .profile {
+
+    &.--place-header {
+      display: flex;
+      width: 16em;
+    }
+  
+    &.--place-menu {
+      display: none;
+    }
+  }
+}

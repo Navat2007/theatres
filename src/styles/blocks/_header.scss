@@ -1,0 +1,55 @@
+.header {
+  display: flex;
+  gap: .875em;
+  border-bottom: 1px solid var(--primary);
+
+  &__item {
+    align-self: center;
+    @extend .button;
+    @extend .--theme-text;
+    @extend .--icon-on-before;
+    padding: .5em .75em;
+
+    &::before {
+      font-size: 1.875em;
+    }
+
+    &.--type-burger::before {
+      content: "\F035C";
+    }
+
+    &.--type-exit::before {
+      order: 2;
+      content: "\F0206";
+    }
+
+    &.--type-exit {
+      & span {
+        display: none;
+      }
+
+      &::before {
+        order: 2;
+        content: "\F0206";
+      }
+    }
+  }
+}
+
+@include media(sm) {
+  .header {
+    &__item.--type-burger {
+      display: none;
+    }
+
+    &__item.--type-exit {
+      &::before {
+        font-size: 1.5em;
+      }
+
+      & span {
+        display: unset;
+      }
+    }
+  }
+}

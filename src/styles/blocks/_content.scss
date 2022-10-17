@@ -1,0 +1,35 @@
+.content {
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  &__main {
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  &__section {
+    padding: 1.25em;
+    box-sizing: border-box;
+  }
+
+  &__title {
+    font-family: var(--ff-firm);
+    font-size: min(3.25vmax, 1.875em);
+    font-weight: 700;
+    margin: 0 0 min(5vmax, 3.125rem);
+  }
+}
+
+@include media(sm) {
+  .content {
+    grid-template-columns: auto 1fr;
+
+    &__header {
+      grid-column: 1/-1;
+    }
+  }
+}

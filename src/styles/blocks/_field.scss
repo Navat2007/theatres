@@ -1,0 +1,225 @@
+.field {
+  position: relative;
+  transition: padding .25s ease-in-out;
+
+  &.--state-error {
+    padding-bottom: 1em;
+
+    & .field__input {
+      color: var(--error);
+      background-color: rgba($color: map-get($colors, "error"), $alpha: .05);
+
+      @include placeholder {
+        color: var(--error);
+      }
+    }
+
+    & .field__label {
+      color: var(--error);
+    }
+
+    & .field__info {
+      opacity: 1;
+      color: var(--error);
+    }
+
+    & .field__icon {
+      opacity: 1;
+      color: var(--error);
+    }
+
+    & .field__icon.--type-eye,
+    & .field__icon.--type-dropdown {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  &.--size-sm {
+
+
+    & .field__label {
+      font-size: .875em;
+
+      &~.field__icon {
+        margin-top: 1.25em;
+      }
+    }
+
+    & .field__input {
+      font-size: .875em;
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      min-height: 2.75rem;
+    }
+
+    & .field__icon {
+      top: .525em; // зависит от верхнего отступа
+    }
+  }
+
+  &__label {
+    padding-left: 1em;
+    line-height: 150%;
+
+    &~.field__icon {
+      margin-top: 1.5em;
+    }
+  }
+
+  &__input {
+    @extend %reset-input;
+    min-height: 3.125em; // для браузеров Iphone
+    padding: .875em 1em; // для селектов верт. отступы
+    box-sizing: border-box;
+    background-color: var(--white);
+    // box-shadow: inset 0 0 2px var(--g300);
+    border: 1px solid var(--g300);
+    transition: 0.35s ease-out;
+
+    @include placeholder {
+      color: var(--darkLow);
+    }
+
+    &:focus,
+    &:not(:disabled):hover,
+    &:not(:focus):valid:not(:placeholder-shown) {
+      border-color: var(--dark);
+    }
+
+    &:not([type="date"]):not([type="number"]):not([type="search"]) {
+      padding-right: 3em;
+    }
+
+    &.--type-textarea {
+      height: 100%;
+      max-height: inherit;
+
+      &~.field__icon {
+        top: .975em;
+      }
+    }
+  }
+
+  &__checkbox {
+    @extend %reset-checkbox;
+    // vertical-align: middle;
+    vertical-align: top;
+
+    &:hover {
+
+      &:before,
+      &+label {
+        color: var(--dark);
+      }
+    }
+
+    &:disabled {
+      pointer-events: none;
+
+      &:checked:before,
+      &:checked+label,
+      &:before,
+      &+label {
+        cursor: default;
+        color: var(--darkLow);
+      }
+    }
+
+    &:before {
+      @extend %icon-on-before;
+      content: "\F0131";
+      color: var(--darkLow);
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    &:checked:before {
+      content: "\F0132";
+      color: var(--primary);
+    }
+
+    &:checked+label {
+      color: var(--dark);
+    }
+
+    &+label {
+      line-height: 1.75;
+      color: var(--darkLow);
+      padding-left: 0.5rem;
+      cursor: pointer;
+    }
+
+  }
+
+  &__icon {
+    position: absolute;
+    top: .8125em; // зависит от верхнего отступа
+    right: 1em;
+    color: var(--darkLow);
+    opacity: 0;
+
+    &::before {
+      @extend %icon-on-before;
+      content: "\F05D6";
+      font-size: 1.5em;
+      color: inherit;
+    }
+
+    &.--type-error {
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &.--type-eye {
+      opacity: 1;
+      cursor: pointer;
+
+      &.--actived::before {
+        content: "\F0208";
+      }
+
+      &:hover {
+        color: var(--dark);
+      }
+
+      &::before {
+        content: "\F0209";
+      }
+
+      &:active::before {
+        transform: translateY(1px);
+      }
+    }
+
+    &.--type-dropdown {
+      opacity: 1;
+      cursor: pointer;
+
+      &::before {
+        content: "\F035D";
+      }
+
+      &:hover {
+        color: var(--dark);
+      }
+
+      &:active::before {
+        transform: translateY(1px);
+      }
+    }
+  }
+
+  &__info {
+    margin: 0;
+
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+
+    font-style: italic;
+    font-size: .75em;
+    opacity: 0;
+  }
+}

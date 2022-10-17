@@ -1,0 +1,33 @@
+// COLORS
+$colors: (
+  primary: #007AB1, 
+  accent: #EF495F,
+  white: #ffffff,
+  black: #000000,
+  g100: #F4F4F4,
+  g200: #D1D1D1,
+  g300: #9E9E9E,
+  g400: #5B676C,
+  g500: #405259,
+  light: #F4F4F4,
+  lightLow: #9E9E9E,
+  dark: #1E4354,
+  darkLow: #5B676C,
+  error: #da1717, 
+  success: #04BF8A,
+  alert: #F2994B,
+  info: #4098EA,
+);
+
+
+:root {
+
+  @each $name,
+  $color in $colors {
+    --#{"" + $name}: #{$color};
+  }
+
+  // FONT 
+  --ff-firm: Oswald, sans-serif;
+  --ff-base: Roboto, sans-serif;
+}

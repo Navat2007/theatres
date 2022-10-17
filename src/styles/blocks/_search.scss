@@ -1,0 +1,95 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+
+  &.--place-tab {
+    margin: 1em 0;
+
+    padding: .5em;
+    box-sizing: border-box;
+    background-color: var(--g100);
+    border: 1px solid var(--g200);
+  }
+
+  &__row {
+    display: flex;
+    gap: .5em;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    align-items: flex-end;
+
+    & .field {
+      flex: 1 0 15em;
+      @extend .--size-sm;
+    }
+  }
+
+  &__button {
+    flex: none;
+
+    @extend .button;
+    @extend .--theme-primary;
+    @extend .--icon-on-before;
+    @extend .--size-sm;
+
+    &:before {
+      content: "\F0236";
+    }
+  }
+
+  &__controls {
+    flex: none;
+    margin-left: auto;
+
+    & .button {
+      @extend .--size-sm;
+      min-width: 8rem;
+    }
+  }
+
+  &__accordion {
+    display: none;
+
+    &.--opened {
+      display: unset;
+    }
+  }
+}
+
+@include media(md) {
+  .search {
+    &__row {
+
+      & .field {
+        flex: 0 0 calc((100% / 2) - .5em);
+      }
+
+      &.--main-search .field {
+        flex: auto;
+      }
+    }
+  }
+}
+
+@include media(lg) {
+  .search {
+    &__row {
+
+      & .field {
+        flex: 0 0 calc((100% / 4) - .375em);
+      }
+    }
+  }
+}
+
+@include media(xl) {
+  .search {
+    &__row {
+
+      & .field {
+        flex: 0 0 calc((100% / 6) - .425em);
+      }
+    }
+  }
+}

@@ -1,0 +1,179 @@
+.menu {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  overflow: hidden;
+
+  &__container {
+    width: 16em;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    color: var(--light);
+    background-image: linear-gradient(to bottom, rgba(black, 0.15) 0%, rgba(black, 0.26) 100%);
+    background-color: var(--primary);
+  }
+
+  &__list {
+    @extend %reset-list;
+    flex: auto;
+    overflow-y: auto;
+
+    @include scroll-bar();
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    padding: 1em .75em;
+    cursor: pointer;
+    transition: background-color .35s ease-in-out;
+
+    &.--actived {
+      cursor: default;
+      background-color: rgba($color: #000000, $alpha: .15);
+    }
+
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: .15);
+    }
+  }
+
+  &__icon {
+    @include box(1.875em);
+    background-color: var(--light);
+  }
+
+  &__text {
+    margin: 0;
+    flex: auto;
+  }
+
+  &__button {
+    flex: none;
+
+    @extend .button;
+    @extend .--icon-on-before;
+    padding: .5em;
+
+    background-color: rgba($color: white, $alpha: .15);
+
+    &:hover {
+      background-color: rgba($color: white, $alpha: .26);
+    }
+
+    &:before {
+      content: "\F0141";
+      font-size: 1.5em;
+      margin-left: auto;
+    }
+  }
+
+  &__back {
+    display: none;
+  }
+}
+
+@include media(sm, max) {
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include box(100%);
+    z-index: 1;
+    background-color: transparent;
+    transition: background-color .35s ease-in-out;
+    pointer-events: none;
+    user-select: none;
+
+    &.--opened {
+      background-color: rgba($color: black, $alpha: .54);
+      pointer-events: unset;
+      user-select: unset;
+
+      & .menu__container {
+        transform: translateX(0);
+      }
+    }
+
+    &__container {
+      box-shadow: 0 0 15px rgba($color: black, $alpha: .15);
+      transition: transform .35s ease-in-out;
+      transform: translateX(-120%);
+    }
+
+    &__back {
+      display: block;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      @include box(100%);
+    }
+
+    &__button {
+      display: none;
+    }
+  }
+}
+
+@include media(sm) {
+  .menu {
+
+    &.--size-sm {
+      & .menu__container {
+        width: unset;
+      }
+
+      & .menu__text {
+        display: none;
+      }
+
+      & .menu__button {
+        width: 100%;
+
+        &::before {
+          margin: auto;
+          transform: scale(-1, 1);
+        }
+      }
+    }
+
+    &.--size-md {
+
+      & .menu__container {
+        width: unset;
+      }
+
+      & .menu__link {
+        flex-direction: column;
+        text-align: center;
+        max-width: 6em;
+      }
+
+      & .menu__icon {
+        @include box(2em);
+      }
+
+      & .menu__text {
+        font-size: .75em;
+      }
+
+      & .menu__button {
+        padding: .5em 1em;
+
+        &:before {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: #0000008a;
+  overflow-y: auto;
+  display: none;
+
+  padding: min(2.25vmax, 1.875em);
+
+  animation: fadeIn 0.5s ease-in-out;
+
+  &.--type-login {
+    & .popup__close {
+      display: none;
+    }
+  } 
+
+  &.--opened {
+    display: flex;
+  }
+
+  &__container {
+    position: relative;
+
+    width: max-content;
+    max-width: 100%;
+    margin: auto;
+
+    @extend %card-design;
+
+    animation: PopupShow 0.6s ease-in-out;
+    animation-delay: .05s;
+  }
+
+  &__title {
+    margin: 0;
+    padding: min(2.25vmax, 1.875rem) min(3vmax, 2.5rem);
+    font-family: var(--ff-firm);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+
+  &__close {
+    @extend %reset-btn;
+    position: absolute;
+    top: -2.5em;
+    right: -2.5em;
+
+    @include media(sm, max) {
+      right: 0;
+      top: 0;
+    }
+
+    &:before {
+      @extend %icon-on-before;
+      content: "\F0156";
+      color: var(--dark);
+      font-size: 2.5em;
+    }
+
+    &:hover::before {
+      color: var(--error);
+    }
+
+    &:active::before {
+      transform: translateY(1px);
+    }
+  }
+
+  &__body {
+    padding: 0 min(3vmax, 2.5em) min(2.25vmax, 1.875em);
+  }
+}
+
+@include keyframes(fadeIn) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@include keyframes(PopupShow) {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,126 @@
+.profile-card {
+  display: grid;
+  gap: min(3vmax, 2.5em);
+
+  &__img-block {
+    position: relative;
+    justify-self: start;
+  }
+
+  &__row {
+    grid-column: 1/-1;
+    border-top: 1px solid var(--g200);
+    padding: min(2.25vmax, 1.875em) 0;
+    box-sizing: border-box;
+  }
+
+  &__img {
+    @extend %alt-text-on-after;
+    display: block;
+    width: 100%;
+    max-width: min(28vmax, 15.625em);
+    aspect-ratio: 1/1.2;
+    object-fit: cover;
+
+    &:hover~.profile-card__img-label {
+      @extend :hover;
+    }
+  }
+
+  &__img-input {
+    display: none;
+  }
+
+  &__img-label {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+
+    color: var(--darkLow);
+    background-color: var(--white);
+    box-shadow: 0 0 15px rgba(black, .15);
+    border-radius: 50%;
+    @include box(2.5em);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: .26;
+    cursor: pointer;
+    transition: opacity .25s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+      color: var(dark);
+    }
+
+    &:active:before {
+      transform: translateY(1px);
+    }
+
+    & span::before {
+      font-size: 1.5em;
+    }
+  }
+
+  &__info-block {
+    align-self: center;
+  }
+
+  &__title {
+    margin: 0 0 1.875rem;
+    font-size: min(3.5vmax, 2em);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__table {
+    @extend %reset-list;
+
+    display: flex;
+    flex-direction: column;
+    gap: min(2.5vmax, 1.25em);
+  }
+
+  &__text {
+    margin: 0;
+    font-size: min(2.75vmax, 1.5em);
+    font-weight: 500;
+    word-break: break-all;
+  }
+
+  &__description {
+    display: block;
+    margin: 0;
+    line-height: 150%;
+    color: var(--darkLow);
+    font-size: min(2vmax, .875rem);
+    font-weight: normal;
+    max-width: 45rem;
+  }
+
+  &__item {
+    font-size: min(2.5vmax, 1.25em);
+    font-weight: 500;
+
+    &::before {
+      color: var(--primary);
+    }
+  }
+}
+
+@include media(md) {
+  .profile-card {
+    grid-template-columns: auto 1fr;
+
+    &__img-block {
+      padding-left: min(2.25vmax, 1.875em);
+      box-sizing: border-box;
+    }
+
+    &__row {
+      padding: min(2.25vmax, 1.875em);
+      box-sizing: border-box;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.link {
+  margin: 0;
+  text-decoration: none;
+  color: var(--primary);
+
+  &:not([href]) {
+    color: var(--dark);
+
+    &:hover {
+      color: unset;
+    }
+  }
+
+  &:hover {
+    color: darken(map-get($colors, "primary"), 10%);
+  }
+
+  &.--type-icon {
+    padding-left: 2.25rem;
+
+    &:before {
+      margin-left: -2.25rem;
+      margin-right: .75rem;
+      vertical-align: top;
+      @extend %icon-on-before;
+      font-size: 1.5rem;
+    }
+
+    &.--icon-email:before {
+      content: "\F01F0";
+    }
+
+    &.--icon-phone:before {
+      content: "\F03F2";
+    }
+
+    &.--icon-worktime:before {
+      content: "\F1452";
+    }
+
+    &.--icon-calendar:before {
+      content: "\F00ED";
+    }
+
+    &.--icon-company:before {
+      content: "\F09AC";
+    }
+
+    &.--icon-district:before {
+      content: "\F01A4";
+    }
+  }
+}

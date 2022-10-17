@@ -1,0 +1,62 @@
+@import url(../../node_modules/normalize.css/normalize.css);
+@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap);
+@import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
+@import "_assets/variables";
+@import "_assets/mixins";
+@import "_assets/extends";
+
+html {  
+  color: var(--dark);
+  font-family: var(--ff-base);
+}
+
+@import "blocks/preloader";
+@import "blocks/button";
+@import "blocks/field";
+@import "blocks/form";
+@import "blocks/popup";
+@import "blocks/icon";
+@import "blocks/link";
+
+@import "blocks/content";
+@import "blocks/header";
+@import "blocks/logo";
+@import "blocks/support";
+@import "blocks/menu";
+@import "blocks/bread-crumbs";
+
+@import "blocks/tab";
+@import "blocks/search";
+@import "blocks/pagin";
+@import "blocks/table";
+@import "blocks/profile";
+@import "blocks/profile-card";
+@import "blocks/table-school-logo"; 
+
+@import "blocks/error-page";
+@import "blocks/accordion";
+@import "blocks/event-item";
+@import "blocks/game-item";
+
+// Общие 
+
+.--hide {
+  display: none;
+}
+
+.--no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.--no-drag {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
