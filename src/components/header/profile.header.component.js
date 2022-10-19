@@ -6,6 +6,7 @@ import Button from "../simple/button/button.component";
 
 import no_photo_man from '../../images/no_photo_man.png';
 import {logout} from "../../store/authSlice";
+import Popup from "../popup/popup.component";
 
 const ProfileHeader = ({className}) => {
 
@@ -54,6 +55,11 @@ const ProfileHeader = ({className}) => {
                 onClick={handleLogout}
             >
             </Button>
+            <Popup>
+
+
+
+            </Popup>
         </div>
     );
 };
