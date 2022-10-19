@@ -26,11 +26,15 @@
   &.--icon-add::before {
     content: "\F0415";
   }
+  &.--icon-back::before {
+    content: "\F0141";
+  }
 
   &.--icon-on-before {
     display: inline-flex;
     align-items: center;
     gap: .375em;
+    padding-left: 1em;
 
     &:before {
       @extend %icon-on-before;
