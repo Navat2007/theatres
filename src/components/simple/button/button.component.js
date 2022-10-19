@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Button = ({ children, type = "submit", className = "", text = "Кнопка", spinnerActive = false, ...rest }) => {
+const Button = ({ children, type = "submit", className = "", text = "Кнопка", size = "normal", spinnerActive = false, ...rest }) => {
 
     const defaultClassName = "button " + (className === "" ? "--theme-primary" : className);
-    const finalClassName = defaultClassName + (spinnerActive ? " --spinner-actived" : "");
+    const finalClassName = defaultClassName + (size === "small" ? " --size-sm" : "") + (spinnerActive ? " --spinner-actived" : "");
 
-    // --size-sm - маленькая
     return (
         <button
             type={type}
