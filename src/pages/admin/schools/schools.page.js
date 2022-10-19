@@ -79,10 +79,6 @@ const SchoolsPage = () => {
             <Helmet>
                 <title>Школы</title>
             </Helmet>
-            <Button
-                text={"Добавить школу"}
-                onClick={() => navigate("/admin/schools/new")}
-            />
             <Table
                 title={"Таблица школ"}
                 loading={school.status === "loading"}
@@ -90,7 +86,15 @@ const SchoolsPage = () => {
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}
-            />
+            >
+                <Button
+                    className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                    type="button"
+                    text="Создать"
+                    aria-label="Добавить школу"
+                    onClick={() => navigate("/admin/schools/new")}
+                />
+            </Table>
         </div>
     );
 };
