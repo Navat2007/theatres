@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Tabs = ({children}) => {
+const Tabs = ({ children, className }) => {
 
     const [activeTab, setActiveTab] = React.useState(1);
 
     return (
-        <div className="tab">
+        <div className={`tab ${className}`}>
             <ul className="tab__list">
                 {
                     children.map(child => (
@@ -13,15 +13,13 @@ const Tabs = ({children}) => {
                     ))
                 }
             </ul>
-            <div className="tab__container">
-                {
-                    children.filter(child => activeTab === child.props.index).map(child => (
-                        <section key={child.props.title} className="tab__section --actived">
-                            {child.props.children}
-                        </section>
-                    ))
-                }
-            </div>
+            {
+                children.filter(child => activeTab === child.props.index).map(child => (
+                    <section key={child.props.title} className="tab__section --actived">
+                        {child.props.children}
+                    </section>
+                ))
+            }
         </div>
     );
 };

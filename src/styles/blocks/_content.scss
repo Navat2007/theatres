@@ -11,10 +11,32 @@
   }
 
   &__main {
-    padding: .75em;
+    padding: .5em .5em 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--g100);
+  }
+
+  &__section {
+    padding: .5em .5em 0;
     box-sizing: border-box;
     overflow-y: auto;
-    background-color: var(--g100); 
+  } 
+
+  &__tab {
+    flex: auto;
+    height: 100%;
+
+    padding: .5em .5em 0;
+    box-sizing: border-box;
+    overflow-y: hidden;
+
+    & .tab__section {
+      overflow-y: auto;
+    }
   }
 
   &__title {
@@ -31,6 +53,13 @@
 
     &__header {
       grid-column: 2/3;
+    }
+
+    &__section, &__tab .tab__section {
+      height: 100%;
+      border-radius: 25px;
+      box-shadow: 0 0 15px rgba(black, .15);
+      background-color: var(--white);
     }
   }
 }

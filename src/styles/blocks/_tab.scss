@@ -1,57 +1,46 @@
 .tab {
+  display: flex;
+  gap: .5em;
+  flex-direction: column;
 
   &__list {
-    @extend %reset-list;
-    background-color: var(--g100);
-    display: flex;
-    overflow-x: auto;
+    flex: none;
 
+    @extend %reset-list;
+    display: flex;
+    gap: .5em;
+    overflow-x: auto;
     @include scroll-bar(4px, 4px);
   }
 
   &__item {
-    position: relative;
-
-    padding: .75em 1.25em;
+    padding: .75em .875em;
     font-weight: 500;
     text-align: center;
-    color: var(--g300);
     cursor: pointer;
     transition: .25s ease-in-out;
     transition-property: background-color, color;
-    
+
     @extend %cutText;
     min-width: 4em;
 
-    &::before {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      content: '';
-      display: block;
-      height: 3px;
-      width: 100%;
-      background-image: linear-gradient(to right, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
-      transition: transform .15s ease-in-out;
-      transform: scale(0, 1);
+    border-radius: 25px;
+    
+    &:not(.--actived):hover {
+      color: var(--primary);
     }
-
-    &:hover,
+    
     &.--actived {
-      color: var(--dark);
-
-      &::before {
-        transform: scale(1, 1);
-      }
+      font-weight: 600;
+      color: var(--primary);
+      background-color: rgba(map-get($colors, "primary"), .1);
     }
   }
 
-  // &__container {}
-
   &__section {
+    flex: auto;
     display: none;
-    padding: 1.25em;
+    padding: .5em;
     box-sizing: border-box;
 
     &.--actived {

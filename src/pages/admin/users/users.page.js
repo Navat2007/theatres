@@ -121,7 +121,7 @@ const UsersPage = () => {
             <Helmet>
                 <title>Пользователи</title>
             </Helmet>
-            <Tabs>
+            <Tabs className='content__tab'>
                 <Tab index={1} title={"Администраторы"}>
                     <Button text={"Добавить администратора"}
                             onClick={() => navigate("/admin/users/admin/new")}/>
