@@ -29,12 +29,17 @@
   &.--icon-back::before {
     content: "\F0141";
   }
+  &.--icon-trash::before {
+    content: "\F01B4";
+  }
 
   &.--icon-on-before {
     display: inline-flex;
     align-items: center;
     gap: .375em;
     padding-left: 1em;
+
+    vertical-align: top;
 
     &:before {
       @extend %icon-on-before;
