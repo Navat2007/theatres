@@ -19,10 +19,6 @@ const UsersPage = () => {
     const admins = useSelector(state => state.admins);
     const users = useSelector(state => state.users);
 
-    const onSearch = (props) => {
-        console.log(props);
-    };
-
     const onAdminItemClick = (props) => {
         navigate(`/admin/users/admin/${props}`);
     };

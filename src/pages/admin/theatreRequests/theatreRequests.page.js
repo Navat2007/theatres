@@ -5,8 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {loadTheatreRequests} from "../../../store/admin/theatreRequestsSlice";
 import Table from "../../../components/table/table.component";
-import Tab from "../../../components/tabs/tab.component";
-import Tabs from "../../../components/tabs/tabs.component";
 
 const TheatreRequestsPage = () => {
 
@@ -81,7 +79,7 @@ const TheatreRequestsPage = () => {
             <Table
                 title={"Таблица заявок на театры"}
                 loading={theatreRequests.status === "loading"}
-                items={theatreRequests.data.filter(item => item.active === 1)}
+                items={theatreRequests.data}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}
