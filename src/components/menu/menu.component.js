@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ProfileHeader from '../header/profile.header.component';
-
 import { NavLink } from "react-router-dom";
+
+import logo from "../../images/login/logo.png";
 
 const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
 
@@ -39,9 +39,12 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
     }, []);
 
     return (
-        <menu className={`menu ${burgerOpened ? "--opened" : ""} ${menuSize}`}>
+        <menu className={`menu content__menu ${burgerOpened ? "--opened" : ""} ${menuSize}`}>
             <div className="menu__container">
-                <ProfileHeader className="--place-menu" />
+                <div className="menu__logo-block">
+                    <img className='logo --place-menu' src={logo} alt="Маски" />
+                    <h1 className='menu__title'>Школьные театры</h1>
+                </div>
                 <ul className="menu__list">
                     {
                         menu.map(item => (

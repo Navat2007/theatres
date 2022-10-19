@@ -1,55 +1,33 @@
 .header {
   display: flex;
+  padding: 0 .75em;
+  box-sizing: border-box;
   gap: .875em;
-  border-bottom: 1px solid var(--primary);
+  background-color: var(--white);
+  box-shadow: 0 0 15px rgba(black, .15);
+  position: relative;
 
   &__item {
     align-self: center;
     @extend .button;
     @extend .--theme-text;
     @extend .--icon-on-before;
-    padding: .5em .75em;
-
-    &::before {
-      font-size: 1.875em;
-    }
+    @extend .--variant-icon;
 
     &.--type-burger::before {
       content: "\F035C";
     }
-
-    &.--type-exit::before {
-      order: 2;
-      content: "\F0206";
-    }
-
-    &.--type-exit {
-      & span {
-        display: none;
-      }
-
-      &::before {
-        order: 2;
-        content: "\F0206";
-      }
-    }
-  }
+  } 
 }
 
 @include media(sm) {
   .header {
+    margin-left: .5em;
+    margin-right: .5em;
+    border-radius: 25px;
+
     &__item.--type-burger {
       display: none;
-    }
-
-    &__item.--type-exit {
-      &::before {
-        font-size: 1.5em;
-      }
-
-      & span {
-        display: unset;
-      }
     }
   }
 }

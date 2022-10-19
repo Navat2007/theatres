@@ -6,14 +6,15 @@
   text-decoration: none;
   display: inline-block;
 
-  text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 500;
 
   padding: .25em 1.5em;
   text-align: center;
+ 
+  border-radius: 15px;
 
   transition: .25s ease-out;
-  transition-property: box-shadow, background-color, color;
+  transition-property: box-shadow;
 
   &:disabled {
     pointer-events: none;
@@ -32,6 +33,17 @@
     }
   }
 
+  &.--variant-icon {
+    min-width: 2.5em;
+    max-width: 2.5em;
+    @include box(2.5em);
+    
+    min-height: unset;
+    padding: .5em;
+    border-radius: 50%;
+    gap: 0;
+  }
+
   &.--size-sm {
     font-size: .875em;
     padding: .25rem 1rem;
@@ -40,16 +52,15 @@
     &::before {
       font-size: 1.375em;
     }
-
   }
 
   &:not(:disabled).--theme-primary {
-    color: var(--light);
+    color: var(--white);
+    background-image: var(--primary-gradient);
     background-color: var(--primary);
-    box-shadow: inset 0 -4px 0 rgba(black, 0.26), inset 0 4px 0 rgba(white, 0.26);
 
     &:hover {
-      background-color: darken(map-get($colors, "primary"), 5%);
+      box-shadow: 0 2px 6px rgba(black, .15);
     }
   }
 
@@ -106,7 +117,7 @@
       }
     }
   }
-}
+} 
 
 @include keyframes(loader) {
 

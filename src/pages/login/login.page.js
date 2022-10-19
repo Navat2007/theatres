@@ -9,7 +9,7 @@ import FieldInput from "../../components/simple/field/field.input.component";
 import Popup from "../../components/popup/popup.component";
 import Button from "../../components/simple/button/button.component";
 
-import logo from "../../images/login/__logo.png";
+import logo from "../../images/login/logo.png";
 import axios from "axios";
 
 const LoginPage = () => {
@@ -48,7 +48,7 @@ const LoginPage = () => {
     return (
 
         <Popup opened={true} title={"Окно входа"} className={"--type-login"}
-               image={{src: logo, alt: "Логотип патриот.спорт", className: "logo"}}>
+               image={{src: logo, alt: "Логотип патриот.спорт", className: "logo --place-login"}}>
             <form onSubmit={handleSubmit(onSubmit)} className="form --place-login">
                 <FieldInput
                     placeholder={"Введите логин..."}

@@ -6,14 +6,15 @@
   display: grid;
   grid-template-rows: auto 1fr;
 
-  &__main {
-    box-sizing: border-box;
-    overflow-y: auto;
+  &__menu {
+    grid-row: 1/-1;
   }
 
-  &__section {
-    padding: 1.25em;
+  &__main {
+    padding: .75em;
     box-sizing: border-box;
+    overflow-y: auto;
+    background-color: var(--g100); 
   }
 
   &__title {
@@ -29,7 +30,7 @@
     grid-template-columns: auto 1fr;
 
     &__header {
-      grid-column: 1/-1;
+      grid-column: 2/3;
     }
   }
 }

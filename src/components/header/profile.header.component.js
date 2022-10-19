@@ -2,6 +2,8 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
+import Button from "../simple/button/button.component";
+
 import no_photo_man from '../../images/no_photo_man.png';
 
 const ProfileHeader = ({className}) => {
@@ -36,6 +38,12 @@ const ProfileHeader = ({className}) => {
                 <p className="profile__title">{user?.email}</p>
                 <p className="profile__subtitle">{userRole}</p>
             </div>
+            <Button
+                className="profile__btn"
+                type="button"
+                aria-label="Выйти из профиля"
+            >
+            </Button>
         </div>
     );
 };

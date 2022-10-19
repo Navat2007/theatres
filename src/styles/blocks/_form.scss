@@ -1,13 +1,10 @@
 .form {
   &.--place-login {
     display: flex;
-    max-width: 20em;
+    width: 20em;
+    max-width: 100%;
     flex-direction: column;
-    gap: 1.25em;
-
-    & .field__input {
-      background-color: var(--g100);
-    }
+    gap: .75em;
 
     & .form__info-text {
       margin: 0;

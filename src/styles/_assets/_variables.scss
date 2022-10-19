@@ -1,22 +1,27 @@
 // COLORS
 $colors: (
-  primary: #007AB1, 
-  accent: #EF495F,
+  primary: #C92323, 
+  primary-gradient: linear-gradient(to bottom, #E74958 0%, #C92323 100%),
+  accent: #7947AB,
+  accent-gradient: linear-gradient(to bottom, #826CBA 0%, #7947AB 100%),
   white: #ffffff,
   black: #000000,
-  g100: #F4F4F4,
-  g200: #D1D1D1,
-  g300: #9E9E9E,
-  g400: #5B676C,
-  g500: #405259,
-  light: #F4F4F4,
-  lightLow: #9E9E9E,
-  dark: #1E4354,
-  darkLow: #5B676C,
+  g100: #F8FAFA,
+  g200: #EEEEF1,
+  g300: #C4C4C9, 
+  g400: #7F7F7F,
+  g500: #444141,
+  g600: #333333,
+  
+  light: #F8FAFA, // g100
+  lightLow: #C4C4C9, // g300
+  darkLow: #7F7F7F, // g400
+  dark: #333333, // g600
+
   error: #da1717, 
-  success: #04BF8A,
-  alert: #F2994B,
-  info: #4098EA,
+  success: #009688,
+  alert: #FF5722,
+  info: #00BCD4,
 );
 
 
@@ -26,8 +31,8 @@ $colors: (
   $color in $colors {
     --#{"" + $name}: #{$color};
   }
-
+ 
   // FONT 
-  --ff-firm: Oswald, sans-serif;
-  --ff-base: Roboto, sans-serif;
+  // --ff-firm: 'Cormorant Infant', sans-serif;
+  --ff-base: Montserrat, sans-serif; 
 }

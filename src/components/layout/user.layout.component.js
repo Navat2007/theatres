@@ -14,12 +14,12 @@ const UserLayout = () => {
         },
         {
             title: "Театры",
-            icon: "",
+            icon: "--type-theatres",
             link: "/user/theatres"
         },
         {
             title: "Заявки на театры",
-            icon: "",
+            icon: "--type-requests",
             link: "/user/theatreRequests"
         },
     ];

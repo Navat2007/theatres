@@ -6,21 +6,44 @@
   overflow: hidden;
 
   &__container {
-    width: 16em;
+    width: 15em;
 
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
-    color: var(--light);
-    background-image: linear-gradient(to bottom, rgba(black, 0.15) 0%, rgba(black, 0.26) 100%);
+    color: var(--white);
+    background-image: var(--primary-gradient);
     background-color: var(--primary);
+  }
+
+  &__logo-block {
+    display: flex;
+    gap: .75em;
+    align-items: center;
+    justify-content: center;
+    padding: .5em .875em;
+    box-sizing: border-box;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25em; 
+    font-weight: 500;
+    color: var(--white);
   }
 
   &__list {
     @extend %reset-list;
     flex: auto;
     overflow-y: auto;
+
+    padding-top: min(5vmax, 3.125em);
+    padding-left: 1em;
+
+    display: flex;
+    flex-direction: column;
+    gap: .75em;
 
     @include scroll-bar();
   }
@@ -32,23 +55,53 @@
     display: flex;
     gap: .5em;
     align-items: center;
-    padding: 1em .75em;
+    padding: .5em .875em;
     cursor: pointer;
-    transition: background-color .35s ease-in-out;
+    border-radius: 25px 0 0 25px;
+    transition: color .25s ease-in-out;
 
     &.--actived {
       cursor: default;
-      background-color: rgba($color: #000000, $alpha: .15);
+      color: var(--dark);
+      background-color: var(--g100);
+
+      position: relative;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        top: -50px;
+        right: 0;
+        width: 20px;
+        height: 50px;
+        border-radius: 0 0 25px 0;
+        box-shadow: 0 25px 0 0 var(--g100);
+      }
+
+      &::after {
+        top: auto;
+        bottom: -50px;
+        border-radius: 0 25px 0 0;
+        box-shadow: 0 -25px 0 0 var(--g100);
+      }
+
+      & .menu__icon {
+        background-color: var(--dark);
+      }
     }
 
-    &:hover {
-      background-color: rgba($color: #000000, $alpha: .15);
+    &:not(.--actived):hover {
+      background-color: rgba($color: white, $alpha: .15);
     }
   }
 
   &__icon {
     @include box(1.875em);
-    background-color: var(--light);
+    background-color: var(--white);
+    transition: .25s ease-in-out;
+    transition-property: background-color;
   }
 
   &__text {
@@ -58,9 +111,11 @@
 
   &__button {
     flex: none;
+    margin: .5em;
 
     @extend .button;
     @extend .--icon-on-before;
+    border-radius: 25px;
     padding: .5em;
 
     background-color: rgba($color: white, $alpha: .15);
@@ -76,6 +131,7 @@
     }
   }
 
+  // подложка по которой кликать, чтобы окно закрыть.
   &__back {
     display: none;
   }
@@ -109,6 +165,20 @@
       transform: translateX(-120%);
     }
 
+    &__list {
+      padding-right: 1em;
+    }
+
+    &__link {
+      border-radius: 25px;
+
+      &.--actived::before,
+      &.--actived::after {
+        content: unset;
+      }
+
+    }
+
     &__back {
       display: block;
 
@@ -128,9 +198,23 @@
 @include media(sm) {
   .menu {
 
+    border-radius: 0 25px 25px 0;
+
     &.--size-sm {
       & .menu__container {
         width: unset;
+      }
+
+      & .menu__logo-block {
+        padding: .5em;
+      }
+
+      & .menu__title {
+        display: none;
+      }
+
+      & .menu__list {
+        padding-left: .5em;
       }
 
       & .menu__text {
@@ -138,14 +222,13 @@
       }
 
       & .menu__button {
-        width: 100%;
 
         &::before {
           margin: auto;
           transform: scale(-1, 1);
         }
       }
-    }
+    } 
 
     &.--size-md {
 
@@ -153,26 +236,23 @@
         width: unset;
       }
 
+      & .menu__title {
+        display: none;
+      }
+
+      & .menu__list {
+        padding-left: .5em;
+      }
+
       & .menu__link {
         flex-direction: column;
         text-align: center;
         max-width: 6em;
-      }
-
-      & .menu__icon {
-        @include box(2em);
+        padding: .5em;
       }
 
       & .menu__text {
         font-size: .75em;
-      }
-
-      & .menu__button {
-        padding: .5em 1em;
-
-        &:before {
-          font-size: 2em;
-        }
       }
     }
   }
