@@ -24,29 +24,29 @@ const AdminUsersPage = () => {
             <h1 className="content__title">Создание администратора</h1>
             <form action="" className='form'>
                 <h2 className="form__title">Основная информация</h2>
-                <div class="field">
-                    <label class="field__label">Email (логин)</label>
+                <div className="field">
+                    <label className="field__label">Email (логин)</label>
                     <input
                         type="text"
-                        class="field__input"
+                        className="field__input"
                         placeholder="Введите email..."
                         name=""
                         required
                     />
-                    <span class="field__icon --type-error"></span>
-                    <p class="field__info"></p>
+                    <span className="field__icon --type-error" />
+                    <p className="field__info"/>
                 </div>
-                <div class="field">
-                    <label class="field__label">Полное наименование организации</label>
+                <div className="field">
+                    <label className="field__label">Полное наименование организации</label>
                     <input
                         type="text"
-                        class="field__input"
+                        className="field__input"
                         placeholder="Введите полное наименование организации..."
                         name=""
                         required
                     />
-                    <span class="field__icon --type-error"></span>
-                    <p class="field__info"></p>
+                    <span className="field__icon --type-error"/>
+                    <p className="field__info" />
                 </div>
             </form>
         </div>
