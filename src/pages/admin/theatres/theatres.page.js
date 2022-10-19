@@ -81,10 +81,6 @@ const TheatresPage = () => {
             </Helmet>
             <Tabs>
                 <Tab index={1} title={"Театры"}>
-                    <Button
-                        text={"Добавить театр"}
-                        onClick={() => navigate("/admin/theatres/new")}
-                    />
                     <Table
                         title={"Таблица театров"}
                         loading={theatres.status === "loading"}
@@ -92,7 +88,15 @@ const TheatresPage = () => {
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
-                    />
+                    >
+                        <Button
+                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            type="button"
+                            text="Создать"
+                            aria-label="Добавить театр"
+                            onClick={() => navigate("/admin/theatres/new")}
+                        />
+                    </Table>
                 </Tab>
                 <Tab index={2} title={"Архив"}>
                     <Table
