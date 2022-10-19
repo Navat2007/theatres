@@ -16,7 +16,7 @@ const AdminUsersPage = () => {
             } */}
 
             <Button
-                className="button --icon-back --icon-on-before --theme-text"
+                className="--icon-back --icon-on-before --theme-text"
                 type="button"
                 text="Назад"
                 aria-label="Назад"
