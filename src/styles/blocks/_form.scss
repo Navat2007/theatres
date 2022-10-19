@@ -1,10 +1,11 @@
 .form {
+  display: flex;
+  gap: .75em;
+  flex-direction: column;
+
   &.--place-login {
-    display: flex;
     width: 20em;
     max-width: 100%;
-    flex-direction: column;
-    gap: .75em;
 
     & .form__info-text {
       margin: 0;
@@ -19,5 +20,11 @@
         height: auto;
       }
     }
+  }
+
+  &__title {
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
   }
 }

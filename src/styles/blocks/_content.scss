@@ -30,10 +30,6 @@
     flex: auto;
     height: 100%;
 
-    padding: .5em .5em 0;
-    box-sizing: border-box;
-    overflow-y: hidden;
-
     & .tab__section {
       overflow-y: auto;
     }
@@ -42,8 +38,8 @@
   &__title {
     font-family: var(--ff-firm);
     font-size: min(3.25vmax, 1.875em);
-    font-weight: 700;
-    margin: 0 0 min(5vmax, 3.125rem);
+    font-weight: 600;
+    margin: min(2.5vmax, 1.25rem) min(2.5vmax, 1.25rem) min(5vmax, 3.125rem);
   }
 }
 

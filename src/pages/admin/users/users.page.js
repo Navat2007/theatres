@@ -1,15 +1,15 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
-import {loadAdmins} from "../../../store/admin/adminsSlice";
-import {loadUsers} from "../../../store/admin/usersSlice";
+import { loadAdmins } from "../../../store/admin/adminsSlice";
+import { loadUsers } from "../../../store/admin/usersSlice";
 
 const UsersPage = () => {
 
@@ -35,42 +35,42 @@ const UsersPage = () => {
     }, [dispatch]);
 
     const adminItemsConfig = [
-            {
-                header: "ID",
-                key: "ID",
-                type: "int",
-                filter: "number",
-                sorting: true,
-            },
-            {
-                header: "Email",
-                key: "email",
-                type: "string",
-                filter: "string",
-                sorting: true,
-            },
-            {
-                header: "ФИО",
-                key: "fio",
-                type: "string",
-                filter: "string",
-                sorting: true,
-            },
-            {
-                header: "Роль",
-                key: "role",
-                type: "string",
-                filter: "select",
-                sorting: true,
-            },
-            {
-                header: "Статус",
-                key: "active",
-                type: "string",
-                filter: "select",
-                sorting: true,
-            },
-        ]
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+        },
+        {
+            header: "Email",
+            key: "email",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "ФИО",
+            key: "fio",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Роль",
+            key: "role",
+            type: "string",
+            filter: "select",
+            sorting: true,
+        },
+        {
+            header: "Статус",
+            key: "active",
+            type: "string",
+            filter: "select",
+            sorting: true,
+        },
+    ]
     const userItemsConfig = [
         {
             header: "ID",
@@ -123,8 +123,13 @@ const UsersPage = () => {
             </Helmet>
             <Tabs className='content__tab'>
                 <Tab index={1} title={"Администраторы"}>
-                    <Button text={"Добавить администратора"}
-                            onClick={() => navigate("/admin/users/admin/new")}/>
+                    <Button
+                        className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                        type="button"
+                        text="Создать"
+                        aria-label="Создать администратора"
+                        onClick={() => navigate("/admin/users/admin/new")}
+                    />
                     <Table
                         title={"Таблица администраторов"}
                         loading={admins.status === "loading"}
@@ -135,8 +140,13 @@ const UsersPage = () => {
                     />
                 </Tab>
                 <Tab index={2} title={"Представители школ"}>
-                    <Button text={"Добавить представителя школы"}
-                            onClick={() => navigate("/admin/users/user/new")}/>
+                    <Button
+                        className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                        type="button"
+                        text="Создать"
+                        aria-label="Создать представителя школы"
+                        onClick={() => navigate("/admin/users/user/new")}
+                    />
                     <Table
                         title={"Таблица представителей"}
                         loading={users.status === "loading"}

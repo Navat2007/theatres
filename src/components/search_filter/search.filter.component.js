@@ -81,7 +81,7 @@ const SearchFilter = ({ config, onSubmit, items }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="search --place-tab">
+            <div className="search">
                 <div className="search__row --main-search">
                     <Button
                         className="search__button"

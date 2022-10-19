@@ -3,14 +3,7 @@
   flex-direction: column;
   gap: 1.25em;
 
-  &.--place-tab {
-    margin: 1em 0;
-
-    padding: .5em;
-    box-sizing: border-box;
-    background-color: var(--g100);
-    border: 1px solid var(--g200);
-  }
+  margin: .5em 0 1em;
 
   &__row {
     display: flex;
@@ -22,6 +15,10 @@
     & .field {
       flex: 1 0 15em;
       @extend .--size-sm;
+
+      & .field__input {
+        background-color: var(--g100);
+      }
     }
   }
 
@@ -44,15 +41,19 @@
 
     & .button {
       @extend .--size-sm;
-      min-width: 8rem;
+      margin-left: .5em;
+      min-width: 7rem;
     }
   }
 
   &__accordion {
     display: none;
+    opacity: 0;
+    transition: opacity .25s ease-in;
 
     &.--opened {
-      display: unset;
+      display: block;
+      opacity: 1;
     }
   }
 }

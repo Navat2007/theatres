@@ -21,6 +21,10 @@
     user-select: none;
     background-color: var(--g100);
     color: var(--darkLow);
+  } 
+
+  &.--icon-add::before {
+    content: "\F0415";
   }
 
   &.--icon-on-before {

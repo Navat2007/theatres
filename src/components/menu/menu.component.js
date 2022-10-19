@@ -43,7 +43,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
             <div className="menu__container">
                 <div className="menu__logo-block">
                     <img className='logo --place-menu' src={logo} alt="Маски" />
-                    <h1 className='menu__title'>Школьные театры</h1>
+                    <p className='menu__title'>Школьные театры</p>
                 </div>
                 <ul className="menu__list">
                     {
