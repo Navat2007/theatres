@@ -1,11 +1,10 @@
 import React from 'react';
 
-// Для активации прелодера необходимо добавить к кнопке класс --spinner-actived
-const Button = ({ children, type = "submit", className = "button --theme-primary", text = "", spinnerActive = false, ...rest }) => {
+const Button = ({ children, type = "submit", className = "", text = "Кнопка", size = "normal", spinnerActive = false, ...rest }) => {
 
-    const finalClassName = className + (spinnerActive ? " --spinner-actived" : "");
+    const defaultClassName = "button " + (className === "" ? "--theme-primary" : className);
+    const finalClassName = defaultClassName + (size === "small" ? " --size-sm" : "") + (spinnerActive ? " --spinner-actived" : "");
 
-    // --size-sm - маленькая
     return (
         <button
             type={type}

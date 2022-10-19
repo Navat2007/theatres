@@ -5,7 +5,7 @@ import moment from "moment";
 import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search_filter/search.filter.component";
 
-const Table = ({title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12}) => {
+const Table = ({children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12}) => {
 
     const [order, setOrder] = React.useState("ASC");
     const [sorted, setSorted] = React.useState([]);
@@ -212,7 +212,9 @@ const Table = ({title, itemsConfig, items, onItemClick, loading, withFilter = fa
             {
                 withFilter
                 &&
-                <SearchFilter config={itemsConfig} onSubmit={filterCallback} items={items}/>
+                <SearchFilter config={itemsConfig} onSubmit={filterCallback} items={items}>
+                    {children}
+                </SearchFilter>
             }
             {
                 filtered && filtered.length === 0 && <p>Нет данных для отображения</p>

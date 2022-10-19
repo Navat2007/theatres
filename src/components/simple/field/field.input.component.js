@@ -4,7 +4,7 @@ import React, {forwardRef} from 'react';
 const FieldInput = ({
                         id = "id_0",
                         type = "text",
-                        className = "field__input",
+                        className = "",
                         placeholder = "",
                         label = null,
                         errorText = "",
@@ -14,6 +14,7 @@ const FieldInput = ({
                     }, ref) => {
 
     const [eyeActive, setEyeActive] = React.useState(false);
+    const defaultClassName = "field__input ";
 
     const toggleEye = (e) => {
         setEyeActive(!eyeActive);
@@ -37,7 +38,7 @@ const FieldInput = ({
                     <input
                         ref={ref}
                         type={eyeActive ? "text" : type}
-                        className={className}
+                        className={defaultClassName + className}
                         placeholder={placeholder}
                         required={required}
                         {...rest}
@@ -63,7 +64,7 @@ const FieldInput = ({
                     }
                     <select
                         ref={ref}
-                        className={className}
+                        className={defaultClassName + className}
                         required={required}
                         {...rest}
                     >
@@ -81,7 +82,7 @@ const FieldInput = ({
                         id={id}
                         ref={ref}
                         type={type}
-                        className={'field__checkbox'}
+                        className={'field__checkbox ' + className}
                         required={required}
                         {...rest}
                     />
@@ -103,14 +104,15 @@ const FieldInput = ({
                         &&
                         <label
                             className="field__label"
-                            htmlFor="">
+                            htmlFor=""
+                        >
                             {label}
                         </label>
                     }
                     <input
                         ref={ref}
                         type={eyeActive ? "text" : type}
-                        className={className}
+                        className={defaultClassName + className}
                         placeholder={placeholder}
                         required={required}
                         {...rest}

@@ -123,13 +123,6 @@ const UsersPage = () => {
             </Helmet>
             <Tabs className='content__tab'>
                 <Tab index={1} title={"Администраторы"}>
-                    <Button
-                        className="button --icon-add --size-sm --icon-on-before --theme-primary"
-                        type="button"
-                        text="Создать"
-                        aria-label="Создать администратора"
-                        onClick={() => navigate("/admin/users/admin/new")}
-                    />
                     <Table
                         title={"Таблица администраторов"}
                         loading={admins.status === "loading"}
@@ -137,16 +130,17 @@ const UsersPage = () => {
                         itemsConfig={adminItemsConfig}
                         onItemClick={onAdminItemClick}
                         withFilter={true}
-                    />
+                    >
+                        <Button
+                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            type="button"
+                            text="Создать"
+                            aria-label="Создать администратора"
+                            onClick={() => navigate("/admin/users/admin/new")}
+                        />
+                    </Table>
                 </Tab>
                 <Tab index={2} title={"Представители школ"}>
-                    <Button
-                        className="button --icon-add --size-sm --icon-on-before --theme-primary"
-                        type="button"
-                        text="Создать"
-                        aria-label="Создать представителя школы"
-                        onClick={() => navigate("/admin/users/user/new")}
-                    />
                     <Table
                         title={"Таблица представителей"}
                         loading={users.status === "loading"}
@@ -155,7 +149,15 @@ const UsersPage = () => {
                         pageSize={10}
                         onItemClick={onUserItemClick}
                         withFilter={true}
-                    />
+                    >
+                        <Button
+                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            type="button"
+                            text="Создать"
+                            aria-label="Создать представителя школы"
+                            onClick={() => navigate("/admin/users/user/new")}
+                        />
+                    </Table>
                 </Tab>
             </Tabs>
         </>

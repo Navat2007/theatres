@@ -5,7 +5,7 @@ import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
 import moment from "moment";
 
-const SearchFilter = ({ config, onSubmit, items }) => {
+const SearchFilter = ({ config, onSubmit, items, children }) => {
 
     const [opened, setOpened] = React.useState(false);
     const { register, handleSubmit, reset } = useForm();
@@ -83,6 +83,11 @@ const SearchFilter = ({ config, onSubmit, items }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="search">
                 <div className="search__row --main-search">
+                    <FieldInput
+                        type={"search"}
+                        placeholder={"Поиск..."}
+                        {...register("search_string")}
+                    />
                     <Button
                         className="search__button"
                         type="button"
@@ -90,11 +95,7 @@ const SearchFilter = ({ config, onSubmit, items }) => {
                         aria-label={opened ? "Скрыть" : "Фильтр"}
                         onClick={() => setOpened(!opened)}
                     />
-                    <FieldInput
-                        type={"search"}
-                        placeholder={"Поиск..."}
-                        {...register("search_string")}
-                    />
+                    {children}
                 </div>
                 <div className={`search__accordion ${opened ? "--opened" : ""}`}>
                     <div className="search__row">
