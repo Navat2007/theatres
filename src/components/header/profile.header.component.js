@@ -51,6 +51,7 @@ const ProfileHeader = ({className}) => {
             <Button
                 className="profile__btn"
                 type="button"
+                text={""}
                 aria-label="Выйти из профиля"
                 onClick={handleLogout}
             >
