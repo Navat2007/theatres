@@ -22,7 +22,6 @@ export const loadAdmin = createAsyncThunk('admins/loadAdmin', async (params) => 
     }
 
     const data = await axios.post(window.global.baseUrl + 'php/models/admin/users/load_admin.php', form);
-    console.log(data);
     return data.data.params;
 });
 
@@ -51,7 +50,12 @@ const adminsSlice = createSlice({
             console.log("edit admin reducer action: ", action.payload);
 
         },
-        removeAdmin(state, action) {}
+        removeAdmin(state, action) {
+
+            console.log("remove admin reducer state: ", state);
+            console.log("remove admin reducer action: ", action.payload);
+
+        }
     },
     extraReducers: {
         [loadAdmins.pending]: (state) => {

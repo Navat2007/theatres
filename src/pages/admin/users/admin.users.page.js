@@ -6,7 +6,8 @@ import {useForm} from "react-hook-form";
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
-import {editAdmin, loadAdmin} from "../../../store/admin/adminsSlice";
+import {editAdmin, loadAdmin, removeAdmin} from "../../../store/admin/adminsSlice";
+import Popup from "../../../components/popup/popup.component";
 
 const AdminUsersPage = () => {
 
@@ -14,23 +15,44 @@ const AdminUsersPage = () => {
     const dispatch = useDispatch();
 
     let { id } = useParams();
+    const { register, setValue, handleSubmit, reset } = useForm();
+
     const admin = useSelector(state => state.admins.admin);
-    const { register, setValue, handleSubmit } = useForm();
+    const status = useSelector(state => state.admins.status);
+
+    const [popupOpened, setPopupOpened] = React.useState(false);
+    const [popup2Opened, setPopup2Opened] = React.useState(false);
 
     React.useEffect(() => {
 
+        reset();
         dispatch(loadAdmin({id}));
 
     }, [id, dispatch]);
 
-    const onSubmit = (params) => {
+    const onEditSubmit = (params) => {
 
         dispatch(editAdmin(params));
 
     }
 
-    console.log("Admin id: ", id);
-    console.log("Admin: ", admin);
+    const onDeleteSubmit = () => {
+
+        dispatch(removeAdmin({id}));
+
+    }
+
+    const handleDeleteButton = () => {
+
+        if(parseInt(id) === 1 || parseInt(id) === 1519)
+            setPopup2Opened(true);
+        else
+            setPopupOpened(true);
+
+    }
+
+    if(status === "loading")
+        return <div className='content__section'><p>Загрузка...</p></div>;
 
     if(id && admin === null)
         return <div className='content__section'><p>Данного администратора не существует</p></div>;
@@ -46,7 +68,7 @@ const AdminUsersPage = () => {
                 />
                 <h1 className="content__title">Редактирование администратора ID: {id}</h1>
                 <img src={window.global.baseUrl + admin.photo} alt={""} />
-                <form onSubmit={handleSubmit(onSubmit)} className='form --place-new-user'>
+                <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
                     <fieldset className='form__section --content-info'>
                         <h2 className="form__title">Основная информация</h2>
                         <FieldInput
@@ -122,10 +144,36 @@ const AdminUsersPage = () => {
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <button className='button --theme-text --icon-on-before --icon-trash'>Удалить</button>
-                        <button className='button --theme-primary'>Сохранить</button>
+                        <Button
+                            className='--theme-text --icon-on-before --icon-trash'
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleDeleteButton();
+                            }}
+                            text={"Удалить"} />
+                        <Button text={"Сохранить"} />
                     </div>
                 </form>
+                <Popup
+                    title={"Вы уверены что хотите удалить?"}
+                    opened={popupOpened}
+                    onClose={()=> { setPopupOpened(false); }}
+                >
+                    <Button
+                        text={"Нет"}
+                        className='--theme-text'
+                        onClick={() => setPopupOpened(false)}
+                    />
+                    <Button
+                        text={"Да"}
+                        onClick={onDeleteSubmit}
+                    />
+                </Popup>
+                <Popup
+                    title={"Данного администратора удалить нельзя!"}
+                    opened={popup2Opened}
+                    onClose={()=> { setPopup2Opened(false); }}
+                />
             </div>
         );
 

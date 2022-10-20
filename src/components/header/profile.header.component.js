@@ -15,6 +15,8 @@ const ProfileHeader = ({className}) => {
     const dispatch = useDispatch();
     const [userRole, setUserRole] = React.useState("");
 
+    const [popupOpened, setPopupOpened] = React.useState(false);
+
     React.useEffect(() => {
 
         switch (user.role){
@@ -34,13 +36,6 @@ const ProfileHeader = ({className}) => {
 
     }, [user.role]);
 
-    const handleLogout = () => {
-        if (window.confirm("Вы действительно хотите выйти?")) {
-            dispatch(logout());
-            navigate("/login", { replace: true });
-        }
-    }
-
     return (
         <div className={`profile ${className}`}>
             <div className='profile__content' onClick={() => { navigate("/profile")}}>
@@ -55,12 +50,26 @@ const ProfileHeader = ({className}) => {
                 type="button"
                 text={""}
                 aria-label="Выйти из профиля"
-                onClick={handleLogout}
+                onClick={() => setPopupOpened(true)}
             >
             </Button>
-            <Popup>
-
-
+            <Popup
+                title={"Вы действительно хотите выйти?"}
+                opened={popupOpened}
+                onClose={()=> { setPopupOpened(false); }}
+            >
+                <Button
+                    text={"Нет"}
+                    className='--theme-text'
+                    onClick={() => setPopupOpened(false)}
+                />
+                <Button
+                    text={"Да"}
+                    onClick={() => {
+                        dispatch(logout());
+                        navigate("/login", { replace: true });
+                    }}
+                />
 
             </Popup>
         </div>
