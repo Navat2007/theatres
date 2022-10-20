@@ -43,7 +43,7 @@ const ProfileHeader = ({className}) => {
 
     return (
         <div className={`profile ${className}`}>
-            <div onClick={() => { navigate("/profile")}}>
+            <div className='profile__content' onClick={() => { navigate("/profile")}}>
                 <img className="profile__img" src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt="Фото профиля" />
                 <div className="profile__info">
                     <p className="profile__title">{user?.email}</p>

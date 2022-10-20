@@ -11,6 +11,10 @@
     max-width: min(30vmax, 20em);
   }
 
+  &__content {
+    display: flex;
+  } 
+
   &__img {
     flex: none;
     @include box(3em);
