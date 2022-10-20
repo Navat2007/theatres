@@ -5,6 +5,7 @@ const FieldInput = ({
                         id = "id_0",
                         type = "text",
                         className = "",
+                        fieldClassName = "",
                         placeholder = "",
                         label = null,
                         errorText = "",
@@ -97,6 +98,27 @@ const FieldInput = ({
                     }
                 </>
 
+            case "radio":
+                return <>
+                    <input
+                        id={id}
+                        ref={ref}
+                        type={"checkbox"}
+                        className={'field__checkbox-radio ' + className}
+                        required={required}
+                        {...rest}
+                    />
+                    {
+                        label
+                        &&
+                        <label
+                            className="field__label"
+                            htmlFor={id}>
+                            {label}
+                        </label>
+                    }
+                </>
+
             default:
                 return <>
                     {
@@ -125,7 +147,7 @@ const FieldInput = ({
     }
 
     return (
-        <div className={`field${errorText !== "" ? " --state-error" : ""}`}>
+        <div className={`field ${fieldClassName}${errorText !== "" ? " --state-error" : ""}`}>
             {
                 getElementByType(type)
             }
