@@ -7,6 +7,7 @@
 
   &__container {
     width: 15em;
+    transition: width .25s ease-in;
 
     display: flex;
     flex-direction: column;
@@ -58,17 +59,16 @@
     padding: .5em .875em;
     cursor: pointer;
     border-radius: 25px 0 0 25px;
-    transition: color .25s ease-in-out;
+    transition: .25s ease-in-out;
+    transition-property: color;
 
-    position: relative;
+    position: relative; 
+    z-index: 1;
 
     &.--actived {
       cursor: default;
       color: var(--dark);
       background-color: var(--g100);
-
-      position: relative;
-      z-index: 1;
 
       &::before,
       &::after {
@@ -106,11 +106,12 @@
     background-color: var(--white);
     transition: .25s ease-in-out;
     transition-property: background-color;
-  }
+  } 
 
   &__text {
     margin: 0;
     flex: auto;
+    transition: max-width .25s ease-in-out;
   }
 
   &__button {
@@ -147,7 +148,7 @@
     top: 0;
     left: 0;
     @include box(100%);
-    z-index: 1;
+    z-index: 101;
     background-color: transparent;
     transition: background-color .35s ease-in-out;
     pointer-events: none;
@@ -206,7 +207,7 @@
 
     &.--size-sm {
       & .menu__container {
-        width: unset;
+        width: 4.25em;
       }
 
       & .menu__logo-block {
@@ -237,7 +238,7 @@
     &.--size-md {
 
       & .menu__container {
-        width: unset;
+        width: 7.5em;
       }
 
       & .menu__title {
@@ -251,11 +252,11 @@
       & .menu__link {
         flex-direction: column;
         text-align: center;
-        max-width: 6em;
         padding: .5em;
       }
-
+      
       & .menu__text {
+        max-width: 6rem;
         font-size: .75em;
       }
     }

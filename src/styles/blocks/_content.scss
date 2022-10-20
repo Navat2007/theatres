@@ -1,42 +1,12 @@
 .content {
-  height: 100vh;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  display: grid;
-  grid-template-rows: auto 1fr;
-
-  &__menu {
-    grid-row: 1/-1;
-  }
-
   &__main {
-    padding: .5em .5em 0;
+    margin: 5.125em 0 0;
+    padding: .5em .5em 3.125em;
+    background-color: var(--white);
     box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background-color: var(--g100);
-  }
-
-  &__section {
-    padding: 1em 1em min(5vmax, 3.125em);
-    box-sizing: border-box;
-    overflow-y: auto;
+    overflow: auto;
   } 
-
-  &__tab {
-    flex: auto;
-    height: 100%;
-
-    & .tab__section {
-      padding: 1em 1em min(5vmax, 3.125em);
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
-  }
-
+ 
   &__title {
     font-family: var(--ff-firm);
     font-size: min(3.25vmax, 1.875em);
@@ -47,17 +17,28 @@
 
 @include media(sm) {
   .content {
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr;
+    background-color: var(--g100);
+
+    &__menu {
+      grid-row: 1/-1;
+    }
 
     &__header {
       grid-column: 2/3;
     }
 
-    &__section, &__tab .tab__section {
-      height: 100%;
-      border-radius: 25px;
+    &__main {
+      margin: 1em .5em 0;
+      padding: 1.25em 1.25em 3.125em;
       box-shadow: 0 0 15px rgba(black, .15);
-      background-color: var(--white);
+      border-radius: 25px;
     }
   }
 }

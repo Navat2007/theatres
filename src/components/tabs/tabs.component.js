@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Tabs = ({ children, className }) => {
+const Tabs = ({ children, className = 'tab' }) => {
 
     const [activeTab, setActiveTab] = React.useState(1);
 
     return (
-        <div className={`tab ${className}`}>
+        <div className={className}>
             <ul className="tab__list">
                 {
                     children.map(child => (
