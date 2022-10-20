@@ -1,16 +1,12 @@
 .content {
-  height: 100vh;
-  box-sizing: border-box;
-  overflow: hidden;
-
   &__main {
-    margin: 1em 0;
+    margin: 5.125em 0 0;
     padding: .5em .5em 3.125em;
     background-color: var(--white);
     box-sizing: border-box;
     overflow: auto;
   } 
-
+ 
   &__title {
     font-family: var(--ff-firm);
     font-size: min(3.25vmax, 1.875em);
@@ -21,6 +17,10 @@
 
 @include media(sm) {
   .content {
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr;

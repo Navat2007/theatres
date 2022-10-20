@@ -20,6 +20,16 @@
   } 
 }
 
+@include media(sm, max) {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+}
+
 @include media(sm) {
   .header {
     margin-left: .5em;
