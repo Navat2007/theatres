@@ -44,16 +44,14 @@
       margin-left: .5em;
       min-width: 7rem;
     }
-  }
+  } 
 
   &__accordion {
     display: none;
-    opacity: 0;
-    transition: opacity .25s ease-in;
 
     &.--opened {
       display: block;
-      opacity: 1;
+      animation: fadeIn 0.2s ease-in both;
     }
   }
 }
