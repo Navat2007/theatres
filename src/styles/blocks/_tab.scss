@@ -9,6 +9,7 @@
     @extend %reset-list;
     display: flex;
     gap: .5em;
+    box-sizing: border-box;
     overflow-x: auto;
     @include scroll-bar(4px, 4px);
   }
@@ -22,7 +23,7 @@
     transition-property: background-color, color;
 
     @extend %cutText;
-    min-width: 4em;
+    // min-width: 4em;
 
     border-radius: 25px;
     
@@ -40,8 +41,8 @@
   &__section {
     // flex: auto;
     display: none;
-    padding: .5em;
-    box-sizing: border-box;
+    // padding: .5em;
+    // box-sizing: border-box;
 
     &.--actived {
       display: block;

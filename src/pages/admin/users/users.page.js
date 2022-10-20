@@ -121,7 +121,7 @@ const UsersPage = () => {
             <Helmet>
                 <title>Пользователи</title>
             </Helmet>
-            <Tabs className='content__tab'>
+            <Tabs>
                 <Tab index={1} title={"Администраторы"}>
                     <Table
                         title={"Таблица администраторов"}
