@@ -17,17 +17,14 @@ class helper
     function sendEmailWithPassword($conn, $email, $pwd, $new)
     {
 
-        $site_url = 'https://test.patriot-sport.ru';
-        if (strpos($_SERVER['DOCUMENT_ROOT'], '/var/www/test.patriot-sport.ru') === false) {
-            $site_url = 'https://admin.patriot-sport.ru/admin/';
-        }
+        $site_url = 'https://theatres.patriot-sport.ru';
 
         $to = $email;
-        $subject = 'patriot-sport | ' . ($new ? 'Учетная запись создана' : 'Ваши данные были изменены администратором');
+        $subject = 'theatres.patriot-sport | ' . ($new ? 'Учетная запись создана' : 'Ваши данные были изменены администратором');
         $message = include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/header.php';
 
         if ($new) {
-            $textMsg = `Вы стали зарегистрированным пользователем в системе учета спортивных мероприятий`;
+            $textMsg = `Вы стали зарегистрированным пользователем в системе учета театров`;
         } else {
             $textMsg = `Ваши данные были изменены администратором.`;
         }
