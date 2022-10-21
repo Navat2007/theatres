@@ -90,7 +90,7 @@
       justify-content: center;
       margin-bottom: 0;
 
-      &:only-child {
+      & .button:only-child {
         width: max-content;
       }
     }
