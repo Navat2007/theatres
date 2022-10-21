@@ -5,28 +5,23 @@
     background-color: var(--white);
     box-sizing: border-box;
     overflow: auto;
-  } 
- 
+  }
+
+  &__title-block {
+    display: flex;
+    gap: .5em;
+    align-items: flex-start;
+
+    & .button {
+      flex: none;
+    }
+  }
+
   &__title {
     font-family: var(--ff-firm);
     font-size: min(3.25vmax, 1.875em);
     font-weight: 600;
     margin: 0 0 min(5vmax, 3.125rem);
-  }
-
-  &__title-block {
-    margin-bottom: min(5vmax, 3.125rem);
-    display: flex;
-    gap: .5em;
-    align-items: center;
-
-    & .button {
-      flex: none;
-    }
-
-    & .content__title {
-      margin: 0;
-    }
   }
 }
 

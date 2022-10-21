@@ -34,6 +34,10 @@
         grid-column: 2/3;
         grid-row: 1/2;
       }
+
+      & .form__controls {
+        grid-column: 1/-1;
+      }
     }
   }
 
@@ -57,8 +61,6 @@
   }
 
   &__controls {
-    grid-column: 1/-1;
-    // justify-self: end;
 
     & .button:not(:first-child) {
       margin-left: .25em;
