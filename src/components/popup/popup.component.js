@@ -1,12 +1,58 @@
 import React from 'react';
 
-const Popup = ({children, buttons, onClose, opened = false, className = "", title = "", image = {src: "", alt: "", className: ""}}) => {
+const Popup = ({
+                   children,
+                   buttons,
+                   onClose,
+                   opened = false,
+                   notif = false,
+                   className = "",
+                   title = "",
+                   text = "",
+                   image = {src: "", alt: "", className: ""}
+               }) => {
+
+    if (notif)
+        return (
+            <div className={`popup --type-notification ${className}${opened ? " --opened" : ""}`}>
+                <div className="popup__container">
+                    <button type='button' aria-label='Закрыть' className='popup__close' onClick={onClose}/>
+                    {/* Вместо заголовка - блок с заголовоком и иконкой */}
+                    <div className="popup__caption">
+                        <span className='popup__icon'/>
+                        <p className="popup__title">{title}</p>
+                    </div>
+                    <div className="popup__body">
+                        <p className="popup__text">
+                            {text}
+                        </p>
+                    </div>
+                    <div className="popup__controls">
+                        {
+                            buttons && <>{buttons}</>
+                        }
+                        {
+                            !buttons
+                            &&
+                            <>
+                                <button
+                                    type='button'
+                                    className='button --size-sm --theme-success'
+                                >
+                                    ✔
+                                </button>
+                            </>
+                        }
+                    </div>
+                </div>
+            </div>
+        );
 
     return (
-        <div className={`popup ${className}${opened ? " --opened": ""}`}>
+        <div className={`popup ${className}${opened ? " --opened" : ""}`}>
             <div className="popup__container">
                 {
-                    image.src !== "" && <img src={image.src} alt={image.alt} className={image.className} />
+                    image.src !== "" && <img src={image.src} alt={image.alt} className={image.className}/>
                 }
                 <h1 className="popup__title">{title}</h1>
                 <button
@@ -32,25 +78,3 @@ export default Popup;
 
 // Здесь добавляется модификатор --type-notification
 // По-умолчанию состояние вопроса, есть еще три состояния --state-alert --state-error --state-success
-<div className="popup --opened --type-notification">
-    <div className="popup__container">
-        <button type='button' aria-label='Закрыть' className='popup__close' />
-        {/* Вместо заголовка - блок с заголовоком и иконкой */}
-        <div className="popup__caption">
-            <span className='popup__icon' />
-            <p className="popup__title">Вы действительно хотите выйти?</p>
-        </div>
-        <div className="popup__body">
-            {/* Тут тело состоит из текста, для того, чтобы заголовок не был слишком объемным, тут своего рода объяснение, но его может и не быть. */}
-            <p className="popup__text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, quod, corporis tempore, quia voluptatibus dolorem distinctio odio quisquam dolorum necessitatibus porro! Voluptatum, cumque? Quisquam corporis doloribus quibusdam enim? Ullam, eius.
-            </p>
-        </div>
-        <div className="popup__controls">
-            <button type='button'
-                className='button --size-sm --theme-success'>Да</button>
-            <button type='button'
-                className='button --size-sm --theme-text'>Нет</button>
-        </div>
-    </div>
-</div>
