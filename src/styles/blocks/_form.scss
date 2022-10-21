@@ -24,11 +24,11 @@
 
   &.--place-new-user {
     display: grid;
-    gap: .75em 1.875em;
-    max-width: 70em;
+    gap: 0 1.25em;
+    max-width: 75em;
 
     @include media(lg) {
-      grid-template-columns: .6fr .4fr;
+      grid-template-columns: .55fr .45fr;
 
       & .form__section.--content-access {
         grid-column: 2/3;
@@ -38,9 +38,9 @@
   }
 
   &__title {
-    margin: 0 0 .5em;
-    padding-bottom: .5em;
-    font-size: 1.25em;
+    margin: 0 0 .5rem;
+    padding-bottom: .5rem;
+    font-size: 1em;
     font-weight: 600;
     text-transform: uppercase;
     border-bottom: 2px solid rgba(map-get($colors, "primary"), .54);
@@ -48,17 +48,17 @@
 
   &__section {
     display: flex;
-    gap: .75em;
+    gap: .5em;
     flex-direction: column;
     box-sizing: border-box;
     padding: 0;
-    margin: 0 0 min(5vmax, 3.125em);
+    margin: 0 0 min(3.5vmax, 1.875em);
     border: none;
   }
 
   &__controls {
     grid-column: 1/-1;
-    justify-self: end;
+    // justify-self: end;
 
     & .button:not(:first-child) {
       margin-left: .25em;

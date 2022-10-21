@@ -11,7 +11,22 @@
     font-family: var(--ff-firm);
     font-size: min(3.25vmax, 1.875em);
     font-weight: 600;
-    margin: min(2.5vmax, 1.25rem) 0 min(5vmax, 3.125rem);
+    margin: 0 0 min(5vmax, 3.125rem);
+  }
+
+  &__title-block {
+    margin-bottom: min(5vmax, 3.125rem);
+    display: flex;
+    gap: .5em;
+    align-items: center;
+
+    & .button {
+      flex: none;
+    }
+
+    & .content__title {
+      margin: 0;
+    }
   }
 }
 

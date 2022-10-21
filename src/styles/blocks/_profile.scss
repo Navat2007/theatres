@@ -11,9 +11,21 @@
     max-width: min(30vmax, 20em);
   }
 
+  &.--place-edit-profile {
+    cursor: default; 
+
+    & .profile__img {
+      margin-left: auto;
+      @include box(8em);
+      min-width: 8em;
+      max-width: 8em;
+      border-radius: 15px;
+    }
+  }
+
   &__content {
     display: flex;
-  } 
+  }
 
   &__img {
     flex: none;
@@ -24,7 +36,7 @@
     object-fit: cover;
     @extend %alt-text-on-after;
   }
-  
+
   &__info {
     flex: auto;
     padding: .5em .875em;
@@ -49,7 +61,7 @@
     flex: none;
 
     @extend .button;
-    @extend .--icon-on-before; 
+    @extend .--icon-on-before;
     @extend .--variant-icon;
     @extend .--theme-text;
 

@@ -41,7 +41,7 @@ html {
 // Общие 
 
 .--hide {
-  display: none;
+  display: none !important;
 }
 
 .--no-select {

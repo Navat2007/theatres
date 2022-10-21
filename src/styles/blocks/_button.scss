@@ -5,6 +5,7 @@
   border: 1px solid transparent;
   text-decoration: none;
   display: inline-block;
+  overflow: hidden;
 
   font-weight: 500;
 
@@ -23,18 +24,6 @@
     color: var(--darkLow);
   }
 
-  &.--icon-add::before {
-    content: "\F0415";
-  }
-
-  &.--icon-back::before {
-    content: "\F0141";
-  }
-
-  &.--icon-trash::before {
-    content: "\F01B4";
-  }
-
   &.--icon-on-before {
     display: inline-flex;
     align-items: center;
@@ -46,18 +35,33 @@
     &:before {
       @extend %icon-on-before;
     }
+
+    &.--variant-icon {
+      justify-content: center;
+      min-width: 2.5em;
+      max-width: 2.5em;
+      @include box(2.5em);
+  
+      min-height: unset;
+      padding: .5em;
+      border-radius: 50%;
+      gap: 0;
+    }
+
+    &.--icon-add::before {
+      content: "\F0415";
+    }
+
+    &.--icon-back::before {
+      content: "\F0141";
+    }
+
+    &.--icon-trash::before {
+      content: "\F01B4";
+    }
   }
 
-  &.--variant-icon {
-    min-width: 2.5em;
-    max-width: 2.5em;
-    @include box(2.5em);
 
-    min-height: unset;
-    padding: .5em;
-    border-radius: 50%;
-    gap: 0;
-  }
 
   &.--size-sm {
     font-size: .875em;
@@ -123,11 +127,13 @@
     display: none;
     align-items: center;
     justify-content: center;
+    background-color: rgba(map-get($colors, "primary"), .1);
     z-index: 1;
 
     &>div {
       @include box(0.875em);
-      background-color: var(--g300);
+      border-radius: 50%;
+      background-color: var(--primary);
       margin-right: 2.5%;
       animation: loader 1.25s infinite ease-in-out both;
 
