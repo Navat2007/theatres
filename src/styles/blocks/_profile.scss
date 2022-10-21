@@ -5,12 +5,11 @@
   align-items: center;
   padding: .5em;
   box-sizing: border-box;
-  cursor: pointer;
 
   &.--place-header {
     margin-left: auto;
     max-width: calc(100% - 3em);
-  } 
+  }  
 
   &.--place-edit-profile {
     cursor: default;
@@ -28,6 +27,7 @@
     display: grid;
     gap: 0 .875em;
     grid-template-columns: auto 1fr;
+    cursor: pointer;
   }
 
   &__img {
