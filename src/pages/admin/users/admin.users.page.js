@@ -1,58 +1,67 @@
 import React from 'react';
-import { useNavigate, useParams, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import {useNavigate, useParams, Navigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
-
-import { editAdmin, loadAdmin, removeAdmin } from "../../../store/admin/adminsSlice";
 import Popup from "../../../components/popup/popup.component";
+
+import {fetchAddAdmin, fetchEditAdmin, fetchRemoveAdmin, loadAdmin} from "../../../store/admin/adminsSlice";
+
+import no_photo_man from '../../../images/no_photo_man.png';
 
 const AdminUsersPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    let { id } = useParams();
-    const { register, setValue, handleSubmit, reset } = useForm();
+    let {id} = useParams();
+    const {register, setValue, handleSubmit, reset} = useForm();
 
     const admin = useSelector(state => state.admins.admin);
-    const status = useSelector(state => state.admins.status);
+    const {status, statusError} = useSelector(state => state.admins);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
-    const [popup2Opened, setPopup2Opened] = React.useState(false);
+    const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
     React.useEffect(() => {
 
-        reset();
-        dispatch(loadAdmin({ id }));
+        if(id){
+            reset();
+            dispatch(loadAdmin({id}));
+        }
 
     }, [id, dispatch]);
 
+    React.useEffect(() => {
+
+        if(status === "sendingError")
+            setPopupErrorOpened(true);
+
+    }, [status]);
+
+    const onAddSubmit = (params) => {
+
+        dispatch(fetchAddAdmin(params));
+
+    }
+
     const onEditSubmit = (params) => {
 
-        dispatch(editAdmin(params));
+        params.id = id;
+        dispatch(fetchEditAdmin(params));
 
     }
 
     const onDeleteSubmit = () => {
 
-        dispatch(removeAdmin({ id }));
+        dispatch(fetchRemoveAdmin({id}));
 
     }
 
-    const handleDeleteButton = () => {
-
-        if (parseInt(id) === 1 || parseInt(id) === 1519)
-            setPopup2Opened(true);
-        else
-            setPopupOpened(true);
-
-    }
-
-    if (status === "editDone")
-        return <Navigate to={"/admin/users"} />
+    if (status === "sendingDone")
+        return <Navigate to={"/admin/users"}/>
 
     if (status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
@@ -68,6 +77,7 @@ const AdminUsersPage = () => {
                         className="--icon-back --icon-on-before --variant-icon --theme-text"
                         type="button"
                         aria-label="Назад"
+                        onClick={() => navigate("/admin/users")}
                     />
                     <h1 className="content__title">Редактирование администратора ID: {id}</h1>
                 </div>
@@ -76,28 +86,37 @@ const AdminUsersPage = () => {
                         <h2 className="form__title">Основная информация</h2>
                         <div className="profile --place-edit-profile">
                             <p className='profile__text'>Фото</p>
-                            <img className='profile__img' src={window.global.baseUrl + admin.photo} alt={""} />
+                            <img className='profile__img'
+                                 src={admin.photo !== "" ? window.global.baseUrl + admin.photo : no_photo_man}
+                                 alt={""}/>
                         </div>
                         <FieldInput
                             label={"Логин"}
                             placeholder={"Введите логин..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("login", { value: admin.login })}
+                            {...register("login", {value: admin.login})}
                         />
                         <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("email", { value: admin.email })}
+                            {...register("email", {value: admin.email})}
+                        />
+                        <FieldInput
+                            label={"ФИО"}
+                            placeholder={"Введите фио..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("fio", {value: admin.fio})}
                         />
                         <FieldInput
                             label={"Наименование организации"}
                             placeholder={"Введите наименование организации..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("org_name", { value: admin.org_name })}
+                            {...register("org_name", {value: admin.org_name})}
                         />
                     </fieldset>
                     <fieldset className='form__section --content-security'>
@@ -114,7 +133,7 @@ const AdminUsersPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"radio"}
                             fieldClassName={"--type-checkbox-radio"}
-                            {...register("active", { value: admin.active === "Активен" })}
+                            {...register("active", {value: admin.active === "Активен"})}
                         />
                     </fieldset>
                     <fieldset className='form__section --content-access'>
@@ -149,12 +168,12 @@ const AdminUsersPage = () => {
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <Button text={"Сохранить"} spinnerActive={status === "sending"} />
+                        <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
                         <Button
                             className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleDeleteButton();
+                                setPopupOpened(true);
                             }}
                             text={"Удалить"}
                         />
@@ -163,120 +182,146 @@ const AdminUsersPage = () => {
                 </form>
                 <Popup
                     title={"Вы уверены что хотите удалить?"}
+                    notif={{
+                        active: true,
+                    }}
                     opened={popupOpened}
-                    onClose={() => {
-                        setPopupOpened(false);
-                    }}
-                >
-                    <Button
-                        text={"Нет"}
-                        className='--theme-text'
-                        onClick={() => setPopupOpened(false)}
-                    />
-                    <Button
-                        text={"Да"}
-                        onClick={onDeleteSubmit}
-                    />
-                </Popup>
+                    onClose={() => setPopupOpened(false)}
+                    buttons={
+                        <>
+                            <Button
+                                text={"Да"}
+                                onClick={() => {
+                                    setPopupOpened(false);
+                                    onDeleteSubmit();
+                                }}
+                            />
+                            <Button
+                                text={"Нет"}
+                                className='--theme-text'
+                                onClick={() => setPopupOpened(false)}
+                            />
+                        </>
+                    }
+                />
                 <Popup
-                    title={"Данного администратора удалить нельзя!"}
-                    opened={popup2Opened}
-                    onClose={() => {
-                        setPopup2Opened(false);
+                    title={"Ошибка!"}
+                    notif={{
+                        active: true,
+                        state: "error",
+                        text: statusError,
                     }}
+                    opened={popupErrorOpened}
+                    onClose={() => setPopupErrorOpened(false)}
                 />
             </div>
         );
 
     return (
         <div className='content__section'>
-            <Button
-                className="--icon-back --icon-on-before --theme-text"
-                type="button"
-                text="Назад"
-                aria-label="Назад"
-            />
-            <h1 className="content__title">Создание администратора</h1>
-            <form action="" className='form --place-new-user'>
+            <div className="content__title-block">
+                <Button
+                    className="--icon-back --icon-on-before --variant-icon --theme-text"
+                    type="button"
+                    aria-label="Назад"
+                    onClick={() => navigate("/admin/users")}
+                />
+                <h1 className="content__title">Создание администратора</h1>
+            </div>
+            <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
                 <fieldset className='form__section --content-info'>
                     <h2 className="form__title">Основная информация</h2>
-                    <div className="field --type-flex">
-                        <label className="field__label">Email (логин)</label>
-                        <input
-                            type="text"
-                            className="field__input"
-                            placeholder="Введите email..."
-                            name=""
-                            required
-                        />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
-                    </div>
-                    <div className="field --type-flex">
-                        <label className="field__label">Полное наименование организации</label>
-                        <input
-                            type="text"
-                            className="field__input"
-                            placeholder="Введите полное наименование организации..."
-                            name=""
-                            required
-                        />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
-                    </div>
+                    <FieldInput
+                        label={"Логин"}
+                        placeholder={"Введите логин..."}
+                        fieldClassName={"--type-flex"}
+                        required={true}
+                        {...register("login")}
+                    />
+                    <FieldInput
+                        label={"Email"}
+                        placeholder={"Введите email..."}
+                        fieldClassName={"--type-flex"}
+                        required={true}
+                        {...register("email")}
+                    />
+                    <FieldInput
+                        label={"ФИО"}
+                        placeholder={"Введите фио..."}
+                        fieldClassName={"--type-flex"}
+                        required={true}
+                        {...register("fio")}
+                    />
+                    <FieldInput
+                        label={"Наименование организации"}
+                        placeholder={"Введите наименование организации..."}
+                        fieldClassName={"--type-flex"}
+                        required={true}
+                        {...register("org_name")}
+                    />
                 </fieldset>
                 <fieldset className='form__section --content-security'>
                     <h2 className="form__title">Безопасность</h2>
-                    <div className="field --type-flex">
-                        <label className="field__label">Email (логин)</label>
-                        <input
-                            type="text"
-                            className="field__input"
-                            placeholder="Введите email..."
-                            name=""
-                            required
-                        />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
-                    </div>
-                    <div className="field --type-checkbox-radio">
-                        <input
-                            type="checkbox"
-                            className="field__checkbox-radio" />
-                        <label className="field__label">Активировать учетную запись?</label>
-                    </div>
+                    <FieldInput
+                        label={"Пароль"}
+                        type={"password"}
+                        placeholder={"Введите пароль..."}
+                        fieldClassName={"--type-flex"}
+                        autoComplete={"new-password"}
+                        required={true}
+                        {...register("password")}
+                    />
+                    <FieldInput
+                        label={"Активировать учетную запись?"}
+                        type={"radio"}
+                        fieldClassName={"--type-checkbox-radio"}
+                        {...register("active", {value: true})}
+                    />
                 </fieldset>
                 <fieldset className='form__section --content-access'>
                     <h2 className="form__title">Права доступа</h2>
-                    <div className="field --type-checkbox-radio">
-                        <input
-                            type="checkbox"
-                            className="field__checkbox-radio" />
-                        <label className="field__label">Активировать учетную запись?</label>
-                    </div>
-                    <div className="field --type-checkbox-radio">
-                        <input
-                            type="checkbox"
-                            className="field__checkbox-radio" />
-                        <label className="field__label">Активировать учетную запись?</label>
-                    </div>
-                    <div className="field --type-checkbox-radio">
-                        <input
-                            type="checkbox"
-                            className="field__checkbox-radio" />
-                        <label className="field__label">Активировать учетную запись?</label>
-                    </div>
-                    <div className="field --type-checkbox-radio">
-                        <input
-                            type="checkbox"
-                            className="field__checkbox-radio" />
-                        <label className="field__label">Активировать учетную запись?</label>
-                    </div>
+                    <FieldInput
+                        id={"id_1"}
+                        label={"Главный администратор"}
+                        type={"radio"}
+                        fieldClassName={"--type-checkbox-radio"}
+                        {...register("superadmin", {
+                            value: true,
+                            onChange: (e) => {
+                                if (e.target.checked) {
+                                    setValue("admin", false);
+                                }
+                            }
+                        })}
+                    />
+                    <FieldInput
+                        id={"id_2"}
+                        label={"Администратор"}
+                        type={"radio"}
+                        fieldClassName={"--type-checkbox-radio"}
+                        {...register("admin", {
+                            onChange: (e) => {
+                                if (e.target.checked) {
+                                    setValue("superadmin", false);
+                                }
+                            }
+                        })}
+                    />
                 </fieldset>
                 <div className="form__controls">
-                    <button className='button --theme-primary'>Создать</button>
+                    <Button text={"Создать"} spinnerActive={status === "sending"}/>
                 </div>
             </form>
+            <Popup
+                title={"Ошибка!"}
+                notif={{
+                    active: true,
+                    state: "error",
+                    text: statusError,
+                }}
+                opened={popupErrorOpened}
+                onClose={() => setPopupErrorOpened(false)}
+            />
         </div>
     );
 };

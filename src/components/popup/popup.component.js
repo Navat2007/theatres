@@ -5,43 +5,73 @@ const Popup = ({
                    buttons,
                    onClose,
                    opened = false,
-                   notif = false,
+                   notif = {
+                       active: false,
+                       state: "",
+                       text: "",
+                       timerInSeconds: 0,
+                   },
                    className = "",
                    title = "",
                    text = "",
+
                    image = {src: "", alt: "", className: ""}
                }) => {
 
-    if (notif)
+    const [notifIcon, setNotifIcon] = React.useState("");
+
+    React.useEffect(() => {
+
+        if(notif.active){
+
+            switch (notif.state){
+                case "error":
+                    setNotifIcon("--state-error")
+                    break
+                case "alert":
+                    setNotifIcon("--state-alert")
+                    break
+                case "success":
+                    setNotifIcon("--state-success")
+                    break
+                default:
+                    setNotifIcon("")
+            }
+
+        }
+
+    }, [notif.active, notif.state]);
+
+    if(notif.timerInSeconds > 0){
+
+        setTimeout(() => {
+
+            if(onClose)
+                onClose();
+            else
+                opened = false;
+
+        }, notif.timerInSeconds * 1000);
+
+    }
+
+    if (notif.active)
         return (
-            <div className={`popup --type-notification ${className}${opened ? " --opened" : ""}`}>
+            <div className={`popup --type-notification ${className} ${notifIcon}${opened ? " --opened" : ""}`}>
                 <div className="popup__container">
                     <button type='button' aria-label='Закрыть' className='popup__close' onClick={onClose}/>
-                    {/* Вместо заголовка - блок с заголовоком и иконкой */}
                     <div className="popup__caption">
                         <span className='popup__icon'/>
                         <p className="popup__title">{title}</p>
                     </div>
                     <div className="popup__body">
                         <p className="popup__text">
-                            {text}
+                            {notif.text}
                         </p>
                     </div>
                     <div className="popup__controls">
                         {
                             buttons && <>{buttons}</>
-                        }
-                        {
-                            !buttons
-                            &&
-                            <>
-                                <button
-                                    type='button'
-                                    className='button --size-sm --theme-success'
-                                >
-                                    ✔
-                                </button>
-                            </>
                         }
                     </div>
                 </div>
@@ -73,8 +103,3 @@ const Popup = ({
 };
 
 export default Popup;
-
-// Для окна нотификации использовать несколько иную конструкцию. В чем отличие, их два.
-
-// Здесь добавляется модификатор --type-notification
-// По-умолчанию состояние вопроса, есть еще три состояния --state-alert --state-error --state-success
