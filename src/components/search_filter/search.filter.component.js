@@ -69,7 +69,12 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                     key={key} {...register(key)}
                     type={"select"}
                     label={header}
-                    selectItems={getSortedUniqueItemsForSelect(items.map(item => item[key]).filter(item => item !== null && item !== ""), type)}
+                    selectItems={getSortedUniqueItemsForSelect(items.map(item => item[key]).filter(item => item !== null && item !== ""), type).map(item => {
+                        return {
+                            title: item,
+                            value: item,
+                        }
+                    })}
                 />;
 
             default:

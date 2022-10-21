@@ -94,17 +94,17 @@ const UsersPage = () => {
             sorting: true,
         },
         {
-            header: "Название спортивной школы",
-            key: "org_name",
+            header: "Телефон",
+            key: "phone",
             type: "string",
             filter: "string",
             sorting: true,
         },
         {
-            header: "Спортивный клуб",
-            key: "sport_school",
+            header: "Школа",
+            key: "org_name",
             type: "string",
-            filter: "select",
+            filter: "string",
             sorting: true,
         },
         {

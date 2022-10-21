@@ -10,9 +10,8 @@ $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
 $fio = htmlspecialchars($_POST["fio"]);
 $phone = htmlspecialchars($_POST["phone"]);
-$org_name = htmlspecialchars($_POST["org_name"]);
+$schoolID = htmlspecialchars($_POST["schoolID"]);
 $active = htmlspecialchars($_POST["active"]) === "true" ? 1 : 0;
-$role = htmlspecialchars($_POST["superadmin"]) === "true" ? "superadmin" : "admin";
 
 $error = 0;
 $error_text = "";
@@ -43,13 +42,13 @@ if($error === 0){
 
     $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO accounts (email, login, pwd, role, fio, phone, org_name, active) VALUES ('$email', '$login', '$new_password', '$role', '$fio', '$phone', '$org_name', '$active')";
+    $sql = "INSERT INTO accounts (email, login, pwd, fio, phone, active, schoolID) VALUES ('$email', '$login', '$new_password', '$fio', '$phone', '$active', '$schoolID')";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
 
     $helper->sendEmailWithPassword($conn, $email, $password, true);
-    $log->add($conn, $authorization[1], 'Добавлен администратор #' . $lastID);
+    $log->add($conn, $authorization[1], 'Добавлен пользователь #' . $lastID);
 
 }
 

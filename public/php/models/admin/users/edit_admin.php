@@ -10,6 +10,7 @@ $login = htmlspecialchars($_POST["login"]);
 $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
 $fio = htmlspecialchars($_POST["fio"]);
+$phone = htmlspecialchars($_POST["phone"]);
 $org_name = htmlspecialchars($_POST["org_name"]);
 $active = htmlspecialchars($_POST["active"]) === "true" ? 1 : 0;
 $role = htmlspecialchars($_POST["superadmin"]) === "true" ? "superadmin" : "admin";
@@ -54,7 +55,7 @@ if($admin_row->email != $email){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', org_name = '$org_name', active = '$active' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', org_name = '$org_name', active = '$active' WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);

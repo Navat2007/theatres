@@ -10,6 +10,11 @@ const FieldInput = ({
                         label = null,
                         errorText = "",
                         required = false,
+                        defaultSelectItem = {
+                            title: "Все",
+                            value: "Все",
+                            disabled: false
+                        },
                         selectItems = [],
                         ...rest
                     }, ref) => {
@@ -69,9 +74,9 @@ const FieldInput = ({
                         required={required}
                         {...rest}
                     >
-                        <option defaultValue value={"Все"}>Все</option>
+                        <option defaultValue disabled={defaultSelectItem.disabled} value={defaultSelectItem.value}>{defaultSelectItem.title}</option>
                         {
-                            selectItems.map(item => (<option key={item} value={item}>{item}</option>))
+                            selectItems.map((item, index) => (<option key={item.value + "_" + index} value={item.value}>{item.title}</option>))
                         }
                     </select>
                     <span className="field__icon --type-dropdown"/>
