@@ -32,6 +32,7 @@ if(mysqli_num_rows($result) > 0)
             'ID' => (int)$row->ID,
             'login' => $row->login,
             'email' => $row->email,
+            'photo' => $row->photo,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'org_name' => htmlspecialchars_decode($row->org_name),
             'schoolID' => $row->schoolID,
