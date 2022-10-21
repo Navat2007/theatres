@@ -70,7 +70,6 @@ const ProfileHeader = ({className}) => {
                         navigate("/login", { replace: true });
                     }}
                 />
-
             </Popup>
         </div>
     );

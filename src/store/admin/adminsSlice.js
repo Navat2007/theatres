@@ -36,24 +36,36 @@ const adminsSlice = createSlice({
     reducers: {
         addAdmin(state, action) {
 
+            state.status = "sending";
+
             console.log("addAdmin reducer state: ", state);
             console.log("addAdmin reducer action: ", action);
 
-            state.admins.push({
-                id: action.payload.id,
-                email: action.payload.email,
-            });
+            // state.admins.push({
+            //     id: action.payload.id,
+            //     email: action.payload.email,
+            // });
+
+            //state.status = "editDone";
         },
         editAdmin(state, action) {
+
+            state.status = "sending";
 
             console.log("edit admin reducer state: ", state);
             console.log("edit admin reducer action: ", action.payload);
 
+            //state.status = "editDone";
+
         },
         removeAdmin(state, action) {
 
+            state.status = "sending";
+
             console.log("remove admin reducer state: ", state);
             console.log("remove admin reducer action: ", action.payload);
+
+            //state.status = "editDone";
 
         }
     },

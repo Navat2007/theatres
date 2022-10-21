@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
@@ -14,8 +14,8 @@ const AdminUsersPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    let { id } = useParams();
-    const { register, setValue, handleSubmit, reset } = useForm();
+    let {id} = useParams();
+    const {register, setValue, handleSubmit, reset} = useForm();
 
     const admin = useSelector(state => state.admins.admin);
     const status = useSelector(state => state.admins.status);
@@ -44,20 +44,23 @@ const AdminUsersPage = () => {
 
     const handleDeleteButton = () => {
 
-        if(parseInt(id) === 1 || parseInt(id) === 1519)
+        if (parseInt(id) === 1 || parseInt(id) === 1519)
             setPopup2Opened(true);
         else
             setPopupOpened(true);
 
     }
 
-    if(status === "loading")
+    if (status === "editDone")
+        return <Navigate to={"/admin/users"}/>
+
+    if (status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if(id && admin === null)
+    if (id && admin === null)
         return <div className='content__section'><p>Данного администратора не существует</p></div>;
 
-    if(id && admin)
+    if (id && admin)
         return (
             <div className='content__section'>
                 <Button
@@ -67,7 +70,7 @@ const AdminUsersPage = () => {
                     aria-label="Назад"
                 />
                 <h1 className="content__title">Редактирование администратора ID: {id}</h1>
-                <img src={window.global.baseUrl + admin.photo} alt={""} />
+                <img src={window.global.baseUrl + admin.photo} alt={""}/>
                 <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
                     <fieldset className='form__section --content-info'>
                         <h2 className="form__title">Основная информация</h2>
@@ -76,21 +79,21 @@ const AdminUsersPage = () => {
                             placeholder={"Введите логин..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("login", {value: admin.login} )}
+                            {...register("login", {value: admin.login})}
                         />
                         <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("email", {value: admin.email} )}
+                            {...register("email", {value: admin.email})}
                         />
                         <FieldInput
                             label={"Наименование организации"}
                             placeholder={"Введите наименование организации..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("org_name", {value: admin.org_name} )}
+                            {...register("org_name", {value: admin.org_name})}
                         />
                     </fieldset>
                     <fieldset className='form__section --content-security'>
@@ -107,7 +110,7 @@ const AdminUsersPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"radio"}
                             fieldClassName={"--type-checkbox-radio"}
-                            {...register("active", {value: admin.active === "Активен"} )}
+                            {...register("active", {value: admin.active === "Активен"})}
                         />
                     </fieldset>
                     <fieldset className='form__section --content-access'>
@@ -120,12 +123,11 @@ const AdminUsersPage = () => {
                             {...register("superadmin", {
                                 value: admin.role === "Главный администратор",
                                 onChange: (e) => {
-                                    if (e.target.checked)
-                                    {
+                                    if (e.target.checked) {
                                         setValue("admin", false);
                                     }
                                 }
-                            } )}
+                            })}
                         />
                         <FieldInput
                             id={"id_2"}
@@ -135,8 +137,7 @@ const AdminUsersPage = () => {
                             {...register("admin", {
                                 value: admin.role === "Администратор",
                                 onChange: (e) => {
-                                    if (e.target.checked)
-                                    {
+                                    if (e.target.checked) {
                                         setValue("superadmin", false);
                                     }
                                 }
@@ -145,19 +146,22 @@ const AdminUsersPage = () => {
                     </fieldset>
                     <div className="form__controls">
                         <Button
-                            className='--theme-text --icon-on-before --icon-trash'
+                            className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
                             onClick={(e) => {
                                 e.preventDefault();
                                 handleDeleteButton();
                             }}
-                            text={"Удалить"} />
-                        <Button text={"Сохранить"} />
+                            text={"Удалить"}
+                        />
+                        <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
                     </div>
                 </form>
                 <Popup
                     title={"Вы уверены что хотите удалить?"}
                     opened={popupOpened}
-                    onClose={()=> { setPopupOpened(false); }}
+                    onClose={() => {
+                        setPopupOpened(false);
+                    }}
                 >
                     <Button
                         text={"Нет"}
@@ -172,7 +176,9 @@ const AdminUsersPage = () => {
                 <Popup
                     title={"Данного администратора удалить нельзя!"}
                     opened={popup2Opened}
-                    onClose={()=> { setPopup2Opened(false); }}
+                    onClose={() => {
+                        setPopup2Opened(false);
+                    }}
                 />
             </div>
         );
@@ -198,8 +204,8 @@ const AdminUsersPage = () => {
                             name=""
                             required
                         />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
+                        <span className="field__icon --type-error"/>
+                        <p className="field__info"/>
                     </div>
                     <div className="field --type-flex">
                         <label className="field__label">Полное наименование организации</label>
@@ -210,8 +216,8 @@ const AdminUsersPage = () => {
                             name=""
                             required
                         />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
+                        <span className="field__icon --type-error"/>
+                        <p className="field__info"/>
                     </div>
                 </fieldset>
                 <fieldset className='form__section --content-security'>
@@ -225,13 +231,13 @@ const AdminUsersPage = () => {
                             name=""
                             required
                         />
-                        <span className="field__icon --type-error" />
-                        <p className="field__info" />
+                        <span className="field__icon --type-error"/>
+                        <p className="field__info"/>
                     </div>
                     <div className="field --type-checkbox-radio">
                         <input
                             type="checkbox"
-                            className="field__checkbox-radio" />
+                            className="field__checkbox-radio"/>
                         <label className="field__label">Активировать учетную запись?</label>
                     </div>
                 </fieldset>
@@ -240,25 +246,25 @@ const AdminUsersPage = () => {
                     <div className="field --type-checkbox-radio">
                         <input
                             type="checkbox"
-                            className="field__checkbox-radio" />
+                            className="field__checkbox-radio"/>
                         <label className="field__label">Активировать учетную запись?</label>
                     </div>
                     <div className="field --type-checkbox-radio">
                         <input
                             type="checkbox"
-                            className="field__checkbox-radio" />
+                            className="field__checkbox-radio"/>
                         <label className="field__label">Активировать учетную запись?</label>
                     </div>
                     <div className="field --type-checkbox-radio">
                         <input
                             type="checkbox"
-                            className="field__checkbox-radio" />
+                            className="field__checkbox-radio"/>
                         <label className="field__label">Активировать учетную запись?</label>
                     </div>
                     <div className="field --type-checkbox-radio">
                         <input
                             type="checkbox"
-                            className="field__checkbox-radio" />
+                            className="field__checkbox-radio"/>
                         <label className="field__label">Активировать учетную запись?</label>
                     </div>
                 </fieldset>
