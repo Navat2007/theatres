@@ -58,7 +58,9 @@ const ProfileHeader = ({className}) => {
             </Button>
             <Popup
                 title={"Вы действительно хотите выйти?"}
-                notif={true}
+                notif={{
+                    active: true,
+                }}
                 opened={popupOpened}
                 onClose={() => {
                     setPopupOpened(false);

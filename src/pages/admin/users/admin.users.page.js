@@ -180,6 +180,10 @@ const AdminUsersPage = () => {
                 </Popup>
                 <Popup
                     title={"Данного администратора удалить нельзя!"}
+                    notif={{
+                        active: true,
+                        state: "error"
+                    }}
                     opened={popup2Opened}
                     onClose={() => {
                         setPopup2Opened(false);
