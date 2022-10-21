@@ -89,6 +89,10 @@
     .popup__controls {
       justify-content: center;
       margin-bottom: 0;
+
+      &:only-child {
+        width: max-content;
+      }
     }
   }
 
