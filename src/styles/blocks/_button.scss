@@ -10,7 +10,7 @@
 
   padding: .25em 1.5em;
   text-align: center;
- 
+
   border-radius: 15px;
 
   transition: .25s ease-out;
@@ -21,14 +21,16 @@
     user-select: none;
     background-color: var(--g100);
     color: var(--darkLow);
-  } 
+  }
 
   &.--icon-add::before {
     content: "\F0415";
   }
+
   &.--icon-back::before {
     content: "\F0141";
   }
+
   &.--icon-trash::before {
     content: "\F01B4";
   }
@@ -50,7 +52,7 @@
     min-width: 2.5em;
     max-width: 2.5em;
     @include box(2.5em);
-    
+
     min-height: unset;
     padding: .5em;
     border-radius: 50%;
@@ -71,6 +73,15 @@
     color: var(--white);
     background-image: var(--primary-gradient);
     background-color: var(--primary);
+
+    &:hover {
+      box-shadow: 0 2px 6px rgba(black, .15);
+    }
+  }
+
+  &:not(:disabled).--theme-success {
+    color: var(--white);
+    background-color: var(--success);
 
     &:hover {
       box-shadow: 0 2px 6px rgba(black, .15);
@@ -130,7 +141,7 @@
       }
     }
   }
-} 
+}
 
 @include keyframes(loader) {
 
