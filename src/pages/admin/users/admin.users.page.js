@@ -18,7 +18,7 @@ const AdminUsersPage = () => {
     const dispatch = useDispatch();
 
     let {id} = useParams();
-    const {register, setValue, handleSubmit, reset} = useForm();
+    const {register, setValue, handleSubmit, reset, formState: { errors }} = useForm();
 
     const admin = useSelector(state => state.admins.admin);
     const {status, statusError} = useSelector(state => state.admins);
@@ -146,6 +146,7 @@ const AdminUsersPage = () => {
                                         message: "Минимальная длина пароля 6 символов"
                                     }
                                 })}
+                                errorText={errors?.password && errors.password.message}
                             />
                             <FieldInput
                                 label={"Активировать учетную запись?"}
@@ -306,6 +307,7 @@ const AdminUsersPage = () => {
                                     message: "Минимальная длина пароля 6 символов"
                                 }
                             })}
+                            errorText={errors?.password && errors.password.message}
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}
