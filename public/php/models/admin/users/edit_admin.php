@@ -53,6 +53,11 @@ if($admin_row->email != $email){
 
 }
 
+if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 1519)){
+    $error = 1;
+    $error_text = "Данного администратора нельзя редактировать!";
+}
+
 if($error === 0){
 
     $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', org_name = '$org_name', active = '$active' WHERE ID = '$ID' AND archive = '0'";

@@ -71,7 +71,7 @@ const UserUsersPage = () => {
     if (status === "loading" || schools.status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (id && user === null)
+    if (id && (user === null || user.role !== "Пользователь"))
         return <div className='content__section'><p>Данного пользователя не существует</p></div>;
 
     if (id && user)

@@ -67,7 +67,7 @@ const AdminUsersPage = () => {
     if (status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (id && admin === null)
+    if (id && (admin === null || admin.role === "Пользователь"))
         return <div className='content__section'><p>Данного администратора не существует</p></div>;
 
     if (id && admin)

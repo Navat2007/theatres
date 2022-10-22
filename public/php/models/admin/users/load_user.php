@@ -13,7 +13,7 @@ $sqls = array();
 $params = null;
 
 $sql = "SELECT 
-            account.ID, account.login, account.email, account.active, account.fio, account.phone, account.photo, account.schoolID, s.org_short_name as org_name
+            account.ID, account.login, account.email, account.active, account.fio, account.phone, account.photo, account.schoolID, account.role, s.org_short_name as org_name
         FROM 
              accounts as account
         LEFT JOIN schools as s on s.ID = account.schoolID
@@ -33,6 +33,7 @@ if(mysqli_num_rows($result) > 0)
             'login' => $row->login,
             'email' => $row->email,
             'photo' => $row->photo,
+            'role' => getRole($row->role),
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'org_name' => htmlspecialchars_decode($row->org_name),
             'schoolID' => $row->schoolID,
@@ -56,3 +57,23 @@ $content = (object)[
 
 ];
 echo json_encode($content);
+
+function getRole($text): string {
+
+    $result = "Пользователь";
+
+    switch ($text){
+
+        case "superadmin":
+            $result = "Главный администратор";
+            break;
+
+        case "admin":
+            $result = "Администратор";
+            break;
+
+    }
+
+    return $result;
+
+}

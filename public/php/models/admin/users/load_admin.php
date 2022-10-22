@@ -28,7 +28,7 @@ if(mysqli_num_rows($result) > 0)
             'email' => $row->email,
             'photo' => $row->photo,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
-            'role' => $row->role == "superadmin" ? "Главный администратор":"Администратор",
+            'role' => getRole($row->role),
             'fio' => $row->fio,
             'phone' => $row->phone,
             'org_name' => $row->org_name,
@@ -50,3 +50,23 @@ $content = (object)[
 
 ];
 echo json_encode($content);
+
+function getRole($text): string {
+
+    $result = "Пользователь";
+
+    switch ($text){
+
+        case "superadmin":
+            $result = "Главный администратор";
+            break;
+
+        case "admin":
+            $result = "Администратор";
+            break;
+
+    }
+
+    return $result;
+
+}
