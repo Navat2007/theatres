@@ -140,7 +140,12 @@ const AdminUsersPage = () => {
                                 placeholder={"Введите новый пароль..."}
                                 fieldClassName={"--type-flex"}
                                 autoComplete={"new-password"}
-                                {...register("password")}
+                                {...register("password", {
+                                    minLength: {
+                                        value: 6,
+                                        message: "Минимальная длина пароля 6 символов"
+                                    }
+                                })}
                             />
                             <FieldInput
                                 label={"Активировать учетную запись?"}
@@ -295,7 +300,12 @@ const AdminUsersPage = () => {
                             fieldClassName={"--type-flex"}
                             autoComplete={"new-password"}
                             required={true}
-                            {...register("password")}
+                            {...register("password", {
+                                minLength: {
+                                    value: 6,
+                                    message: "Минимальная длина пароля 6 символов"
+                                }
+                            })}
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}

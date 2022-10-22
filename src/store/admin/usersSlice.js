@@ -92,15 +92,15 @@ const usersSlice = createSlice({
 
         [loadUser.pending]: (state) => {
             state.status = 'loading';
-            state.admin = null;
+            state.user = null;
         },
         [loadUser.fulfilled]: (state, action) => {
             state.status = 'done';
-            state.admin = action.payload;
+            state.user = action.payload;
         },
         [loadUser.rejected]: (state) => {
             state.status = 'error';
-            state.admin = null;
+            state.user = null;
         },
         // ADD
         [fetchAddUser.pending]: (state) => {

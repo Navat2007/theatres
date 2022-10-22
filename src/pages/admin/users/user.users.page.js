@@ -19,9 +19,9 @@ const UserUsersPage = () => {
     const dispatch = useDispatch();
 
     let {id} = useParams();
-    const {register, setValue, handleSubmit, reset} = useForm();
+    const {register, handleSubmit, reset, formState: { errors }} = useForm();
 
-    const user = useSelector(state => state.admins.users);
+    const user = useSelector(state => state.users.user);
     const {status, statusError} = useSelector(state => state.users);
     const schools = useSelector(state => state.schools);
 
@@ -126,7 +126,7 @@ const UserUsersPage = () => {
                                 placeholder={"Введите контактный телефон..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("phone")}
+                                {...register("phone", {value: user.phone})}
                             />
                             <FieldInput
                                 label={"Школа"}
@@ -136,7 +136,12 @@ const UserUsersPage = () => {
                                     value: "",
                                     disabled: false
                                 }}
-                                selectItems={schools.data.map(item => item.org_short_name).sort()}
+                                selectItems={schools.data.map(item => {
+                                    return {
+                                        title: item.org_short_name,
+                                        value: item.ID,
+                                    }
+                                }).sort()}
                                 fieldClassName={"--type-flex"}
                                 required={true}
                                 {...register("schoolID", {value: user.schoolID})}
@@ -150,7 +155,13 @@ const UserUsersPage = () => {
                                 placeholder={"Введите новый пароль..."}
                                 fieldClassName={"--type-flex"}
                                 autoComplete={"new-password"}
-                                {...register("password")}
+                                {...register("password", {
+                                    minLength: {
+                                        value: 6,
+                                        message: "Минимальная длина пароля 6 символов"
+                                    }
+                                })}
+                                errorText={errors?.password && errors.password.message}
                             />
                             <FieldInput
                                 label={"Активировать учетную запись?"}
@@ -285,7 +296,13 @@ const UserUsersPage = () => {
                             fieldClassName={"--type-flex"}
                             autoComplete={"new-password"}
                             required={true}
-                            {...register("password")}
+                            {...register("password", {
+                                minLength: {
+                                    value: 6,
+                                    message: "Минимальная длина пароля 6 символов"
+                                }
+                            })}
+                            errorText={errors?.password && errors.password.message}
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}
