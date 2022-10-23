@@ -8,9 +8,9 @@ import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
-import {fetchAddUser, fetchEditUser, fetchRemoveUser, loadUser} from "../../../store/admin/usersSlice";
-
 import no_photo_man from "../../../images/no_photo_man.png";
+
+import {fetchAddUser, fetchEditUser, fetchRemoveUser, loadUser} from "../../../store/admin/usersSlice";
 import {loadSchools} from "../../../store/admin/schoolsSlice";
 
 const UserUsersPage = () => {

@@ -30,6 +30,28 @@ const FieldInput = ({
 
         switch (type) {
 
+            case "textarea":
+                return <>
+                    {
+                        label
+                        &&
+                        <label
+                            className="field__label"
+                            htmlFor=""
+                        >
+                            {label}
+                        </label>
+                    }
+                    <textarea
+                        ref={ref}
+                        className={defaultClassName + className}
+                        placeholder={placeholder}
+                        required={required}
+                        {...rest}
+                    />
+                    <span className="field__icon --type-error"/>
+                </>
+
             case "password":
                 return <>
                     {
