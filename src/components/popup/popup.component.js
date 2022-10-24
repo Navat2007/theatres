@@ -42,6 +42,14 @@ const Popup = ({
 
     }, [notif.active, notif.state]);
 
+    const handleBackgroundClick = (event) => {
+
+        if(event.target === event.currentTarget){
+            onClose();
+        }
+
+    };
+
     if(notif.timerInSeconds > 0){
 
         setTimeout(() => {
@@ -57,7 +65,10 @@ const Popup = ({
 
     if (notif.active)
         return (
-            <div className={`popup --type-notification ${className} ${notifIcon}${opened ? " --opened" : ""}`}>
+            <div
+                className={`popup --type-notification ${className} ${notifIcon}${opened ? " --opened" : ""}`}
+                onClick={(e) => handleBackgroundClick(e)}
+            >
                 <div className="popup__container">
                     <button type='button' aria-label='Закрыть' className='popup__close' onClick={onClose}/>
                     <div className="popup__caption">
@@ -79,7 +90,10 @@ const Popup = ({
         );
 
     return (
-        <div className={`popup ${className}${opened ? " --opened" : ""}`}>
+        <div
+            className={`popup ${className}${opened ? " --opened" : ""}`}
+            onClick={(e) => handleBackgroundClick(e)}
+        >
             <div className="popup__container">
                 {
                     image.src !== "" && <img src={image.src} alt={image.alt} className={image.className}/>
