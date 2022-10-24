@@ -1,26 +1,26 @@
-import React, { Fragment } from 'react';
-import { useForm } from "react-hook-form";
+import React, {Fragment} from 'react';
+import {useForm} from "react-hook-form";
 import moment from "moment";
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 
 import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
 
-const SearchFilter = ({ config, onSubmit, items, children }) => {
+const SearchFilter = ({config, onSubmit, items, children}) => {
 
     const [opened, setOpened] = React.useState(false);
-    const { register, handleSubmit, reset } = useForm();
+    const {register, handleSubmit, reset} = useForm();
 
     const variants = {
         open: {
             opacity: 1,
             y: 0,
-            transition: { type: "spring", stiffness: 300, damping: 24 }
+            transition: {type: "spring", stiffness: 300, damping: 24}
         },
         closed: {
             opacity: 0,
             y: -20,
-            transition: { duration: 0.2 }
+            transition: {duration: 0.2}
         },
     }
 
@@ -52,17 +52,17 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
 
     }
 
-    const getFieldByType = ({ filter, type, key, header }) => {
+    const getFieldByType = ({filter, type, key, header}) => {
 
         if (!filter)
-            return <Fragment key={key} />;
+            return <Fragment key={key}/>;
 
         switch (filter) {
 
             case "number":
                 return <FieldInput
                     key={key}
-                    {...register(key, { setValueAs: v => v !== "" ? parseInt(v) : "" })}
+                    {...register(key, {setValueAs: v => v !== "" ? parseInt(v) : ""})}
                     defaultValue={""}
                     type={"number"}
                     label={header}
@@ -70,13 +70,13 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                 />;
 
             case "string":
-                return <FieldInput key={key} {...register(key)} label={header} placeholder={`${header}...`} />;
+                return <FieldInput key={key} {...register(key)} label={header} placeholder={`${header}...`}/>;
 
             case "date":
-                return <FieldInput key={key} {...register(key)} type={"date"} label={header} />;
+                return <FieldInput key={key} {...register(key)} type={"date"} label={header}/>;
 
             case "datetime":
-                return <FieldInput key={key} {...register(key)} type={"datetime-local"} label={header} />;
+                return <FieldInput key={key} {...register(key)} type={"datetime-local"} label={header}/>;
 
             case "select":
                 return <FieldInput
@@ -92,7 +92,7 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                 />;
 
             default:
-                return <FieldInput key={key} {...register(key)} label={header} />
+                return <FieldInput key={key} {...register(key)} label={header}/>
 
         }
 
@@ -116,41 +116,53 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                     />
                     {children}
                 </div>
+
                 <motion.div
                     // className={`search__accordion ${opened ? "--opened" : ""}`}
                     animate={opened ? "open" : "closed"}
                     variants={variants}
                 >
-                    <motion.div
-                        className="search__row"
-                        variants={{
-                            open: {
-                                opacity: 1,
-                                y: 0,
-                            },
-                            closed: {
-                                opacity: 0,
-                                y: -30,
-                                transition: { duration: 0.2 }
-                            },
-                        }}
-                    >
+                    <AnimatePresence>
                         {
-                            config.map(item => getFieldByType(item))
-                        }
-                        <motion.div className="search__controls">
-                            <Button text={"Найти"} />
-                            <Button
-                                text={"Очистить"}
-                                type={"button"}
-                                className={"button --theme-text"}
-                                onClick={() => {
-                                    reset();
-                                    onSubmit();
+                            opened
+                            &&
+                            <motion.div
+                                className="search__row"
+                                initial={{
+                                    height: 0,
+                                    opacity: 0,
+                                    y: -20,
                                 }}
-                            />
-                        </motion.div>
-                    </motion.div>
+                                animate={{
+                                    height: "auto",
+                                    opacity: 1,
+                                    y: 0,
+                                }}
+                                exit={{
+                                    height: 0,
+                                    opacity: 0,
+                                    y: -20,
+                                }}
+                            >
+                                {
+                                    config.map(item => getFieldByType(item))
+                                }
+                                <motion.div className="search__controls">
+                                    <Button text={"Найти"}/>
+                                    <Button
+                                        text={"Очистить"}
+                                        type={"button"}
+                                        className={"button --theme-text"}
+                                        onClick={() => {
+                                            reset();
+                                            onSubmit();
+                                        }}
+                                    />
+                                </motion.div>
+                            </motion.div>
+
+                        }
+                    </AnimatePresence>
                 </motion.div>
             </div>
         </form>
