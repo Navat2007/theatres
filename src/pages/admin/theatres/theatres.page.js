@@ -84,7 +84,7 @@ const TheatresPage = () => {
                     <Table
                         title={"Таблица театров"}
                         loading={theatres.status === "loading"}
-                        items={theatres.data.filter(item => item.active === 1)}
+                        items={theatres?.data?.filter(item => item.active === 1)}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
@@ -102,7 +102,7 @@ const TheatresPage = () => {
                     <Table
                         title={"Таблица архива театров"}
                         loading={theatres.status === "loading"}
-                        items={theatres.data.filter(item => item.active === 0)}
+                        items={theatres?.data?.filter(item => item.active === 0)}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
