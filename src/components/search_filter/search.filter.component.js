@@ -1,14 +1,28 @@
 import React, { Fragment } from 'react';
 import { useForm } from "react-hook-form";
+import moment from "moment";
+import {motion} from 'framer-motion';
 
 import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
-import moment from "moment";
 
 const SearchFilter = ({ config, onSubmit, items, children }) => {
 
     const [opened, setOpened] = React.useState(false);
     const { register, handleSubmit, reset } = useForm();
+
+    const variants = {
+        open: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 300, damping: 24 }
+        },
+        closed: {
+            opacity: 0,
+            y: -20,
+            transition: { duration: 0.2 }
+        },
+    }
 
     const getSortedUniqueItemsForSelect = (array, type) => {
 
@@ -102,12 +116,29 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                     />
                     {children}
                 </div>
-                <div className={`search__accordion ${opened ? "--opened" : ""}`}>
-                    <div className="search__row">
+                <motion.div
+                    // className={`search__accordion ${opened ? "--opened" : ""}`}
+                    animate={opened ? "open" : "closed"}
+                    variants={variants}
+                >
+                    <motion.div
+                        className="search__row"
+                        variants={{
+                            open: {
+                                opacity: 1,
+                                y: 0,
+                            },
+                            closed: {
+                                opacity: 0,
+                                y: -30,
+                                transition: { duration: 0.2 }
+                            },
+                        }}
+                    >
                         {
                             config.map(item => getFieldByType(item))
                         }
-                        <div className="search__controls">
+                        <motion.div className="search__controls">
                             <Button text={"Найти"} />
                             <Button
                                 text={"Очистить"}
@@ -118,9 +149,9 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                                     onSubmit();
                                 }}
                             />
-                        </div>
-                    </div>
-                </div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
             </div>
         </form>
     );
