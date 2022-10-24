@@ -118,7 +118,6 @@ const SearchFilter = ({config, onSubmit, items, children}) => {
                 </div>
 
                 <motion.div
-                    // className={`search__accordion ${opened ? "--opened" : ""}`}
                     animate={opened ? "open" : "closed"}
                     variants={variants}
                 >
@@ -137,11 +136,28 @@ const SearchFilter = ({config, onSubmit, items, children}) => {
                                     height: "auto",
                                     opacity: 1,
                                     y: 0,
+                                    transition: {
+                                        height: {
+                                            duration: 0.2,
+                                        },
+                                        opacity: {
+                                            duration: 0.25,
+                                            delay: 0.15,
+                                        },
+                                    },
                                 }}
                                 exit={{
                                     height: 0,
                                     opacity: 0,
                                     y: -20,
+                                    transition: {
+                                        height: {
+                                            duration: 0.4,
+                                        },
+                                        opacity: {
+                                            duration: 0.25,
+                                        },
+                                    },
                                 }}
                             >
                                 {
@@ -160,7 +176,6 @@ const SearchFilter = ({config, onSubmit, items, children}) => {
                                     />
                                 </motion.div>
                             </motion.div>
-
                         }
                     </AnimatePresence>
                 </motion.div>
