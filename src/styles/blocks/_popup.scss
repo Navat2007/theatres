@@ -79,8 +79,8 @@
 
     .popup__close {
       @include media(sm) {
-        top: 1em;
-        right: 1em;
+        top: 1rem;
+        right: 1rem;
         font-size: 1.5em;
         color: var(--darkLow);
       }
@@ -171,8 +171,8 @@
   &__close {
     @extend %reset-btn;
     position: absolute;
-    top: -2.5em;
-    right: -2.5em;
+    top: -2.5rem;
+    right: -2.5rem;
     color: var(--light);
     font-size: 2.5em;
 

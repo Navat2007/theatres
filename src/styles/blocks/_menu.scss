@@ -7,7 +7,6 @@
 
   &__container {
     width: 15em;
-    transition: width .25s ease-in;
 
     display: flex;
     flex-direction: column;
@@ -59,8 +58,7 @@
     padding: .5em .875em;
     cursor: pointer;
     border-radius: 25px 0 0 25px;
-    transition: .25s ease-in-out;
-    transition-property: color;
+    transition: color .25s ease-in-out;
 
     position: relative; 
     z-index: 1;
@@ -104,14 +102,12 @@
   &__icon {
     @include box(1.875em);
     background-color: var(--white);
-    transition: .25s ease-in-out;
-    transition-property: background-color;
+    transition: background-color .25s ease-in-out;
   } 
 
   &__text {
     margin: 0;
     flex: auto;
-    transition: max-width .25s ease-in-out;
   }
 
   &__button {
