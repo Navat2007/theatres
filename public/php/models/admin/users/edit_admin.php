@@ -53,7 +53,7 @@ if($admin_row->email != $email){
 
 }
 
-if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 1519)){
+if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 3)){
     $error = 1;
     $error_text = "Данного администратора нельзя редактировать!";
 }

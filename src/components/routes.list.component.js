@@ -19,6 +19,11 @@ import SchoolPage from "../pages/admin/schools/school.page";
 import TheatreRequestsPage from "../pages/admin/theatreRequests/theatreRequests.page";
 import TheatreRequestPage from "../pages/admin/theatreRequests/theatreRequest.page";
 
+import MyTheatresPage from "../pages/user/theatres/my.theatres.page";
+import MyTheatrePage from "../pages/user/theatres/my.theatre.page";
+import MyTheatreRequestsPage from "../pages/user/theatreRequests/my.theatreRequests.page";
+import MyTheatreRequestPage from "../pages/user/theatreRequests/my.theatreRequest.page";
+
 const RoutesList = () => {
 
     const {user} = useSelector(state => state.auth);
@@ -71,10 +76,21 @@ const RoutesList = () => {
             <Routes>
                 <Route path="/user" element={<UserLayout/>}>
                     <Route path="my_school" index element={<MySchoolPage/>}/>
+                    <Route path="theatres">
+                        <Route index element={<MyTheatresPage/>}/>
+                        <Route path=":id" element={<MyTheatrePage/>}/>
+                        <Route path="new" element={<MyTheatrePage/>}/>
+                    </Route>
+                    <Route path="theatreRequests">
+                        <Route index element={<MyTheatreRequestsPage/>}/>
+                        <Route path=":id" element={<MyTheatreRequestPage/>}/>
+                        <Route path="new" element={<MyTheatreRequestPage/>}/>
+                    </Route>
                 </Route>
                 <Route path="/profile" exact={true} element={<UserLayout/>}>
                     <Route index element={<ProfilePage/>}/>
                 </Route>
+
                 <Route path="/login" exact={true} element={<Navigate to="/user/my_school"/>}/>
                 <Route path="/" exact={true} element={<Navigate to="/user/my_school"/>}/>
                 <Route path="*" element={<Page404/>}/>

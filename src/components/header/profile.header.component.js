@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../simple/button/button.component";
+import Popup from "../popup/popup.component";
 
 import no_photo_man from '../../images/no_photo_man.png';
+
 import { logout } from "../../store/authSlice";
-import Popup from "../popup/popup.component";
 
 const ProfileHeader = ({ className }) => {
 
@@ -27,7 +28,7 @@ const ProfileHeader = ({ className }) => {
                 setUserRole("Администратор");
                 break;
             case "user":
-                setUserRole("Представитель школы");
+                setUserRole("Пользователь");
                 break;
             default:
                 setUserRole("");
@@ -38,12 +39,13 @@ const ProfileHeader = ({ className }) => {
 
     return (
         <div className={`profile ${className}`}>
-            <div className='profile__content' onClick={() => {
-                navigate("/profile")
-            }}>
+            <div
+                className='profile__content'
+                onClick={() => { navigate("/profile") }}
+            >
                 <img className="profile__img"
                     src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt="Фото профиля" />
-                <p className="profile__title">{user?.email}</p>
+                <p className="profile__title">{user.login ? user.login : user.email}</p>
                 <p className="profile__subtitle">{userRole}</p>
             </div>
             <Button
@@ -52,8 +54,7 @@ const ProfileHeader = ({ className }) => {
                 text={""}
                 aria-label="Выйти из профиля"
                 onClick={() => setPopupOpened(true)}
-            >
-            </Button>
+            />
             <Popup
                 title={"Вы действительно хотите выйти?"}
                 notif={{

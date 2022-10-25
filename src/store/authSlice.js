@@ -10,7 +10,7 @@ export const loadUserData = createAsyncThunk('auth/loadUserData', async (params)
     }
 
     const {data} = await axios.post(window.global.baseUrl + 'php/models/login/check.php', form);
-
+    console.log(data);
     return data;
 });
 

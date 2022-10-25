@@ -10,6 +10,9 @@ const ProfilePage = () => {
 
     const formatPhone = (value) => {
 
+        if(value === "")
+            return "";
+
         let tmpPhone = value.trim()
             .replaceAll(' ', '')
             .replaceAll('(', '')
@@ -66,7 +69,7 @@ const ProfilePage = () => {
                     <h2 className="profile-card__title">{user?.fio}</h2>
                     <ul className="profile-card__table">
                         <li>
-                            <h3 className='profile-card__text'>{user?.email}</h3>
+                            <h3 className='profile-card__text'>{user.email ? user.email : user.login}</h3>
                             <p className='profile-card__description'>E-mail (логин)</p>
                         </li>
                         <li>
