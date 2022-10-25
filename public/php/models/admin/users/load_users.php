@@ -18,7 +18,7 @@ $sql = "SELECT
              accounts as account
         LEFT JOIN schools as s on s.ID = account.schoolID
         WHERE 
-              account.archive = '0' AND account.role = 'school'";
+              account.archive = '0' AND account.role = 'user'";
 $result = mysqli_query($conn, $sql);
 $sqls[] = $sql;
 

@@ -140,9 +140,9 @@ const UsersPage = () => {
                         />
                     </Table>
                 </Tab>
-                <Tab index={2} title={"Представители школ"}>
+                <Tab index={2} title={"Пользователи"}>
                     <Table
-                        title={"Таблица представителей"}
+                        title={"Таблица пользователей"}
                         loading={users.status === "loading"}
                         items={users.data}
                         itemsConfig={userItemsConfig}
@@ -154,7 +154,7 @@ const UsersPage = () => {
                             className="button --icon-add --size-sm --icon-on-before --theme-primary"
                             type="button"
                             text="Создать"
-                            aria-label="Создать представителя школы"
+                            aria-label="Создать пользователя"
                             onClick={() => navigate("/admin/users/user/new")}
                         />
                     </Table>
