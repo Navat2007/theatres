@@ -80,6 +80,13 @@ const UsersPage = () => {
             sorting: true,
         },
         {
+            header: "Логин",
+            key: "login",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
             header: "Email",
             key: "email",
             type: "string",
