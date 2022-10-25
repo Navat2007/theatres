@@ -36,18 +36,6 @@
       @extend %icon-on-before;
     }
 
-    &.--variant-icon {
-      justify-content: center;
-      min-width: 2.5em;
-      max-width: 2.5em;
-      @include box(2.5em);
-  
-      min-height: unset;
-      padding: .5em;
-      border-radius: 50%;
-      gap: 0;
-    }
-
     &.--icon-add::before {
       content: "\F0415";
     }
@@ -61,7 +49,17 @@
     }
   }
 
+  &.--variant-icon {
+    justify-content: center;
+    min-width: 2.5em;
+    max-width: 2.5em;
+    @include box(2.5em);
 
+    min-height: unset;
+    padding: .5em;
+    border-radius: 50%;
+    gap: 0;
+  }
 
   &.--size-sm {
     font-size: .875em;

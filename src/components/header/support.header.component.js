@@ -10,7 +10,7 @@ const SupportHeaderComponent = () => {
     return (
         <>
             <Button
-                className="support"
+                className="--theme-outline --icon-on-before --variant-icon mdi mdi-help header__item --type-support"
                 aria-label="Задать вопрос"
                 onClick={() => setPopupOpened(true)}
             >

@@ -9,7 +9,7 @@ const UserLayout = () => {
     const menu = [
         {
             title: "Моя школа",
-            icon: "",
+            icon: "--type-my-school",
             link: "/user/my_school"
         },
         {
