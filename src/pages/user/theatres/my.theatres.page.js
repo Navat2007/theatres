@@ -13,7 +13,6 @@ const MyTheatresPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const theatres = useSelector(state => state.theatres);
 
     const onItemClick = (props) => {

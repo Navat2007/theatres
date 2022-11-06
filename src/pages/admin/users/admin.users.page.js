@@ -99,7 +99,6 @@ const AdminUsersPage = () => {
                                 label={"Логин"}
                                 placeholder={"Введите логин..."}
                                 fieldClassName={"--type-flex"}
-                                required={true}
                                 {...register("login", {value: admin.login})}
                             />
                             <FieldInput

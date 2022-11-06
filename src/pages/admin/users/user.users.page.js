@@ -103,7 +103,6 @@ const UserUsersPage = () => {
                                 label={"Логин"}
                                 placeholder={"Введите логин..."}
                                 fieldClassName={"--type-flex"}
-                                required={true}
                                 {...register("login", {value: user.login})}
                             />
                             <FieldInput
