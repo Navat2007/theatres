@@ -44,7 +44,7 @@ const Popup = ({
 
     const handleBackgroundClick = (event) => {
 
-        if(event.target === event.currentTarget){
+        if(event.target === event.currentTarget && onClose){
             onClose();
         }
 
