@@ -28,6 +28,11 @@ const AdminLayout = () => {
             icon: "--type-requests",
             link: "/admin/theatreRequests"
         },
+        {
+            title: "Педагоги",
+            icon: "--type-users",
+            link: "/admin/teachers"
+        },
         // {
         //     title: "Настройки",
         //     icon: "--type-settings",

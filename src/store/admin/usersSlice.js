@@ -35,6 +35,7 @@ export const fetchAddUser = createAsyncThunk('users/addUser', async (params) => 
     }
 
     const data = await axios.post(window.global.baseUrl + 'php/models/admin/users/add_user.php', form);
+    console.log("fetchAddUser", data);
     return data.data;
 
 });

@@ -41,6 +41,11 @@ const authSlice = createSlice({
             state.status = 'idle';
             state.user = null;
         },
+        changePhoto(state, action) {
+            //state.statusText = '';
+            //state.status = 'done';
+            //state.user = action.payload;
+        },
     },
     extraReducers: {
         [loadUserData.pending]: (state) => {

@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {fetchEditUser, loadUser} from "./usersSlice";
 
 export const loadSchools = createAsyncThunk('schools/loadSchools', async (params) => {
 

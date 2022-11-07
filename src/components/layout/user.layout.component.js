@@ -22,6 +22,11 @@ const UserLayout = () => {
             icon: "--type-requests",
             link: "/user/theatreRequests"
         },
+        {
+            title: "Педагоги",
+            icon: "--type-users",
+            link: "/user/teachers"
+        },
     ];
 
     return (

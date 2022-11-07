@@ -18,11 +18,15 @@ import SchoolsPage from "../pages/admin/schools/schools.page";
 import SchoolPage from "../pages/admin/schools/school.page";
 import TheatreRequestsPage from "../pages/admin/theatreRequests/theatreRequests.page";
 import TheatreRequestPage from "../pages/admin/theatreRequests/theatreRequest.page";
+import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
+import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 
 import MyTheatresPage from "../pages/user/theatres/my.theatres.page";
 import MyTheatrePage from "../pages/user/theatres/my.theatre.page";
 import MyTheatreRequestsPage from "../pages/user/theatreRequests/my.theatreRequests.page";
 import MyTheatreRequestPage from "../pages/user/theatreRequests/my.theatreRequest.page";
+import UserTeachersPage from "../pages/user/teachers/teachers.page";
+import UserTeacherPage from "../pages/user/teachers/teacher.page";
 
 const RoutesList = () => {
 
@@ -58,6 +62,11 @@ const RoutesList = () => {
                         <Route path=":id" element={<TheatreRequestPage/>}/>
                         <Route path="new" element={<TheatreRequestPage/>}/>
                     </Route>
+                    <Route path="teachers">
+                        <Route index element={<AdminTeachersPage/>}/>
+                        <Route path=":id" element={<AdminTeacherPage/>}/>
+                        <Route path="new" element={<AdminTeacherPage/>}/>
+                    </Route>
                 </Route>
                 <Route path="/profile" exact={true} element={<AdminLayout/>}>
                     <Route index element={<ProfilePage/>}/>
@@ -85,6 +94,11 @@ const RoutesList = () => {
                         <Route index element={<MyTheatreRequestsPage/>}/>
                         <Route path=":id" element={<MyTheatreRequestPage/>}/>
                         <Route path="new" element={<MyTheatreRequestPage/>}/>
+                    </Route>
+                    <Route path="teachers">
+                        <Route index element={<UserTeachersPage/>}/>
+                        <Route path=":id" element={<UserTeacherPage/>}/>
+                        <Route path="new" element={<UserTeacherPage/>}/>
                     </Route>
                 </Route>
                 <Route path="/profile" exact={true} element={<UserLayout/>}>
