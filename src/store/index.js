@@ -4,17 +4,19 @@ import authSlice from "./authSlice";
 
 import adminReducer from './admin/adminsSlice';
 import userReducer from './admin/usersSlice';
-import schoolsSlice from "./admin/schoolsSlice";
-import theatresSlice from "./admin/theatresSlice";
-import theatreRequestsSlice from "./admin/theatreRequestsSlice";
+import schoolsReducer from "./admin/schoolsSlice";
+import theatresReducer from "./admin/theatresSlice";
+import theatreRequestsReducer from "./admin/theatreRequestsSlice";
+import teachersReducer from "./admin/teachersSlice";
 
 export default configureStore({
     reducer: {
         auth: authSlice,
         admins: adminReducer,
         users: userReducer,
-        schools: schoolsSlice,
-        theatres: theatresSlice,
-        theatreRequests: theatreRequestsSlice,
+        schools: schoolsReducer,
+        theatres: theatresReducer,
+        theatreRequests: theatreRequestsReducer,
+        teachers: teachersReducer,
     }
 });
