@@ -33,10 +33,16 @@ if($error === 0){
 
     $sql = "INSERT INTO teachers (f, i, o, position, text, experience, schoolID, active) VALUES ('$f', '$i', '$o', '$position', '$text', '$experience', '$schoolID', '$active')";
     $sqls[] = $sql;
-    mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
 
-    $log->add($conn, $authorization[1], 'Добавлен педагог #' . $lastID . ' в школу ID: ' . $schoolID);
+    if(!$result){
+        $error = 1;
+        $error_text = mysqli_error($conn);
+    }
+    else{
+        $log->add($conn, $authorization[1], 'Добавлен педагог #' . $lastID . ' в школу ID: ' . $schoolID);
+    }
 
 }
 

@@ -16,8 +16,8 @@ const TeacherPage = () => {
     let { id } = useParams();
     const {register, handleSubmit, reset, formState: { errors }} = useForm();
 
+    const user = useSelector(state => state.auth.user);
     const {teacher, status, statusError} = useSelector(state => state.teachers);
-    const school = useSelector(state => state.schools);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -40,6 +40,7 @@ const TeacherPage = () => {
 
     const onAddSubmit = (params) => {
 
+        params.schoolID = user.schoolID;
         dispatch(fetchAddTeacher(params));
 
     }
@@ -60,7 +61,7 @@ const TeacherPage = () => {
     if (status === "sendingDone")
         return <Navigate to={"/user/teachers"}/>
 
-    if (status === "loading" || school.status === "loading")
+    if (status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (id && teacher === null)
@@ -94,8 +95,6 @@ const TeacherPage = () => {
                             </div>
                             <FieldInput
                                 label={"Фамилия"}
-                                type={"textarea"}
-                                rows={5}
                                 placeholder={"Введите фамилию..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
@@ -132,29 +131,11 @@ const TeacherPage = () => {
                             <FieldInput
                                 label={"Описание"}
                                 type={"textarea"}
-                                rows={3}
+                                rows={5}
                                 placeholder={"Введите описание..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
                                 {...register("text", {value: teacher.text})}
-                            />
-                            <FieldInput
-                                label={"Школа"}
-                                type={"select"}
-                                defaultSelectItem={{
-                                    title: "Выберите школу",
-                                    value: "",
-                                    disabled: false
-                                }}
-                                selectItems={school.data.map(item => {
-                                    return {
-                                        title: item.org_short_name,
-                                        value: item.ID,
-                                    }
-                                }).sort()}
-                                fieldClassName={"--type-flex"}
-                                required={true}
-                                {...register("schoolID", {value: teacher.schoolID})}
                             />
                         </fieldset>
                         <div className="form__controls">
@@ -226,11 +207,14 @@ const TeacherPage = () => {
                 <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
                     <fieldset className='form__section --content-info'>
                         <h2 className="form__title">Основная информация</h2>
-                        <div className="profile --place-edit-profile">
-                            <p className='profile__text'>Фото</p>
-                            <img className='profile__img'
-                                 alt={""}/>
-                        </div>
+                        <FieldInput
+                            label={"Фото"}
+                            type="file"
+                            placeholder={"Выберите фото..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("photo")}
+                        />
                         <FieldInput
                             label={"Фамилия"}
                             placeholder={"Введите фамилию..."}
@@ -274,24 +258,6 @@ const TeacherPage = () => {
                             fieldClassName={"--type-flex"}
                             required={true}
                             {...register("text")}
-                        />
-                        <FieldInput
-                            label={"Школа"}
-                            type={"select"}
-                            defaultSelectItem={{
-                                title: "Выберите школу",
-                                value: "",
-                                disabled: false
-                            }}
-                            selectItems={school.data.map(item => {
-                                return {
-                                    title: item.org_short_name,
-                                    value: item.ID,
-                                }
-                            }).sort()}
-                            fieldClassName={"--type-flex"}
-                            required={true}
-                            {...register("schoolID")}
                         />
                     </fieldset>
                     <div className="form__controls">

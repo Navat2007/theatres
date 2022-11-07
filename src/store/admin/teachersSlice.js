@@ -86,7 +86,9 @@ const teachersSlice = createSlice({
         },
         [loadTeacher.fulfilled]: (state, action) => {
             state.status = 'done';
-            state.teacher = action.payload.params;
+
+            if(action.payload.params.length > 0)
+                state.teacher = action.payload.params[0];
         },
         [loadTeacher.rejected]: (state) => {
             state.status = 'error';
@@ -97,6 +99,8 @@ const teachersSlice = createSlice({
             state.status = 'sending';
         },
         [fetchAddTeacher.fulfilled]: (state, action) => {
+
+            console.log(action.payload);
 
             if(action.payload.error === 1){
                 state.status = 'sendingError';
