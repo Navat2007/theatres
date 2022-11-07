@@ -19,8 +19,13 @@ $sql = "SELECT
         WHERE 
             t.archive = '0'";
 
-if(!empty($_POST['ID'])){
-    $ID = $_POST['ID'];
+if(!empty($_POST['schoolID'])){
+    $schoolID = $_POST['schoolID'];
+    $sql .= " AND t.schoolID = '$schoolID'";
+}
+
+if(!empty($_POST['id'])){
+    $ID = $_POST['id'];
     $sql .= " AND t.ID = '$ID'";
 }
 

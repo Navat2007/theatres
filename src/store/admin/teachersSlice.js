@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {fetchAddUser} from "./usersSlice";
 
 export const loadTeachers = createAsyncThunk('teachers/loadTeachers', async (params) => {
 
@@ -9,7 +10,7 @@ export const loadTeachers = createAsyncThunk('teachers/loadTeachers', async (par
         form.append(key, params[key]);
     }
 
-    const { data } = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php');
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php', form);
     return data;
 });
 
@@ -21,7 +22,20 @@ export const loadTeacher = createAsyncThunk('teachers/loadTeacher', async (param
         form.append(key, params[key]);
     }
 
-    const data = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php', form);
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php', form);
+    return data;
+
+});
+
+export const fetchAddTeacher = createAsyncThunk('teachers/addTeacher', async (params) => {
+
+    let form = new FormData();
+
+    for (let key in params) {
+        form.append(key, params[key]);
+    }
+
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/add.php', form);
     return data;
 
 });
@@ -34,8 +48,8 @@ export const fetchEditTeacher = createAsyncThunk('teachers/editTeacher', async (
         form.append(key, params[key]);
     }
 
-    const data = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/edit.php', form);
-    return data.data;
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/edit.php', form);
+    return data;
 
 });
 
@@ -48,8 +62,7 @@ const teachersSlice = createSlice({
         status: '',
         statusError: '',
     },
-    reducers: {
-    },
+    reducers: {},
     extraReducers: {
         [loadTeachers.pending]: (state) => {
             state.status = 'loading';
@@ -79,6 +92,28 @@ const teachersSlice = createSlice({
             state.status = 'error';
             state.teacher = null;
         },
+        // ADD
+        [fetchAddTeacher.pending]: (state) => {
+            state.status = 'sending';
+        },
+        [fetchAddTeacher.fulfilled]: (state, action) => {
+
+            if(action.payload.error === 1){
+                state.status = 'sendingError';
+                state.statusError = action.payload.params.error_text;
+            }
+
+            if(action.payload.error === 0){
+                state.status = 'sendingDone';
+                state.statusError = "";
+                state.teacher = null;
+            }
+
+        },
+        [fetchAddTeacher.rejected]: (state) => {
+            state.status = 'sendingError';
+            state.statusError = 'Ошибка при отправке на сервер.';
+        },
         // EDIT
         [fetchEditTeacher.pending]: (state) => {
             state.status = 'sending';
@@ -87,12 +122,12 @@ const teachersSlice = createSlice({
 
             console.log(action.payload);
 
-            if(action.payload.error === 1){
+            if (action.payload.error === 1) {
                 state.status = 'sendingError';
                 state.statusError = action.payload.error_text;
             }
 
-            if(action.payload.error === 0){
+            if (action.payload.error === 0) {
                 state.status = 'sendingDone';
                 state.statusError = "";
                 state.teacher = null;
