@@ -29,6 +29,7 @@ const Button = ({
                 setSizeClass("");
                 break;
         }
+
         switch (theme) {
             case "dark":
                 setThemeClass("--theme-dark");
@@ -37,7 +38,6 @@ const Button = ({
                 setThemeClass("--theme-primary");
                 break;
         }
-
 
     }, [size, theme]);
 
