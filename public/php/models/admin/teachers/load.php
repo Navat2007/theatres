@@ -10,14 +10,25 @@ $error_text = "";
 $sqls = array();
 $params = array();
 
-$sql = "SELECT * FROM teachers WHERE archive = '0'";
+$sql = "SELECT 
+            *.t, s.org_short_name 
+        FROM 
+            teachers as t 
+        LEFT JOIN 
+            schools as s on s.ID = t.schoolID 
+        WHERE 
+            t.archive = '0'";
+
+if(!empty($_POST['ID'])){
+    $ID = $_POST['ID'];
+    $sql .= " AND t.ID = '$ID'";
+}
+
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
-if(mysqli_num_rows($result) > 0)
-{
-    while ($row = mysqli_fetch_object($result))
-    {
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_object($result)) {
 
         $types = (object)[
 

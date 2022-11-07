@@ -31,8 +31,8 @@ const Button = ({
         }
 
         switch (theme) {
-            case "dark":
-                setThemeClass("--theme-dark");
+            case "text":
+                setThemeClass("--theme-text");
                 break;
             default:
                 setThemeClass("--theme-primary");

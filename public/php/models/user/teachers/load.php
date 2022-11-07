@@ -10,16 +10,30 @@ $error_text = "";
 $sqls = array();
 $params = array();
 
-$schoolID = htmlspecialchars($_POST["schoolID"]);
+$sql = "SELECT 
+            *.t, s.org_short_name 
+        FROM 
+            teachers as t 
+        LEFT JOIN 
+            schools as s on s.ID = t.schoolID 
+        WHERE 
+            t.archive = '0'";
 
-$sql = "SELECT * FROM teachers WHERE schoolID = '$schoolID' AND archive = '0'";
+if(!empty($_POST['schoolID'])){
+    $schoolID = $_POST['schoolID'];
+    $sql .= " AND t.schoolID = '$schoolID'";
+}
+
+if(!empty($_POST['ID'])){
+    $ID = $_POST['ID'];
+    $sql .= " AND t.ID = '$ID'";
+}
+
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
-if(mysqli_num_rows($result) > 0)
-{
-    while ($row = mysqli_fetch_object($result))
-    {
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_object($result)) {
 
         $types = (object)[
 
@@ -29,6 +43,7 @@ if(mysqli_num_rows($result) > 0)
             'i' => $row->i,
             'o' => $row->o,
             'position' => $row->position,
+            'schoolID' => (int)$row->schoolID,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
 
         ];

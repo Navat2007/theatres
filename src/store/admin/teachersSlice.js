@@ -10,7 +10,7 @@ export const loadTeachers = createAsyncThunk('teachers/loadTeachers', async (par
     }
 
     const { data } = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php');
-    return data.params;
+    return data;
 });
 
 export const loadTeacher = createAsyncThunk('teachers/loadTeacher', async (params) => {
@@ -22,7 +22,7 @@ export const loadTeacher = createAsyncThunk('teachers/loadTeacher', async (param
     }
 
     const data = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php', form);
-    return data.data.params;
+    return data;
 
 });
 
@@ -56,8 +56,11 @@ const teachersSlice = createSlice({
             state.data = [];
         },
         [loadTeachers.fulfilled]: (state, action) => {
+
+            console.log(action);
+
             state.status = 'done';
-            state.data = action.payload;
+            state.data = action.payload.params;
         },
         [loadTeachers.rejected]: (state) => {
             state.status = 'error';
@@ -70,7 +73,7 @@ const teachersSlice = createSlice({
         },
         [loadTeacher.fulfilled]: (state, action) => {
             state.status = 'done';
-            state.teacher = action.payload;
+            state.teacher = action.payload.params;
         },
         [loadTeacher.rejected]: (state) => {
             state.status = 'error';
