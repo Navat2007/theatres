@@ -1,16 +1,18 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import no_photo_man from '../images/no_photo_man.png';
+import {editProfilePhoto} from "../store/authSlice";
 
 const ProfilePage = () => {
 
-    const { user } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const {user} = useSelector(state => state.auth);
     const [phone, setPhone] = React.useState();
 
     const formatPhone = (value) => {
 
-        if(value === "")
+        if (value === "")
             return "";
 
         let tmpPhone = value.trim()
@@ -33,7 +35,7 @@ const ProfilePage = () => {
 
     }
 
-    const handlePhotoChange = (e) => {
+    const handlePhotoChange = async (e) => {
         if (e.target.files.length > 0) {
 
             let file = e.target.files[0];
@@ -41,7 +43,7 @@ const ProfilePage = () => {
             console.log(file);
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-
+                    dispatch(editProfilePhoto());
                 }
             }
 
@@ -60,10 +62,11 @@ const ProfilePage = () => {
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
-                        src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt={user?.fio} />
+                         src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt={user?.fio}/>
                     <label className='profile-card__img-label' htmlFor="img-profile"><span className='mdi mdi-refresh'
-                        aria-label='Обновить фото' /></label>
-                    <input className='profile-card__img-input' id={"img-profile"} type="file" onChange={handlePhotoChange} />
+                                                                                           aria-label='Обновить фото'/></label>
+                    <input className='profile-card__img-input' id={"img-profile"} type="file"
+                           onChange={handlePhotoChange}/>
                 </div>
                 <div className="profile-card__info-block">
                     <h2 className="profile-card__title">{user?.fio}</h2>
@@ -84,9 +87,9 @@ const ProfilePage = () => {
                         &&
                         <li>
                             <a href={`tel:${phone}`}
-                                className='profile-card__item link --type-icon --icon-phone'
-                                rel='noreferrer nofollow noopener'
-                                target='_blank'
+                               className='profile-card__item link --type-icon --icon-phone'
+                               rel='noreferrer nofollow noopener'
+                               target='_blank'
                             >
                                 {phone}
                             </a>

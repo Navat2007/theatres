@@ -14,6 +14,26 @@ export const loadUserData = createAsyncThunk('auth/loadUserData', async (params)
     return data;
 });
 
+export const editProfilePhoto = createAsyncThunk('profile/editPhoto', async (params) => {
+
+    let form = new FormData();
+
+    for (let key in params) {
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
+    }
+
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/profile/change_photo.php', form);
+    return data;
+
+});
+
 const authSlice = createSlice({
 
     name: 'auth',
