@@ -1,8 +1,8 @@
 import React from 'react';
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form";
+import {Helmet} from "react-helmet";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -15,81 +15,85 @@ import {
     fetchRemoveTeacher,
     loadTeacher
 } from "../../../store/admin/teachersSlice";
-import { loadSchools } from "../../../store/admin/schoolsSlice";
+import {loadSchools} from "../../../store/admin/schoolsSlice";
+import {useUnload} from "../../../hook/useUnload";
 
 const TeacherPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let { id } = useParams();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {register, handleSubmit, reset, setValue} = useForm();
 
-    const { teacher, status, statusError } = useSelector(state => state.teachers);
+    const {teacher, teacherStatus, statusError} = useSelector(state => state.teachers);
     const schools = useSelector(state => state.schools);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
-    React.useEffect(() => {
+    const fetchData = async () => {
+
+        await dispatch(loadSchools());
 
         if (id) {
             reset();
-            dispatch(loadTeacher({ id }));
-            dispatch(loadSchools());
+            await dispatch(loadTeacher({id}));
         }
-        else
-            dispatch(loadSchools());
 
-    }, [id, dispatch]);
+    }
 
     React.useEffect(() => {
 
-        if (status === "sendingError")
+        fetchData();
+
+        return () => {
+            dispatch(clear());
+        };
+
+    }, []);
+
+    React.useEffect(() => {
+
+        if (teacherStatus === "sendingError")
             setPopupErrorOpened(true);
 
-    }, [status]);
+    }, [teacherStatus]);
 
-    console.log(teacher);
+    const onClose = async () => {
 
-    const onClose = () => {
-
-        dispatch(clear());
         navigate("/admin/teachers");
 
     }
 
-    const onAddSubmit = (params) => {
+    const onAddSubmit = async (params) => {
 
-        dispatch(fetchAddTeacher(params));
+        await dispatch(fetchAddTeacher(params));
+        onClose();
 
     }
 
-    const onEditSubmit = (params) => {
+    const onEditSubmit = async (params) => {
 
         params.id = id;
-        dispatch(fetchEditTeacher(params));
+        await dispatch(fetchEditTeacher(params));
+        onClose();
 
     }
 
-    const onDeleteSubmit = () => {
+    const onDeleteSubmit = async () => {
 
-        dispatch(fetchRemoveTeacher({ id }));
+        await dispatch(fetchRemoveTeacher({id}));
+        onClose();
 
     }
 
-    if (status === "sendingDone")
-        return <Navigate to={"/user/teachers"} />
-
-    if (status === "loading")
+    if (teacherStatus === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (id && teacher === null)
+    if (id && teacherStatus === "done" && teacher === null)
         return <div className='content__section'><p>Данного педагога не существует</p></div>;
 
     if (id && teacher)
-<<<<<<< HEAD
-        return (<>
-=======
         return (
             <>
                 <Helmet>
@@ -113,7 +117,7 @@ const TeacherPage = () => {
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
                                      src={window.global.baseUrl + teacher.photo}
-                                     alt={""}/>
+                                     alt={"Фото педагога"}/>
                             </div>
                             <FieldInput
                                 label={"Новое фото"}
@@ -170,7 +174,7 @@ const TeacherPage = () => {
                                 label={"Школа"}
                                 type={"select"}
                                 defaultSelectItem={{
-                                    title: "Выберите школу",
+                                    title: "Выберите школу...",
                                     value: "",
                                     disabled: false
                                 }}
@@ -195,11 +199,11 @@ const TeacherPage = () => {
                             />
                         </fieldset>
                         <div className="form__controls">
-                            <Button type="submit" text="Сохранить" spinnerActive={status === "sending"}/>
+                            <Button type="submit" text="Сохранить" spinnerActive={teacherStatus === "sending"}/>
                             <Button
                                 theme="text"
-                                extraClass={`--icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
-                                spinnerActive={status === "removing"}
+                                extraClass={`--icon-on-before --icon-trash ${teacherStatus === "sending" ? "--hide" : ""}`}
+                                spinnerActive={teacherStatus === "removing"}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -248,36 +252,27 @@ const TeacherPage = () => {
 
     return (
         <>
->>>>>>> 09ca0db736a82f45326681e75099366fac11a1fa
             <Helmet>
-                <title>Редактирование педагога ID: {id}</title>
+                <title>Создание педагога</title>
             </Helmet>
             <div className='content__section'>
                 <div className="content__title-block">
                     <Button
-                        type='button'
-                        theme='text'
-                        size='small'
-                        isIconBtn={true}
-                        iconClass='mdi mdi-arrow-left'
+                        extraClass="--icon-back --icon-on-before --variant-icon"
+                        theme="text"
+                        type="button"
                         aria-label="Назад"
                         onClick={onClose}
                     />
-                    <h1 className="content__title">Редактирование педагога ID: {id}</h1>
+                    <h1 className="content__title">Создание пользователя</h1>
                 </div>
-                <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
+                <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
                     <fieldset className='form__section --content-info'>
                         <h2 className="form__title">Основная информация</h2>
-                        <div className="profile --place-edit-profile">
-                            <p className='profile__text'>Фото</p>
-                            <img className='profile__img'
-                                src={window.global.baseUrl + teacher.photo}
-                                alt={""} />
-                        </div>
                         <FieldInput
-                            label={"Новое фото"}
+                            label={"Фото"}
                             type="file"
-                            placeholder={"Выберите фото для замены..."}
+                            placeholder={"Выберите фото..."}
                             fieldClassName={"--type-flex"}
                             {...register("photo")}
                         />
@@ -286,35 +281,35 @@ const TeacherPage = () => {
                             placeholder={"Введите фамилию..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("f", { value: teacher.f })}
+                            {...register("f")}
                         />
                         <FieldInput
                             label={"Имя"}
                             placeholder={"Введите имя..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("i", { value: teacher.i })}
+                            {...register("i")}
                         />
                         <FieldInput
                             label={"Отчество"}
                             placeholder={"Введите отчество..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("o", { value: teacher.o })}
+                            {...register("o")}
                         />
                         <FieldInput
                             label={"Должность"}
                             placeholder={"Введите должность..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("position", { value: teacher.position })}
+                            {...register("position")}
                         />
                         <FieldInput
                             label={"Педагогический стаж"}
                             placeholder={"Введите педагогический стаж..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("experience", { value: teacher.experience })}
+                            {...register("experience")}
                         />
                         <FieldInput
                             label={"Описание"}
@@ -323,7 +318,7 @@ const TeacherPage = () => {
                             placeholder={"Введите описание..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("text", { value: teacher.text })}
+                            {...register("text")}
                         />
                         <FieldInput
                             label={"Школа"}
@@ -341,7 +336,7 @@ const TeacherPage = () => {
                             }).sort()}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("schoolID", { value: teacher.schoolID })}
+                            {...register("schoolID")}
                         />
                     </fieldset>
                     <fieldset className='form__section --content-security'>
@@ -350,57 +345,13 @@ const TeacherPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"radio"}
                             fieldClassName={"--type-checkbox-radio"}
-                            {...register("active", { value: teacher.active === "Активен" })}
+                            {...register("active", {value: true})}
                         />
                     </fieldset>
                     <div className="form__controls">
-<<<<<<< HEAD
-                        <Button
-                            type='submit'
-                            text="Сохранить"
-                            spinnerActive={status === "sending"} />
-                        <Button
-                            type='button'
-                            theme="text"
-                            iconClass={'mdi mdi-delete'}
-                            extraClass={`${status === "sending" ? "--hide" : ""}`}
-                            spinnerActive={status === "removing"}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setPopupOpened(true);
-                            }}
-                            text="Удалить"
-                        />
-=======
-                        <Button type="submit" text={"Создать"} spinnerActive={status === "sending"}/>
->>>>>>> 09ca0db736a82f45326681e75099366fac11a1fa
+                        <Button type="submit" text={"Создать"} spinnerActive={teacherStatus === "sending"}/>
                     </div>
                 </form>
-                <Popup
-                    title={"Вы уверены что хотите удалить?"}
-                    notif={{
-                        active: true,
-                    }}
-                    opened={popupOpened}
-                    onClose={() => setPopupOpened(false)}
-                    buttons={<>
-                        <Button
-                            type='button'
-                            text={"Да"}
-                            onClick={() => {
-                                setPopupOpened(false);
-                                onDeleteSubmit();
-                            }}
-                        />
-                        <Button
-                            type='button'
-                            text={"Нет"}
-                            theme="text"
-                            onClick={() => setPopupOpened(false)}
-                        />
-                    </>
-                    }
-                />
                 <Popup
                     title={"Ошибка!"}
                     notif={{
@@ -413,126 +364,6 @@ const TeacherPage = () => {
                 />
             </div>
         </>
-        );
-
-    return (<>
-        <Helmet>
-            <title>Создание педагога</title>
-        </Helmet>
-        <div className='content__section'>
-            <div className="content__title-block">
-                <Button
-                    type='button'
-                    theme='text'
-                    size='small'
-                    isIconBtn={true}
-                    iconClass='mdi mdi-arrow-left'
-                    aria-label="Назад"
-                    onClick={onClose}
-                />
-                <h1 className="content__title">Создание пользователя</h1>
-            </div>
-            <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
-                <fieldset className='form__section --content-info'>
-                    <h2 className="form__title">Основная информация</h2>
-                    <FieldInput
-                        label={"Фото"}
-                        type="file"
-                        placeholder={"Выберите фото..."}
-                        fieldClassName={"--type-flex"}
-                        {...register("photo")}
-                    />
-                    <FieldInput
-                        label={"Фамилия"}
-                        placeholder={"Введите фамилию..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("f")}
-                    />
-                    <FieldInput
-                        label={"Имя"}
-                        placeholder={"Введите имя..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("i")}
-                    />
-                    <FieldInput
-                        label={"Отчество"}
-                        placeholder={"Введите отчество..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("o")}
-                    />
-                    <FieldInput
-                        label={"Должность"}
-                        placeholder={"Введите должность..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("position")}
-                    />
-                    <FieldInput
-                        label={"Педагогический стаж"}
-                        placeholder={"Введите педагогический стаж..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("experience")}
-                    />
-                    <FieldInput
-                        label={"Описание"}
-                        type={"textarea"}
-                        rows={5}
-                        placeholder={"Введите описание..."}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("text")}
-                    />
-                    <FieldInput
-                        label={"Школа"}
-                        type={"select"}
-                        defaultSelectItem={{
-                            title: "Выберите школу",
-                            value: "",
-                            disabled: false
-                        }}
-                        selectItems={schools.data.map(item => {
-                            return {
-                                title: item.org_short_name,
-                                value: item.ID,
-                            }
-                        }).sort()}
-                        fieldClassName={"--type-flex"}
-                        required={true}
-                        {...register("schoolID")}
-                    />
-                </fieldset>
-                <fieldset className='form__section --content-security'>
-                    <h2 className="form__title">Безопасность</h2>
-                    <FieldInput
-                        label={"Активировать учетную запись?"}
-                        type={"radio"}
-                        fieldClassName={"--type-checkbox-radio"}
-                        {...register("active", { value: true })}
-                    />
-                </fieldset>
-                <div className="form__controls">
-                    <Button
-                        type='submit'
-                        text={"Создать"}
-                        spinnerActive={status === "sending"} />
-                </div>
-            </form>
-            <Popup
-                title={"Ошибка!"}
-                notif={{
-                    active: true,
-                    state: "error",
-                    text: statusError,
-                }}
-                opened={popupErrorOpened}
-                onClose={() => setPopupErrorOpened(false)}
-            />
-        </div>
-    </>
     );
 
 };

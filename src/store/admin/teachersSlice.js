@@ -91,6 +91,7 @@ const teachersSlice = createSlice({
     name: 'teachers',
     initialState: {
         teacher: null,
+        teacherStatus: 'loading',
         data: [],
         status: '',
         statusError: '',
@@ -98,7 +99,7 @@ const teachersSlice = createSlice({
     reducers: {
         clear(state) {
             state.statusText = '';
-            state.status = '';
+            state.teacherStatus = '';
             state.teacher = null;
         },
     },
@@ -120,18 +121,20 @@ const teachersSlice = createSlice({
         },
 
         [loadTeacher.pending]: (state) => {
-            state.status = 'loading';
             state.teacher = null;
+            state.teacherStatus = 'loading';
         },
         [loadTeacher.fulfilled]: (state, action) => {
-            state.status = 'done';
 
             if(action.payload.params.length > 0)
                 state.teacher = action.payload.params[0];
+
+            state.teacherStatus = 'done';
+
         },
         [loadTeacher.rejected]: (state) => {
-            state.status = 'error';
             state.teacher = null;
+            state.teacherStatus = 'error';
         },
         // ADD
         [fetchAddTeacher.pending]: (state) => {
