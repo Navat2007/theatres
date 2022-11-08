@@ -31,7 +31,14 @@ export const fetchAddTeacher = createAsyncThunk('teachers/addTeacher', async (pa
     let form = new FormData();
 
     for (let key in params) {
-        form.append(key, params[key]);
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
     }
 
     const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/add.php', form);
@@ -44,10 +51,37 @@ export const fetchEditTeacher = createAsyncThunk('teachers/editTeacher', async (
     let form = new FormData();
 
     for (let key in params) {
-        form.append(key, params[key]);
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
     }
 
     const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/edit.php', form);
+    return data;
+
+});
+
+export const fetchRemoveTeacher = createAsyncThunk('teachers/removeTeacher', async (params) => {
+
+    let form = new FormData();
+
+    for (let key in params) {
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
+    }
+
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/remove.php', form);
     return data;
 
 });
@@ -144,6 +178,30 @@ const teachersSlice = createSlice({
 
         },
         [fetchEditTeacher.rejected]: (state) => {
+            state.status = 'sendingError';
+            state.statusError = 'Ошибка при отправке на сервер.';
+        },
+        // REMOVE
+        [fetchRemoveTeacher.pending]: (state) => {
+            state.status = 'removing';
+        },
+        [fetchRemoveTeacher.fulfilled]: (state, action) => {
+
+            console.log(action.payload);
+
+            if (action.payload.error === 1) {
+                state.status = 'sendingError';
+                state.statusError = action.payload.error_text;
+            }
+
+            if (action.payload.error === 0) {
+                state.status = 'sendingDone';
+                state.statusError = "";
+                state.teacher = null;
+            }
+
+        },
+        [fetchRemoveTeacher.rejected]: (state) => {
             state.status = 'sendingError';
             state.statusError = 'Ошибка при отправке на сервер.';
         },

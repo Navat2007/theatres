@@ -8,7 +8,7 @@ import Button from "../../../components/simple/button/button.component";
 import Popup from "../../../components/popup/popup.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
-import {clear, fetchAddTeacher, fetchEditTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
+import {clear, fetchAddTeacher, fetchEditTeacher, fetchRemoveTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
 
 const TeacherPage = () => {
     const navigate = useNavigate();
@@ -62,7 +62,7 @@ const TeacherPage = () => {
 
     const onDeleteSubmit = () => {
 
-
+        dispatch(fetchRemoveTeacher({id, schoolID: user.schoolID}));
 
     }
 
@@ -98,9 +98,16 @@ const TeacherPage = () => {
                             <div className="profile --place-edit-profile">
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
-                                     src={teacher.photo}
+                                     src={window.global.baseUrl + teacher.photo}
                                      alt={""}/>
                             </div>
+                            <FieldInput
+                                label={"Новое фото"}
+                                type="file"
+                                placeholder={"Выберите фото для замены..."}
+                                fieldClassName={"--type-flex"}
+                                {...register("photo")}
+                            />
                             <FieldInput
                                 label={"Фамилия"}
                                 placeholder={"Введите фамилию..."}
@@ -157,14 +164,16 @@ const TeacherPage = () => {
                         </fieldset>
                         <div className="form__controls">
                             <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
-                            {/*<Button*/}
-                            {/*    className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}*/}
-                            {/*    onClick={(e) => {*/}
-                            {/*        e.preventDefault();*/}
-                            {/*        setPopupOpened(true);*/}
-                            {/*    }}*/}
-                            {/*    text={"Удалить"}*/}
-                            {/*/>*/}
+                            <Button
+                                theme="text"
+                                extraClass={`--icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
+                                spinnerActive={status === "removing"}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPopupOpened(true);
+                                }}
+                                text={"Удалить"}
+                            />
                         </div>
                     </form>
                     <Popup
@@ -185,7 +194,7 @@ const TeacherPage = () => {
                                 />
                                 <Button
                                     text={"Нет"}
-                                    className='--theme-text'
+                                    theme="text"
                                     onClick={() => setPopupOpened(false)}
                                 />
                             </>
@@ -229,7 +238,6 @@ const TeacherPage = () => {
                             type="file"
                             placeholder={"Выберите фото..."}
                             fieldClassName={"--type-flex"}
-                            required={true}
                             {...register("photo")}
                         />
                         <FieldInput
