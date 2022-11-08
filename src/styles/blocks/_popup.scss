@@ -24,6 +24,7 @@
   &.--type-notification {
 
     &.--state-alert {
+
       .popup__icon {
         background-color: rgba(map-get($colors, "alert"), .15);
         color: var(--alert);
@@ -135,7 +136,7 @@
   &__icon {
     flex: none;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 
