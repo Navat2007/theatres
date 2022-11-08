@@ -17,7 +17,6 @@ import {
     loadTeacher
 } from "../../../store/admin/teachersSlice";
 import {loadSchools} from "../../../store/admin/schoolsSlice";
-import {editProfilePhoto} from "../../../store/authSlice";
 
 const TeacherPage = () => {
 

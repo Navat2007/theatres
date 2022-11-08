@@ -27,6 +27,7 @@ const TeacherPage = () => {
     const user = useSelector(state => state.auth.user);
     const { teacher, teacherStatus, statusError } = useSelector(state => state.teachers);
 
+    const [error, setError] = React.useState(false);
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
@@ -64,7 +65,39 @@ const TeacherPage = () => {
 
     }
 
+    const checkPhoto = (file) => {
+
+        if(!file)
+        {
+            setError("Файл не читается.");
+            setPopupErrorOpened(true);
+            return false;
+        }
+
+        if (file.type.match('image.*')) {
+            if (file.size <= 1500000) {
+
+            }
+            else {
+                setError("Файл больше 1,5 Мб.");
+                setPopupErrorOpened(true);
+                return false;
+            }
+        }
+        else {
+            setError("Файл должен быть изображением.");
+            setPopupErrorOpened(true);
+            return false;
+        }
+
+        return true;
+
+    };
+
     const onAddSubmit = async (params) => {
+
+        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+            return;
 
         params.schoolID = user.schoolID;
         await dispatch(fetchAddTeacher(params));
@@ -73,6 +106,9 @@ const TeacherPage = () => {
     }
 
     const onEditSubmit = async (params) => {
+
+        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+            return;
 
         params.id = id;
         params.schoolID = user.schoolID;
@@ -229,7 +265,7 @@ const TeacherPage = () => {
                         notif={{
                             active: true,
                             state: "error",
-                            text: statusError,
+                            text: statusError || error,
                         }}
                         opened={popupErrorOpened}
                         onClose={() => setPopupErrorOpened(false)}
@@ -331,7 +367,7 @@ const TeacherPage = () => {
                     notif={{
                         active: true,
                         state: "error",
-                        text: statusError,
+                        text: statusError || error,
                     }}
                     opened={popupErrorOpened}
                     onClose={() => setPopupErrorOpened(false)}
