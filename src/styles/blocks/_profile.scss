@@ -53,17 +53,4 @@
     font-size: .75em;
     @extend %cutText;
   }
-
-  &__btn {
-    flex: none;
-
-    @extend .button;
-    @extend .--icon-on-before;
-    @extend .--variant-icon;
-    @extend .--theme-text;
-
-    &::before {
-      content: "\F0FC5";
-    }
-  }
 }

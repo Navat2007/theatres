@@ -40,17 +40,5 @@
     &__item.--type-burger-menu {
       display: none;
     }
-
-    &__item.--type-support {
-      padding: .5em .75em;
-      max-width: max-content;
-      width: max-content;
-      border-radius: 15px;
-      vertical-align: middle;
-
-      .mdi::before {
-        font-size: 100%;
-      }
-    }
   }
 }
