@@ -5,6 +5,18 @@
 @import "_assets/mixins";
 @import "_assets/extends";
 
+:root {
+
+  @each $name,
+  $color in $colors {
+    --#{"" + $name}: #{$color};
+  }
+ 
+  // FONT 
+  // --ff-firm: 'Cormorant Infant', sans-serif;
+  --ff-base: Montserrat, sans-serif; 
+}
+
 html {  
   color: var(--dark);
   font-family: var(--ff-base);

@@ -1,80 +1,45 @@
+@import "../../../styles/_assets/variables";
 @import "../../../styles/_assets/mixins";
-@import "../../../styles/_assets/extends";
 
 .button {
-  @extend %reset-btn;
+  appearance: none;
+  outline: none;
+  background-color: transparent;
+  font-family: inherit;
+  box-sizing: border-box;
+  cursor: pointer;
 
-  min-height: 3.125em;
-  border: 1px solid transparent;
-  text-decoration: none;
-  display: inline-block;
-  overflow: hidden;
-
-  font-weight: 500;
-
+  font-size: 100%;
   padding: .25em 1.5em;
+  min-height: 3.125em;
   text-align: center;
-
   border-radius: 15px;
-
+  border: 1px solid transparent;
   transition: .25s ease-out;
-  transition-property: box-shadow;
+  transition-property: box-shadow, background-color;
 
   &:disabled {
     pointer-events: none;
     user-select: none;
-    background-color: var(--g100);
+    background: var(--g100);
     color: var(--darkLow);
   }
 
-  .--icon-on-before {
-    display: inline-flex;
-    align-items: center;
-    gap: .375em;
-    padding-left: 1em;
+  &__text {
+    font-size: inherit;
+    font-weight: 500;
+  }
 
-    vertical-align: top;
+  &_size_sm {
+    padding: .25em 1em;
+    min-height: 2.75em;
 
-    &:before {
-      @extend %icon-on-before;
-    }
-
-    &.--icon-add::before {
-      content: "\F0415";
-    }
-
-    &.--icon-back::before {
-      content: "\F0141";
-    }
-
-    &.--icon-trash::before {
-      content: "\F01B4";
+    .button__text {
+      font-size: .875em;
     }
   }
 
-  .--variant-icon {
-    justify-content: center;
-    min-width: 2.5em;
-    max-width: 2.5em;
-    @include box(2.5em);
-
-    min-height: unset;
-    padding: .5em;
-    border-radius: 50%;
-    gap: 0;
-  }
-
-  .--size-sm {
-    font-size: .875em;
-    padding: .25rem 1rem;
-    min-height: 2.75rem;
-
-    &::before {
-      font-size: 1.375em;
-    }
-  }
-
-  .theme-primary {
+  &_theme_primary {
     color: var(--white);
     background-image: var(--primary-gradient);
     background-color: var(--primary);
@@ -82,37 +47,49 @@
     &:hover {
       box-shadow: 0 2px 6px rgba(black, .15);
     }
+
+    &:active {
+      background: darken(map-get($colors, "primary"), 2.5%);
+    }
   }
 
-  .--theme-success {
+  &_theme_success {
     color: var(--white);
     background-color: var(--success);
 
     &:hover {
       box-shadow: 0 2px 6px rgba(black, .15);
     }
+
+    &:active {
+      background: darken(map-get($colors, "success"), 2.5%);
+    }
   }
 
-  .--theme-outline {
+  &_theme_outline {
     color: var(--dark);
     border-color: var(--primary);
 
     &:hover {
-      // background-color: rgba(map-get($colors, "primary"), .1);
+      background-color: rgba(map-get($colors, "primary"), .1);
     }
   }
 
-  .--theme-text {
+  &_theme_text {
     color: var(--primary);
 
     &:hover {
-      // background-color: rgba(map-get($colors, "primary"), .1);
+      background-color: rgba(map-get($colors, "primary"), .1);
     }
   }
 
-  .--spinner-actived {
+  &_loading {
     position: relative;
-    @extend :disabled;
+
+    pointer-events: none;
+    user-select: none;
+    background-image: unset;
+    background-color: var(--g100);
     color: transparent;
 
     .button__spinner {
@@ -128,13 +105,12 @@
     display: none;
     align-items: center;
     justify-content: center;
-    // background-color: rgba(map-get($colors, "primary"), .1);
     z-index: 1;
 
     &>div {
       @include box(0.875em);
       border-radius: 50%;
-      background-color: var(--primary);
+      background-color: var(--g300);
       margin-right: 2.5%;
       animation: loader 1.25s infinite ease-in-out both;
 

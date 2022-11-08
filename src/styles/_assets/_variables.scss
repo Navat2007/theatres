@@ -23,16 +23,3 @@ $colors: (
   alert: #FF5722,
   info: #00BCD4,
 );
-
-
-:root {
-
-  @each $name,
-  $color in $colors {
-    --#{"" + $name}: #{$color};
-  }
- 
-  // FONT 
-  // --ff-firm: 'Cormorant Infant', sans-serif;
-  --ff-base: Montserrat, sans-serif; 
-}
