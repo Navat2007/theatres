@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from "../header/header.component";
 import Menu from "../menu/menu.component";
+import SupportHeaderComponent from "../header/support.header.component";
 
 const AdminLayout = () => {
 
@@ -46,7 +47,9 @@ const AdminLayout = () => {
 
     return (
         <>
-            <Header handleBurger={handleBurgerMenu} />
+            <Header handleBurger={handleBurgerMenu}>
+                <SupportHeaderComponent />
+            </Header>
             <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className="content__main">
                 <Outlet />
