@@ -86,10 +86,10 @@ const MySchoolPage = () => {
 
     const onSchoolEditSubmit = async (params) => {
 
-        console.log(params);
-        return;
-
-        await dispatch(fetchEditSchool({id: userStore.user.schoolID, delete: 1}));
+        params.id = userStore.user.schoolID;
+        await dispatch(fetchEditSchool(params));
+        setPopupSchoolEditOpened(false);
+        fetchData();
 
     }
 
@@ -117,6 +117,13 @@ const MySchoolPage = () => {
     return (
         <div className='content__section'>
             <h1 className="content__title">Информация о школе</h1>
+            <Button
+                type="button"
+                text="Редактировать"
+                onClick={() => {
+                    setPopupSchoolEditOpened(true);
+                }}
+            />
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
@@ -218,6 +225,18 @@ const MySchoolPage = () => {
                             </p>
                         </li>
                     }
+                    {
+                        schoolStore.school.address && schoolStore.school.address !== ""
+                        &&
+                        <li>
+                            <p className='profile-card__item link --type-icon --icon-district'>
+                                {
+                                    schoolStore.school.address
+                                }
+                                <span className='profile-card__description'>Адрес</span>
+                            </p>
+                        </li>
+                    }
                 </ul>
             </div>
             <Popup
@@ -245,7 +264,37 @@ const MySchoolPage = () => {
                             placeholder={"..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("text")}
+                            {...register("org_short_name", { value: schoolStore.school.org_short_name })}
+                        />
+                        <FieldInput
+                            label={"ФИО директора/руководителя:"}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("dir_fio", { value: schoolStore.school.dir_fio })}
+                        />
+                        <FieldInput
+                            label={"Телефон директора/руководителя школы:"}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("dir_phone", { value: schoolStore.school.dir_phone })}
+                        />
+                        <FieldInput
+                            label={"Email директора/руководителя школы:"}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("dir_email", { value: schoolStore.school.dir_email })}
+                        />
+                        <FieldInput
+                            label={"Адрес школы:"}
+                            type={"textarea"}
+                            rows={3}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("address", { value: schoolStore.school.address })}
                         />
                     </fieldset>
                     <div className="form__controls">

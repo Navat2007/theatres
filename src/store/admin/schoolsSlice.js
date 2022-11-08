@@ -92,7 +92,6 @@ const schoolsSlice = createSlice({
             if(action.payload.error === 0){
                 state.status = 'sendingDone';
                 state.statusError = "";
-                state.admin = null;
             }
 
         },
