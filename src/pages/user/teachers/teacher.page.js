@@ -8,7 +8,7 @@ import Button from "../../../components/simple/button/button.component";
 import Popup from "../../../components/popup/popup.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
-import {fetchAddTeacher, fetchEditTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
+import {clear, fetchAddTeacher, fetchEditTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
 
 const TeacherPage = () => {
     const navigate = useNavigate();
@@ -38,6 +38,13 @@ const TeacherPage = () => {
 
     }, [status]);
 
+    const onClose = () => {
+
+        dispatch(clear());
+        navigate("/user/teachers");
+
+    }
+
     const onAddSubmit = (params) => {
 
         params.schoolID = user.schoolID;
@@ -48,6 +55,7 @@ const TeacherPage = () => {
     const onEditSubmit = (params) => {
 
         params.id = id;
+        params.schoolID = user.schoolID;
         dispatch(fetchEditTeacher(params));
 
     }
@@ -80,7 +88,7 @@ const TeacherPage = () => {
                             theme="text"
                             type="button"
                             aria-label="Назад"
-                            onClick={() => navigate("/user/teachers")}
+                            onClick={onClose}
                         />
                         <h1 className="content__title">Редактирование педагога ID: {id}</h1>
                     </div>
@@ -136,6 +144,15 @@ const TeacherPage = () => {
                                 fieldClassName={"--type-flex"}
                                 required={true}
                                 {...register("text", {value: teacher.text})}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section --content-security'>
+                            <h2 className="form__title">Безопасность</h2>
+                            <FieldInput
+                                label={"Активировать учетную запись?"}
+                                type={"radio"}
+                                fieldClassName={"--type-checkbox-radio"}
+                                {...register("active", {value: teacher.active === "Активен"})}
                             />
                         </fieldset>
                         <div className="form__controls">
@@ -200,7 +217,7 @@ const TeacherPage = () => {
                         theme="text"
                         type="button"
                         aria-label="Назад"
-                        onClick={() => navigate("/user/teachers")}
+                        onClick={onClose}
                     />
                     <h1 className="content__title">Создание пользователя</h1>
                 </div>
@@ -258,6 +275,15 @@ const TeacherPage = () => {
                             fieldClassName={"--type-flex"}
                             required={true}
                             {...register("text")}
+                        />
+                    </fieldset>
+                    <fieldset className='form__section --content-security'>
+                        <h2 className="form__title">Безопасность</h2>
+                        <FieldInput
+                            label={"Активировать учетную запись?"}
+                            type={"radio"}
+                            fieldClassName={"--type-checkbox-radio"}
+                            {...register("active", {value: true})}
                         />
                     </fieldset>
                     <div className="form__controls">

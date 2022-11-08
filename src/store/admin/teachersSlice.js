@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {fetchAddUser} from "./usersSlice";
 
 export const loadTeachers = createAsyncThunk('teachers/loadTeachers', async (params) => {
 
@@ -22,7 +21,7 @@ export const loadTeacher = createAsyncThunk('teachers/loadTeacher', async (param
         form.append(key, params[key]);
     }
 
-    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load.php', form);
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/load_by_id.php', form);
     return data;
 
 });
@@ -62,7 +61,13 @@ const teachersSlice = createSlice({
         status: '',
         statusError: '',
     },
-    reducers: {},
+    reducers: {
+        clear(state) {
+            state.statusText = '';
+            state.status = '';
+            state.teacher = null;
+        },
+    },
     extraReducers: {
         [loadTeachers.pending]: (state) => {
             state.status = 'loading';
@@ -146,5 +151,5 @@ const teachersSlice = createSlice({
 
 });
 
-//export const {} = teachersSlice.actions;
+export const {clear} = teachersSlice.actions;
 export default teachersSlice.reducer;
