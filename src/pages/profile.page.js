@@ -49,10 +49,14 @@ const ProfilePage = () => {
                 if (file.size <= 1500000) {
                     dispatch(editProfilePhoto({id: user.ID, photo: file}));
                 }
+                else {
+                    setError("Файл больше 1,5 Мб.");
+                    setPopupErrorOpened(true);
+                }
             }
             else {
-                setError("Файл больше 1,5 Мб.");
-                setPopupErrorOpened(false);
+                setError("Файл должен быть изображением.");
+                setPopupErrorOpened(true);
             }
 
         }
