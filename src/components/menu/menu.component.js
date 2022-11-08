@@ -59,6 +59,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                     }
                 </ul>
                 <Button
+                    type='button'
                     extraClass='menu__button'
                     iconClass='mdi mdi-chevron-left'
                     aria-label="Свернуть/Развернуть меню"

@@ -1,9 +1,9 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 
-import {loadSchools} from "../../../store/admin/schoolsSlice";
+import { loadSchools } from "../../../store/admin/schoolsSlice";
 
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
@@ -88,10 +88,9 @@ const SchoolsPage = () => {
                 withFilter={true}
             >
                 <Button
-                    extraClass="--icon-add --icon-on-before"
-                    type="button"
+                    type='button'
+                    iconClass='mdi mdi-plus'
                     text="Создать"
-                    theme="primary"
                     size="small"
                     aria-label="Добавить школу"
                     onClick={() => navigate("/admin/schools/new")}

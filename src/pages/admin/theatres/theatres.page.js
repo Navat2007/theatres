@@ -1,9 +1,9 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 
-import {loadTheatres} from "../../../store/admin/theatresSlice";
+import { loadTheatres } from "../../../store/admin/theatresSlice";
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -74,44 +74,42 @@ const TheatresPage = () => {
         },
     ];
 
-    return (
-        <>
-            <Helmet>
-                <title>Театры</title>
-            </Helmet>
-            <Tabs>
-                <Tab index={1} title={"Театры"}>
-                    <Table
-                        title={"Таблица театров"}
-                        loading={theatres.status === "loading"}
-                        items={theatres?.data?.filter(item => item.active === 1)}
-                        itemsConfig={itemConfig}
-                        onItemClick={onItemClick}
-                        withFilter={true}
-                    >
-                        <Button
-                            extraClass="--icon-add --icon-on-before"
-                            type="button"
-                            text="Создать"
-                            theme="primary"
-                            size="small"
-                            aria-label="Добавить театр"
-                            onClick={() => navigate("/admin/theatres/new")}
-                        />
-                    </Table>
-                </Tab>
-                <Tab index={2} title={"Архив"}>
-                    <Table
-                        title={"Таблица архива театров"}
-                        loading={theatres.status === "loading"}
-                        items={theatres?.data?.filter(item => item.active === 0)}
-                        itemsConfig={itemConfig}
-                        onItemClick={onItemClick}
-                        withFilter={true}
+    return (<>
+        <Helmet>
+            <title>Театры</title>
+        </Helmet>
+        <Tabs>
+            <Tab index={1} title={"Театры"}>
+                <Table
+                    title={"Таблица театров"}
+                    loading={theatres.status === "loading"}
+                    items={theatres?.data?.filter(item => item.active === 1)}
+                    itemsConfig={itemConfig}
+                    onItemClick={onItemClick}
+                    withFilter={true}
+                >
+                    <Button
+                        type='button'
+                        text="Создать"
+                        size="small"
+                        iconClass={'mdi mdi-plus'}
+                        aria-label="Добавить театр"
+                        onClick={() => navigate("/admin/theatres/new")}
                     />
-                </Tab>
-            </Tabs>
-        </>
+                </Table>
+            </Tab>
+            <Tab index={2} title={"Архив"}>
+                <Table
+                    title={"Таблица архива театров"}
+                    loading={theatres.status === "loading"}
+                    items={theatres?.data?.filter(item => item.active === 0)}
+                    itemsConfig={itemConfig}
+                    onItemClick={onItemClick}
+                    withFilter={true}
+                />
+            </Tab>
+        </Tabs>
+    </>
     );
 };
 

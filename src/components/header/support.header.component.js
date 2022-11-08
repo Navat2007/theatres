@@ -10,6 +10,7 @@ const SupportHeaderComponent = () => {
     return (
         <>
             <Button
+                type='button'
                 theme='outline'
                 iconClass='mdi mdi-help'
                 extraClass="header__item --type-support"
@@ -28,6 +29,7 @@ const SupportHeaderComponent = () => {
                 }}
                 buttons={<>
                     <Button
+                        type='button'
                         text="Отправить"
                         onClick={() => { }}
                     />

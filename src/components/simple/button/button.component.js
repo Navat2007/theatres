@@ -5,7 +5,7 @@ import styles from './button.module.scss';
 
 console.log(styles);
 const Button = ({
-    type = "button",
+    type = "submit",
     theme = "primary",
     size = "normal",
     extraClass = "",

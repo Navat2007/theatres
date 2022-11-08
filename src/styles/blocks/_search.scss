@@ -24,23 +24,13 @@
 
   &__button {
     flex: none;
-
-    @extend .button;
-    @extend .--theme-primary;
-    @extend .--icon-on-before;
-    @extend .--size-sm;
-
-    &:before {
-      content: "\F0236";
-    }
   }
 
   &__controls {
     flex: none;
     margin-left: auto;
 
-    & .button {
-      @extend .--size-sm;
+    & button {
       margin-left: .5em;
       min-width: 7rem;
     }

@@ -10,10 +10,11 @@
   &__title-block {
     display: flex;
     gap: .5em;
-    align-items: flex-start;
+    align-items: center;
+    margin: 0 0 min(5vmax, 3.125rem);
 
-    & .button {
-      flex: none;
+    & .content__title {
+      margin-bottom: 0;
     }
   }
 

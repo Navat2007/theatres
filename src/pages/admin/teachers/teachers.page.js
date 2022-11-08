@@ -1,12 +1,12 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {Helmet} from "react-helmet";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
-import {loadTeachers} from "../../../store/admin/teachersSlice";
+import { loadTeachers } from "../../../store/admin/teachersSlice";
 
 const TeachersPage = () => {
 
@@ -88,11 +88,11 @@ const TeachersPage = () => {
                 withFilter={true}
             >
                 <Button
-                    extraClass="--icon-add --icon-on-before"
-                    type="button"
+                    type='button'
                     text="Создать"
                     theme="primary"
                     size="small"
+                    iconClass={'mdi mdi-plus'}
                     aria-label="Добавить педагога"
                     onClick={() => navigate("/admin/teachers/new")}
                 />

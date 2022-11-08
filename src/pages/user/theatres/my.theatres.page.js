@@ -1,9 +1,9 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 
-import {loadTheatres} from "../../../store/admin/theatresSlice";
+import { loadTheatres } from "../../../store/admin/theatresSlice";
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -89,8 +89,9 @@ const MyTheatresPage = () => {
                         withFilter={true}
                     >
                         <Button
-                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
                             type="button"
+                            iconClass={'mdi mdi-plus'}
+                            size='small'
                             text="Создать"
                             aria-label="Добавить театр"
                             onClick={() => navigate("/user/theatres/new")}

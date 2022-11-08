@@ -49,6 +49,7 @@ const ProfileHeader = ({ className }) => {
                 <p className="profile__subtitle">{userRole}</p>
             </div>
             <Button
+                type='button'
                 theme='text'
                 isIconBtn={true}
                 iconClass='mdi mdi-location-exit'
@@ -66,6 +67,7 @@ const ProfileHeader = ({ className }) => {
                 }}
                 buttons={<>
                     <Button
+                        type='button'
                         text="Да"
                         onClick={() => {
                             dispatch(logout());
@@ -73,6 +75,7 @@ const ProfileHeader = ({ className }) => {
                         }}
                     />
                     <Button
+                        type='button'
                         text="Нет"
                         theme="text"
                         onClick={() => setPopupOpened(false)}

@@ -1,12 +1,12 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
-import {loadTeachers} from "../../../store/admin/teachersSlice";
+import { loadTeachers } from "../../../store/admin/teachersSlice";
 
 const TeachersPage = () => {
 
@@ -21,7 +21,7 @@ const TeachersPage = () => {
 
     React.useEffect(() => {
 
-        dispatch(loadTeachers({schoolID: user.schoolID}));
+        dispatch(loadTeachers({ schoolID: user.schoolID }));
 
     }, []);
 
@@ -82,10 +82,9 @@ const TeachersPage = () => {
                 withFilter={true}
             >
                 <Button
-                    extraClass="--icon-add --icon-on-before"
                     type="button"
+                    iconClass={'mdi mdi-plus'}
                     text="Создать"
-                    theme="primary"
                     size="small"
                     aria-label="Добавить педагога"
                     onClick={() => navigate("/user/teachers/new")}

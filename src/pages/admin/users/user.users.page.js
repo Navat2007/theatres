@@ -1,8 +1,8 @@
 import React from 'react';
-import {Navigate, useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "react-hook-form";
-import {Helmet} from "react-helmet";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -10,19 +10,19 @@ import Popup from "../../../components/popup/popup.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 
-import {fetchAddUser, fetchEditUser, fetchRemoveUser, loadUser} from "../../../store/admin/usersSlice";
-import {loadSchools} from "../../../store/admin/schoolsSlice";
+import { fetchAddUser, fetchEditUser, fetchRemoveUser, loadUser } from "../../../store/admin/usersSlice";
+import { loadSchools } from "../../../store/admin/schoolsSlice";
 
 const UserUsersPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    let {id} = useParams();
-    const {register, handleSubmit, reset, formState: { errors }} = useForm();
+    let { id } = useParams();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const user = useSelector(state => state.users.user);
-    const {status, statusError} = useSelector(state => state.users);
+    const { status, statusError } = useSelector(state => state.users);
     const schools = useSelector(state => state.schools);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -34,7 +34,7 @@ const UserUsersPage = () => {
 
         if (id) {
             reset();
-            dispatch(loadUser({id}));
+            dispatch(loadUser({ id }));
         }
 
     }, [id, dispatch]);
@@ -61,12 +61,12 @@ const UserUsersPage = () => {
 
     const onDeleteSubmit = () => {
 
-        dispatch(fetchRemoveUser({id}));
+        dispatch(fetchRemoveUser({ id }));
 
     }
 
     if (status === "sendingDone")
-        return <Navigate to={"/admin/users"}/>
+        return <Navigate to={"/admin/users"} />
 
     if (status === "loading" || schools.status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
@@ -83,8 +83,10 @@ const UserUsersPage = () => {
                 <div className='content__section'>
                     <div className="content__title-block">
                         <Button
-                            className="--icon-back --icon-on-before --variant-icon --theme-text"
-                            type="button"
+                            type='button'
+                            theme='text'
+                            iconClass={'mdi mdi-arrow-left'}
+                            size='small'
                             aria-label="Назад"
                             onClick={() => navigate("/admin/users")}
                         />
@@ -96,28 +98,28 @@ const UserUsersPage = () => {
                             <div className="profile --place-edit-profile">
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
-                                     src={user.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
-                                     alt={""}/>
+                                    src={user.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
+                                    alt={""} />
                             </div>
                             <FieldInput
                                 label={"Логин"}
                                 placeholder={"Введите логин..."}
                                 fieldClassName={"--type-flex"}
-                                {...register("login", {value: user.login})}
+                                {...register("login", { value: user.login })}
                             />
                             <FieldInput
                                 label={"Email"}
                                 placeholder={"Введите email..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("email", {value: user.email})}
+                                {...register("email", { value: user.email })}
                             />
                             <FieldInput
                                 label={"ФИО"}
                                 placeholder={"Введите фио..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("fio", {value: user.fio})}
+                                {...register("fio", { value: user.fio })}
                             />
                             <FieldInput
                                 label={"Контактный телефон"}
@@ -125,7 +127,7 @@ const UserUsersPage = () => {
                                 placeholder={"Введите контактный телефон..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("phone", {value: user.phone})}
+                                {...register("phone", { value: user.phone })}
                             />
                             <FieldInput
                                 label={"Школа"}
@@ -143,7 +145,7 @@ const UserUsersPage = () => {
                                 }).sort()}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("schoolID", {value: user.schoolID})}
+                                {...register("schoolID", { value: user.schoolID })}
                             />
                         </fieldset>
                         <fieldset className='form__section --content-security'>
@@ -166,13 +168,19 @@ const UserUsersPage = () => {
                                 label={"Активировать учетную запись?"}
                                 type={"radio"}
                                 fieldClassName={"--type-checkbox-radio"}
-                                {...register("active", {value: user.active === "Активен"})}
+                                {...register("active", { value: user.active === "Активен" })}
                             />
                         </fieldset>
                         <div className="form__controls">
-                            <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
                             <Button
-                                className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
+                                type='submit'
+                                text={"Сохранить"}
+                                spinnerActive={status === "sending"} />
+                            <Button
+                                type='button'
+                                theme='text'
+                                iconClass={'mdi mdi-delete'}
+                                extraClass={`${status === "sending" ? "--hide" : ""}`}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -189,21 +197,22 @@ const UserUsersPage = () => {
                         }}
                         opened={popupOpened}
                         onClose={() => setPopupOpened(false)}
-                        buttons={
-                            <>
-                                <Button
-                                    text={"Да"}
-                                    onClick={() => {
-                                        setPopupOpened(false);
-                                        onDeleteSubmit();
-                                    }}
-                                />
-                                <Button
-                                    text={"Нет"}
-                                    className='--theme-text'
-                                    onClick={() => setPopupOpened(false)}
-                                />
-                            </>
+                        buttons={<>
+                            <Button
+                                type='button'
+                                text={"Да"}
+                                onClick={() => {
+                                    setPopupOpened(false);
+                                    onDeleteSubmit();
+                                }}
+                            />
+                            <Button
+                                type='button'
+                                text={"Нет"}
+                                theme='text'
+                                onClick={() => setPopupOpened(false)}
+                            />
+                        </>
                         }
                     />
                     <Popup
@@ -228,8 +237,9 @@ const UserUsersPage = () => {
             <div className='content__section'>
                 <div className="content__title-block">
                     <Button
-                        className="--icon-back --icon-on-before --variant-icon --theme-text"
                         type="button"
+                        iconClass={'mdi mdi-arrow-left'}
+                        theme='text'
                         aria-label="Назад"
                         onClick={() => navigate("/admin/users")}
                     />
@@ -307,11 +317,14 @@ const UserUsersPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"radio"}
                             fieldClassName={"--type-checkbox-radio"}
-                            {...register("active", {value: true})}
+                            {...register("active", { value: true })}
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <Button text={"Создать"} spinnerActive={status === "sending"}/>
+                        <Button
+                            type="submit"
+                            text={"Создать"}
+                            spinnerActive={status === "sending"} />
                     </div>
                 </form>
                 <Popup

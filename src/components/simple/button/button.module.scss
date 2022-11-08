@@ -26,31 +26,6 @@
     color: var(--darkLow);
   }
 
-  & .mdi {
-    margin-right: .5rem;
-    font-size: 150%;
-    vertical-align: middle;
-    line-height: 1;
-  }
- 
-  &_icon {
-    min-width: 3.125em;
-    max-width: 3.125em;
-    @include box(3.125em);
-
-    min-height: unset;
-    padding: .25em;
-    border-radius: 50%;
-
-    & .mdi {
-      margin-right: 0;
-    }
-
-    .button__text {
-      display: none;
-    }
-  }
-
   &_size_sm {
     padding: .25em 1em;
     min-height: 2.75em;
@@ -63,6 +38,31 @@
       min-width: 2.75em;
       max-width: 2.75em;
       @include box(2.75em);
+    }
+  }
+
+  & .mdi {
+    margin-right: .5rem;
+    font-size: 150%;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  
+  &_icon {
+    min-width: 3.125em;
+    max-width: 3.125em;
+    @include box(3.125em);
+
+    min-height: unset;
+    padding: .5em;
+    border-radius: 50%;
+
+    & .mdi {
+      margin-right: 0;
+    }
+
+    .button__text {
+      display: none;
     }
   }
 

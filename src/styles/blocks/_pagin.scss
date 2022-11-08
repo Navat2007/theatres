@@ -8,45 +8,15 @@
   &__thumb {
     flex: none;
 
-    @extend .button;
-    @extend .--icon-on-before;
-
     display: flex;
     align-items: center;
     justify-content: center;
-    @include box(2em, 1.5em);
+
+    height: 1.5em;
+    width: 1.5em;
+    min-width: 1.5em;
+    max-width: 1.5em;
     padding: 0;
-    min-height: unset;
-    color: var(--accent);
-    opacity: .75;
-    transition-property: opacity;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &[disabled] {
-      background-color: transparent;
-      user-select: none;
-      pointer-events: none;
-      color: var(--g200);
-    }
-
-    &:active {
-      transform: translateY(1px);
-    }
-
-    &.--type-prev {
-      &::before {
-        content: "\F0141";
-      }
-    }
-
-    &.--type-next {
-      &::before {
-        content: "\F0142";
-      }
-    }
   }
 
   &__list {
