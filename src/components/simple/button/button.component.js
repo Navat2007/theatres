@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 
 import styles from './button.module.scss';
 
-console.log(styles);
 const Button = ({
     type = "submit",
     theme = "primary",
