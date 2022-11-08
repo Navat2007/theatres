@@ -192,7 +192,7 @@ const TeacherPage = () => {
                             />
                         </fieldset>
                         <div className="form__controls">
-                            <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
+                            <Button type="submit" text="Сохранить" spinnerActive={status === "sending"}/>
                             <Button
                                 theme="text"
                                 extraClass={`--icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
@@ -342,7 +342,7 @@ const TeacherPage = () => {
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <Button text={"Создать"} spinnerActive={status === "sending"}/>
+                        <Button type="submit" text={"Создать"} spinnerActive={status === "sending"}/>
                     </div>
                 </form>
                 <Popup
