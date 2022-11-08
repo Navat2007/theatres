@@ -98,9 +98,16 @@ const TeacherPage = () => {
                             <div className="profile --place-edit-profile">
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
-                                     src={teacher.photo}
+                                     src={window.global.baseUrl + teacher.photo}
                                      alt={""}/>
                             </div>
+                            <FieldInput
+                                label={"Новое фото"}
+                                type="file"
+                                placeholder={"Выберите фото для замены..."}
+                                fieldClassName={"--type-flex"}
+                                {...register("photo")}
+                            />
                             <FieldInput
                                 label={"Фамилия"}
                                 placeholder={"Введите фамилию..."}

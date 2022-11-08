@@ -36,6 +36,57 @@ if($error === 0){
     $result = mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
 
+    if(isset($_FILES['files']))
+    {
+
+        $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers";
+        if (!file_exists($baseDirName)) {
+            $oldmask = umask(0);
+            $mkdir_result = mkdir($baseDirName, 0777);
+            umask($oldmask);
+        }
+
+        foreach($_FILES['files']['error'] as $key => $error)
+        {
+            if ($error == UPLOAD_ERR_OK)
+            {
+                $temp_name = $_FILES['files']['tmp_name'][$key];
+                $name = $_FILES['files']['name'][$key];
+
+                $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID;
+                if (!file_exists($dirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($dirName, 0777);
+                    umask($oldmask);
+                }
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID . "/" . $lastID . "_" . $name;
+
+                @unlink($path);
+
+                if(copy($temp_name, $path))
+                {
+
+                    $file_to_DB = "/files/teachers/" . $schoolID . "/" . $lastID . "_" . $name;
+
+                    $add_sql = "UPDATE 
+                                    teachers
+                                SET
+                                    photo = '$file_to_DB'
+                                WHERE 
+                                    ID = '$lastID'";
+                    mysqli_query($conn, $add_sql);
+                }
+
+            }
+            else
+            {
+                $error = 1;
+                $error_text = $error;
+            }
+        }
+    }
+
     if(!$result){
         $error = 1;
         $error_text = mysqli_error($conn);

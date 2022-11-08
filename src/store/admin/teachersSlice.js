@@ -31,7 +31,14 @@ export const fetchAddTeacher = createAsyncThunk('teachers/addTeacher', async (pa
     let form = new FormData();
 
     for (let key in params) {
-        form.append(key, params[key]);
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
     }
 
     const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/add.php', form);
@@ -44,7 +51,14 @@ export const fetchEditTeacher = createAsyncThunk('teachers/editTeacher', async (
     let form = new FormData();
 
     for (let key in params) {
-        form.append(key, params[key]);
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
     }
 
     const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/edit.php', form);

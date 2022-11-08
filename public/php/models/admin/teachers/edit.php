@@ -20,17 +20,93 @@ $error_text = "";
 $sqls = array();
 $params = null;
 
-$sql = "SELECT * FROM teachers WHERE f = '$f' AND i = '$i' AND o = '$o' AND schoolID = '$schoolID' AND archive = 0";
+$sql = "SELECT * FROM teachers WHERE ID = '$id'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
-if(mysqli_num_rows($result) > 0)
-{
+if (mysqli_num_rows($result) > 0) {
+
+    $row = mysqli_fetch_object($result);
+
+    if($row->f != $f || $row->i != $i || $row->o != $o)
+    {
+        $sql = "SELECT * FROM teachers WHERE f = '$f' AND i = '$i' AND o = '$o' AND schoolID = '$schoolID' AND archive = 0";
+        $sqls[] = $sql;
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $error = 1;
+            $error_text = "Педагог с таким ФИО уже существует в данной школе";
+        }
+    }
+
+} else {
+
     $error = 1;
-    $error_text = "Педагог с таким ФИО уже существует в данной школе";
+    $error_text = "Педагога не существует, обновите страницу";
+
 }
 
-if($error === 0){
+if ($error === 0) {
+
+    if(isset($_FILES['files']))
+    {
+
+        $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers";
+        if (!file_exists($baseDirName)) {
+            $oldmask = umask(0);
+            $mkdir_result = mkdir($baseDirName, 0777);
+            umask($oldmask);
+        }
+
+        foreach($_FILES['files']['error'] as $key => $error)
+        {
+            if ($error == UPLOAD_ERR_OK)
+            {
+                $temp_name = $_FILES['files']['tmp_name'][$key];
+                $name = $_FILES['files']['name'][$key];
+
+                $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID;
+                if (!file_exists($dirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($dirName, 0777);
+                    umask($oldmask);
+                }
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID . "/" . $id . "_" . $name;
+
+                @unlink($path);
+
+                $sql = "SELECT * FROM teachers WHERE ID = '$id'";
+                $sqls[] = $sql;
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_object($result);
+
+                $oldpath = $_SERVER['DOCUMENT_ROOT'] . $row->photo;
+                @unlink($oldpath);
+
+                if(copy($temp_name, $path))
+                {
+
+                    $file_to_DB = "/files/teachers/" . $schoolID . "/" . $id . "_" . $name;
+
+                    $add_sql = "UPDATE 
+                                    teachers
+                                SET
+                                    photo = '$file_to_DB'
+                                WHERE 
+                                    ID = '$id'";
+                    mysqli_query($conn, $add_sql);
+                }
+
+            }
+            else
+            {
+                $error = 1;
+                $error_text = $error;
+            }
+        }
+    }
 
     $sql = "UPDATE 
                 teachers
@@ -40,14 +116,12 @@ if($error === 0){
                 ID = '$id'";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
-    $lastID = mysqli_insert_id($conn);
 
-    if(!$result){
+    if (!$result) {
         $error = 1;
         $error_text = mysqli_error($conn);
-    }
-    else{
-        $log->add($conn, $authorization[1], 'Отредактирован педагог #' . $lastID . ' в школе ID: ' . $schoolID);
+    } else {
+        $log->add($conn, $authorization[1], 'Отредактирован педагог #' . $id . ' в школе ID: ' . $schoolID);
     }
 
 }
