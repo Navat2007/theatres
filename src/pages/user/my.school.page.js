@@ -89,7 +89,7 @@ const MySchoolPage = () => {
         params.id = userStore.user.schoolID;
         await dispatch(fetchEditSchool(params));
         setPopupSchoolEditOpened(false);
-        fetchData();
+        await fetchData();
 
     }
 
@@ -100,8 +100,6 @@ const MySchoolPage = () => {
     }, []);
 
     React.useEffect(() => {
-
-        console.log(schoolStore.school);
 
         if(schoolStore.school && schoolStore.school.dir_phone)
             setPhone(formatPhone(schoolStore.school.dir_phone));
