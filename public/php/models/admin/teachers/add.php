@@ -31,7 +31,7 @@ if(mysqli_num_rows($result) > 0)
 
 if($error === 0){
 
-    $sql = "INSERT INTO teachers (f, i, o, position, text, experience, schoolID, active) VALUES ('$f', '$i', '$o', '$position', '$text', '$experience', '$schoolID', '$active')";
+    $sql = "INSERT INTO teachers (f, i, o, position, text, experience, schoolID, last_user_changed, active) VALUES ('$f', '$i', '$o', '$position', '$text', '$experience', '$schoolID', '$authorization[1]', '$active')";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
