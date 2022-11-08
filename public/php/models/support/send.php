@@ -1,9 +1,11 @@
 <?php
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
-require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Auth-Token');
 
-$ID = htmlspecialchars($_POST["userID"]);
+require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+
+$ID = $authorization[1];
 $text = htmlspecialchars($_POST["text"]);
 $email = htmlspecialchars($_POST["email"]);
 $fio = "";

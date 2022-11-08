@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Button from "../simple/button/button.component";
 import Popup from "../popup/popup.component";
 import FieldInput from "../simple/field/field.input.component";
+import axios from "axios";
 
 const SupportHeaderComponent = () => {
 
@@ -12,11 +13,29 @@ const SupportHeaderComponent = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const [popupOpened, setPopupOpened] = React.useState(false);
+    const [popupNotifOpened, setPopupNotifOpened] = React.useState(false);
     const [sending, setSending] = React.useState(false);
 
 
-    const onSendSubmit = (params) => {
-        console.log(params);
+    const onSendSubmit = async (params) => {
+
+        setSending(true);
+
+        let form = new FormData();
+
+        for (let key in params) {
+            form.append(key, params[key]);
+        }
+
+        const data = await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+        console.log(data);
+
+        reset();
+
+        setSending(false);
+
+        setPopupOpened(false);
+        setPopupNotifOpened(true);
     }
 
     return (
@@ -65,6 +84,17 @@ const SupportHeaderComponent = () => {
                     </div>
                 </form>
             </Popup>
+            <Popup
+                title={""}
+                notif={{
+                    active: true,
+                    state: "success",
+                    text: "Запрос успешно отправлен",
+                    timerInSeconds: 3,
+                }}
+                opened={popupNotifOpened}
+                onClose={() => setPopupNotifOpened(false)}
+            />
         </>
 
     );
