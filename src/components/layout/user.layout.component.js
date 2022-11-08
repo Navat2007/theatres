@@ -1,3 +1,4 @@
+import React from "react";
 import { Outlet } from 'react-router-dom';
 
 import Header from "../header/header.component";
@@ -5,6 +6,8 @@ import SupportHeaderComponent from "../header/support.header.component";
 import Menu from "../menu/menu.component";
 
 const UserLayout = () => {
+
+    const [burgerOpened, setBurgerOpened] = React.useState(false);
 
     const menu = [
         {
@@ -29,12 +32,16 @@ const UserLayout = () => {
         },
     ];
 
+    const handleBurgerMenu = () => {
+        setBurgerOpened(!burgerOpened);
+    };
+
     return (
         <>
-            <Header>
+            <Header handleBurger={handleBurgerMenu}>
                 <SupportHeaderComponent />
             </Header>
-            <Menu menu={menu} />
+            <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className="content__main">
                 <Outlet />
             </main>

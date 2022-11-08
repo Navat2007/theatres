@@ -70,7 +70,7 @@ const LoginPage = () => {
                     defaultChecked={window.localStorage.getItem('remember')}
                 />
                 <p className={`form__info-text ${statusText === "" ? "":"--actived"}`}>{statusText}</p>
-                <Button text={"Войти"} disabled={status === "loading"} spinnerActive={status === "loading"}/>
+                <Button type="submit" text={"Войти"} disabled={status === "loading"} spinnerActive={status === "loading"}/>
             </form>
         </Popup>
 

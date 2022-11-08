@@ -80,6 +80,7 @@ const FieldInput = ({
                 </>
 
             case "select":
+                console.log(defaultSelectItem.value);
                 return <>
                     {
                         label

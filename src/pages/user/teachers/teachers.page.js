@@ -60,13 +60,6 @@ const TeachersPage = () => {
             sorting: true,
         },
         {
-            header: "Школа",
-            key: "school",
-            type: "string",
-            filter: "string",
-            sorting: true,
-        },
-        {
             header: "Статус",
             key: "active",
             type: "string",
