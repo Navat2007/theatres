@@ -73,7 +73,9 @@ if ($error === 0) {
                     umask($oldmask);
                 }
 
-                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID . "/" . $id . "_" . $name;
+                $file_token = time();
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/teachers/" . $schoolID . "/" . $file_token . "_" . $name;
 
                 @unlink($path);
 
@@ -88,7 +90,7 @@ if ($error === 0) {
                 if(copy($temp_name, $path))
                 {
 
-                    $file_to_DB = "/files/teachers/" . $schoolID . "/" . $id . "_" . $name;
+                    $file_to_DB = "/files/teachers/" . $schoolID . "/" . $file_token . "_" . $name;
 
                     $add_sql = "UPDATE 
                                     teachers
