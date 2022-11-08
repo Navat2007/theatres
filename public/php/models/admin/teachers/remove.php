@@ -43,7 +43,7 @@ if ($error === 0) {
         $error = 1;
         $error_text = mysqli_error($conn);
     } else {
-        $log->add($conn, $authorization[1], 'Педагог #' . $id . ' школа ID: ' . $row->schoolID . ' отправлен в архив');
+        $log->add($conn, $authorization[1], 'Педагог ID: ' . $id . ', школа ID: ' . $row->schoolID . ' отправлен в архив');
     }
 
 }

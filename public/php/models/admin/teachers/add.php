@@ -92,7 +92,7 @@ if($error === 0){
         $error_text = mysqli_error($conn);
     }
     else{
-        $log->add($conn, $authorization[1], 'Добавлен педагог #' . $lastID . ' в школу ID: ' . $schoolID);
+        $log->add($conn, $authorization[1], 'Добавлен педагог ID: ' . $lastID . ' в школу ID: ' . $schoolID);
     }
 
 }

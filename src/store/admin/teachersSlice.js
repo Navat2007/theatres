@@ -181,6 +181,30 @@ const teachersSlice = createSlice({
             state.status = 'sendingError';
             state.statusError = 'Ошибка при отправке на сервер.';
         },
+        // REMOVE
+        [fetchRemoveTeacher.pending]: (state) => {
+            state.status = 'removing';
+        },
+        [fetchRemoveTeacher.fulfilled]: (state, action) => {
+
+            console.log(action.payload);
+
+            if (action.payload.error === 1) {
+                state.status = 'sendingError';
+                state.statusError = action.payload.error_text;
+            }
+
+            if (action.payload.error === 0) {
+                state.status = 'sendingDone';
+                state.statusError = "";
+                state.teacher = null;
+            }
+
+        },
+        [fetchRemoveTeacher.rejected]: (state) => {
+            state.status = 'sendingError';
+            state.statusError = 'Ошибка при отправке на сервер.';
+        },
     }
 
 });

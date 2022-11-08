@@ -121,7 +121,7 @@ if ($error === 0) {
         $error = 1;
         $error_text = mysqli_error($conn);
     } else {
-        $log->add($conn, $authorization[1], 'Отредактирован педагог #' . $id . ' в школе ID: ' . $schoolID);
+        $log->add($conn, $authorization[1], 'Отредактирован педагог ID: ' . $id . ' в школе ID: ' . $schoolID);
     }
 
 }

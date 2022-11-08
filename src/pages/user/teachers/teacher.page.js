@@ -165,7 +165,9 @@ const TeacherPage = () => {
                         <div className="form__controls">
                             <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
                             <Button
-                                className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
+                                theme="text"
+                                extraClass={`--icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
+                                spinnerActive={status === "removing"}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -192,7 +194,7 @@ const TeacherPage = () => {
                                 />
                                 <Button
                                     text={"Нет"}
-                                    className='--theme-text'
+                                    theme="text"
                                     onClick={() => setPopupOpened(false)}
                                 />
                             </>
@@ -236,7 +238,6 @@ const TeacherPage = () => {
                             type="file"
                             placeholder={"Выберите фото..."}
                             fieldClassName={"--type-flex"}
-                            required={true}
                             {...register("photo")}
                         />
                         <FieldInput
