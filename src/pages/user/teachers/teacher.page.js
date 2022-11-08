@@ -8,13 +8,20 @@ import Button from "../../../components/simple/button/button.component";
 import Popup from "../../../components/popup/popup.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
-import {clear, fetchAddTeacher, fetchEditTeacher, fetchRemoveTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
+import {
+    clear,
+    fetchAddTeacher,
+    fetchEditTeacher,
+    fetchRemoveTeacher,
+    loadTeacher
+} from "../../../store/admin/teachersSlice";
 
 const TeacherPage = () => {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let { id } = useParams();
-    const {register, handleSubmit, reset, formState: { errors }} = useForm();
+    let {id} = useParams();
+    const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
     const user = useSelector(state => state.auth.user);
     const {teacher, status, statusError} = useSelector(state => state.teachers);
@@ -62,7 +69,7 @@ const TeacherPage = () => {
 
     const onDeleteSubmit = () => {
 
-        dispatch(fetchRemoveTeacher({id, schoolID: user.schoolID}));
+        dispatch(fetchRemoveTeacher({id}));
 
     }
 

@@ -109,7 +109,7 @@ const teachersSlice = createSlice({
         },
         [loadTeachers.fulfilled]: (state, action) => {
 
-            console.log(action);
+            //console.log(action);
 
             state.status = 'done';
             state.data = action.payload.params;
