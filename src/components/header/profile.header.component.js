@@ -49,9 +49,9 @@ const ProfileHeader = ({ className }) => {
                 <p className="profile__subtitle">{userRole}</p>
             </div>
             <Button
-                className="profile__btn"
-                type="button"
-                text={""}
+                theme='text'
+                isIconBtn={true}
+                iconClass='mdi mdi-location-exit'
                 aria-label="Выйти из профиля"
                 onClick={() => setPopupOpened(true)}
             />
@@ -66,14 +66,14 @@ const ProfileHeader = ({ className }) => {
                 }}
                 buttons={<>
                     <Button
-                        text={"Да"}
+                        text="Да"
                         onClick={() => {
                             dispatch(logout());
                             navigate("/login", { replace: true });
                         }}
                     />
                     <Button
-                        text={"Нет"}
+                        text="Нет"
                         theme="text"
                         onClick={() => setPopupOpened(false)}
                     />

@@ -18,19 +18,21 @@ const SupportHeaderComponent = () => {
                 onClick={() => setPopupOpened(true)}
             />
             <Popup
-                title={"Отправить запрос в поддержку"}
+                title={"Отправить запрос в поддержку?"}
+                notif={{
+                    active: true,
+                }}
                 opened={popupOpened}
                 onClose={() => {
                     setPopupOpened(false);
                 }}
                 buttons={<>
                     <Button
-                        text={"Отправить"}
+                        text="Отправить"
                         onClick={() => { }}
                     />
                 </>}
-            >
-            </Popup>
+            />
         </>
 
     );
