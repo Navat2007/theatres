@@ -1,6 +1,6 @@
 import React from 'react';
-import {useForm} from "react-hook-form";
-import {useSelector} from "react-redux";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 import Button from "../simple/button/button.component";
 import Popup from "../popup/popup.component";
@@ -10,7 +10,7 @@ const SupportHeaderComponent = () => {
 
     const user = useSelector(state => state.auth.user);
 
-    const {register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [sending, setSending] = React.useState(false);
 
@@ -37,14 +37,14 @@ const SupportHeaderComponent = () => {
                     setPopupOpened(false);
                 }}
             >
-                <form onSubmit={handleSubmit(onSendSubmit)} className='form --place-new-user'>
+                <form onSubmit={handleSubmit(onSendSubmit)} className='form'>
                     <fieldset className='form__section --content-info'>
                         <FieldInput
                             label={"Email для ответа:"}
                             placeholder={"Введите email..."}
                             fieldClassName={"--type-flex"}
                             required={true}
-                            {...register("email", {value: user.email})}
+                            {...register("email", { value: user.email })}
                         />
                         <FieldInput
                             label={"Опишите Ваш вопрос:"}
@@ -57,7 +57,11 @@ const SupportHeaderComponent = () => {
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <Button type="submit" text="Отправить" spinnerActive={sending}/>
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={sending} 
+                            style={{marginLeft: 'auto', display: 'block'}}/>
                     </div>
                 </form>
             </Popup>

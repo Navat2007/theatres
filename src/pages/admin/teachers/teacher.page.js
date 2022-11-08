@@ -1,8 +1,8 @@
 import React from 'react';
-import {Navigate, useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "react-hook-form";
-import {Helmet} from "react-helmet";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -16,16 +16,16 @@ import {
     fetchRemoveTeacher,
     loadTeacher
 } from "../../../store/admin/teachersSlice";
-import {loadSchools} from "../../../store/admin/schoolsSlice";
+import { loadSchools } from "../../../store/admin/schoolsSlice";
 
 const TeacherPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let { id } = useParams();
-    const {register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
-    const {teacher, teacherStatus, statusError} = useSelector(state => state.teachers);
+    const { teacher, teacherStatus, statusError } = useSelector(state => state.teachers);
     const schools = useSelector(state => state.schools);
 
     const [error, setError] = React.useState(false);
@@ -38,7 +38,7 @@ const TeacherPage = () => {
 
         if (id) {
             reset();
-            await dispatch(loadTeacher({id}));
+            await dispatch(loadTeacher({ id }));
         }
         else
             await dispatch(init());
@@ -70,8 +70,7 @@ const TeacherPage = () => {
 
     const checkPhoto = (file) => {
 
-        if(!file)
-        {
+        if (!file) {
             setError("Файл не читается.");
             setPopupErrorOpened(true);
             return false;
@@ -99,7 +98,7 @@ const TeacherPage = () => {
 
     const onAddSubmit = async (params) => {
 
-        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+        if (params.photo.length > 0 && !checkPhoto(params.photo[0]))
             return;
 
         await dispatch(fetchAddTeacher(params));
@@ -109,7 +108,7 @@ const TeacherPage = () => {
 
     const onEditSubmit = async (params) => {
 
-        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+        if (params.photo.length > 0 && !checkPhoto(params.photo[0]))
             return;
 
         params.id = id;
@@ -120,7 +119,7 @@ const TeacherPage = () => {
 
     const onDeleteSubmit = async () => {
 
-        await dispatch(fetchRemoveTeacher({id}));
+        await dispatch(fetchRemoveTeacher({ id }));
         onClose();
 
     }
@@ -140,9 +139,11 @@ const TeacherPage = () => {
                 <div className='content__section'>
                     <div className="content__title-block">
                         <Button
-                            extraClass="--icon-back --icon-on-before --variant-icon "
-                            theme="text"
                             type="button"
+                            iconClass={'mdi mdi-arrow-left'}
+                            isIconBtn={true}
+                            size='small'
+                            theme="text"
                             aria-label="Назад"
                             onClick={onClose}
                         />
@@ -154,8 +155,8 @@ const TeacherPage = () => {
                             <div className="profile --place-edit-profile">
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
-                                     src={window.global.baseUrl + teacher.photo}
-                                     alt={"Фото педагога"}/>
+                                    src={window.global.baseUrl + teacher.photo}
+                                    alt={"Фото педагога"} />
                             </div>
                             <FieldInput
                                 label={"Новое фото"}
@@ -169,35 +170,35 @@ const TeacherPage = () => {
                                 placeholder={"Введите фамилию..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("f", {value: teacher.f})}
+                                {...register("f", { value: teacher.f })}
                             />
                             <FieldInput
                                 label={"Имя"}
                                 placeholder={"Введите имя..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("i", {value: teacher.i})}
+                                {...register("i", { value: teacher.i })}
                             />
                             <FieldInput
                                 label={"Отчество"}
                                 placeholder={"Введите отчество..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("o", {value: teacher.o})}
+                                {...register("o", { value: teacher.o })}
                             />
                             <FieldInput
                                 label={"Должность"}
                                 placeholder={"Введите должность..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("position", {value: teacher.position})}
+                                {...register("position", { value: teacher.position })}
                             />
                             <FieldInput
                                 label={"Педагогический стаж"}
                                 placeholder={"Введите педагогический стаж..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("experience", {value: teacher.experience})}
+                                {...register("experience", { value: teacher.experience })}
                             />
                             <FieldInput
                                 label={"Описание"}
@@ -206,7 +207,7 @@ const TeacherPage = () => {
                                 placeholder={"Введите описание..."}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("text", {value: teacher.text})}
+                                {...register("text", { value: teacher.text })}
                             />
                             <FieldInput
                                 label={"Школа"}
@@ -224,7 +225,7 @@ const TeacherPage = () => {
                                 }).sort()}
                                 fieldClassName={"--type-flex"}
                                 required={true}
-                                {...register("schoolID", {value: teacher.schoolID})}
+                                {...register("schoolID", { value: teacher.schoolID })}
                             />
                         </fieldset>
                         <fieldset className='form__section --content-security'>
@@ -233,14 +234,19 @@ const TeacherPage = () => {
                                 label={"Активировать учетную запись?"}
                                 type={"radio"}
                                 fieldClassName={"--type-checkbox-radio"}
-                                {...register("active", {value: teacher.active === "Активен"})}
+                                {...register("active", { value: teacher.active === "Активен" })}
                             />
                         </fieldset>
                         <div className="form__controls">
-                            <Button type="submit" text="Сохранить" spinnerActive={teacherStatus === "sending"}/>
+                            <Button
+                                type="submit"
+                                text="Сохранить"
+                                spinnerActive={teacherStatus === "sending"} />
                             <Button
                                 theme="text"
-                                extraClass={`--icon-on-before --icon-trash ${teacherStatus === "sending" ? "--hide" : ""}`}
+                                type='button'
+                                iconClass={'mdi mdi-delete'}
+                                extraClass={`${teacherStatus === "sending" ? "--hide" : ""}`}
                                 spinnerActive={teacherStatus === "removing"}
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -296,9 +302,11 @@ const TeacherPage = () => {
             <div className='content__section'>
                 <div className="content__title-block">
                     <Button
-                        extraClass="--icon-back --icon-on-before --variant-icon"
-                        theme="text"
                         type="button"
+                        iconClass={'mdi mdi-arrow-left'}
+                        isIconBtn={true}
+                        size='small'
+                        theme="text"
                         aria-label="Назад"
                         onClick={onClose}
                     />
@@ -383,11 +391,14 @@ const TeacherPage = () => {
                             label={"Активировать учетную запись?"}
                             type={"radio"}
                             fieldClassName={"--type-checkbox-radio"}
-                            {...register("active", {value: true})}
+                            {...register("active", { value: true })}
                         />
                     </fieldset>
                     <div className="form__controls">
-                        <Button type="submit" text={"Создать"} spinnerActive={teacherStatus === "sending"}/>
+                        <Button
+                            type="submit"
+                            text={"Создать"}
+                            spinnerActive={teacherStatus === "sending"} />
                     </div>
                 </form>
                 <Popup

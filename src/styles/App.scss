@@ -16,14 +16,14 @@
   // --ff-firm: 'Cormorant Infant', sans-serif;
   --ff-base: Montserrat, sans-serif; 
 }
-
+ 
 html {  
   color: var(--dark);
   font-family: var(--ff-base);
 }
 
 @import "blocks/preloader";
-@import "blocks/button";
+// @import "blocks/button";
 @import "blocks/field";
 @import "blocks/form";
 @import "blocks/popup";
