@@ -47,17 +47,10 @@ const SupportHeaderComponent = () => {
                             {...register("email", {value: user.email})}
                         />
                         <FieldInput
-                            label={"Новое фото"}
-                            type="file"
-                            placeholder={"Выберите фото для замены..."}
-                            fieldClassName={"--type-flex"}
-                            {...register("photo")}
-                        />
-                        <FieldInput
                             label={"Опишите Ваш вопрос:"}
                             type={"textarea"}
                             rows={10}
-                            placeholder={"Введите описание..."}
+                            placeholder={"Ваш вопрос... \n(если Ваш вопрос касается конкретного театра, заявки, педагога и т.п., указывайте пожалуйста его ID)"}
                             fieldClassName={"--type-flex"}
                             required={true}
                             {...register("text")}
