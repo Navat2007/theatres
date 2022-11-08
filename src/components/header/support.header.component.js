@@ -11,13 +11,12 @@ const SupportHeaderComponent = () => {
         <>
             <Button
                 theme='outline'
+                iconClass='mdi mdi-help'
                 extraClass="header__item --type-support"
                 aria-label="Задать вопрос"
                 text="Поддержка"
                 onClick={() => setPopupOpened(true)}
-            >
-                <span className="mdi mdi-help"></span>
-            </Button>
+            />
             <Popup
                 title={"Отправить запрос в поддержку"}
                 opened={popupOpened}
@@ -27,13 +26,10 @@ const SupportHeaderComponent = () => {
                 buttons={<>
                     <Button
                         text={"Отправить"}
-                        onClick={() => {
-
-                        }}
+                        onClick={() => { }}
                     />
                 </>}
             >
-
             </Popup>
         </>
 

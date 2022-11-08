@@ -1,24 +1,23 @@
 import React from 'react';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import styles from './button.module.scss';
 
 console.log(styles);
-
 const Button = ({
-                    children,
-                    type = "submit",
-                    size = "normal",
-                    theme = "primary",
-                    extraClass = "",
-                    text,
-                    spinnerActive = false,
-                    ...rest
-                }) => {
+    type = "button",
+    theme = "primary",
+    size = "normal",
+    extraClass = "",
+    isIconBtn = false,
+    iconClass,
+    text,
+    spinnerActive = false,
+    ...rest
+}) => {
 
     const [sizeClass, setSizeClass] = React.useState("");
     const [themeClass, setThemeClass] = React.useState("");
-    const spinnerClass = spinnerActive ? ` ${styles.button_loading}` : ``;
 
     React.useEffect(() => {
 
@@ -48,22 +47,31 @@ const Button = ({
 
     }, [size, theme]);
 
-    const finalClassName = styles.button + ` ${sizeClass} ${themeClass} ${extraClass} ${spinnerClass}`;
+    const config = [
+        styles.button,
+        themeClass,
+        sizeClass,
+        isIconBtn ? styles.button_icon : ``,
+        extraClass,
+        spinnerActive ? styles.button_loading : ``,
+    ];
+
+    const finalClassName = config.join(' ');
 
     return (
         <motion.button
-            whileTap={{scale: 0.95}}
+            whileTap={{ scale: 0.95 }}
             type={type}
             className={finalClassName}
             {...rest}
         >
-            {children} 
+            {
+                iconClass
+                &&
+                <span className={`${styles.mdi} ${iconClass}`} />
+            }
             <span className={styles.button__text}>{text}</span>
-            <div className={styles.button__spinner}>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+            <div className={styles.button__spinner}><div></div><div></div><div></div></div>
         </motion.button>
     );
 };

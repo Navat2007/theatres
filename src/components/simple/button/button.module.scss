@@ -6,10 +6,11 @@
   outline: none;
   background-color: transparent;
   font-family: inherit;
+  vertical-align: middle;
   box-sizing: border-box;
   cursor: pointer;
 
-  font-size: 100%;
+  font-size: 1em;
   padding: .25em 1.5em;
   min-height: 3.125em;
   text-align: center;
@@ -25,9 +26,31 @@
     color: var(--darkLow);
   }
 
-  &__text {
-    font-size: inherit;
-    font-weight: 500;
+  & .mdi {
+    &::before {
+      font-size: 150%;
+      line-height: 1;
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+  }
+
+  &_icon {
+    min-width: 3.125em;
+    max-width: 3.125em;
+    @include box(3.125em);
+
+    min-height: unset;
+    padding: .25em;
+    border-radius: 50%;
+    
+    & .mdi::before {
+      margin-right: 0;
+    }
+
+    .button__text {
+      display: none;
+    }
   }
 
   &_size_sm {
@@ -36,6 +59,12 @@
 
     .button__text {
       font-size: .875em;
+    }
+
+    .button_icon {
+      min-width: 2.75em;
+      max-width: 2.75em;
+      @include box(2.75em);
     }
   }
 
@@ -95,6 +124,11 @@
     .button__spinner {
       display: flex;
     }
+  }
+
+  &__text {
+    font-size: inherit;
+    font-weight: 500;
   }
 
   &__spinner {

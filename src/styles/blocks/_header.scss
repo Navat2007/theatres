@@ -14,10 +14,6 @@
     &.--type-burger-menu {
       margin-right: auto;
     }
-
-    &.--type-support span {
-      display: none;
-    }
   }
 }
 
@@ -28,6 +24,10 @@
     left: 0;
     right: 0;
     z-index: 100;
+
+    &__item.--type-support {
+      display: none;
+    }
   }
 }
 
@@ -42,13 +42,14 @@
     }
 
     &__item.--type-support {
-      padding: .5em;
+      padding: .5em .75em;
       max-width: max-content;
       width: max-content;
       border-radius: 15px;
+      vertical-align: middle;
 
-      & span {
-        display: unset;
+      .mdi::before {
+        font-size: 100%;
       }
     }
   }

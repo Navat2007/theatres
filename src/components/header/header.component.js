@@ -8,8 +8,10 @@ const HeaderComponent = ({ children, handleBurger }) => {
     return (
         <header className="header content__header">
             <Button
-                className="--theme-text --variant-icon --icon-on-before mdi mdi-menu header__item --type-burger-menu"
-                type="button"
+                theme='text'
+                isIconBtn={true}
+                iconClass='mdi mdi-menu' 
+                extraClass='header__item --type-burger-menu'
                 aria-label="Открыть/Закрыть меню"
                 onClick={handleBurger}
             />
