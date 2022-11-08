@@ -4,12 +4,14 @@ import Button from '../components/simple/button/button.component';
 
 import no_photo_man from '../images/no_photo_man.png';
 import { editProfilePhoto } from "../store/authSlice";
+import Popup from "../components/popup/popup.component";
 
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const [phone, setPhone] = React.useState();
+    const [popupOpened, setPopupOpened] = React.useState(false);
 
     const formatPhone = (value) => {
 
@@ -52,6 +54,12 @@ const ProfilePage = () => {
 
     };
 
+    const onDeleteSubmit = async () => {
+
+
+
+    }
+
     React.useEffect(() => {
         console.log(user);
         setPhone(formatPhone(user.phone));
@@ -80,6 +88,9 @@ const ProfilePage = () => {
                             isIconBtn={true}
                             iconClass='mdi mdi-delete'
                             aria-label="Удалить фото"
+                            onClick={(e) => {
+                                setPopupOpened(true);
+                            }}
                         />
                     </div>
                     <input className='profile-card__img-input' id={"img-profile"} type="file"
@@ -136,6 +147,31 @@ const ProfilePage = () => {
                     }
                 </ul>
             </div>
+            <Popup
+                title={"Вы уверены что хотите удалить?"}
+                notif={{
+                    active: true,
+                    state: "alert"
+                }}
+                opened={popupOpened}
+                onClose={() => setPopupOpened(false)}
+                buttons={
+                    <>
+                        <Button
+                            text={"Да"}
+                            onClick={() => {
+                                setPopupOpened(false);
+                                onDeleteSubmit();
+                            }}
+                        />
+                        <Button
+                            text={"Нет"}
+                            theme="text"
+                            onClick={() => setPopupOpened(false)}
+                        />
+                    </>
+                }
+            />
         </div>
     );
 };

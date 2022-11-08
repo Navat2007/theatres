@@ -34,6 +34,9 @@ const Popup = ({
                 case "success":
                     setNotifIcon("--state-success")
                     break
+                case "question":
+                    setNotifIcon("--state-question")
+                    break
                 default:
                     setNotifIcon("")
             }
