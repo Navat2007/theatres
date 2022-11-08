@@ -49,8 +49,8 @@ const Button = ({
     const config = [
         styles.button,
         themeClass,
-        sizeClass,
         isIconBtn ? styles.button_icon : ``,
+        sizeClass,
         extraClass,
         spinnerActive ? styles.button_loading : ``,
     ];
