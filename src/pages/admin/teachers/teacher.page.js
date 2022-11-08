@@ -23,7 +23,7 @@ const TeacherPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let { id } = useParams();
-    const {register, handleSubmit, reset, setValue} = useForm();
+    const {register, handleSubmit, reset} = useForm();
 
     const {teacher, teacherStatus, statusError} = useSelector(state => state.teachers);
     const schools = useSelector(state => state.schools);
