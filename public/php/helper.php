@@ -67,12 +67,12 @@ class helper
 
     }
 
-    function sendSupportEmail($email, $text, $fio, $org)
+    function sendSupportEmail($site, $email, $text, $fio, $org)
     {
         //Patr!otsport123!
         $to = "Support-sport@patriotsport.moscow";
         //$to = "navat2007@yandex.ru";
-        $subject = 'Патриот спорт сервис | Новый запрос в поддержку';
+        $subject = $site . ' | Новый запрос в поддержку';
         $message = include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/header.php';
 
         $message .= '<tr style="box-sizing: border-box;">

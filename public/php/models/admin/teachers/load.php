@@ -42,8 +42,8 @@ if (mysqli_num_rows($result) > 0) {
             'f' => $row->f,
             'i' => $row->i,
             'o' => $row->o,
-            'position' => $row->position,
-            'school' => $row->org_short_name,
+            'position' => htmlspecialchars_decode($row->position),
+            'school' => htmlspecialchars_decode($row->org_short_name),
             'schoolID' => (int)$row->schoolID,
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
 
