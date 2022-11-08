@@ -27,14 +27,12 @@
   }
 
   & .mdi {
-    &::before {
-      font-size: 150%;
-      line-height: 1;
-      margin-right: .5rem;
-      vertical-align: middle;
-    }
+    margin-right: .5rem;
+    font-size: 150%;
+    vertical-align: middle;
+    line-height: 1;
   }
-
+ 
   &_icon {
     min-width: 3.125em;
     max-width: 3.125em;
@@ -43,8 +41,8 @@
     min-height: unset;
     padding: .25em;
     border-radius: 50%;
-    
-    & .mdi::before {
+
+    & .mdi {
       margin-right: 0;
     }
 
