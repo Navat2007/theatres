@@ -9,6 +9,7 @@ import Popup from "../../../components/popup/popup.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
 import {
+    init,
     clear,
     fetchAddTeacher,
     fetchEditTeacher,
@@ -24,62 +25,71 @@ const TeacherPage = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const user = useSelector(state => state.auth.user);
-    const { teacher, status, statusError } = useSelector(state => state.teachers);
+    const { teacher, teacherStatus, statusError } = useSelector(state => state.teachers);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
-    React.useEffect(() => {
+    const fetchData = async () => {
 
         if (id) {
             reset();
-            dispatch(loadTeacher({ id }));
+            await dispatch(loadTeacher({id}));
         }
+        else
+            await dispatch(init());
 
-    }, [id, dispatch]);
+    }
 
     React.useEffect(() => {
 
-        if (status === "sendingError")
+        fetchData();
+
+        return () => {
+            dispatch(clear());
+        };
+
+    }, [id]);
+
+    React.useEffect(() => {
+
+        if (teacherStatus === "sendingError")
             setPopupErrorOpened(true);
 
-    }, [status]);
+    }, [teacherStatus]);
 
     const onClose = () => {
 
-        dispatch(clear());
         navigate("/user/teachers");
 
     }
 
-    const onAddSubmit = (params) => {
+    const onAddSubmit = async (params) => {
 
         params.schoolID = user.schoolID;
-        dispatch(fetchAddTeacher(params));
+        await dispatch(fetchAddTeacher(params));
+        onClose();
 
     }
 
-    const onEditSubmit = (params) => {
+    const onEditSubmit = async (params) => {
 
         params.id = id;
         params.schoolID = user.schoolID;
-        dispatch(fetchEditTeacher(params));
+        await dispatch(fetchEditTeacher(params));
 
     }
 
-    const onDeleteSubmit = () => {
+    const onDeleteSubmit = async () => {
 
-        dispatch(fetchRemoveTeacher({ id }));
+        await dispatch(fetchRemoveTeacher({ id }));
 
     }
 
-    if (status === "sendingDone")
-        return <Navigate to={"/user/teachers"} />
-
-    if (status === "loading")
+    if (teacherStatus === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (id && teacher === null)
+    if (id && (teacher === null || (teacher.schoolID !== user.schoolID)))
         return <div className='content__section'><p>Данного педагога не существует</p></div>;
 
     if (id && teacher)
@@ -174,13 +184,13 @@ const TeacherPage = () => {
                             <Button
                                 type='submit'
                                 text={"Сохранить"}
-                                spinnerActive={status === "sending"} />
+                                spinnerActive={teacherStatus === "sending"} />
                             <Button
                                 type='button'
                                 theme="text"
                                 iconClass={'mdi mdi-delete'}
-                                extraClass={`${status === "sending" ? "--hide" : ""}`}
-                                spinnerActive={status === "removing"}
+                                extraClass={`${teacherStatus === "sending" ? "--hide" : ""}`}
+                                spinnerActive={teacherStatus === "removing"}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -313,7 +323,7 @@ const TeacherPage = () => {
                         <Button
                             type='submit'
                             text={"Создать"}
-                            spinnerActive={status === "sending"} />
+                            spinnerActive={teacherStatus === "sending"} />
                     </div>
                 </form>
                 <Popup
