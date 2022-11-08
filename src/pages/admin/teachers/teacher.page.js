@@ -9,6 +9,7 @@ import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
 import {
+    init,
     clear,
     fetchAddTeacher,
     fetchEditTeacher,
@@ -16,7 +17,6 @@ import {
     loadTeacher
 } from "../../../store/admin/teachersSlice";
 import {loadSchools} from "../../../store/admin/schoolsSlice";
-import {useUnload} from "../../../hook/useUnload";
 
 const TeacherPage = () => {
 
@@ -39,6 +39,8 @@ const TeacherPage = () => {
             reset();
             await dispatch(loadTeacher({id}));
         }
+        else
+            await dispatch(init());
 
     }
 
@@ -50,7 +52,7 @@ const TeacherPage = () => {
             dispatch(clear());
         };
 
-    }, []);
+    }, [id]);
 
     React.useEffect(() => {
 
@@ -87,10 +89,10 @@ const TeacherPage = () => {
 
     }
 
-    if (teacherStatus === "loading")
+    if (teacherStatus === "loading" || schools.status === "loading")
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (id && teacherStatus === "done" && teacher === null)
+    if (id && teacher === null)
         return <div className='content__section'><p>Данного педагога не существует</p></div>;
 
     if (id && teacher)

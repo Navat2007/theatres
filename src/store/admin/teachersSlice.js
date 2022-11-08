@@ -97,9 +97,12 @@ const teachersSlice = createSlice({
         statusError: '',
     },
     reducers: {
+        init(state) {
+            state.teacherStatus = 'done';
+            state.teacher = null;
+        },
         clear(state) {
-            state.statusText = '';
-            state.teacherStatus = '';
+            state.teacherStatus = 'loading';
             state.teacher = null;
         },
     },
@@ -212,5 +215,5 @@ const teachersSlice = createSlice({
 
 });
 
-export const {clear} = teachersSlice.actions;
+export const {init, clear} = teachersSlice.actions;
 export default teachersSlice.reducer;
