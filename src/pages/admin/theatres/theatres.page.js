@@ -90,9 +90,11 @@ const TheatresPage = () => {
                         withFilter={true}
                     >
                         <Button
-                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            extraClass="--icon-add --icon-on-before"
                             type="button"
                             text="Создать"
+                            theme="primary"
+                            size="small"
                             aria-label="Добавить театр"
                             onClick={() => navigate("/admin/theatres/new")}
                         />

@@ -34,7 +34,12 @@ if (isset($login) && isset($password)) {
 
         $row = mysqli_fetch_object($result);
 
-        if (password_verify($password, $row->pwd)) {
+        if((int)$row->active === 0)
+        {
+            $error = 1;
+            $error_text = "Ошибка, учетная запись отключена";
+        }
+        else if (password_verify($password, $row->pwd)) {
 
             $params = get_all_info($row, $conn);
 

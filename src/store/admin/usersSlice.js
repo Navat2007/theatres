@@ -117,7 +117,7 @@ const usersSlice = createSlice({
             if(action.payload.error === 0){
                 state.status = 'sendingDone';
                 state.statusError = "";
-                state.admin = null;
+                state.user = null;
             }
 
         },
@@ -139,7 +139,7 @@ const usersSlice = createSlice({
             if(action.payload.error === 0){
                 state.status = 'sendingDone';
                 state.statusError = "";
-                state.admin = null;
+                state.user = null;
             }
 
         },
@@ -161,7 +161,7 @@ const usersSlice = createSlice({
             if(action.payload.error === 0){
                 state.status = 'sendingDone';
                 state.statusError = "";
-                state.admin = null;
+                state.user = null;
             }
 
         },

@@ -139,9 +139,11 @@ const UsersPage = () => {
                         withFilter={true}
                     >
                         <Button
-                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            extraClass="--icon-add --icon-on-before"
                             type="button"
                             text="Создать"
+                            theme="primary"
+                            size="small"
                             aria-label="Создать администратора"
                             onClick={() => navigate("/admin/users/admin/new")}
                         />
@@ -158,9 +160,11 @@ const UsersPage = () => {
                         withFilter={true}
                     >
                         <Button
-                            className="button --icon-add --size-sm --icon-on-before --theme-primary"
+                            extraClass="--icon-add --icon-on-before"
                             type="button"
                             text="Создать"
+                            theme="primary"
+                            size="small"
                             aria-label="Создать пользователя"
                             onClick={() => navigate("/admin/users/user/new")}
                         />

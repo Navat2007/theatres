@@ -1,21 +1,62 @@
 import React from 'react';
 import {motion} from 'framer-motion';
 
-const Button = ({ children, type = "submit", className = "", text, size = "normal", spinnerActive = false, ...rest }) => {
+const Button = ({
+                    children,
+                    type = "submit",
+                    size = "normal",
+                    theme = "primary",
+                    extraClass = "",
+                    text,
+                    spinnerActive = false,
+                    ...rest
+                }) => {
 
-    const defaultClassName = "button " + (className === "" ? "--theme-primary" : className);
-    const finalClassName = defaultClassName + (size === "small" ? " --size-sm" : "") + (spinnerActive ? " --spinner-actived" : "");
+    const [sizeClass, setSizeClass] = React.useState("");
+    const [themeClass, setThemeClass] = React.useState("");
+    const spinnerClass = spinnerActive ? " --spinner-actived" : "";
+
+    React.useEffect(() => {
+
+        switch (size) {
+            case "small":
+                setSizeClass("--size-sm");
+                break;
+            case "big":
+                setSizeClass("--size-bg");
+                break;
+            default:
+                setSizeClass("");
+                break;
+        }
+
+        switch (theme) {
+            case "text":
+                setThemeClass("--theme-text");
+                break;
+            default:
+                setThemeClass("--theme-primary");
+                break;
+        }
+
+    }, [size, theme]);
+
+    const finalClassName = `button ${sizeClass} ${themeClass} ${extraClass} ${spinnerClass}`;
 
     return (
         <motion.button
-            whileTap={{ scale: 0.95 }}
+            whileTap={{scale: 0.95}}
             type={type}
             className={finalClassName}
             {...rest}
         >
             {text}
             {children}
-            <div className='button__spinner'><div></div><div></div><div></div></div>
+            <div className='button__spinner'>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </motion.button>
     );
 };

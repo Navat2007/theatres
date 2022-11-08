@@ -74,7 +74,7 @@ const ProfileHeader = ({ className }) => {
                     />
                     <Button
                         text={"Нет"}
-                        className='--theme-text'
+                        theme="text"
                         onClick={() => setPopupOpened(false)}
                     />
                 </>}
