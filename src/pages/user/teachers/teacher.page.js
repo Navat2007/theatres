@@ -8,7 +8,7 @@ import Button from "../../../components/simple/button/button.component";
 import Popup from "../../../components/popup/popup.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 
-import {clear, fetchAddTeacher, fetchEditTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
+import {clear, fetchAddTeacher, fetchEditTeacher, fetchRemoveTeacher, loadTeacher} from "../../../store/admin/teachersSlice";
 
 const TeacherPage = () => {
     const navigate = useNavigate();
@@ -62,7 +62,7 @@ const TeacherPage = () => {
 
     const onDeleteSubmit = () => {
 
-
+        dispatch(fetchRemoveTeacher({id, schoolID: user.schoolID}));
 
     }
 
@@ -164,14 +164,14 @@ const TeacherPage = () => {
                         </fieldset>
                         <div className="form__controls">
                             <Button text={"Сохранить"} spinnerActive={status === "sending"}/>
-                            {/*<Button*/}
-                            {/*    className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}*/}
-                            {/*    onClick={(e) => {*/}
-                            {/*        e.preventDefault();*/}
-                            {/*        setPopupOpened(true);*/}
-                            {/*    }}*/}
-                            {/*    text={"Удалить"}*/}
-                            {/*/>*/}
+                            <Button
+                                className={`--theme-text --icon-on-before --icon-trash ${status === "sending" ? "--hide" : ""}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPopupOpened(true);
+                                }}
+                                text={"Удалить"}
+                            />
                         </div>
                     </form>
                     <Popup

@@ -66,6 +66,26 @@ export const fetchEditTeacher = createAsyncThunk('teachers/editTeacher', async (
 
 });
 
+export const fetchRemoveTeacher = createAsyncThunk('teachers/removeTeacher', async (params) => {
+
+    let form = new FormData();
+
+    for (let key in params) {
+
+        if(key === "photo"){
+            form.append("files[]", params[key][0]);
+        }
+        else {
+            form.append(key, params[key]);
+        }
+
+    }
+
+    const {data} = await axios.post(window.global.baseUrl + 'php/models/admin/teachers/remove.php', form);
+    return data;
+
+});
+
 const teachersSlice = createSlice({
 
     name: 'teachers',
