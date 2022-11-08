@@ -9,6 +9,8 @@ import theatresReducer from "./admin/theatresSlice";
 import theatreRequestsReducer from "./admin/theatreRequestsSlice";
 import teachersReducer from "./admin/teachersSlice";
 
+import schoolReducer from "./user/schoolSlice";
+
 export default configureStore({
     reducer: {
         auth: authSlice,
@@ -18,5 +20,6 @@ export default configureStore({
         theatres: theatresReducer,
         theatreRequests: theatreRequestsReducer,
         teachers: teachersReducer,
+        school: schoolReducer,
     }
 });
