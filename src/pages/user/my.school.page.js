@@ -1,20 +1,27 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form";
 
 import Button from "../../components/simple/button/button.component";
 import Popup from "../../components/popup/popup.component";
+import FieldInput from "../../components/simple/field/field.input.component";
 
-import {editSchoolPhoto, loadSchool} from "../../store/user/schoolSlice";
+import {fetchEditSchool, editSchoolPhoto, loadSchool} from "../../store/user/schoolSlice";
 
 const MySchoolPage = () => {
 
     const dispatch = useDispatch();
     const userStore = useSelector(state => state.auth);
     const schoolStore = useSelector(state => state.school);
+
+    const { register, handleSubmit, reset } = useForm();
+
     const [phone, setPhone] = React.useState();
     const [error, setError] = React.useState(false);
+
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
+    const [popupSchoolEditOpened, setPopupSchoolEditOpened] = React.useState(false);
 
     const fetchData = async () => {
 
@@ -71,9 +78,18 @@ const MySchoolPage = () => {
 
     };
 
-    const onDeleteSubmit = async () => {
+    const onPhotoDeleteSubmit = async () => {
 
         await dispatch(editSchoolPhoto({id: userStore.user.schoolID, delete: 1}));
+
+    }
+
+    const onSchoolEditSubmit = async (params) => {
+
+        console.log(params);
+        return;
+
+        await dispatch(fetchEditSchool({id: userStore.user.schoolID, delete: 1}));
 
     }
 
@@ -205,6 +221,43 @@ const MySchoolPage = () => {
                 </ul>
             </div>
             <Popup
+                title={"Редактирование школы"}
+                opened={popupSchoolEditOpened}
+                onClose={() => {
+                    setPopupSchoolEditOpened(false);
+                }}
+            >
+                <form onSubmit={handleSubmit(onSchoolEditSubmit)} className='form'>
+                    <fieldset className='form__section --content-info'>
+                        <FieldInput
+                            label={"Полное наименование организации:"}
+                            type={"textarea"}
+                            rows={5}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("org_name", { value: schoolStore.school.org_name })}
+                        />
+                        <FieldInput
+                            label={"Краткое наименование организации:"}
+                            type={"textarea"}
+                            rows={2}
+                            placeholder={"..."}
+                            fieldClassName={"--type-flex"}
+                            required={true}
+                            {...register("text")}
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={schoolStore.status === "sending"}
+                            style={{marginLeft: 'auto', display: 'block'}}/>
+                    </div>
+                </form>
+            </Popup>
+            <Popup
                 title={"Вы уверены что хотите удалить?"}
                 notif={{
                     active: true,
@@ -218,7 +271,7 @@ const MySchoolPage = () => {
                             text={"Да"}
                             onClick={() => {
                                 setPopupOpened(false);
-                                onDeleteSubmit();
+                                onPhotoDeleteSubmit();
                             }}
                         />
                         <Button
