@@ -3,6 +3,7 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 
 import logo from "../../images/login/logo.png";
+import Button from "../simple/button/button.component";
 
 const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
 
@@ -57,14 +58,14 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                         ))
                     }
                 </ul>
-                <button
-                    className="menu__button"
-                    type="button"
+                <Button
+                    extraClass='menu__button'
+                    iconClass='mdi mdi-chevron-left'
                     aria-label="Свернуть/Развернуть меню"
                     onClick={handleResize}
                 />
             </div>
-            <div className="menu__back" onClick={setBurgerOpened}/>
+            <div className="menu__back" onClick={setBurgerOpened} />
         </menu>
     );
 };

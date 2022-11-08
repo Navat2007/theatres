@@ -28,7 +28,7 @@
 
   &__title {
     margin: 0;
-    font-size: 1.25em; 
+    font-size: 1.25em;
     font-weight: 500;
     color: var(--white);
   }
@@ -60,7 +60,7 @@
     border-radius: 25px 0 0 25px;
     transition: color .25s ease-in-out;
 
-    position: relative; 
+    position: relative;
     z-index: 1;
 
     &.--actived {
@@ -103,7 +103,7 @@
     @include box(1.875em);
     background-color: var(--white);
     transition: background-color .25s ease-in-out;
-  } 
+  }
 
   &__text {
     margin: 0;
@@ -113,22 +113,21 @@
   &__button {
     flex: none;
     margin: .5em;
+    max-width: unset;
 
-    @extend .button;
-    @extend .--icon-on-before;
-    border-radius: 25px;
-    padding: .5em;
-
-    background-color: rgba($color: white, $alpha: .15);
+    display: flex;
+    align-items: center;
+    padding: .25em;
+    background: rgba($color: white, $alpha: .15);
 
     &:hover {
-      background-color: rgba($color: white, $alpha: .26);
+      background: rgba($color: white, $alpha: .26);
     }
 
-    &:before {
-      content: "\F0141";
-      font-size: 1.5em;
+    & .mdi {
       margin-left: auto;
+      margin-right: 0;
+      font-size: 200%;
     }
   }
 
@@ -222,14 +221,11 @@
         display: none;
       }
 
-      & .menu__button {
-
-        &::before {
-          margin: auto;
-          transform: scale(-1, 1);
-        }
+      & .menu__button .mdi {
+        margin: auto;
+        transform: scale(-1, 1);
       }
-    } 
+    }
 
     &.--size-md {
 
@@ -250,7 +246,7 @@
         text-align: center;
         padding: .5em;
       }
-      
+
       & .menu__text {
         max-width: 6rem;
         font-size: .75em;
