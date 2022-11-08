@@ -32,36 +32,9 @@
     display: none;
   }
 
-  &__img-label {
-    position: absolute;
-    top: .5em;
-    right: .5em;
-
-    color: var(--darkLow);
-    background-color: var(--white);
-    box-shadow: 0 0 15px rgba(black, .15);
-    border-radius: 50%;
-    @include box(2.5em);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    opacity: .26;
-    cursor: pointer;
-    transition: opacity .25s ease-in-out;
-
-    &:hover {
-      opacity: 1;
-      color: var(dark);
-    }
-
-    &:active:before {
-      transform: translateY(1px);
-    }
-
-    & span::before {
-      font-size: 1.5em;
-    }
+  &__img-panel {
+    margin-top: .5em;
+    text-align: center;
   }
 
   &__info-block {
@@ -115,7 +88,7 @@
     grid-template-columns: auto 1fr;
 
     &__img-block {
-      padding-left: min(2.25vmax, 1.875em);
+      margin-left: min(2.25vmax, 1.875em);
       box-sizing: border-box;
     }
 

@@ -1,13 +1,14 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Button from '../components/simple/button/button.component';
 
 import no_photo_man from '../images/no_photo_man.png';
-import {editProfilePhoto} from "../store/authSlice";
+import { editProfilePhoto } from "../store/authSlice";
 
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
-    const {user} = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.auth);
     const [phone, setPhone] = React.useState();
 
     const formatPhone = (value) => {
@@ -62,11 +63,27 @@ const ProfilePage = () => {
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
-                         src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt={user?.fio}/>
-                    <label className='profile-card__img-label' htmlFor="img-profile"><span className='mdi mdi-refresh'
-                                                                                           aria-label='Обновить фото'/></label>
+                        src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt={user?.fio} />
+                    <div className="profile-card__img-panel">
+                        <Button
+                            type='button'
+                            size='small'
+                            theme='text'
+                            isIconBtn={true}
+                            iconClass='mdi mdi-refresh'
+                            aria-label="Обновить фото"
+                        />
+                        <Button
+                            type='button'
+                            theme='text'
+                            size='small'
+                            isIconBtn={true}
+                            iconClass='mdi mdi-delete'
+                            aria-label="Удалить фото"
+                        />
+                    </div>
                     <input className='profile-card__img-input' id={"img-profile"} type="file"
-                           onChange={handlePhotoChange}/>
+                        onChange={handlePhotoChange} />
                 </div>
                 <div className="profile-card__info-block">
                     <h2 className="profile-card__title">{user?.fio}</h2>
@@ -87,9 +104,9 @@ const ProfilePage = () => {
                         &&
                         <li>
                             <a href={`tel:${phone}`}
-                               className='profile-card__item link --type-icon --icon-phone'
-                               rel='noreferrer nofollow noopener'
-                               target='_blank'
+                                className='profile-card__item link --type-icon --icon-phone'
+                                rel='noreferrer nofollow noopener'
+                                target='_blank'
                             >
                                 {phone}
                             </a>
