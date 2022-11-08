@@ -34,20 +34,23 @@
       font-size: .875em;
     }
 
-    .button_icon {
+    &.button_icon {
       min-width: 2.75em;
       max-width: 2.75em;
       @include box(2.75em);
     }
   }
 
-  & .mdi {
-    margin-right: .5rem;
+  .mdi {
     font-size: 150%;
     vertical-align: middle;
     line-height: 1;
+
+    &+.button__text {
+      margin-left: .5rem;
+    }
   }
-  
+
   &_icon {
     min-width: 3.125em;
     max-width: 3.125em;
@@ -56,10 +59,6 @@
     min-height: unset;
     padding: .5em;
     border-radius: 50%;
-
-    & .mdi {
-      margin-right: 0;
-    }
 
     .button__text {
       display: none;
