@@ -21,7 +21,7 @@ export const editProfilePhoto = createAsyncThunk('profile/editPhoto', async (par
     for (let key in params) {
 
         if(key === "photo"){
-            form.append("files[]", params[key][0]);
+            form.append("files[]", params[key]);
         }
         else {
             form.append(key, params[key]);
@@ -61,11 +61,6 @@ const authSlice = createSlice({
             state.status = 'idle';
             state.user = null;
         },
-        changePhoto(state, action) {
-            //state.statusText = '';
-            //state.status = 'done';
-            //state.user = action.payload;
-        },
     },
     extraReducers: {
         [loadUserData.pending]: (state) => {
@@ -87,6 +82,30 @@ const authSlice = createSlice({
             state.statusText = 'Произошла ошибка при запросе к серверу.';
             state.status = 'error';
             state.user = null;
+        },
+
+        [editProfilePhoto.pending]: (state) => {
+            state.statusText = '';
+            state.status = 'sending';
+        },
+        [editProfilePhoto.fulfilled]: (state, action) => {
+            console.log(action);
+            if (action.payload.error === 0) {
+                state.status = 'done';
+                state.user.photo = action.payload.params;
+
+                const tmpUser = JSON.parse(window.localStorage.getItem('user'));
+                tmpUser.photo = action.payload.params;
+                window.localStorage.setItem('user', JSON.stringify(tmpUser));
+
+            } else {
+                state.status = 'error';
+                state.statusText = action.payload.error_text;
+            }
+        },
+        [editProfilePhoto.rejected]: (state) => {
+            state.statusText = 'Произошла ошибка при запросе к серверу.';
+            state.status = 'error';
         }
     }
 

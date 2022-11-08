@@ -11,7 +11,9 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const [phone, setPhone] = React.useState();
+    const [error, setError] = React.useState(false);
     const [popupOpened, setPopupOpened] = React.useState(false);
+    const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
     const formatPhone = (value) => {
 
@@ -43,11 +45,14 @@ const ProfilePage = () => {
 
             let file = e.target.files[0];
 
-            console.log(file);
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    dispatch(editProfilePhoto());
+                    dispatch(editProfilePhoto({id: user.ID, photo: file}));
                 }
+            }
+            else {
+                setError("Файл больше 1,5 Мб.");
+                setPopupErrorOpened(false);
             }
 
         }
@@ -56,13 +61,14 @@ const ProfilePage = () => {
 
     const onDeleteSubmit = async () => {
 
-
+        await dispatch(editProfilePhoto({id: user.ID, delete: 1}));
 
     }
 
     React.useEffect(() => {
-        console.log(user);
+
         setPhone(formatPhone(user.phone));
+
     }, [user]);
 
     return (
@@ -73,27 +79,51 @@ const ProfilePage = () => {
                     <img className='profile-card__img'
                         src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt={user?.fio} />
                     <div className="profile-card__img-panel">
-                        <Button
-                            type='button'
-                            size='small'
-                            theme='text'
-                            isIconBtn={true}
-                            iconClass='mdi mdi-refresh'
-                            aria-label="Обновить фото"
-                        />
-                        <Button
-                            type='button'
-                            theme='text'
-                            size='small'
-                            isIconBtn={true}
-                            iconClass='mdi mdi-delete'
-                            aria-label="Удалить фото"
-                            onClick={(e) => {
-                                setPopupOpened(true);
-                            }}
-                        />
+                        {
+                            user?.photo !== ""
+                            &&
+                            <>
+                                <Button
+                                    type='button'
+                                    size='small'
+                                    theme='text'
+                                    isIconBtn={true}
+                                    iconClass='mdi mdi-refresh'
+                                    aria-label="Обновить фото"
+                                    onClick={(e) => {
+                                        document.getElementById('img-profile').click();
+                                    }}
+                                />
+                                <Button
+                                    type='button'
+                                    theme='text'
+                                    size='small'
+                                    isIconBtn={true}
+                                    iconClass='mdi mdi-delete'
+                                    aria-label="Удалить фото"
+                                    onClick={(e) => {
+                                        setPopupOpened(true);
+                                    }}
+                                />
+                            </>
+                        }
+                        {
+                            user?.photo === ""
+                            &&
+                            <Button
+                                type='button'
+                                size='small'
+                                theme='text'
+                                isIconBtn={true}
+                                iconClass='mdi mdi-plus-circle'
+                                aria-label="Добавить фото"
+                                onClick={(e) => {
+                                    document.getElementById('img-profile').click();
+                                }}
+                            />
+                        }
                     </div>
-                    <input className='profile-card__img-input' id={"img-profile"} type="file"
+                    <input className='profile-card__img-input' id="img-profile" type="file"
                         onChange={handlePhotoChange} />
                 </div>
                 <div className="profile-card__info-block">
@@ -171,6 +201,16 @@ const ProfilePage = () => {
                         />
                     </>
                 }
+            />
+            <Popup
+                title={"Ошибка!"}
+                notif={{
+                    active: true,
+                    state: "error",
+                    text: error,
+                }}
+                opened={popupErrorOpened}
+                onClose={() => setPopupErrorOpened(false)}
             />
         </div>
     );
