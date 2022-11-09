@@ -60,7 +60,6 @@ const SupportHeaderComponent = () => {
                         <FieldInput
                             label={"Email для ответа:"}
                             placeholder={"Введите email..."}
-                            fieldClassName={"--type-flex"}
                             required={true}
                             {...register("email", { value: user.email })}
                         />
@@ -69,7 +68,6 @@ const SupportHeaderComponent = () => {
                             type={"textarea"}
                             rows={10}
                             placeholder={"Ваш вопрос... \n(если Ваш вопрос касается конкретного театра, заявки, педагога и т.п., указывайте пожалуйста его ID)"}
-                            fieldClassName={"--type-flex"}
                             required={true}
                             {...register("text")}
                         />
