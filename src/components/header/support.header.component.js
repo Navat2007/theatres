@@ -26,8 +26,7 @@ const SupportHeaderComponent = () => {
             form.append(key, params[key]);
         }
 
-        const data = await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
-        console.log(data);
+        await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
 
         reset();
 

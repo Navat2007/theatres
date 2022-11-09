@@ -17,6 +17,18 @@ const App = () => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
 
+    const [timer, setTimer] = React.useState(1500);
+
+    React.useEffect(() => {
+
+        setTimeout(() => {
+
+            setTimer(0);
+
+        }, timer);
+
+    }, []);
+
     React.useEffect(() => {
 
         const user = window.localStorage.getItem('user');
@@ -47,7 +59,7 @@ const App = () => {
 
     }, [dispatch]);
 
-    if(auth.status === "")
+    if(timer > 0 || auth.status === "loading")
         return <Preloader loaded={false} />;
 
     return (

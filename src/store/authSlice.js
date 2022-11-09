@@ -39,7 +39,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: null,
-        status: '',
+        status: 'loading',
         statusText: ''
     },
     reducers: {
