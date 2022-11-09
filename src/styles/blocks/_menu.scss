@@ -113,11 +113,11 @@
   &__button {
     flex: none;
     margin: .5em;
+    width: unset;
     max-width: unset;
+    border-radius: 15px;
 
     display: flex;
-    align-items: center;
-    padding: .25em;
     background: rgba($color: white, $alpha: .15);
 
     &:hover {
@@ -126,7 +126,6 @@
 
     & .mdi {
       margin-left: auto;
-      margin-right: 0;
       font-size: 200%;
     }
   }
@@ -222,7 +221,6 @@
       }
 
       & .menu__button .mdi {
-        margin: auto;
         transform: scale(-1, 1);
       }
     }

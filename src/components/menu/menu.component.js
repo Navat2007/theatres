@@ -60,8 +60,9 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                 </ul>
                 <Button
                     type='button'
-                    extraClass='menu__button'
+                    isIconBtn='true'
                     iconClass='mdi mdi-chevron-left'
+                    extraClass='menu__button'
                     aria-label="Свернуть/Развернуть меню"
                     onClick={handleResize}
                 />
