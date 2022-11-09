@@ -4,7 +4,7 @@
 
   &__img-block {
     position: relative;
-    justify-self: start;
+    justify-self: center;
   }
 
   &__row {
@@ -61,7 +61,7 @@
     margin: 0;
     font-size: min(2.75vmax, 1.5em);
     font-weight: 500;
-    word-break: break-all;
+    word-break: break-word;
   }
 
   &__description {
@@ -75,12 +75,17 @@
   }
 
   &__item {
+    display: inline-block;
     font-size: min(2.5vmax, 1.25em);
     font-weight: 500;
 
     &::before {
       color: var(--primary);
     }
+  }
+
+  &__edit-btn {
+    margin-top: min(2.5vmax, 1.25em);
   }
 }
 

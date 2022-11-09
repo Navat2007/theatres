@@ -1,12 +1,12 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import Button from "../../components/simple/button/button.component";
 import Popup from "../../components/popup/popup.component";
 import FieldInput from "../../components/simple/field/field.input.component";
 
-import {fetchEditSchool, editSchoolPhoto, loadSchool} from "../../store/user/schoolSlice";
+import { fetchEditSchool, editSchoolPhoto, loadSchool } from "../../store/user/schoolSlice";
 
 const MySchoolPage = () => {
 
@@ -25,7 +25,7 @@ const MySchoolPage = () => {
 
     const fetchData = async () => {
 
-        await dispatch(loadSchool({id: userStore.user.schoolID}));
+        await dispatch(loadSchool({ id: userStore.user.schoolID }));
 
     }
 
@@ -62,7 +62,7 @@ const MySchoolPage = () => {
 
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    dispatch(editSchoolPhoto({id: userStore.user.schoolID, photo: file}));
+                    dispatch(editSchoolPhoto({ id: userStore.user.schoolID, photo: file }));
                 }
                 else {
                     setError("Файл больше 1,5 Мб.");
@@ -80,7 +80,7 @@ const MySchoolPage = () => {
 
     const onPhotoDeleteSubmit = async () => {
 
-        await dispatch(editSchoolPhoto({id: userStore.user.schoolID, delete: 1}));
+        await dispatch(editSchoolPhoto({ id: userStore.user.schoolID, delete: 1 }));
 
     }
 
@@ -101,7 +101,7 @@ const MySchoolPage = () => {
 
     React.useEffect(() => {
 
-        if(schoolStore.school && schoolStore.school.dir_phone)
+        if (schoolStore.school && schoolStore.school.dir_phone)
             setPhone(formatPhone(schoolStore.school.dir_phone));
 
     }, [schoolStore.school]);
@@ -114,18 +114,22 @@ const MySchoolPage = () => {
 
     return (
         <div className='content__section'>
-            <h1 className="content__title">Информация о школе</h1>
-            <Button
-                type="button"
-                text="Редактировать"
-                onClick={() => {
-                    setPopupSchoolEditOpened(true);
-                }}
-            />
+            <div className="content__title-block">
+                <Button
+                    type='button'
+                    theme='text'
+                    size='small'
+                    isIconBtn={true}
+                    iconClass='mdi mdi-arrow-left'
+                    aria-label="Назад"
+                    onClick={() => { }}
+                />
+                <h1 className="content__title">Информация о школе</h1>
+            </div>
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
-                         src={schoolStore.school?.photo !== "" ? window.global.baseUrl + schoolStore.school?.photo : ""} alt={"Логотип школы"} />
+                        src={schoolStore.school?.photo !== "" ? window.global.baseUrl + schoolStore.school?.photo : ""} alt={"Логотип школы"} />
                     <div className="profile-card__img-panel">
                         {
                             schoolStore.school?.photo !== ""
@@ -172,7 +176,7 @@ const MySchoolPage = () => {
                         }
                     </div>
                     <input className='profile-card__img-input' id="img-profile" type="file"
-                           onChange={handlePhotoChange} />
+                        onChange={handlePhotoChange} />
                 </div>
                 <div className="profile-card__info-block">
                     <ul className="profile-card__table">
@@ -185,6 +189,17 @@ const MySchoolPage = () => {
                             <p className='profile-card__description'>Краткое наименование организации</p>
                         </li>
                     </ul>
+                    <Button
+                        theme='outline'
+                        iconClass={'mdi mdi-pencil'}
+                        size='small'
+                        type="button"
+                        text="Редактировать"
+                        extraClass='profile-card__edit-btn'
+                        onClick={() => {
+                            setPopupSchoolEditOpened(true);
+                        }}
+                    />
                 </div>
                 <ul className="profile-card__row profile-card__table">
                     {
@@ -202,9 +217,9 @@ const MySchoolPage = () => {
                         &&
                         <li>
                             <a href={`tel:${phone}`}
-                               className='profile-card__item link --type-icon --icon-phone'
-                               rel='noreferrer nofollow noopener'
-                               target='_blank'
+                                className='profile-card__item link --type-icon --icon-phone'
+                                rel='noreferrer nofollow noopener'
+                                target='_blank'
                             >
                                 {phone}
                                 <span className='profile-card__description'>Телефон директора/руководителя школы</span>
@@ -215,7 +230,7 @@ const MySchoolPage = () => {
                         schoolStore.school.dir_email && schoolStore.school.dir_email !== ""
                         &&
                         <li>
-                            <p className='profile-card__item link --type-icon --icon-district'>
+                            <p className='profile-card__item link --type-icon --icon-email'>
                                 {
                                     schoolStore.school.dir_email
                                 }
@@ -301,7 +316,7 @@ const MySchoolPage = () => {
                             type="submit"
                             text="Отправить"
                             spinnerActive={schoolStore.status === "sending"}
-                            style={{marginLeft: 'auto', display: 'block'}}/>
+                            style={{ marginLeft: 'auto', display: 'block' }} />
                     </div>
                 </form>
             </Popup>
