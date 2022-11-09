@@ -59,7 +59,7 @@ const App = () => {
 
     }, [dispatch]);
 
-    if(timer > 0 || auth.status === "loading")
+    if(timer > 0)
         return <Preloader />;
 
     return (
