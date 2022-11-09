@@ -1,9 +1,9 @@
 import styles from './preloader.module.scss';
 
-const Preloader = ({loaded}) => {
+const Preloader = () => {
 
     return (
-        <div className={styles.preloader + (loaded ? ` ${styles.preloader_hidden}` : ``)}>
+        <div className={styles.preloader}>
             <div className={styles.preloader__item}>
                 <div></div><div></div><div></div><div></div>
             </div>
