@@ -51,6 +51,12 @@ if (isset($login) && isset($password)) {
         }
 
     }
+    else {
+
+        $error = 1;
+        $error_text = "Ошибка, логин или пароль введен неверно";
+
+    }
 
 } else {
 
