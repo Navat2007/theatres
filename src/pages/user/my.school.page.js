@@ -241,6 +241,7 @@ const MySchoolPage = () => {
                 title={"Редактирование школы"}
                 opened={popupSchoolEditOpened}
                 onClose={() => {
+                    reset();
                     setPopupSchoolEditOpened(false);
                 }}
             >
