@@ -1,8 +1,10 @@
 import React from 'react';
 import Button from "../simple/button/button.component";
 
-const MultiSelect = ({list}) => {
-    // {/* Для выбора мультиселекта добавляется класс --type-multiselect */}
+const MultiSelect = ({list, multi = false}) => {
+
+
+
     return (
         <div className="field --type-multiselect">
             <div className="field__chip">
@@ -26,7 +28,7 @@ const MultiSelect = ({list}) => {
                 <span className="field__chip-icon" aria-label='Удалить'></span>
             </div>
             {/* Текст.поле может быть разных типов, если мультиселект используем text, чтобы можно было ввести значения */}
-            <input className='field__chip-input' type="text" placeholder='Выбрать или найти...' />
+            <input className='field__chip-input' type="text" placeholder='Выбрать или найти...'/>
             {/* Стрелка для селекта, при нажатии тоглится вып.список, для всех списков необходимо добавлять */}
             <span className="field__icon --type-dropdown"></span>
             {/* Крестик для очистки интупа, нужен только если идет поиск по строке.
@@ -39,65 +41,26 @@ const MultiSelect = ({list}) => {
             {/* Для открытия/закрытия выпадающего списка тоглим --opened */}
             <div className="field__list-container --opened">
                 <ul className='field__list'>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-01' />
-                            <label className='field__label' htmlFor="check-01">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptates nam impedit rem deleniti quos aut fugiat quae? Esse pariatur dolore incidunt itaque unde exercitationem modi, non minus corporis ad.</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-02' />
-                            <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-01' />
-                            <label className='field__label' htmlFor="check-01">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-02' />
-                            <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-01' />
-                            <label className='field__label' htmlFor="check-01">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-02' />
-                            <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-01' />
-                            <label className='field__label' htmlFor="check-01">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
-                    <li className='field__item'>
-                        <div className="field --type-checkbox">
-                            <input className='field__checkbox' type="checkbox" id='check-02' />
-                            <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
-                        </div>
-                    </li>
+                    {
+                        list && multi && list.map((item, index) =>
+                            <li key={item.value  + '_' + index} className='field__item'>
+                                <div className="field --type-checkbox">
+                                    <input className='field__checkbox' type="checkbox" id={'check_' + index}/>
+                                    <label className='field__label' htmlFor={'check_' + index}>{item.label}</label>
+                                </div>
+                            </li>)
+                    }
                 </ul>
                 <div className="field__list-controls">
                     <Button
                         type='button'
                         size='small'
-                        text={'Готово'} />
+                        text={'Готово'}/>
                     <Button
                         type='button'
                         size='small'
                         theme='text'
-                        text={'Очистить'} />
+                        text={'Очистить'}/>
                 </div>
             </div>
         </div>
