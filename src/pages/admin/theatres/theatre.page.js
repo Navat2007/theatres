@@ -13,8 +13,28 @@ const TheatrePage = () => {
                     <h1 className='content__title'>Новой театр</h1>
                     {/* Для выбора мультиселекта добавляется класс --type-multiselect */}
                     <div className="field --type-multiselect --chip-selected">
+                        <div className="field__chip">
+                            <p className='field__chip-text'>Иванова Татьяна Александровна</p>
+                            <span className="field__chip-icon" aria-label='Удалить'></span>
+                        </div>
+                        <div className="field__chip">
+                            <p className='field__chip-text'>Грузинов Борис Иванович</p>
+                            <span className="field__chip-icon" aria-label='Удалить'></span>
+                        </div>
+                        <div className="field__chip">
+                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
+                            <span className="field__chip-icon" aria-label='Удалить'></span>
+                        </div>
+                        <div className="field__chip">
+                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
+                            <span className="field__chip-icon" aria-label='Удалить'></span>
+                        </div>
+                        <div className="field__chip">
+                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
+                            <span className="field__chip-icon" aria-label='Удалить'></span>
+                        </div>
                         {/* Текст.поле может быть разных типов, если мультиселект используем text, чтобы можно было ввести значения */}
-                        <input className='field__input' type="text" placeholder='Выбрать или найти...' />
+                        <input className='field__chip-input' type="text" placeholder='Выбрать или найти...' />
                         {/* Стрелка для селекта, при нажатии тоглится вып.список, для всех списков необходимо добавлять */}
                         <span className="field__icon --type-dropdown"></span>
                         {/* Крестик для очистки интупа, нужен только если идет поиск по строке. 
@@ -86,33 +106,6 @@ const TheatrePage = () => {
                                     size='small'
                                     theme='text'
                                     text={'Очистить'} />
-                            </div>
-                        </div>
-                        {/* Окно для вывода выбранных значений, когда открыто field устанавливается доп класс  --chip-selected */}
-                        <div className="field__chip-container">
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
-                            </div>
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
-                            </div>
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor sit amet consectetur</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
-                            </div>
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
-                            </div>
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, unde!</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
-                            </div>
-                            <div className="field__chip">
-                                <p className='field__chip-text'>Lorem ipsum dolor</p>
-                                <span className="field__chip-icon" aria-label='Удалить'></span>
                             </div>
                         </div>
                     </div>

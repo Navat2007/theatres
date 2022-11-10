@@ -8,23 +8,21 @@
 
   // Для селекта с мультивыбором - отд.компонент
   &.--type-multiselect {
-    .field__input~.field__icon.--type-delete {
-      opacity: 1;
-      margin-right: $min-height;
+    background-color: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding-right: calc($min-height * 2);
+    transition: 0.35s ease-out;
+    transition-property: border-color, color;
+
+    &:hover {
+      border-color: var(--dark);
     }
 
-    &.--chip-selected {
-      .field__input {
-        display: none;
-      }
-
-      .field__chip-container {
-        display: flex;
-      }
-
-      .field__icon.--type-dropdown {
-        z-index: 2;
-      }
+    .field__chip-input~.field__icon.--type-delete {
+      opacity: 1;
+      margin-right: $min-height;
     }
   }
 
@@ -119,6 +117,13 @@
       height: 100%;
       max-height: inherit;
     }
+  }
+
+  &__chip-input {
+    @extend %reset-input;
+    border-color: transparent;
+    width: unset;
+    padding: $v-paddings $g-paddings;
   }
 
   &__checkbox {
@@ -358,7 +363,7 @@
   // Выпадающий список
   &__list-container {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 1px);
     left: 0;
     right: 0;
     z-index: 1;
@@ -401,31 +406,19 @@
     padding-bottom: $v-paddings;
   }
 
-  // Список для мультиселекта, когда значения выбраны
-  &__chip-container {
-    background-color: var(--white);
-    border: 1px solid var(--g200);
-    border-radius: 15px;
-    padding: .25em calc($min-height * 2) .25em .25em;
-    box-sizing: border-box;
-
-    display: none;
-    flex-wrap: wrap;
-    gap: .25em;
-
-  }
-
   &__chip {
     position: relative;
+    margin: .25em;
+    display: inline-block;
 
     background-color: var(--g100);
     border: 1px solid var(--g200);
-    border-radius: 15px;
+    border-radius: 10px;
   }
 
   &__chip-text {
     margin: 0;
-    padding: $v-paddings $min-height $v-paddings $g-paddings;
+    padding: calc($v-paddings / 2) $min-height calc($v-paddings / 2) calc($g-paddings / 2);
   }
 
   &__chip-icon {
