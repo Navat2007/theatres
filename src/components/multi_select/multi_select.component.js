@@ -20,7 +20,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
 
     React.useEffect(() => {
 
-        if(searchInput && !opened)
+        if (searchInput && !opened)
             setOpened(!opened);
 
     }, [searchInput]);
@@ -30,9 +30,14 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
             <div className="field --type-multiselect">
                 {
                     selectedItems && multi && selectedItems.map((item, index) =>
-                        <div key={item.value + '_' + index}>
-                            <p className='field__chip-text'>{item.value}</p>
-                            <span className="field__chip-icon" aria-label='Удалить' />
+                        <div key={item.value + '_' + index} className="field__chip">
+                            <p className='field__chip-text'>{item.label}</p>
+                            <span className="field__chip-icon" aria-label='Удалить' onClick={() => {
+                                setValue('check_' + item.value, !getValues('check_' + item.value));
+                                const temp = [...selectedItems];
+                                temp.splice(index, 1);
+                                setSelectedItems(temp);
+                            }} />
                         </div>)
                 }
                 <input
@@ -48,7 +53,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                     {...register("select")}
                 >
                     {
-                        list && list.map((item, index) =>
+                        selectedItems && selectedItems.map((item, index) =>
                             <option key={item.value + '_' + index} value={item.value}>
                                 {item.label}
                             </option>)
@@ -77,10 +82,25 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                             list
                                 .filter(item => item.label.toLowerCase().includes(searchInput ? searchInput.toLowerCase() : ""))
                                 .map((item, index) =>
-                                    <li key={item.value + '_' + index} className='field__item'>
-                                        <div className="field --type-checkbox">
-                                            <input className='field__checkbox' type="checkbox" id={'check_' + index} />
-                                            <label className='field__label' htmlFor={'check_' + index}>{item.label}</label>
+                                    <li
+                                        key={item.value + '_' + index}
+                                        className='field__item'
+                                        style={{ cursor: "pointer" }}
+                                        onClick={() => {
+                                            setValue('check_' + item.value, !getValues('check_' + item.value));
+                                            if (getValues('check_' + item.value)) {
+                                                setSelectedItems(prevArray => [...prevArray, { label: item.label, value: item.value }]);
+                                            }
+                                            else {
+                                                const temp = [...selectedItems];
+                                                temp.splice(index, 1);
+                                                setSelectedItems(temp);
+                                            }
+                                        }}
+                                    >
+                                        <div className="field --type-checkbox" style={{ pointerEvents: "none" }}>
+                                            <input className='field__checkbox' type="checkbox" id={'check_' + item.value} {...register('check_' + item.value)} />
+                                            <label className='field__label' htmlFor={'check_' + item.value}>{item.label}</label>
                                         </div>
                                     </li>)
                         }
@@ -102,7 +122,10 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                             size='small'
                             theme='text'
                             text={'Очистить'}
-                            onClick={() => reset()}
+                            onClick={() => {
+                                reset();
+                                setSelectedItems([]);
+                            }}
                         />
                     </div>}
                 </div>

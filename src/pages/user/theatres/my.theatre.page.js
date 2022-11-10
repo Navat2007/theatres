@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import MultiSelect from "../../../components/multi_select/multi_select.component";
 
 import { clear, loadTeachers } from '../../../store/admin/teachersSlice';
+import { loadSchools } from '../../../store/admin/schoolsSlice';
 
 const MyTheatrePage = () => {
 
@@ -17,9 +18,12 @@ const MyTheatrePage = () => {
 
     const { register, handleSubmit, reset } = useForm();
 
+    const school = useSelector(state => state.schools);
+
     const fetchData = async () => {
 
-        await dispatch(loadTeachers({schoolID: user.schoolID}));        
+        await dispatch(loadTeachers({schoolID: user.schoolID}));       
+        await dispatch(loadSchools()); 
 
     }
 
@@ -40,6 +44,7 @@ const MyTheatrePage = () => {
     }, []);
 
     console.log("From redux: ", data);
+    console.log("From redux: ", school);
 
     return (
         <div className='content__section'>
@@ -48,9 +53,10 @@ const MyTheatrePage = () => {
                 &&
                 <>
                     <h1 className='content__title'>Новый театр</h1>
-                    <MultiSelect multi={true} list={data.map(item => {
+                    <MultiSelect multi={true} list={school.data.map(item => {
                         return {
-                            label: `${item.f} ${item.i} ${item.o}`,
+                            //label: `${item.f} ${item.i} ${item.o}`,
+                            label: `${item.org_short_name}`,
                             value: item.ID
                         }
                     })} />
