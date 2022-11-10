@@ -1,11 +1,54 @@
 .field {
-  position: relative;
-  transition: padding .25s ease-in-out;
+  $v-paddings: .875rem;
+  $g-paddings: 1rem;
+  $min-height: 3.125rem;
+  $icon-size: 1.5rem;
 
-  &.--state-error {
-    padding-bottom: 1em;
+  position: relative;
+
+  // Для селекта с мультивыбором - отд.компонент
+  &.--type-multiselect {
+    .field__input~.field__icon.--type-delete {
+      opacity: 1;
+      margin-right: $min-height;
+    }
+
+    &.--chip-selected {
+      .field__input {
+        display: none;
+      }
+
+      .field__chip-container {
+        display: flex;
+      }
+
+      .field__icon.--type-dropdown {
+        z-index: 2;
+      }
+    }
+  }
+
+  &.--type-checkbox {
+    display: inline-flex;
+  }
+
+  &.--size-sm {
+    $v-paddings: .75rem;
+    $min-height: 2.75rem;
+
+    & .field__label {
+      font-size: .875em;
+    }
 
     & .field__input {
+      font-size: .875em;
+    }
+  }
+
+  &.--state-error {
+
+    .field__input {
+      padding-right: $min-height;
       color: var(--error);
       background-color: rgba($color: map-get($colors, "error"), $alpha: .05);
 
@@ -14,48 +57,28 @@
       }
     }
 
-    & .field__label {
+    .field__label {
       color: var(--error);
     }
 
-    & .field__info {
+    .field__info {
       opacity: 1;
       color: var(--error);
     }
 
-    & .field__icon {
+    .field__icon.--type-error {
       opacity: 1;
       color: var(--error);
-    }
 
-    & .field__icon.--type-eye,
-    & .field__icon.--type-dropdown {
-      opacity: 0;
-      pointer-events: none;
-      user-select: none;
-    }
-  }
-
-  &.--size-sm {
-
-
-    & .field__label {
-      font-size: .875em;
-
-      &~.field__icon {
-        margin-top: 1.25em;
+      &::before {
+        border-color: var(--error);
       }
     }
 
-    & .field__input {
-      font-size: .875em;
-      padding-top: .75rem;
-      padding-bottom: .75rem;
-      min-height: 2.75rem;
-    }
-
-    & .field__icon {
-      top: .525em; // зависит от верхнего отступа
+    .field__icon:not(.--type-error):not(.--type-delete) {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
     }
   }
 
@@ -64,23 +87,19 @@
     align-items: flex-start;
   }
 
+  // TODO чтобы не поправлять расположение иконок возможно выводить отдельно.
   &__label {
     display: inline-block;
-    padding-left: 1em;
+    padding-left: $g-paddings;
     line-height: 150%;
-
-    &~.field__icon {
-      margin-top: 1.5em;
-    }
   }
 
   &__input {
     @extend %reset-input;
-    min-height: 3.125em; // для браузеров Iphone
-    padding: .875em 1em; // для селектов верт. отступы
+    min-height: $min-height; // для браузеров Iphone
+    padding: $v-paddings $g-paddings; // для селектов верт. отступы
     box-sizing: border-box;
     background-color: var(--white);
-    // box-shadow: inset 0 0 2px var(--g300);
     border: 1px solid var(--g200);
     border-radius: 15px;
     transition: 0.35s ease-out;
@@ -96,27 +115,30 @@
       border-color: var(--dark);
     }
 
-    &:not([type="date"]):not([type="number"]):not([type="search"]) {
-      padding-right: 3em;
-    }
-
     &.--type-textarea {
       height: 100%;
       max-height: inherit;
-
-      &~.field__icon {
-        top: .975em;
-      }
     }
   }
 
   &__checkbox {
     @extend %reset-checkbox;
-    vertical-align: top;
+    position: relative;
+    display: inline-block;
+    @include box(1em);
+    min-width: 1em;
+    cursor: pointer;
 
     &:hover {
 
-      &:before,
+      &::before {
+        background-color: var(--g200);
+      }
+
+      &::after {
+        border-color: var(--g300);
+      }
+
       &+label {
         color: var(--dark);
       }
@@ -135,27 +157,53 @@
     }
 
     &:before {
-      @extend %icon-on-before;
-      content: "\F0131";
-      color: var(--darkLow);
-      font-size: 1.5em;
-      cursor: pointer;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      @include box(100%);
+      border-radius: 5px;
+      display: inline-block;
+      border: 2px solid var(--g300);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      @include box(40%, 60%);
+      display: inline-block;
+      border-bottom: 3px solid transparent;
+      border-right: 3px solid transparent;
+      transform: rotate(40deg) translateY(-15%) translateX(60%);
     }
 
     &:checked:before {
-      content: "\F0132";
-      color: var(--primary);
+      border-color: var(--primary);
+      background-color: var(--primary);
+    }
+
+    &:checked::after {
+      border-bottom: 3px solid var(--white);
+      border-right: 3px solid var(--white);
     }
 
     &:checked+label {
       color: var(--dark);
+      font-weight: 500;
     }
 
     &+label {
-      line-height: 1.75;
       color: var(--darkLow);
-      padding-left: 0.5rem;
+      padding-left: $g-paddings;
       cursor: pointer;
+
+      &:hover {
+        color: var(--dark)
+      }
     }
 
   }
@@ -212,22 +260,44 @@
   }
 
   &__icon {
-    position: absolute;
-    top: .8125em; // зависит от верхнего отступа
-    right: 1em;
+    display: flex;
     color: var(--darkLow);
-    opacity: 0;
+    cursor: pointer;
+
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    width: $min-height;
+
+    border-radius: 0 15px 15px 0;
+
+    &:hover {
+      color: var(--dark);
+    }
+
+    &:not(.--type--error):active::before {
+      transform: translateY(1px);
+    }
 
     &::before {
-      @extend %icon-on-before;
-      content: "\F05D6";
-      font-size: 1.5em;
+      font-size: $icon-size;
+      line-height: 100%;
       color: inherit;
+      margin: auto;
     }
 
     &.--type-error {
       pointer-events: none;
       user-select: none;
+      opacity: 0;
+
+      &::before {
+        content: "﹗";
+        border-radius: 50%;
+        @include box($icon-size);
+        border: 1px solid transparent;
+      }
     }
 
     &.--type-eye {
@@ -235,6 +305,7 @@
       cursor: pointer;
 
       &.--actived::before {
+        @extend %icon-on-before;
         content: "\F0208";
       }
 
@@ -252,19 +323,22 @@
     }
 
     &.--type-dropdown {
-      opacity: 1;
-      cursor: pointer;
+      background-color: var(--g100);
+      border-left: 1px solid var(--g200);
 
       &::before {
-        content: "\F035D";
+        content: "⏷";
+      }
+    }
+
+    &.--type-delete {
+      &:hover::before {
+        color: darken(map-get($colors, "info"), 5%);
       }
 
-      &:hover {
-        color: var(--dark);
-      }
-
-      &:active::before {
-        transform: translateY(1px);
+      &::before {
+        content: "🞩";
+        color: var(--info);
       }
     }
   }
@@ -273,12 +347,90 @@
     margin: 0;
 
     position: absolute;
-    bottom: 0;
-    left: 1rem;
+    bottom: calc($v-paddings * -1);
+    left: $g-paddings;
 
     font-style: italic;
     font-size: .75em;
     opacity: 0;
+  }
+
+  // Выпадающий список
+  &__list-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: var(--white);
+    box-shadow: 0 5px 10px rgba(black, .15);
+    border-radius: 15px;
+    display: none;
+    animation: fadeIn 0.25s ease-in-out;
+
+    &.--opened {
+      display: block;
+    }
+  }
+
+  &__list {
+    @extend %reset-list;
+    @include scroll-bar();
+    overflow: auto;
+    max-height: 18em;
+    padding: $v-paddings 0;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    flex: auto;
+    padding: $v-paddings $g-paddings;
+    border-bottom: 1px solid var(--g200);
+
+    &:hover {
+      background-color: var(--g100);
+    }
+  }
+
+  &__list-controls {
+    text-align: right;
+    padding-right: $g-paddings;
+    padding-left: $g-paddings;
+    padding-bottom: $v-paddings;
+  }
+
+  // Список для мультиселекта, когда значения выбраны
+  &__chip-container {
+    background-color: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 15px;
+    padding: .25em calc($min-height * 2) .25em .25em;
+    box-sizing: border-box;
+
+    display: none;
+    flex-wrap: wrap;
+    gap: .25em;
+
+  }
+
+  &__chip {
+    position: relative;
+
+    background-color: var(--g100);
+    border: 1px solid var(--g200);
+    border-radius: 15px;
+  }
+
+  &__chip-text {
+    margin: 0;
+    padding: $v-paddings $min-height $v-paddings $g-paddings;
+  }
+
+  &__chip-icon {
+    @extend .field__icon;
+    @extend .--type-delete;
   }
 }
 
@@ -289,15 +441,15 @@
       gap: 0 1.25em;
       align-items: center;
       grid-template-columns: min(35%, 20em) 1fr;
-  
+
       & .field__label {
         padding-left: 0;
       }
-  
+
       & .field__icon {
         margin-top: 0;
       }
-  
+
       & .field__info {
         grid-column: 2/3;
       }

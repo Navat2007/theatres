@@ -1,5 +1,11 @@
 .content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   &__main {
+    flex: auto;
+    
     margin: 5.125em 0 0;
     padding: .5em .5em 3.125em;
     background-color: var(--white);
