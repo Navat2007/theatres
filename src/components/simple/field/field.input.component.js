@@ -65,15 +65,17 @@ const FieldInput = ({
                         </label>
                     }
                     <div className={styles.container}>
-                        <div className={styles.input_container}>
+                        <div className={styles.value_container}>
                             <div className={styles.input_placeholder}>{placeholder}</div>
-                            <input
-                                ref={ref}
-                                type={eyeActive ? "text" : type}
-                                className={styles.input}
-                                required={required}
-                                {...rest}
-                            />
+                            <div className={styles.input_container}>
+                                <input
+                                    ref={ref}
+                                    type={eyeActive ? "text" : type}
+                                    className={styles.input}
+                                    required={required}
+                                    {...rest}
+                                />
+                            </div>
                         </div>
                         {
                             errorText !== "" ?

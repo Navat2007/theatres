@@ -28,7 +28,7 @@ $icon-size: 1.5rem;
 
 .container {
   position: relative;
-  
+
   min-height: $min-height;
   padding: 0 $g-paddings;
   box-sizing: border-box;
@@ -50,13 +50,23 @@ $icon-size: 1.5rem;
   }
 }
 
-.input_container {
+.value_container {
   flex: auto;
   display: grid;
 }
 
+.input_container {
+  flex: auto;
+  display: grid;
+
+  display: inline-grid;
+  grid-area: 1 / 1 / 2 / 3;
+  grid-template-columns: 0px min-content;
+  box-sizing: border-box;
+}
+
 .input_placeholder {
-  grid-area: 1/1/2/2;
+  grid-area: 1/1/2/3;
   @extend %cutText;
 }
 
@@ -65,7 +75,7 @@ $icon-size: 1.5rem;
   padding: 0;
   border: none;
   min-width: 2px;
-  grid-area: 1/1/2/2;
+  grid-area: 1 / 2 / auto / auto;
 }
 
 .icon {
@@ -86,7 +96,7 @@ $icon-size: 1.5rem;
 
   position: absolute;
   bottom: 0;
-  left: $g-paddings; 
+  left: $g-paddings;
   color: var(--error);
 
   font-style: italic;
