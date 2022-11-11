@@ -7,7 +7,7 @@ import makeAnimated from 'react-select/animated';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
+import { convertToHTML } from 'draft-convert';
 import htmlToDraft from 'html-to-draftjs';
 
 import Button from "../../../components/simple/button/button.component";
@@ -49,6 +49,16 @@ const MyTheatrePage = () => {
         console.log(data);
     });
 
+    const handleEditorChange = (state) => {
+        setEditorState(state);
+        convertContentToHTML();
+    }
+
+    const convertContentToHTML = () => {
+        let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+        console.log(currentContentAsHTML);
+    }
+
     return (
         <div className="content__section">
             {!id && (
@@ -86,8 +96,7 @@ const MyTheatrePage = () => {
                                 <Editor
                                     {...field}
                                     editorState={editorState}
-                                    defaultEditorState={editorState}
-                                    onEditorStateChange={setEditorState}
+                                    onEditorStateChange={handleEditorChange}
                                     localization={{
                                         locale: 'ru',
                                     }}
