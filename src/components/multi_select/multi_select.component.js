@@ -25,9 +25,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
 
             document.addEventListener('click', (e) => {
 
-                const its_menu = e.target == formRef?.current || formRef?.current?.contains(e.target);
-
-                if (!its_menu) {
+                if (!(e.target == formRef?.current || formRef?.current?.contains(e.target))) {
                     setOpened(false);
                     resetField("search");
                 }
