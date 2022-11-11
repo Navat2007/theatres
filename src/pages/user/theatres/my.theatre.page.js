@@ -32,15 +32,29 @@ const MyTheatrePage = () => {
         };
     }, [id]);
 
-    React.useEffect(() => {}, []);
+    React.useEffect(() => { }, []);
 
     return (
         <div className="content__section">
             {!id && (
                 <>
                     <h1 className="content__title">Новый театр</h1>
+                    <p>Single select</p>
                     <MultiSelect
                         multi={false}
+                        list={school.data.map((item) => {
+                            return {
+                                //label: `${item.f} ${item.i} ${item.o}`,
+                                label: `${item.org_short_name}`,
+                                value: item.ID,
+                            };
+                        })}
+                    />
+                    <br />
+                    <br />
+                    <p>Multi select</p>
+                    <MultiSelect
+                        multi={true}
                         list={school.data.map((item) => {
                             return {
                                 //label: `${item.f} ${item.i} ${item.o}`,

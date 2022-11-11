@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Button from "../simple/button/button.component";
 
 const MultiSelect = ({ list, multi = false, ...rest }) => {
-    const { register, handleSubmit, reset, getValues, setValue, watch } =
+    const { register, handleSubmit, reset, resetField, getValues, setValue, setFocus, watch } =
         useForm();
 
     const [opened, setOpened] = React.useState(false);
@@ -13,18 +13,40 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
     const [search, setSearch] = React.useState("");
 
     const searchInput = watch("search");
+    const formRef = React.useRef();
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
     });
 
+    React.useEffect(() => {
+
+        if (formRef?.current) {
+
+            document.addEventListener('click', (e) => {
+
+                const its_menu = e.target == formRef?.current || formRef?.current?.contains(e.target);
+
+                if (!its_menu) {
+                    setOpened(false);
+                    resetField("search");
+                }
+
+            });
+        }
+
+    }, [formRef]);
+
     return (
         <form onSubmit={onSubmit}>
             <div
+                ref={formRef}
                 className="field --type-multiselect"
                 onClick={() => {
-                    if (!opened)
-                        setOpened(!opened)
+                    if (!opened) {
+                        setOpened(!opened);
+                        setFocus("search");
+                    }
                 }}
             >
                 {selectedItems &&
@@ -82,7 +104,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                     <span
                         className="field__icon --type-delete"
                         aria-label="Очистить строку"
-                        onClick={() => setValue("search", "")}
+                        onClick={() => resetField("search")}
                     />
                 )}
                 {/* Стандартная иконка для отображения ошибки, отображается при установленном классе --state-error (у field) */}
@@ -91,8 +113,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                 <p className="field__info">Сообщение об ошибке</p>
 
                 <div
-                    className={`field__list-container${opened ? " --opened" : ""
-                        }`}
+                    className={`field__list-container${opened ? " --opened" : ""}`}
                 >
                     <ul className="field__list">
                         {list &&
