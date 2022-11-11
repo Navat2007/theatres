@@ -11,26 +11,9 @@ const TheatrePage = () => {
             {
                 !id && <>
                     <h1 className='content__title'>Новой театр</h1>
-                    {/* Для выбора мультиселекта добавляется класс --type-multiselect */}
-                    <div className="field --type-multiselect --chip-selected">
+                    <div className="field --type-multiselect">
                         <div className="field__chip">
                             <p className='field__chip-text'>Иванова Татьяна Александровна</p>
-                            <span className="field__chip-icon" aria-label='Удалить'></span>
-                        </div>
-                        <div className="field__chip">
-                            <p className='field__chip-text'>Грузинов Борис Иванович</p>
-                            <span className="field__chip-icon" aria-label='Удалить'></span>
-                        </div>
-                        <div className="field__chip">
-                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
-                            <span className="field__chip-icon" aria-label='Удалить'></span>
-                        </div>
-                        <div className="field__chip">
-                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
-                            <span className="field__chip-icon" aria-label='Удалить'></span>
-                        </div>
-                        <div className="field__chip">
-                            <p className='field__chip-text'>Шапошников Иван Петрович</p>
                             <span className="field__chip-icon" aria-label='Удалить'></span>
                         </div>
                         {/* Текст.поле может быть разных типов, если мультиселект используем text, чтобы можно было ввести значения */}
@@ -45,7 +28,7 @@ const TheatrePage = () => {
                         {/* Стандартное полу для вывода текста ошибки, не всегда нужно бывает, если нет валидации, то нафиг */}
                         <p className="field__info">Сообщение об ошибке</p>
                         {/* Для открытия/закрытия выпадающего списка тоглим --opened */}
-                        <div className="field__list-container --opened">
+                        <div className="field__list-container">
                             <ul className='field__list'>
                                 <li className='field__item'>
                                     <div className="field --type-checkbox">
@@ -75,24 +58,6 @@ const TheatrePage = () => {
                                     <div className="field --type-checkbox">
                                         <input className='field__checkbox' type="checkbox" id='check-01' />
                                         <label className='field__label' htmlFor="check-01">Иванова Ирина Васильевна</label>
-                                    </div>
-                                </li>
-                                <li className='field__item'>
-                                    <div className="field --type-checkbox">
-                                        <input className='field__checkbox' type="checkbox" id='check-02' />
-                                        <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
-                                    </div>
-                                </li>
-                                <li className='field__item'>
-                                    <div className="field --type-checkbox">
-                                        <input className='field__checkbox' type="checkbox" id='check-01' />
-                                        <label className='field__label' htmlFor="check-01">Иванова Ирина Васильевна</label>
-                                    </div>
-                                </li>
-                                <li className='field__item'>
-                                    <div className="field --type-checkbox">
-                                        <input className='field__checkbox' type="checkbox" id='check-02' />
-                                        <label className='field__label' htmlFor="check-02">Иванова Ирина Васильевна</label>
                                     </div>
                                 </li>
                             </ul>
