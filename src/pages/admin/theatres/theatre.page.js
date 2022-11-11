@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Button from "../../../components/simple/button/button.component";
+
+import MultiSelect from "../../../components/multi_select/multi_select.component";
 
 const TheatrePage = () => {
 
