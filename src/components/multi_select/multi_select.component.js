@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 
 import Button from "../simple/button/button.component";
@@ -16,7 +16,9 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
     const formRef = React.useRef();
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
+        console.log(data.search);
+        console.log(data.select);
+        console.log([...selectedItems].map(item => item.value));
     });
 
     React.useEffect(() => {
@@ -34,6 +36,8 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
         }
 
     }, [formRef]);
+
+    console.log("render select");
 
     return (
         <form onSubmit={onSubmit}>
@@ -59,12 +63,10 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                                 className="field__chip-icon"
                                 aria-label="Удалить"
                                 onClick={() => {
-                                    setValue(
-                                        "check_" + item.value,
-                                        !getValues("check_" + item.value)
-                                    );
+                                    setValue("check_" + item.value, !getValues("check_" + item.value));
                                     const temp = [...selectedItems];
-                                    temp.splice(index, 1);
+                                    const itemIndex = temp.findIndex(tempItem => tempItem.value === item.value);
+                                    temp.splice(itemIndex, 1);
                                     setSelectedItems(temp);
                                 }}
                             />
@@ -73,11 +75,16 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                 <input
                     className="field__chip-input"
                     type="text"
-                    placeholder="Выбрать или найти..."
                     onKeyUp={(value) => setSearch(value)}
                     {...register("search")}
                 />
-                <select multiple className="--hide" {...register("select")}>
+                <select
+                    className="--hide"
+                    multiple={true}
+                    defaultValue={[...selectedItems].map(item => item.value)}
+                    {...register("select")}
+                    {...rest}
+                >
                     {selectedItems &&
                         selectedItems.map((item, index) => (
                             <option
@@ -114,46 +121,22 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                     className={`field__list-container${opened ? " --opened" : ""}`}
                 >
                     <ul className="field__list">
-                        {list &&
-                            multi &&
-                            list.length > 0 &&
+                        {list && multi && list.length > 0 &&
                             list
-                                .filter((item) =>
-                                    item.label
-                                        .toLowerCase()
-                                        .includes(
-                                            searchInput
-                                                ? searchInput.toLowerCase()
-                                                : ""
-                                        )
-                                )
+                                .filter((item) => item.label.toLowerCase().includes(searchInput ? searchInput.toLowerCase() : ""))
                                 .map((item, index) => (
                                     <li
                                         key={item.value + "_" + index}
                                         className="field__item"
                                         style={{ cursor: "pointer" }}
                                         onClick={() => {
-                                            setValue(
-                                                "check_" + item.value,
-                                                !getValues(
-                                                    "check_" + item.value
-                                                )
-                                            );
-                                            if (
-                                                getValues("check_" + item.value)
-                                            ) {
-                                                setSelectedItems(
-                                                    (prevArray) => [
-                                                        ...prevArray,
-                                                        {
-                                                            label: item.label,
-                                                            value: item.value,
-                                                        },
-                                                    ]
-                                                );
+                                            setValue("check_" + item.value, !getValues("check_" + item.value));
+                                            if (getValues("check_" + item.value)) {
+                                                setSelectedItems((prevArray) => [...prevArray, { label: item.label, value: item.value, }]);
                                             } else {
                                                 const temp = [...selectedItems];
-                                                temp.splice(index, 1);
+                                                const itemIndex = temp.findIndex(tempItem => tempItem.value === item.value);
+                                                temp.splice(itemIndex, 1);
                                                 setSelectedItems(temp);
                                             }
                                         }}
@@ -166,9 +149,7 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
                                                 className="field__checkbox"
                                                 type="checkbox"
                                                 id={"check_" + item.value}
-                                                {...register(
-                                                    "check_" + item.value
-                                                )}
+                                                {...register("check_" + item.value)}
                                             />
                                             <label
                                                 className="field__label"
