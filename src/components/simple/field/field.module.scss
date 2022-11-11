@@ -1,0 +1,94 @@
+@import "../../../styles/_assets/variables";
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+$v-paddings: .875rem;
+$g-paddings: 1rem;
+$min-height: 3.125rem;
+$icon-size: 1.5rem;
+
+
+.field {
+  position: relative;
+
+  &_state_error {
+    .container {
+      border-color: var(--error);
+    }
+
+    .input_placeholder {
+      color: var(--error);
+    }
+
+    .icon_svg {
+      color: var(--error);
+    }
+  }
+}
+
+.container {
+  position: relative;
+  
+  min-height: $min-height;
+  padding: 0 $g-paddings;
+  box-sizing: border-box;
+  background-color: var(--white);
+  border: 1px solid var(--g200);
+  border-radius: 15px;
+  transition: 0.35s ease-out;
+  transition-property: border-color, color;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    border-color: var(--dark);
+
+    & .input_placeholder {
+      color: var(--dark);
+    }
+  }
+}
+
+.input_container {
+  flex: auto;
+  display: grid;
+}
+
+.input_placeholder {
+  grid-area: 1/1/2/2;
+  @extend %cutText;
+}
+
+.input {
+  @extend %reset-input;
+  padding: 0;
+  border: none;
+  min-width: 2px;
+  grid-area: 1/1/2/2;
+}
+
+.icon {
+  flex: none;
+  @include box(1.5em);
+  min-width: 1.5em;
+  max-width: 1.5em;
+  fill: currentColor;
+}
+
+.icon_svg {
+  @include box(1.5em);
+  color: var(--darkLow);
+}
+
+.info {
+  margin: 0;
+
+  position: absolute;
+  bottom: 0;
+  left: $g-paddings; 
+  color: var(--error);
+
+  font-style: italic;
+  font-size: .75em;
+}

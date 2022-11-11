@@ -81,6 +81,7 @@ const MyTheatrePage = () => {
                             defaultValue={[]}
                             render={({ field }) => (
                                 <ReactSelect
+                                    classNamePrefix="multy-select"
                                     {...field}
                                     isMulti
                                     options={school.data.map((item) => {
