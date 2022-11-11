@@ -3,16 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import ReactSelect from 'react-select'
+import makeAnimated from 'react-select/animated';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
-import MultiSelect from "../../../components/multi_select/multi_select.component";
+import Button from "../../../components/simple/button/button.component";
 
 import { clear, loadTeachers } from "../../../store/admin/teachersSlice";
 import { loadSchools } from "../../../store/admin/schoolsSlice";
-import Button from "../../../components/simple/button/button.component";
 
 const MyTheatrePage = () => {
+
     let { id } = useParams();
     const dispatch = useDispatch();
+    const animatedComponents = makeAnimated();
 
     const user = useSelector((state) => state.auth.user);
     const { data, statusError } = useSelector((state) => state.teachers);
@@ -20,6 +27,8 @@ const MyTheatrePage = () => {
     const { register, handleSubmit, reset, control } = useForm();
 
     const school = useSelector((state) => state.schools);
+
+    const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
 
     const fetchData = async () => {
         await dispatch(loadTeachers({ schoolID: user.schoolID }));
@@ -40,40 +49,12 @@ const MyTheatrePage = () => {
         console.log(data);
     });
 
-    console.log("render theatre");
-
     return (
         <div className="content__section">
             {!id && (
                 <>
                     <h1 className="content__title">Новый театр</h1>
                     <form onSubmit={onSubmit}>
-                        <p>Single select</p>
-                        <MultiSelect
-                            multi={false}
-                            list={school.data.map((item) => {
-                                return {
-                                    //label: `${item.f} ${item.i} ${item.o}`,
-                                    label: `${item.org_short_name}`,
-                                    value: item.ID,
-                                };
-                            })}
-                        />
-                        <br />
-                        <br />
-                        <p>Multi select</p>
-                        <MultiSelect
-                            multi={true}
-                            list={school.data.map((item) => {
-                                return {
-                                    //label: `${item.f} ${item.i} ${item.o}`,
-                                    label: `${item.org_short_name}`,
-                                    value: item.ID,
-                                };
-                            })}
-                        />
-                        <br />
-                        <br />
                         <p>ReactSelect</p>
                         <Controller
                             control={control}
@@ -84,6 +65,8 @@ const MyTheatrePage = () => {
                                     classNamePrefix="multy-select"
                                     {...field}
                                     isMulti
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
                                     options={school.data.map((item) => {
                                         return {
                                             //label: `${item.f} ${item.i} ${item.o}`,
@@ -93,6 +76,27 @@ const MyTheatrePage = () => {
                                     })}
                                 />
                             )}
+                        />
+                        <br />
+                        <br />
+                        <Controller
+                            control={control}
+                            name="wys"
+                            render={({ field }) => (
+                                <Editor
+                                    {...field}
+                                    editorState={editorState}
+                                    defaultEditorState={editorState}
+                                    onEditorStateChange={setEditorState}
+                                    localization={{
+                                        locale: 'ru',
+                                    }}
+                                />
+                            )}
+                        />
+                        <textarea
+                            disabled
+                            {...register("test")}
                         />
                         <br />
                         <br />

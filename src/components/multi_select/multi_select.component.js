@@ -37,8 +37,6 @@ const MultiSelect = ({ list, multi = false, ...rest }) => {
 
     }, [formRef]);
 
-    console.log("render select");
-
     return (
         <form onSubmit={onSubmit}>
             <div
