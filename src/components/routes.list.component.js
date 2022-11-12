@@ -37,7 +37,7 @@ const RoutesList = () => {
     if (user && (user.role === "admin" || user.role === "superadmin")) {
 
         return (
-            <Suspense>
+            <Suspense fallback={<Preloader/>}>
                 <Routes>
                     <Route path="/admin" element={<AdminLayout/>}>
                         {
@@ -120,7 +120,7 @@ const RoutesList = () => {
     }
 
     return (
-        <Suspense>
+        <Suspense fallback={<Preloader/>}>
             <Routes>
                 <Route path="/login" exact={true} element={<LoginPage/>}/>
                 <Route path="/" exact={true} element={<Navigate to="/login"/>}/>
