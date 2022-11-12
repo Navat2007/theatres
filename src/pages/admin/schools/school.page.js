@@ -94,35 +94,35 @@ const SchoolPage = () => {
                             type={"textarea"}
                             rows={5}
                             placeholder={"Введите полное наименование организации..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("org_name", { value: school.org_name })}
                         />
                         <FieldInput
                             label={"Краткое наименование организации"}
                             placeholder={"Введите краткое наименование организации..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("org_short_name", { value: school.org_short_name })}
                         />
                         <FieldInput
                             label={"ФИО директора"}
                             placeholder={"Введите фио директора..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("dir_fio", { value: school.dir_fio })}
                         />
                         <FieldInput
                             label={"E-mail директора"}
                             placeholder={"Введите email директора..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("dir_email", { value: school.dir_email })}
                         />
                         <FieldInput
                             label={"Контактный телефон директора"}
                             placeholder={"Введите телефон директора..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("dir_phone", { value: school.dir_phone })}
                         />
@@ -131,7 +131,7 @@ const SchoolPage = () => {
                             type={"textarea"}
                             rows={3}
                             placeholder={"Введите адрес..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("address", { value: school.address })}
                         />

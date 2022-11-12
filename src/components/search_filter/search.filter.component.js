@@ -62,6 +62,8 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
             case "number":
                 return <FieldInput
                     key={key}
+                    size='small'
+                    extraClass='search__field'
                     {...register(key, { setValueAs: v => v !== "" ? parseInt(v) : "" })}
                     defaultValue={""}
                     type={"number"}
@@ -70,17 +72,38 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                 />;
 
             case "string":
-                return <FieldInput key={key} {...register(key)} label={header} placeholder={`${header}...`} />;
+                return <FieldInput
+                    key={key}
+                    size='small'
+                    extraClass='search__field'
+                    {...register(key)}
+                    label={header}
+                    placeholder={`${header}...`} />;
 
             case "date":
-                return <FieldInput key={key} {...register(key)} type={"date"} label={header} />;
+                return <FieldInput
+                    size='small'
+                    extraClass='search__field'
+                    key={key}
+                    {...register(key)}
+                    type={"date"}
+                    label={header} />;
 
             case "datetime":
-                return <FieldInput key={key} {...register(key)} type={"datetime-local"} label={header} />;
+                return <FieldInput
+                    size='small'
+                    extraClass='search__field'
+                    key={key}
+                    {...register(key)}
+                    type={"datetime-local"}
+                    label={header} />;
 
             case "select":
                 return <FieldInput
-                    key={key} {...register(key)}
+                    size='small'
+                    extraClass='search__field'
+                    key={key}
+                    {...register(key)}
                     type={"select"}
                     label={header}
                     selectItems={getSortedUniqueItemsForSelect(items.map(item => item[key]).filter(item => item !== null && item !== ""), type).map(item => {
@@ -92,8 +115,12 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                 />;
 
             default:
-                return <FieldInput key={key} {...register(key)} label={header} />
-
+                return <FieldInput
+                    size='small'
+                    extraClass='search__field'
+                    key={key}
+                    {...register(key)}
+                    label={header} />
         }
 
     }
@@ -104,6 +131,8 @@ const SearchFilter = ({ config, onSubmit, items, children }) => {
                 <div className="search__row --main-search">
                     <FieldInput
                         type={"search"}
+                        size='small'
+                        extraClass='search__field'
                         placeholder={"Поиск..."}
                         {...register("search_string")}
                     />

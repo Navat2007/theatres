@@ -162,41 +162,41 @@ const TeacherPage = () => {
                                 label={"Новое фото"}
                                 type="file"
                                 placeholder={"Выберите фото для замены..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 {...register("photo")}
                             />
                             <FieldInput
                                 label={"Фамилия"}
                                 placeholder={"Введите фамилию..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("f", { value: teacher.f })}
                             />
                             <FieldInput
                                 label={"Имя"}
                                 placeholder={"Введите имя..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("i", { value: teacher.i })}
                             />
                             <FieldInput
                                 label={"Отчество"}
                                 placeholder={"Введите отчество..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("o", { value: teacher.o })}
                             />
                             <FieldInput
                                 label={"Должность"}
                                 placeholder={"Введите должность..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("position", { value: teacher.position })}
                             />
                             <FieldInput
                                 label={"Педагогический стаж"}
                                 placeholder={"Введите педагогический стаж..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("experience", { value: teacher.experience })}
                             />
@@ -205,7 +205,7 @@ const TeacherPage = () => {
                                 type={"textarea"}
                                 rows={5}
                                 placeholder={"Введите описание..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("text", { value: teacher.text })}
                             />
@@ -223,7 +223,7 @@ const TeacherPage = () => {
                                         value: item.ID,
                                     }
                                 }).sort()}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("schoolID", { value: teacher.schoolID })}
                             />
@@ -319,41 +319,41 @@ const TeacherPage = () => {
                             label={"Фото"}
                             type="file"
                             placeholder={"Выберите фото..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             {...register("photo")}
                         />
                         <FieldInput
                             label={"Фамилия"}
                             placeholder={"Введите фамилию..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("f")}
                         />
                         <FieldInput
                             label={"Имя"}
                             placeholder={"Введите имя..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("i")}
                         />
                         <FieldInput
                             label={"Отчество"}
                             placeholder={"Введите отчество..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("o")}
                         />
                         <FieldInput
                             label={"Должность"}
                             placeholder={"Введите должность..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("position")}
                         />
                         <FieldInput
                             label={"Педагогический стаж"}
                             placeholder={"Введите педагогический стаж..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("experience")}
                         />
@@ -362,7 +362,7 @@ const TeacherPage = () => {
                             type={"textarea"}
                             rows={5}
                             placeholder={"Введите описание..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("text")}
                         />
@@ -380,7 +380,7 @@ const TeacherPage = () => {
                                     value: item.ID,
                                 }
                             }).sort()}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("schoolID")}
                         />
@@ -389,8 +389,7 @@ const TeacherPage = () => {
                         <h2 className="form__title">Безопасность</h2>
                         <FieldInput
                             label={"Активировать учетную запись?"}
-                            type={"radio"}
-                            fieldClassName={"--type-checkbox-radio"}
+                            type={"checkbox_variant"}
                             {...register("active", { value: true })}
                         />
                     </fieldset>

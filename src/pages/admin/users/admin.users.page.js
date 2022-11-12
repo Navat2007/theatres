@@ -100,20 +100,20 @@ const AdminUsersPage = () => {
                         <FieldInput
                             label={"Логин"}
                             placeholder={"Введите логин..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             {...register("login", { value: admin.login })}
                         />
                         <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("email", { value: admin.email })}
                         />
                         <FieldInput
                             label={"ФИО"}
                             placeholder={"Введите фио..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("fio", { value: admin.fio })}
                         />
@@ -121,14 +121,14 @@ const AdminUsersPage = () => {
                             label={"Контактный телефон"}
                             type={"phone"}
                             placeholder={"Введите контактный телефон..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("phone", { value: admin.phone })}
                         />
                         <FieldInput
                             label={"Наименование организации"}
                             placeholder={"Введите наименование организации..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("org_name", { value: admin.org_name })}
                         />
@@ -139,7 +139,7 @@ const AdminUsersPage = () => {
                             label={"Пароль"}
                             type={"password"}
                             placeholder={"Введите новый пароль..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             autoComplete={"new-password"}
                             {...register("password", {
                                 minLength: {
@@ -267,21 +267,21 @@ const AdminUsersPage = () => {
                     <FieldInput
                         label={"Логин"}
                         placeholder={"Введите логин..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         required={true}
                         {...register("login")}
                     />
                     <FieldInput
                         label={"Email"}
                         placeholder={"Введите email..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         required={true}
                         {...register("email")}
                     />
                     <FieldInput
                         label={"ФИО"}
                         placeholder={"Введите фио..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         required={true}
                         {...register("fio")}
                     />
@@ -289,14 +289,14 @@ const AdminUsersPage = () => {
                         label={"Контактный телефон"}
                         type={"phone"}
                         placeholder={"Введите контактный телефон..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         required={true}
                         {...register("phone")}
                     />
                     <FieldInput
                         label={"Наименование организации"}
                         placeholder={"Введите наименование организации..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         required={true}
                         {...register("org_name")}
                     />
@@ -307,7 +307,7 @@ const AdminUsersPage = () => {
                         label={"Пароль"}
                         type={"password"}
                         placeholder={"Введите пароль..."}
-                        fieldClassName={"--type-flex"}
+                        layout='flex'
                         autoComplete={"new-password"}
                         required={true}
                         {...register("password", {
@@ -320,8 +320,7 @@ const AdminUsersPage = () => {
                     />
                     <FieldInput
                         label={"Активировать учетную запись?"}
-                        type={"radio"}
-                        fieldClassName={"--type-checkbox-radio"}
+                        type={"checkbox_variant"}
                         {...register("active", { value: true })}
                     />
                 </fieldset>
@@ -330,8 +329,7 @@ const AdminUsersPage = () => {
                     <FieldInput
                         id={"id_1"}
                         label={"Главный администратор"}
-                        type={"radio"}
-                        fieldClassName={"--type-checkbox-radio"}
+                        type={"checkbox_variant"}
                         {...register("superadmin", {
                             value: true,
                             onChange: (e) => {
@@ -344,8 +342,7 @@ const AdminUsersPage = () => {
                     <FieldInput
                         id={"id_2"}
                         label={"Администратор"}
-                        type={"radio"}
-                        fieldClassName={"--type-checkbox-radio"}
+                        type={"checkbox_variant"}
                         {...register("admin", {
                             onChange: (e) => {
                                 if (e.target.checked) {

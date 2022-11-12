@@ -104,20 +104,20 @@ const UserUsersPage = () => {
                             <FieldInput
                                 label={"Логин"}
                                 placeholder={"Введите логин..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 {...register("login", { value: user.login })}
                             />
                             <FieldInput
                                 label={"Email"}
                                 placeholder={"Введите email..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("email", { value: user.email })}
                             />
                             <FieldInput
                                 label={"ФИО"}
                                 placeholder={"Введите фио..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("fio", { value: user.fio })}
                             />
@@ -125,7 +125,7 @@ const UserUsersPage = () => {
                                 label={"Контактный телефон"}
                                 type={"phone"}
                                 placeholder={"Введите контактный телефон..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("phone", { value: user.phone })}
                             />
@@ -143,7 +143,7 @@ const UserUsersPage = () => {
                                         value: item.ID,
                                     }
                                 }).sort()}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 required={true}
                                 {...register("schoolID", { value: user.schoolID })}
                             />
@@ -154,7 +154,7 @@ const UserUsersPage = () => {
                                 label={"Пароль"}
                                 type={"password"}
                                 placeholder={"Введите новый пароль..."}
-                                fieldClassName={"--type-flex"}
+                                layout='flex'
                                 autoComplete={"new-password"}
                                 {...register("password", {
                                     minLength: {
@@ -251,21 +251,21 @@ const UserUsersPage = () => {
                         <FieldInput
                             label={"Логин"}
                             placeholder={"Введите логин..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("login")}
                         />
                         <FieldInput
                             label={"Email"}
                             placeholder={"Введите email..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("email")}
                         />
                         <FieldInput
                             label={"ФИО"}
                             placeholder={"Введите фио..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("fio")}
                         />
@@ -273,7 +273,7 @@ const UserUsersPage = () => {
                             label={"Контактный телефон"}
                             type={"phone"}
                             placeholder={"Введите контактный телефон..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("phone")}
                         />
@@ -291,7 +291,7 @@ const UserUsersPage = () => {
                                     value: item.ID,
                                 }
                             }).sort()}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             required={true}
                             {...register("schoolID")}
                         />
@@ -302,7 +302,7 @@ const UserUsersPage = () => {
                             label={"Пароль"}
                             type={"password"}
                             placeholder={"Введите пароль..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
                             autoComplete={"new-password"}
                             required={true}
                             {...register("password", {
@@ -315,8 +315,7 @@ const UserUsersPage = () => {
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}
-                            type={"radio"}
-                            fieldClassName={"--type-checkbox-radio"}
+                            type={"checkbox_variant"}
                             {...register("active", { value: true })}
                         />
                     </fieldset>

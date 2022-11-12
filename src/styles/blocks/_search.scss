@@ -11,15 +11,10 @@
     box-sizing: border-box;
     flex-wrap: wrap;
     align-items: flex-end;
+  }
 
-    & .field {
-      flex: 1 0 15em;
-      @extend .--size-sm;
-
-      & .field__input {
-        background-color: var(--g100);
-      }
-    }
+  &__field {
+    flex: 1 0 15em;
   }
 
   &__button {
@@ -34,7 +29,7 @@
       margin-left: .5em;
       min-width: 7rem;
     }
-  } 
+  }
 
   &__accordion {
     display: none;
@@ -48,37 +43,28 @@
 
 @include media(md) {
   .search {
-    &__row {
+    &__row.--main-search .search__field {
+      flex: auto;
+    }
 
-      & .field {
-        flex: 0 0 calc((100% / 2) - .5em);
-      }
-
-      &.--main-search .field {
-        flex: auto;
-      }
+    &__field {
+      flex: 0 0 calc((100% / 2) - .5em);
     }
   }
 }
 
 @include media(lg) {
   .search {
-    &__row {
-
-      & .field {
-        flex: 0 0 calc((100% / 4) - .375em);
-      }
+    &__field {
+      flex: 0 0 calc((100% / 4) - .375em);
     }
   }
 }
 
 @include media(xl) {
   .search {
-    &__row {
-
-      & .field {
-        flex: 0 0 calc((100% / 6) - .425em);
-      }
+    &__field {
+      flex: 0 0 calc((100% / 6) - .425em);
     }
   }
 }

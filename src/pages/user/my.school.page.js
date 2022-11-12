@@ -267,7 +267,8 @@ const MySchoolPage = () => {
                             type={"textarea"}
                             rows={5}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("org_name", { value: schoolStore.school.org_name })}
                         />
@@ -276,28 +277,32 @@ const MySchoolPage = () => {
                             type={"textarea"}
                             rows={2}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("org_short_name", { value: schoolStore.school.org_short_name })}
                         />
                         <FieldInput
                             label={"ФИО директора/руководителя:"}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("dir_fio", { value: schoolStore.school.dir_fio })}
                         />
                         <FieldInput
                             label={"Телефон директора/руководителя школы:"}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("dir_phone", { value: schoolStore.school.dir_phone })}
                         />
                         <FieldInput
                             label={"Email директора/руководителя школы:"}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("dir_email", { value: schoolStore.school.dir_email })}
                         />
@@ -306,7 +311,8 @@ const MySchoolPage = () => {
                             type={"textarea"}
                             rows={3}
                             placeholder={"..."}
-                            fieldClassName={"--type-flex"}
+                            layout='flex'
+                            size='small'
                             required={true}
                             {...register("address", { value: schoolStore.school.address })}
                         />
