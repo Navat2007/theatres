@@ -4,24 +4,24 @@ import {useSelector} from "react-redux";
 
 import AdminLayout from "./layout/admin.layout.component";
 import UserLayout from "./layout/user.layout.component";
-
-import UsersPage from "../pages/admin/users/users.page";
-import AdminUsersPage from "../pages/admin/users/admin.users.page";
-import UserUsersPage from "../pages/admin/users/user.users.page";
-import MySchoolPage from "../pages/user/my.school.page";
-import TheatresPage from "../pages/admin/theatres/theatres.page";
-import TheatrePage from "../pages/admin/theatres/theatre.page";
-import ProfilePage from "../pages/profile.page";
-import SchoolsPage from "../pages/admin/schools/schools.page";
-import SchoolPage from "../pages/admin/schools/school.page";
-import TheatreRequestsPage from "../pages/admin/theatreRequests/theatreRequests.page";
-import TheatreRequestPage from "../pages/admin/theatreRequests/theatreRequest.page";
-import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
-import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 import Preloader from "./preloader/preloader.component";
 
 const Page404 = lazy(() => import("../pages/404.page"));
 const LoginPage = lazy(() => import("../pages/login/login.page"));
+
+const UsersPage = lazy(() => import("../pages/admin/users/users.page"));
+const AdminUsersPage = lazy(() => import("../pages/admin/users/admin.users.page"));
+const UserUsersPage = lazy(() => import("../pages/admin/users/user.users.page"));
+const MySchoolPage = lazy(() => import("../pages/user/my.school.page"));
+const TheatresPage = lazy(() => import("../pages/admin/theatres/theatres.page"));
+const TheatrePage = lazy(() => import("../pages/admin/theatres/theatre.page"));
+const ProfilePage = lazy(() => import("../pages/profile.page"));
+const SchoolsPage = lazy(() => import("../pages/admin/schools/schools.page"));
+const SchoolPage = lazy(() => import("../pages/admin/schools/school.page"));
+const TheatreRequestsPage = lazy(() => import("../pages/admin/theatreRequests/theatreRequests.page"));
+const TheatreRequestPage = lazy(() => import("../pages/admin/theatreRequests/theatreRequest.page"));
+const AdminTeachersPage = lazy(() => import("../pages/admin/teachers/teachers.page"));
+const AdminTeacherPage = lazy(() => import("../pages/admin/teachers/teacher.page"));
 
 const MyTheatresPage = lazy(() => import("../pages/user/theatres/my.theatres.page"));
 const MyTheatrePage = lazy(() => import("../pages/user/theatres/my.theatre.page"));
