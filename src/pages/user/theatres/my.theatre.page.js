@@ -84,17 +84,18 @@ const MyTheatrePage = () => {
                             render={({field}) => (
                                 <JoditEditor
                                     ref={field.ref}
-
                                     config={{
                                         readonly: false, // all options from https://xdsoft.net/jodit/doc/,
                                         placeholder: 'Начните писать...'
                                     }}
-                                    // value={editorState}
-                                    // onBlur={(newContent) => setEditorState(newContent)} // preferred to use only this option to update the content for performance reasons
-                                    // onChange={(newContent) => {}}
                                     value={field.value}
-                                    onChange={field.onChange}
-                                    onBlur={field.onBlur}
+                                    onChange={(value) => {
+                                        console.log(value);
+                                        field.onChange(value);
+                                    }}
+                                    onBlur={() => {
+                                        field.onBlur();
+                                    }}
                                 />
                             )}
                         />
