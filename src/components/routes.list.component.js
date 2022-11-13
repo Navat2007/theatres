@@ -7,13 +7,14 @@ import UserLayout from "./layout/user.layout.component";
 
 import Page404 from "../pages/404.page";
 import LoginPage from "../pages/login/login.page";
+import ProfilePage from "../pages/profile.page";
+
 import UsersPage from "../pages/admin/users/users.page";
 import AdminUsersPage from "../pages/admin/users/admin.users.page";
 import UserUsersPage from "../pages/admin/users/user.users.page";
 import MySchoolPage from "../pages/user/my.school.page";
 import TheatresPage from "../pages/admin/theatres/theatres.page";
 import TheatrePage from "../pages/admin/theatres/theatre.page";
-import ProfilePage from "../pages/profile.page";
 import SchoolsPage from "../pages/admin/schools/schools.page";
 import SchoolPage from "../pages/admin/schools/school.page";
 import TheatreRequestsPage from "../pages/admin/theatreRequests/theatreRequests.page";
