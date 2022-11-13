@@ -90,7 +90,6 @@ const MyTheatrePage = () => {
                                     }}
                                     value={field.value}
                                     onChange={(value) => {
-                                        console.log(value);
                                         field.onChange(value);
                                     }}
                                     onBlur={() => {
