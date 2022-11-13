@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import MultiSelect from "../../../components/multi_select/multi_select.component";
+import Button from '../../../components/simple/button/button.component';
+import FieldInput from '../../../components/simple/field/field.input.component';
 
 const TheatrePage = () => {
 
@@ -11,7 +12,18 @@ const TheatrePage = () => {
         <div className='content__section'>
             {
                 !id && <>
-                    <h1 className='content__title'>Новой театр</h1>
+                    <div className="content__title-block">
+                        <Button
+                            type='button'
+                            theme='text'
+                            size='small'
+                            iconClass={'mdi mdi-arrow-left'}
+                            isIconBtn='true'
+                            aria-label='Назад'
+                        />
+                        <h1 className='content__title'>Создание театра</h1>
+                    </div>
+
                 </>
             }
             {

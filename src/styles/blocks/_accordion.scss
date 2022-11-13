@@ -1,83 +1,64 @@
-%caption-with-icon {
-  display: flex;
-  align-items: center;
-  gap: .25em;
-  cursor: pointer;
-
-  &:active::before {
-    transform: translateY(1px);
-  }
-
-  &:before {
-    flex: none;
-    @extend %icon-on-before;
-  }
-}
-
 .accordion {
   &.--opened>.accordion__section {
     max-height: unset;
     overflow: hidden;
   }
 
-  &.--theme-mounth {
+  &.--theme-text {
 
-    &.--opened {
-      margin-bottom: 3.125em;
+    &.--opened .accordion__caption {
+      border-color: var(--darkLow);
+      margin-bottom: 1.25em;
     }
 
-    & .accordion__caption {
-      min-height: 2.5rem;
-      margin-bottom: .5em;
-      font-size: 1.5em;
-      text-transform: uppercase;
+    .accordion__caption {
+      display: flex;
+      align-items: center;
+      gap: .75em;
+      padding: .5rem;
+      font-size: 1.125em;
       font-weight: bold;
-      transition: background-color .25s ease-in-out;
-
-      &:hover {
-        background-color: rgba(map-get($colors, "primary"), .05);
-      }
-    }
-  }
-
-  &.--theme-day {
-
-    &.--opened {
-      margin-bottom: 1.875em;
-    }
-
-    & .accordion__caption {
-      min-height: 2.5rem;
-      margin-bottom: .5em;
-      font-size: 1.25em;
       text-transform: uppercase;
-      font-weight: 700;
-      border-bottom: 2px solid var(--dark);
+      border-bottom: 2px solid transparent;
       transition: background-color .25s ease-in-out;
+      cursor: pointer;
 
       &:hover {
-        background-color: rgba(map-get($colors, "primary"), .05);
+        background-color: var(--g200);
       }
     }
   }
 
-  &.--icon-chevron {
+  &.--icon-plus {
     &.--opened>.accordion__caption::before {
-      content: '\F0140';
+      content: "\F0374";
     }
 
     &>.accordion__caption {
-      @extend %caption-with-icon;
-
       &:before {
-        content: "\F0142";
+        flex: none;
+        @extend %icon-on-before;
+        line-height: 100%;
+        background-color: var(--g100);
+        color: var(--darkLow);
+        border-radius: 50%;
+        @include box(1.25em);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &::before {
+        content: "\F0415";
+      }
+
+      &:active::before {
+        transform: translateY(1px);
       }
     }
   }
 
-  &__caption {
-    margin: 0;
-  }
+  // &__caption {}
 
   &__section {
     max-height: 0;
