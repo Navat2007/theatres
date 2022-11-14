@@ -7,14 +7,23 @@ const urlLoadSchool = process.env.REACT_APP_BASE_URL + 'php/models/user/school/l
 const urlEditSchool = process.env.REACT_APP_BASE_URL + 'php/models/user/school/edit_school.php';
 const urlEditPhoto = process.env.REACT_APP_BASE_URL + 'php/models/user/school/change_photo.php';
 
-const schoolAuthStore = create(
+const schoolStore = create(
     persist(
         (set, get) => ({
             school: {},
             loading: false,
+            sending: false,
             error: false,
             errorText: "",
+            setErrorText: (text) => {
+                set({error: true, errorText: text});
+            },
+            clearErrorText: () => {
+                set({error: false, errorText: ""});
+            },
             loadSchool: async (params) => {
+
+                set({loading: true});
 
                 let form = new FormData();
 
@@ -22,11 +31,37 @@ const schoolAuthStore = create(
                     form.append(key, params[key]);
                 }
 
-                const data = await axios.post(window.global.baseUrl + 'php/models/user/school/load_by_id.php', form);
+                const response = await axios.post(urlLoadSchool, form);
+                console.log(response.data);
+
+                if(response.data.params){
+
+                    set((state) => ({school: response.data.params}));
+
+                }
+
+                set({loading: false});
 
             },
-            editSchool: async (params) => {},
+            editSchool: async (params) => {
+
+                set({sending: true});
+
+                let form = new FormData();
+
+                for (let key in params) {
+                    form.append(key, params[key]);
+                }
+
+                const response = await axios.post(urlEditSchool, form);
+                console.log(response.data);
+
+                set({sending: false});
+
+            },
             editSchoolPhoto: async (params) => {
+
+                set({sending: true});
 
                 let form = new FormData();
 
@@ -43,13 +78,9 @@ const schoolAuthStore = create(
 
                 const response = await axios.post(urlEditPhoto, form);
 
-                if(response.data.params){
-                    set((state) => ({user: {...state.user, photo: response.data.params}, loading: false, error: true, errorText: response.data.error_text}));
+                set((state) => ({school: {...state.school, photo: response.data.params}}));
 
-                    const tmpUser = JSON.parse(window.localStorage.getItem('user'));
-                    tmpUser.photo = response.data.params;
-                    window.localStorage.setItem('user', JSON.stringify(tmpUser));
-                }
+                set({sending: false});
 
             },
         }),
@@ -60,4 +91,4 @@ const schoolAuthStore = create(
     )
 );
 
-export default schoolAuthStore;
+export default schoolStore;

@@ -14,6 +14,12 @@ const useAuthStore = create(
             loading: false,
             error: false,
             errorText: "",
+            setErrorText: (text) => {
+                set({error: true, errorText: text});
+            },
+            clearErrorText: () => {
+                set({error: false, errorText: ""});
+            },
             setUser: (user) => {
                 set({user: user, loading: false, error: false, errorText: ""});
             },

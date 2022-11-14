@@ -1,25 +1,21 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 import Button from "../../components/simple/button/button.component";
 import Popup from "../../components/popup/popup.component";
 import FieldInput from "../../components/simple/field/field.input.component";
 
-import { fetchEditSchool, editSchoolPhoto, loadSchool } from "../../store/user/schoolSlice";
 import useAuthStore from "../../store/authStore";
+import useSchoolStore from "../../store/user/schoolStore";
 
 const MySchoolPage = () => {
 
-    const dispatch = useDispatch();
-    const schoolStore = useSelector(state => state.school);
-
     const {user} = useAuthStore();
+    const {school, loadSchool, editSchool, editSchoolPhoto, loading, sending, error, errorText, setErrorText, clearErrorText} = useSchoolStore();
 
     const { register, handleSubmit, reset } = useForm();
 
     const [phone, setPhone] = React.useState();
-    const [error, setError] = React.useState(false);
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -27,7 +23,7 @@ const MySchoolPage = () => {
 
     const fetchData = async () => {
 
-        await dispatch(loadSchool({ id: user.schoolID }));
+        await loadSchool({ id: user.schoolID });
 
     }
 
@@ -64,15 +60,15 @@ const MySchoolPage = () => {
 
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    dispatch(editSchoolPhoto({ id: user.schoolID, photo: file }));
+                    await editSchoolPhoto({ id: user.schoolID, photo: file });
                 }
                 else {
-                    setError("Файл больше 1,5 Мб.");
+                    setErrorText("Файл больше 1,5 Мб.");
                     setPopupErrorOpened(true);
                 }
             }
             else {
-                setError("Файл должен быть изображением.");
+                setErrorText("Файл должен быть изображением.");
                 setPopupErrorOpened(true);
             }
 
@@ -82,14 +78,14 @@ const MySchoolPage = () => {
 
     const onPhotoDeleteSubmit = async () => {
 
-        await dispatch(editSchoolPhoto({ id: user.schoolID, delete: 1 }));
+        await editSchoolPhoto({ id: user.schoolID, delete: 1 });
 
     }
 
     const onSchoolEditSubmit = async (params) => {
 
         params.id = user.schoolID;
-        await dispatch(fetchEditSchool(params));
+        await editSchool(params);
         setPopupSchoolEditOpened(false);
         await fetchData();
 
@@ -103,15 +99,22 @@ const MySchoolPage = () => {
 
     React.useEffect(() => {
 
-        if (schoolStore.school && schoolStore.school.dir_phone)
-            setPhone(formatPhone(schoolStore.school.dir_phone));
+        if (school && school.dir_phone)
+            setPhone(formatPhone(school.dir_phone));
 
-    }, [schoolStore.school]);
+    }, [school]);
 
-    if (schoolStore.status === "loading")
+    React.useEffect(() => {
+
+        if(error)
+            setPopupErrorOpened(true);
+
+    }, [error]);
+
+    if (loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if (schoolStore.status === "error" || (schoolStore.status === "done" && schoolStore.school === null))
+    if (!loading && school === null)
         return <div className='content__section'><p>Ошибка загрузки школы</p></div>;
 
     return (
@@ -131,10 +134,10 @@ const MySchoolPage = () => {
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
-                        src={schoolStore.school?.photo !== "" ? window.global.baseUrl + schoolStore.school?.photo : ""} alt={"Логотип школы"} />
+                        src={school?.photo !== "" ? window.global.baseUrl + school?.photo : ""} alt={"Логотип школы"} />
                     <div className="profile-card__img-panel">
                         {
-                            schoolStore.school?.photo !== ""
+                            school?.photo !== ""
                             &&
                             <>
                                 <Button
@@ -162,7 +165,7 @@ const MySchoolPage = () => {
                             </>
                         }
                         {
-                            schoolStore.school?.photo === ""
+                            school?.photo === ""
                             &&
                             <Button
                                 type='button'
@@ -183,11 +186,11 @@ const MySchoolPage = () => {
                 <div className="profile-card__info-block">
                     <ul className="profile-card__table">
                         <li>
-                            <h3 className='profile-card__text'>{schoolStore.school.org_name}</h3>
+                            <h3 className='profile-card__text'>{school.org_name}</h3>
                             <p className='profile-card__description'>Полное наименование организации</p>
                         </li>
                         <li>
-                            <h3 className='profile-card__text'>{schoolStore.school.org_short_name}</h3>
+                            <h3 className='profile-card__text'>{school.org_short_name}</h3>
                             <p className='profile-card__description'>Краткое наименование организации</p>
                         </li>
                     </ul>
@@ -205,11 +208,11 @@ const MySchoolPage = () => {
                 </div>
                 <ul className="profile-card__row profile-card__table">
                     {
-                        schoolStore.school.dir_fio && schoolStore.school.dir_fio !== ""
+                        school.dir_fio && school.dir_fio !== ""
                         &&
                         <li>
                             <p className='profile-card__item link --type-icon --icon-company'>
-                                {schoolStore.school.dir_fio}
+                                {school.dir_fio}
                                 <span className='profile-card__description'>ФИО директора/руководителя</span>
                             </p>
                         </li>
@@ -229,24 +232,24 @@ const MySchoolPage = () => {
                         </li>
                     }
                     {
-                        schoolStore.school.dir_email && schoolStore.school.dir_email !== ""
+                        school.dir_email && school.dir_email !== ""
                         &&
                         <li>
                             <p className='profile-card__item link --type-icon --icon-email'>
                                 {
-                                    schoolStore.school.dir_email
+                                    school.dir_email
                                 }
                                 <span className='profile-card__description'>Email директора/руководителя школы</span>
                             </p>
                         </li>
                     }
                     {
-                        schoolStore.school.address && schoolStore.school.address !== ""
+                        school.address && school.address !== ""
                         &&
                         <li>
                             <p className='profile-card__item link --type-icon --icon-district'>
                                 {
-                                    schoolStore.school.address
+                                    school.address
                                 }
                                 <span className='profile-card__description'>Адрес</span>
                             </p>
@@ -272,7 +275,7 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("org_name", { value: schoolStore.school.org_name })}
+                            {...register("org_name", { value: school.org_name })}
                         />
                         <FieldInput
                             label={"Краткое наименование организации:"}
@@ -282,7 +285,7 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("org_short_name", { value: schoolStore.school.org_short_name })}
+                            {...register("org_short_name", { value: school.org_short_name })}
                         />
                         <FieldInput
                             label={"ФИО директора/руководителя:"}
@@ -290,7 +293,7 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("dir_fio", { value: schoolStore.school.dir_fio })}
+                            {...register("dir_fio", { value: school.dir_fio })}
                         />
                         <FieldInput
                             label={"Телефон директора/руководителя школы:"}
@@ -298,7 +301,7 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("dir_phone", { value: schoolStore.school.dir_phone })}
+                            {...register("dir_phone", { value: school.dir_phone })}
                         />
                         <FieldInput
                             label={"Email директора/руководителя школы:"}
@@ -306,7 +309,7 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("dir_email", { value: schoolStore.school.dir_email })}
+                            {...register("dir_email", { value: school.dir_email })}
                         />
                         <FieldInput
                             label={"Адрес школы:"}
@@ -316,14 +319,14 @@ const MySchoolPage = () => {
                             layout='flex'
                             size='small'
                             required={true}
-                            {...register("address", { value: schoolStore.school.address })}
+                            {...register("address", { value: school.address })}
                         />
                     </fieldset>
                     <div className="form__controls">
                         <Button
                             type="submit"
                             text="Отправить"
-                            spinnerActive={schoolStore.status === "sending"}
+                            spinnerActive={sending}
                             style={{ marginLeft: 'auto', display: 'block' }} />
                     </div>
                 </form>
@@ -358,10 +361,13 @@ const MySchoolPage = () => {
                 notif={{
                     active: true,
                     state: "error",
-                    text: error,
+                    text: errorText,
                 }}
                 opened={popupErrorOpened}
-                onClose={() => setPopupErrorOpened(false)}
+                onClose={() => {
+                    setPopupErrorOpened(false);
+                    clearErrorText();
+                }}
             />
         </div>
     );
