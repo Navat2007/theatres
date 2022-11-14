@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import {useNavigate} from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
@@ -13,10 +14,12 @@ const LoginPage = () => {
 
     const {login, loading, error, errorText} = useAuthStore();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
 
-        login(data);
+        await login(data);
+        navigate("/", { replace: true });
 
     };
 

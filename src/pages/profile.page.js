@@ -1,15 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import Button from '../components/simple/button/button.component';
 
 import no_photo_man from '../images/no_photo_man.png';
-import { editProfilePhoto } from "../store/authSlice";
 import Popup from "../components/popup/popup.component";
+
+import useAuthStore from "../store/authStore";
 
 const ProfilePage = () => {
 
-    const dispatch = useDispatch();
-    const { user } = useSelector(state => state.auth);
+    const {user, fetchEditPhoto} = useAuthStore();
+
     const [phone, setPhone] = React.useState();
     const [error, setError] = React.useState(false);
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    dispatch(editProfilePhoto({id: user.ID, photo: file}));
+                    await fetchEditPhoto({id: user.ID, photo: file});
                 }
                 else {
                     setError("Файл больше 1,5 Мб.");
@@ -65,7 +65,7 @@ const ProfilePage = () => {
 
     const onDeleteSubmit = async () => {
 
-        await dispatch(editProfilePhoto({id: user.ID, delete: 1}));
+        await fetchEditPhoto({id: user.ID, delete: 1});
 
     }
 

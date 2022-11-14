@@ -1,5 +1,4 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {HashRouter} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import moment from "moment";
@@ -8,14 +7,13 @@ import axios from "axios";
 import RoutesList from "./components/routes.list.component";
 import Preloader from "./components/preloader/preloader.component";
 
-import {init, login, logout} from "./store/authSlice";
+import useAuthStore from "./store/authStore";
 
 import './styles/App.scss';
 
 const App = () => {
 
-    const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
+    const {setUser, logout} = useAuthStore();
 
     const [timer, setTimer] = React.useState(1500);
 
@@ -36,7 +34,7 @@ const App = () => {
         axios.interceptors.response.use((response) => {
 
             if (response?.data?.error === 3) {
-                dispatch(logout());
+                logout();
             }
             return response;
         }, (error) => {
@@ -47,17 +45,14 @@ const App = () => {
             let expireDate = moment(JSON.parse(user).tokenDate, 'DD.MM.YYYY').add(1, 'months');
 
             if(expireDate.isAfter(moment())) {
-                dispatch(login(JSON.parse(user)));
+                setUser(JSON.parse(user));
                 axios.defaults.headers.post['Authorization'] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
             }
             else
-                dispatch(logout());
-        }
-        else {
-            dispatch(init());
+                logout();
         }
 
-    }, [dispatch]);
+    }, []);
 
     if(timer > 0)
         return <Preloader />;

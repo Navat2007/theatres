@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {useSelector} from "react-redux";
+import useAuthStore from "../store/authStore";
 
 import AdminLayout from "./layout/admin.layout.component";
 import UserLayout from "./layout/user.layout.component";
@@ -33,7 +33,7 @@ import MyPosterPage from "../pages/user/posters/my.poster.page";
 
 const RoutesList = () => {
 
-    const {user} = useSelector(state => state.auth);
+    const {user} = useAuthStore();
 
     if (user && (user.role === "admin" || user.role === "superadmin")) {
 
