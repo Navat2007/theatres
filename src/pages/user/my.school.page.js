@@ -7,12 +7,14 @@ import Popup from "../../components/popup/popup.component";
 import FieldInput from "../../components/simple/field/field.input.component";
 
 import { fetchEditSchool, editSchoolPhoto, loadSchool } from "../../store/user/schoolSlice";
+import useAuthStore from "../../store/authStore";
 
 const MySchoolPage = () => {
 
     const dispatch = useDispatch();
-    const userStore = useSelector(state => state.auth);
     const schoolStore = useSelector(state => state.school);
+
+    const {user} = useAuthStore();
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -25,7 +27,7 @@ const MySchoolPage = () => {
 
     const fetchData = async () => {
 
-        await dispatch(loadSchool({ id: userStore.user.schoolID }));
+        await dispatch(loadSchool({ id: user.schoolID }));
 
     }
 
@@ -62,7 +64,7 @@ const MySchoolPage = () => {
 
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    dispatch(editSchoolPhoto({ id: userStore.user.schoolID, photo: file }));
+                    dispatch(editSchoolPhoto({ id: user.schoolID, photo: file }));
                 }
                 else {
                     setError("Файл больше 1,5 Мб.");
@@ -80,13 +82,13 @@ const MySchoolPage = () => {
 
     const onPhotoDeleteSubmit = async () => {
 
-        await dispatch(editSchoolPhoto({ id: userStore.user.schoolID, delete: 1 }));
+        await dispatch(editSchoolPhoto({ id: user.schoolID, delete: 1 }));
 
     }
 
     const onSchoolEditSubmit = async (params) => {
 
-        params.id = userStore.user.schoolID;
+        params.id = user.schoolID;
         await dispatch(fetchEditSchool(params));
         setPopupSchoolEditOpened(false);
         await fetchData();
