@@ -21,7 +21,8 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "react-select": "^5.6.0",
-    "tippy.js": "^6.3.7"
+    "tippy.js": "^6.3.7",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.3.1",

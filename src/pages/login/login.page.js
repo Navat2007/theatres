@@ -1,47 +1,22 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 
-import { loadUserData } from "../../store/authSlice";
+import useAuthStore from "../../store/authStore";
 
 import FieldInput from "../../components/simple/field/field.input.component";
 import Popup from "../../components/popup/popup.component";
 import Button from "../../components/simple/button/button.component";
 
 import logo from "../../images/login/logo.png";
-import axios from "axios";
 
 const LoginPage = () => {
 
-    const dispatch = useDispatch();
-
-    const { status, statusText } = useSelector(state => state.auth);
+    const {login, loading, error, errorText} = useAuthStore();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
 
-        const userData = await dispatch(loadUserData(data));
-
-        if (userData.payload && 'token' in userData.payload.params) {
-
-            window.localStorage.removeItem('login');
-            window.localStorage.removeItem('pwd');
-            window.localStorage.removeItem('remember');
-
-            if (data.remember) {
-
-                window.localStorage.setItem('login', data.login);
-                window.localStorage.setItem('pwd', data.password);
-                window.localStorage.setItem('remember', 1);
-
-            }
-
-            let tmpObject = { ...userData.payload.params };
-            tmpObject['tokenDate'] = moment(Date.now()).format('DD.MM.YYYY');
-            window.localStorage.setItem('user', JSON.stringify(tmpObject));
-            axios.defaults.headers.post['Authorization'] = `${tmpObject.token}&${tmpObject.ID}`;
-        }
+        login(data);
 
     };
 
@@ -69,12 +44,12 @@ const LoginPage = () => {
                     {...register("remember")}
                     defaultChecked={window.localStorage.getItem('remember')}
                 />
-                <p className={`form__info-text ${statusText === "" ? "" : "--actived"}`}>{statusText}</p>
+                <p className={`form__info-text ${error ? "--actived" : ""}`}>{errorText}</p>
                 <Button
                     type="submit"
                     text={"Войти"}
-                    disabled={status === "loading"}
-                    spinnerActive={status === "loading"} />
+                    disabled={loading === "loading"}
+                    spinnerActive={loading === "loading"} />
             </form>
         </Popup>
 

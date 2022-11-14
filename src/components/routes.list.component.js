@@ -28,6 +28,8 @@ import MyTheatreRequestsPage from "../pages/user/theatreRequests/my.theatreReque
 import MyTheatreRequestPage from "../pages/user/theatreRequests/my.theatreRequest.page";
 import UserTeachersPage from "../pages/user/teachers/teachers.page";
 import UserTeacherPage from "../pages/user/teachers/teacher.page";
+import MyPostersPage from "../pages/user/posters/my.posters.page";
+import MyPosterPage from "../pages/user/posters/my.poster.page";
 
 const RoutesList = () => {
 
@@ -97,6 +99,11 @@ const RoutesList = () => {
                         <Route index element={<UserTeachersPage/>}/>
                         <Route path=":id" element={<UserTeacherPage/>}/>
                         <Route path="new" element={<UserTeacherPage/>}/>
+                    </Route>
+                    <Route path="posters">
+                        <Route index element={<MyPostersPage/>}/>
+                        <Route path=":id" element={<MyPosterPage/>}/>
+                        <Route path="new" element={<MyPosterPage/>}/>
                     </Route>
                 </Route>
                 <Route path="/profile" exact={true} element={<UserLayout/>}>

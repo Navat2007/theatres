@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../simple/button/button.component";
@@ -7,15 +6,14 @@ import Popup from "../popup/popup.component";
 
 import no_photo_man from '../../images/no_photo_man.png';
 
-import { logout } from "../../store/authSlice";
+import useAuthStore from "../../store/authStore";
 
 const ProfileHeader = ({ className }) => {
 
-    const { user } = useSelector(state => state.auth);
+    const {user, logout} = useAuthStore();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [userRole, setUserRole] = React.useState("");
 
+    const [userRole, setUserRole] = React.useState("");
     const [popupOpened, setPopupOpened] = React.useState(false);
 
     React.useEffect(() => {
@@ -70,8 +68,8 @@ const ProfileHeader = ({ className }) => {
                         type='button'
                         text="Да"
                         onClick={() => {
-                            dispatch(logout());
-                            navigate("/login", { replace: true });
+                            logout();
+                            navigate("/", { replace: true });
                         }}
                     />
                     <Button

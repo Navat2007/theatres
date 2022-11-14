@@ -16,10 +16,10 @@ const baseConfig = () => {
         baseUrl: "https://theatres.patriot-sport.ru/",
     }
 
-    axios.defaults.baseURL = window.global.baseUrl;
+    axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 
-    if(window.global.debug)
+    if(process.env.DEBUG)
         console.log("App in debug mode!");
 
 }

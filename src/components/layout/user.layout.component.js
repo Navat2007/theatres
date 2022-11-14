@@ -30,6 +30,11 @@ const UserLayout = () => {
             icon: "--type-users",
             link: "/user/teachers"
         },
+        {
+            title: "Афиши",
+            icon: "--type-poster",
+            link: "/user/posters"
+        },
     ];
 
     const handleBurgerMenu = () => {
