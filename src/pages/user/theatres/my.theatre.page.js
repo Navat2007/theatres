@@ -2,10 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import ReactSelect from 'react-select'
+import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
 import JoditEditor from 'jodit-react';
 
+import { Helmet } from "react-helmet";
 import Button from "../../../components/simple/button/button.component";
 
 import { clear, loadTeachers } from "../../../store/admin/teachersSlice";
@@ -48,7 +49,10 @@ const MyTheatrePage = () => {
         console.log(editorState);
     });
 
-    return (
+    return (<>
+        <Helmet>
+            <title>Создание театра</title>
+        </Helmet>
         <div className="content__section">
             {!id && (
                 <>
@@ -600,7 +604,7 @@ const MyTheatrePage = () => {
             )}
             {id && <p>Театр №{id}</p>}
         </div>
-    );
+    </>);
 };
 
 export default MyTheatrePage;
