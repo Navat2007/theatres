@@ -20,6 +20,10 @@
     mask-image: url(../../images/icons/theaters.svg);
   }
 
+  &.--type-poster {
+    mask-image: url(../../images/icons/poster.svg);
+  }
+
   &.--type-requests {
     mask-image: url(../../images/icons/applications.svg);
   }
