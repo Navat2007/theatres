@@ -7,13 +7,14 @@ import Button from '../../../components/simple/button/button.component';
 import Table from '../../../components/table/table.component';
 
 import { loadTeachers } from "../../../store/admin/teachersSlice";
+import useAuthStore from "../../../store/authStore";
 
 const MyPostersPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const teachers = useSelector(state => state.teachers);
-    const user = useSelector(state => state.auth.user);
+    const {user} = useAuthStore();
 
     const onItemClick = (props) => {
         navigate(`/user/teachers/${props}`);

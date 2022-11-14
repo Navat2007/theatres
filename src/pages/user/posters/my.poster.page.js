@@ -12,6 +12,7 @@ import Button from "../../../components/simple/button/button.component";
 import { clear, loadTeachers } from "../../../store/admin/teachersSlice";
 import { loadSchools } from "../../../store/admin/schoolsSlice";
 import FieldInput from "../../../components/simple/field/field.input.component";
+import useAuthStore from "../../../store/authStore";
 
 const MyPosterPage = () => {
 
@@ -19,7 +20,7 @@ const MyPosterPage = () => {
     const dispatch = useDispatch();
     const animatedComponents = makeAnimated();
 
-    const user = useSelector((state) => state.auth.user);
+    const {user} = useAuthStore();
     const { data, statusError } = useSelector((state) => state.teachers);
 
     const { register, handleSubmit, reset, control } = useForm();
