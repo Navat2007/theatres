@@ -1,23 +1,19 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
-import { loadAdmins } from "../../../store/admin/adminsSlice";
-import { loadUsers } from "../../../store/admin/usersSlice";
+import useUsersStore from "../../../store/admin/usersStore";
 
 const UsersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const admins = useSelector(state => state.admins);
-    const users = useSelector(state => state.users);
+    const {admins, users, loadAdmins, loadUsers, loading} = useUsersStore();
 
     const onAdminItemClick = (props) => {
         navigate(`/admin/users/admin/${props}`);
@@ -27,12 +23,18 @@ const UsersPage = () => {
         navigate(`/admin/users/user/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadAdmins();
+        await loadUsers();
+
+    };
+
     React.useEffect(() => {
 
-        dispatch(loadAdmins());
-        dispatch(loadUsers());
+        fetchData();
 
-    }, [dispatch]);
+    }, []);
 
     const adminItemsConfig = [
         {
@@ -132,8 +134,8 @@ const UsersPage = () => {
                 <Tab index={1} title={"Администраторы"}>
                     <Table
                         title={"Таблица администраторов"}
-                        loading={admins.status === "loading"}
-                        items={admins.data}
+                        loading={loading.admins}
+                        items={admins}
                         itemsConfig={adminItemsConfig}
                         onItemClick={onAdminItemClick}
                         withFilter={true}
@@ -151,8 +153,8 @@ const UsersPage = () => {
                 <Tab index={2} title={"Пользователи"}>
                     <Table
                         title={"Таблица пользователей"}
-                        loading={users.status === "loading"}
-                        items={users.data}
+                        loading={loading.users}
+                        items={users}
                         itemsConfig={userItemsConfig}
                         pageSize={10}
                         onItemClick={onUserItemClick}

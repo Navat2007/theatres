@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 
-import { loadSchools } from "../../../store/admin/schoolsSlice";
+import useSchoolsStore from "../../../store/admin/schoolsStore";
 
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
@@ -11,18 +10,24 @@ import Table from "../../../components/table/table.component";
 const SchoolsPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const school = useSelector(state => state.schools);
+
+    const {schools, loadSchools, loading} = useSchoolsStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/schools/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadSchools();
+
+    };
+
     React.useEffect(() => {
 
-        dispatch(loadSchools());
+        fetchData();
 
-    }, [dispatch]);
+    }, []);
 
     const itemConfig = [
         {
@@ -81,8 +86,8 @@ const SchoolsPage = () => {
             </Helmet>
             <Table
                 title={"Таблица школ"}
-                loading={school.status === "loading"}
-                items={school.data}
+                loading={loading}
+                items={schools}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

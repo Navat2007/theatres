@@ -2,12 +2,13 @@ import axios from "axios";
 
 import create from 'zustand'
 
-const urlLoadSchool = process.env.REACT_APP_BASE_URL + 'php/models/user/school/load_by_id.php';
-const urlEditSchool = process.env.REACT_APP_BASE_URL + 'php/models/user/school/edit_school.php';
-const urlEditPhoto = process.env.REACT_APP_BASE_URL + 'php/models/user/school/change_photo.php';
+const urlLoadSchools = process.env.REACT_APP_BASE_URL + 'php/models/admin/schools/load.php';
+const urlLoadSchool = process.env.REACT_APP_BASE_URL + 'php/models/admin/schools/load_school.php';
+const urlEditSchool = process.env.REACT_APP_BASE_URL + 'php/models/admin/schools/edit_school.php';
 
-const useSchoolStore = create(
+const useSchoolsStore = create(
     (set, get) => ({
+        schools: [],
         school: {},
         loading: false,
         sending: false,
@@ -18,6 +19,21 @@ const useSchoolStore = create(
         },
         clearErrorText: () => {
             set({error: false, errorText: ""});
+        },
+        loadSchools: async () => {
+
+            set({loading: true});
+
+            const response = await axios.post(urlLoadSchools);
+
+            set({loading: false});
+
+            if(response.data.params){
+
+                set((state) => ({schools: response.data.params}));
+
+            }
+
         },
         loadSchool: async (params) => {
 
@@ -31,13 +47,13 @@ const useSchoolStore = create(
 
             const response = await axios.post(urlLoadSchool, form);
 
+            set({loading: false});
+
             if(response.data.params){
 
                 set((state) => ({school: response.data.params}));
 
             }
-
-            set({loading: false});
 
         },
         editSchool: async (params) => {
@@ -51,36 +67,28 @@ const useSchoolStore = create(
             }
 
             const response = await axios.post(urlEditSchool, form);
-            console.log(response.data);
 
             set({sending: false});
 
-        },
-        editSchoolPhoto: async (params) => {
+            if (response.data) {
 
-            set({sending: true});
+                if (response.data.error === 1) {
 
-            let form = new FormData();
+                    set((state) => ({
+                        error: true,
+                        errorText: response.data.error_text
+                    }));
 
-            for (let key in params) {
+                    return {error: true};
 
-                if(key === "photo"){
-                    form.append("files[]", params[key]);
-                }
-                else {
-                    form.append(key, params[key]);
                 }
 
             }
 
-            const response = await axios.post(urlEditPhoto, form);
-
-            set((state) => ({school: {...state.school, photo: response.data.params}}));
-
-            set({sending: false});
+            return {error: false};
 
         },
     })
 );
 
-export default useSchoolStore;
+export default useSchoolsStore;

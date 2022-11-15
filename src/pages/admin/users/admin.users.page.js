@@ -1,6 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 
@@ -8,20 +7,17 @@ import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
-import { fetchAddAdmin, fetchEditAdmin, fetchRemoveAdmin, loadAdmin } from "../../../store/admin/adminsSlice";
 
 import no_photo_man from '../../../images/no_photo_man.png';
+import useUsersStore from "../../../store/admin/usersStore";
 
 const AdminUsersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     let { id } = useParams();
     const { register, setValue, handleSubmit, reset, formState: { errors } } = useForm();
-
-    const admin = useSelector(state => state.admins.admin);
-    const { status, statusError } = useSelector(state => state.admins);
+    const {admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText} = useUsersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -30,41 +26,46 @@ const AdminUsersPage = () => {
 
         if (id) {
             reset();
-            dispatch(loadAdmin({ id }));
+            loadAdmin({ id });
         }
 
-    }, [id, dispatch]);
+    }, [id]);
 
     React.useEffect(() => {
 
-        if (status === "sendingError")
+        if (error.admins)
             setPopupErrorOpened(true);
 
-    }, [status]);
+    }, [error.admins]);
 
-    const onAddSubmit = (params) => {
+    const back = () => navigate("/admin/users");
 
-        dispatch(fetchAddAdmin(params));
+    const onAddSubmit = async (params) => {
+
+        const result = await addAdmin(params);
+
+        if(!result.error) back();
 
     }
 
-    const onEditSubmit = (params) => {
+    const onEditSubmit = async (params) => {
 
         params.id = id;
-        dispatch(fetchEditAdmin(params));
+        const result = await editAdmin(params);
+
+        if(!result.error) back();
 
     }
 
-    const onDeleteSubmit = () => {
+    const onDeleteSubmit = async () => {
 
-        dispatch(fetchRemoveAdmin({ id }));
+        const result = await removeAdmin({ id });
+
+        if(!result.error) back();
 
     }
 
-    if (status === "sendingDone")
-        return <Navigate to={"/admin/users"} />
-
-    if (status === "loading")
+    if (loading.admins)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (id && (admin === null || admin.role === "Пользователь"))
@@ -84,7 +85,7 @@ const AdminUsersPage = () => {
                         isIconBtn={true}
                         iconClass='mdi mdi-arrow-left'
                         aria-label="Назад"
-                        onClick={() => navigate("/admin/users")}
+                        onClick={() => back()}
                     />
                     <h1 className="content__title">Редактирование администратора ID: {id}</h1>
                 </div>
@@ -151,8 +152,7 @@ const AdminUsersPage = () => {
                         />
                         <FieldInput
                             label={"Активировать учетную запись?"}
-                            type={"radio"}
-                            fieldClassName={"--type-checkbox-radio"}
+                            type={"checkbox_variant"}
                             {...register("active", { value: admin.active === "Активен" })}
                         />
                     </fieldset>
@@ -161,8 +161,7 @@ const AdminUsersPage = () => {
                         <FieldInput
                             id={"id_1"}
                             label={"Главный администратор"}
-                            type={"radio"}
-                            fieldClassName={"--type-checkbox-radio"}
+                            type={"checkbox_variant"}
                             {...register("superadmin", {
                                 value: admin.role === "Главный администратор",
                                 onChange: (e) => {
@@ -175,8 +174,7 @@ const AdminUsersPage = () => {
                         <FieldInput
                             id={"id_2"}
                             label={"Администратор"}
-                            type={"radio"}
-                            fieldClassName={"--type-checkbox-radio"}
+                            type={"checkbox_variant"}
                             {...register("admin", {
                                 value: admin.role === "Администратор",
                                 onChange: (e) => {
@@ -191,12 +189,12 @@ const AdminUsersPage = () => {
                         <Button
                             type='submit'
                             text={"Сохранить"}
-                            spinnerActive={status === "sending"} />
+                            spinnerActive={sending.admins} />
                         <Button
                             type='button'
                             iconClass={'mdi mdi-delete'}
                             theme='text'
-                            extraClass={`${status === "sending" ? "--hide" : ""}`}
+                            extraClass={`${sending.admins ? "--hide" : ""}`}
                             onClick={(e) => {
                                 e.preventDefault();
                                 setPopupOpened(true);
@@ -235,10 +233,13 @@ const AdminUsersPage = () => {
                     notif={{
                         active: true,
                         state: "error",
-                        text: statusError,
+                        text: errorText.admins,
                     }}
                     opened={popupErrorOpened}
-                    onClose={() => setPopupErrorOpened(false)}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopupErrorOpened(false)
+                    }}
                 />
             </div>
         </>
@@ -257,7 +258,7 @@ const AdminUsersPage = () => {
                     isIconBtn={true}
                     iconClass='mdi mdi-arrow-left'
                     aria-label="Назад"
-                    onClick={() => navigate("/admin/users")}
+                    onClick={() => back()}
                 />
                 <h1 className="content__title">Создание администратора</h1>
             </div>
@@ -356,7 +357,7 @@ const AdminUsersPage = () => {
                     <Button
                         type='submit'
                         text={"Создать"}
-                        spinnerActive={status === "sending"} />
+                        spinnerActive={sending.admins} />
                 </div>
             </form>
             <Popup
@@ -364,10 +365,13 @@ const AdminUsersPage = () => {
                 notif={{
                     active: true,
                     state: "error",
-                    text: statusError,
+                    text: errorText.admins,
                 }}
                 opened={popupErrorOpened}
-                onClose={() => setPopupErrorOpened(false)}
+                onClose={() => {
+                    clearErrorText();
+                    setPopupErrorOpened(false);
+                }}
             />
         </div>
     </>

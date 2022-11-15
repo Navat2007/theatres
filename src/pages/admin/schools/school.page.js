@@ -1,49 +1,56 @@
 import React from 'react';
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
+
+import useSchoolsStore from "../../../store/admin/schoolsStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
-import { fetchEditSchool, loadSchool } from "../../../store/admin/schoolsSlice";
-import no_photo_man from "../../../images/no_photo_man.png";
-
 const SchoolPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     let { id } = useParams();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const school = useSelector(state => state.schools.school);
-    const { status, statusError } = useSelector(state => state.schools);
+    const {school, loadSchool, editSchool, loading, sending, error, errorText, clearErrorText} = useSchoolsStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
+    const fetchData = async () => {
+
+        reset();
+        await loadSchool({ id });
+
+    };
+
     React.useEffect(() => {
 
         if (id) {
-            reset();
-            dispatch(loadSchool({ id }));
+            fetchData();
         }
 
-    }, [id, dispatch]);
+    }, [id]);
 
     React.useEffect(() => {
 
-        if (status === "sendingError")
+        if (error)
             setPopupErrorOpened(true);
 
-    }, [status]);
+    }, [error]);
 
-    const onEditSubmit = (params) => {
+    const back = () => navigate("/admin/schools");
+
+    const onEditSubmit = async (params) => {
 
         params.id = id;
-        dispatch(fetchEditSchool(params));
+        const result = await editSchool(params);
+
+        if(!result.error) back();
 
     }
 
@@ -53,10 +60,7 @@ const SchoolPage = () => {
 
     }
 
-    if (status === "sendingDone")
-        return <Navigate to={"/admin/schools"} />
-
-    if (status === "loading")
+    if (loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (id && school === null)
@@ -76,7 +80,7 @@ const SchoolPage = () => {
                         isIconBtn={true}
                         iconClass='mdi mdi-arrow-left'
                         aria-label="Назад"
-                        onClick={() => navigate("/admin/schools")}
+                        onClick={() => back()}
                     />
                     <h1 className="content__title">Редактирование школы ID: {id}</h1>
                 </div>
@@ -140,7 +144,7 @@ const SchoolPage = () => {
                         <Button
                             type='submit'
                             text="Сохранить"
-                            spinnerActive={status === "sending"} />
+                            spinnerActive={sending} />
                     </div>
                 </form>
                 <Popup
@@ -173,10 +177,13 @@ const SchoolPage = () => {
                     notif={{
                         active: true,
                         state: "error",
-                        text: statusError,
+                        text: errorText,
                     }}
                     opened={popupErrorOpened}
-                    onClose={() => setPopupErrorOpened(false)}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopupErrorOpened(false);
+                    }}
                 />
             </div>
         </>

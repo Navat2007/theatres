@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet";
 import Button from "../../../components/simple/button/button.component";
 
 import { clear, loadTeachers } from "../../../store/admin/teachersSlice";
-import { loadSchools } from "../../../store/admin/schoolsSlice";
+
 import FieldInput from "../../../components/simple/field/field.input.component";
 import useAuthStore from "../../../store/authStore";
 
@@ -31,7 +31,6 @@ const MyPosterPage = () => {
 
     const fetchData = async () => {
         await dispatch(loadTeachers({ schoolID: user.schoolID }));
-        await dispatch(loadSchools());
     };
 
     React.useEffect(() => {
@@ -77,10 +76,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={school.data.map((item) => {
+                                        options={data.map((item) => {
                                             return {
-                                                //label: `${item.f} ${item.i} ${item.o}`,
-                                                label: `${item.org_short_name}`,
+                                                label: `${item.f} ${item.i} ${item.o}`,
                                                 value: item.ID,
                                             };
                                         })}
@@ -101,10 +99,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={school.data.map((item) => {
+                                        options={data.map((item) => {
                                             return {
-                                                //label: `${item.f} ${item.i} ${item.o}`,
-                                                label: `${item.org_short_name}`,
+                                                label: `${item.f} ${item.i} ${item.o}`,
                                                 value: item.ID,
                                             };
                                         })}
@@ -125,10 +122,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={school.data.map((item) => {
+                                        options={data.map((item) => {
                                             return {
-                                                //label: `${item.f} ${item.i} ${item.o}`,
-                                                label: `${item.org_short_name}`,
+                                                label: `${item.f} ${item.i} ${item.o}`,
                                                 value: item.ID,
                                             };
                                         })}
