@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import create from 'zustand'
+import {persist} from "zustand/middleware";
 
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load.php';
 const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_by_id.php';
@@ -9,179 +10,213 @@ const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatre
 const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/remove.php';
 
 const useTheatresStore = create(
-    (set, get) => ({
-        theatres: [],
-        theatre: {},
-        loading: false,
-        sending: false,
-        error: false,
-        errorText: "",
-        setErrorText: (text) => {
-            set({error: true, errorText: text});
-        },
-        clearErrorText: () => {
-            set({error: false, errorText: ""});
-        },
-        loadTheatres: async (params) => {
+    persist(
+        (set, get) => ({
+            theatres: [],
+            theatre: {},
+            tempTheatre: {},
 
-            set({loading: true});
+            loading: false,
+            sending: false,
+            error: false,
+            errorText: "",
 
-            let form = new FormData();
+            formActivity: [
+                "Объединение дополнительного образования",
+                "Внеурочная деятельность",
+                "Иное"
+            ],
+            ageMembers: [
+                "1-4 класс",
+                "5-9 класс",
+                "10-11 класс",
+                "Студенты колледжа",
+            ],
+            theatreLevel: [
+                "Дебютант",
+                "Практик",
+                "Классик",
+            ],
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
+            setErrorText: (text) => {
+                set({error: true, errorText: text});
+            },
+            clearErrorText: () => {
+                set({error: false, errorText: ""});
+            },
 
-            const response = await axios.post(urlLoadTheatres, form);
+            loadTheatres: async (params) => {
 
-            set({loading: false});
+                set({loading: true});
 
-            if(response.data.params){
+                let form = new FormData();
 
-                set((state) => ({theatres: response.data.params}));
-
-            }
-
-        },
-        loadTheatre: async (params) => {
-
-            set({loading: true});
-
-            let form = new FormData();
-
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTheatre, form);
-
-            set({loading: false});
-
-            if(response.data.params){
-
-                set((state) => ({theatre: response.data.params}));
-
-            }
-
-        },
-        addTheatre: async (params) => {
-
-            set({sending: true});
-
-            let form = new FormData();
-
-            for (let key in params) {
-
-                if(key === "photo"){
-                    form.append("files[]", params[key][0]);
-                }
-                else {
+                for (let key in params) {
                     form.append(key, params[key]);
                 }
 
-            }
+                const response = await axios.post(urlLoadTheatres, form).catch(error => {
+                    console.log(error);
+                });
 
-            const response = await axios.post(urlAddTheatre, form);
+                set({loading: false});
 
-            set({sending: false});
+                if (response?.data?.params) {
 
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: true,
-                        errorText: response.data.error_text
-                    }));
-
-                    return {error: true};
+                    set((state) => ({theatres: response.data.params}));
 
                 }
 
-            }
+            },
+            loadTheatre: async (params) => {
 
-            return {error: false};
+                set({loading: true});
 
-        },
-        editTheatre: async (params) => {
+                let form = new FormData();
 
-            set({sending: true});
-
-            let form = new FormData();
-
-            for (let key in params) {
-
-                if(key === "photo"){
-                    form.append("files[]", params[key][0]);
-                }
-                else {
+                for (let key in params) {
                     form.append(key, params[key]);
                 }
 
-            }
+                const response = await axios.post(urlLoadTheatre, form).catch(error => {
+                    console.log(error);
+                });
 
-            const response = await axios.post(urlEditTheatre, form);
+                set({loading: false});
 
-            set({sending: false});
+                if (response?.data?.params) {
 
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set((state) => ({
-                        error: true,
-                        errorText: response.data.error_text
-                    }));
-
-                    return {error: true};
+                    set((state) => ({theatre: response.data.params}));
 
                 }
 
-            }
+            },
+            addTheatre: async (params) => {
 
-            return {error: false};
+                set({sending: true});
 
-        },
-        removeTheatre: async (params) => {
+                let form = new FormData();
 
-            set({sending: true});
+                for (let key in params) {
 
-            let form = new FormData();
-
-            for (let key in params) {
-
-                if(key === "photo"){
-                    form.append("files[]", params[key][0]);
-                }
-                else {
-                    form.append(key, params[key]);
-                }
-
-            }
-
-            const response = await axios.post(urlRemoveTheatre, form);
-
-            set({sending: false});
-
-            if (response.data) {
-
-                if (response.data.error === 1) {
-
-                    set({
-                        error: true,
-                        errorText: response.data.error_text
-                    });
-
-                    return {error: true};
+                    if (key === "photo") {
+                        form.append("files[]", params[key][0]);
+                    } else {
+                        form.append(key, params[key]);
+                    }
 
                 }
 
-            }
+                const response = await axios.post(urlAddTheatre, form).catch(error => {
+                    console.log(error);
+                });
 
-            return {error: false};
+                set({sending: false});
 
-        },
-    })
+                if (response?.data) {
+
+                    if (response.data.error === 1) {
+
+                        set((state) => ({
+                            error: true,
+                            errorText: response.data.error_text
+                        }));
+
+                        return {error: true};
+
+                    }
+
+                }
+
+                return {error: false};
+
+            },
+            editTheatre: async (params) => {
+
+                set({sending: true});
+
+                let form = new FormData();
+
+                for (let key in params) {
+
+                    if (key === "photo") {
+                        form.append("files[]", params[key][0]);
+                    } else {
+                        form.append(key, params[key]);
+                    }
+
+                }
+
+                const response = await axios.post(urlEditTheatre, form).catch(error => {
+                    console.log(error);
+                });
+
+                set({sending: false});
+
+                if (response?.data) {
+
+                    if (response.data.error === 1) {
+
+                        set((state) => ({
+                            error: true,
+                            errorText: response.data.error_text
+                        }));
+
+                        return {error: true};
+
+                    }
+
+                }
+
+                return {error: false};
+
+            },
+            removeTheatre: async (params) => {
+
+                set({sending: true});
+
+                let form = new FormData();
+
+                for (let key in params) {
+
+                    if (key === "photo") {
+                        form.append("files[]", params[key][0]);
+                    } else {
+                        form.append(key, params[key]);
+                    }
+
+                }
+
+                const response = await axios.post(urlRemoveTheatre, form).catch(error => {
+                    console.log(error);
+                });
+
+                set({sending: false});
+
+                if (response?.data) {
+
+                    if (response.data.error === 1) {
+
+                        set({
+                            error: true,
+                            errorText: response.data.error_text
+                        });
+
+                        return {error: true};
+
+                    }
+
+                }
+
+                return {error: false};
+
+            },
+        }),
+        {
+            name: "theatres-users",
+            getStorage: () => sessionStorage,
+        }
+    )
 );
 
 export default useTheatresStore;
