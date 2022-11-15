@@ -40,8 +40,10 @@ const MyTheatrePage = () => {
     const fetchData = async () => {
 
         await schoolStore.loadSchool({id: user.schoolID});
-        await loadTheatre({id});
         await teachersStore.loadTeachers({schoolID: user.schoolID});
+
+        if(id)
+            await loadTheatre({id});
 
     };
 
