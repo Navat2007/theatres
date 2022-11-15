@@ -10,8 +10,8 @@ import useSchoolStore from "../../store/user/schoolStore";
 
 const MySchoolPage = () => {
 
-    const {user} = useAuthStore();
-    const {school, loadSchool, editSchool, editSchoolPhoto, loading, sending, error, errorText, setErrorText, clearErrorText} = useSchoolStore();
+    const { user } = useAuthStore();
+    const { school, loadSchool, editSchool, editSchoolPhoto, loading, sending, error, errorText, setErrorText, clearErrorText } = useSchoolStore();
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -106,7 +106,7 @@ const MySchoolPage = () => {
 
     React.useEffect(() => {
 
-        if(error)
+        if (error)
             setPopupErrorOpened(true);
 
     }, [error]);
@@ -119,18 +119,7 @@ const MySchoolPage = () => {
 
     return (
         <div className='content__section'>
-            <div className="content__title-block">
-                <Button
-                    type='button'
-                    theme='text'
-                    size='small'
-                    isIconBtn={true}
-                    iconClass='mdi mdi-arrow-left'
-                    aria-label="Назад"
-                    onClick={() => { }}
-                />
-                <h1 className="content__title">Информация о школе</h1>
-            </div>
+            <h1 className="content__title">Информация о школе</h1>
             <div className="profile-card">
                 <div className="profile-card__img-block">
                     <img className='profile-card__img'
