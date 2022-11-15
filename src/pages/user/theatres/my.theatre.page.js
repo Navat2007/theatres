@@ -2,7 +2,6 @@ import React from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useForm, Controller} from "react-hook-form";
 import {Helmet} from "react-helmet";
-import JoditEditor from 'jodit-react';
 
 import useAuthStore from "../../../store/authStore";
 import useTheatresStore from "../../../store/user/theatresStore";
@@ -12,6 +11,7 @@ import useSchoolStore from "../../../store/user/schoolStore";
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import MultiSelect from "../../../components/multi_select/multi_select.component";
+import Editor from "../../../components/reach_editor/editor.component";
 
 const MyTheatrePage = () => {
 
@@ -20,20 +20,28 @@ const MyTheatrePage = () => {
 
     const {user} = useAuthStore();
     const schoolStore = useSchoolStore();
-    const {theatre, tempTheatre, loadTheatre, formActivity, ageMembers, theatreLevel, loading, sending, error, errorText, clearErrorText} = useTheatresStore();
+    const {
+        theatre,
+        tempTheatre,
+        loadTheatre,
+        formActivity,
+        ageMembers,
+        theatreLevel,
+        loading,
+        sending,
+        error,
+        errorText,
+        clearErrorText
+    } = useTheatresStore();
     const teachersStore = useTeachersStore();
 
     const {register, handleSubmit, reset, control} = useForm();
 
-    const [editorState, setEditorState] = React.useState('');
-
     const fetchData = async () => {
 
-        await schoolStore.loadSchool({ id: user.schoolID });
+        await schoolStore.loadSchool({id: user.schoolID});
         await loadTheatre({id});
         await teachersStore.loadTeachers({schoolID: user.schoolID});
-
-        console.log(schoolStore);
 
     };
 
@@ -49,7 +57,7 @@ const MyTheatrePage = () => {
 
         return () => {
 
-            console.log("clear");
+            //ЗАПИСАТЬ В ПЕРЕМЕННУЮ
 
 
         };
@@ -61,15 +69,16 @@ const MyTheatrePage = () => {
     const onSubmit = handleSubmit((data) => {
 
         console.log(data);
-        console.log(editorState);
+        //console.log(editorState);
 
     });
 
     if (loading || schoolStore.loading || teachersStore.loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
-    if(!schoolStore.loading && Object.keys(schoolStore.school).length === 0)
-        return <div className='content__section'><p>Ошибка при загрузке школы. Попробуйте перезагрузить страницу.</p></div>;
+    if (!schoolStore.loading && Object.keys(schoolStore.school).length === 0)
+        return <div className='content__section'><p>Ошибка при загрузке школы. Попробуйте перезагрузить страницу.</p>
+        </div>;
 
     if (id && theatre) {
         return (<>
@@ -81,10 +90,6 @@ const MyTheatrePage = () => {
             </div>
         </>);
     }
-
-    console.log(formActivity);
-    console.log(ageMembers);
-    console.log(theatreLevel);
 
     return (<>
         <Helmet>
@@ -119,11 +124,11 @@ const MyTheatrePage = () => {
                                 />
                                 <FieldInput
                                     label={"Адрес"}
-                                    type='text'
+                                    type='textarea'
                                     layout='flex'
                                     required={true}
                                     placeholder={"Введите адрес"}
-                                    {...register("title", {value: schoolStore.school.address})}
+                                    {...register("address", {value: schoolStore.school.address})}
                                 />
                                 <div className="form__multy-block">
                                     <p className="form__label">Форма осуществления деятельности</p>
@@ -165,50 +170,16 @@ const MyTheatrePage = () => {
                                 />
                                 <div className="form__editor-block">
                                     <p className="form__label">Краткое описание</p>
-                                    <Controller
+                                    <Editor
                                         control={control}
-                                        name="editor"
-                                        defaultValue={""}
-                                        render={({field}) => (
-                                            <JoditEditor
-                                                ref={field.ref}
-                                                config={{
-                                                    readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-                                                    placeholder: 'Начните писать...'
-                                                }}
-                                                value={field.value}
-                                                onChange={(value) => {
-                                                    field.onChange(value);
-                                                }}
-                                                onBlur={() => {
-                                                    field.onBlur();
-                                                }}
-                                            />
-                                        )}
+                                        name="editorShortDescription"
                                     />
                                 </div>
                                 <div className="form__editor-block">
-                                    <p className="form__label">Обращение режисера</p>
-                                    <Controller
+                                    <p className="form__label">Обращение режиссёра</p>
+                                    <Editor
                                         control={control}
-                                        name="editor"
-                                        defaultValue={""}
-                                        render={({field}) => (
-                                            <JoditEditor
-                                                ref={field.ref}
-                                                config={{
-                                                    readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-                                                    placeholder: 'Начните писать...'
-                                                }}
-                                                value={field.value}
-                                                onChange={(value) => {
-                                                    field.onChange(value);
-                                                }}
-                                                onBlur={() => {
-                                                    field.onBlur();
-                                                }}
-                                            />
-                                        )}
+                                        name="editorDirectorMessage"
                                     />
                                 </div>
                             </fieldset>
@@ -244,7 +215,6 @@ const MyTheatrePage = () => {
                                                 type='url'
                                                 placeholder='Введите url-адрес...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -275,7 +245,6 @@ const MyTheatrePage = () => {
                                                 type='url'
                                                 placeholder='Введите url-адрес...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -314,7 +283,6 @@ const MyTheatrePage = () => {
                                                 type='url'
                                                 placeholder='Введите url-адрес...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -345,7 +313,6 @@ const MyTheatrePage = () => {
                                                 type='url'
                                                 placeholder='Введите url-адрес...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -384,7 +351,6 @@ const MyTheatrePage = () => {
                                                 type='text'
                                                 placeholder='Введите название...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -397,26 +363,9 @@ const MyTheatrePage = () => {
                                             />
                                             <div className="form__editor-block">
                                                 <p className="form__label">Описание театра</p>
-                                                <Controller
+                                                <Editor
                                                     control={control}
-                                                    name="editor"
-                                                    defaultValue={""}
-                                                    render={({field}) => (
-                                                        <JoditEditor
-                                                            ref={field.ref}
-                                                            config={{
-                                                                readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-                                                                placeholder: 'Начните писать...'
-                                                            }}
-                                                            value={field.value}
-                                                            onChange={(value) => {
-                                                                field.onChange(value);
-                                                            }}
-                                                            onBlur={() => {
-                                                                field.onBlur();
-                                                            }}
-                                                        />
-                                                    )}
+                                                    name="editorTheatreDescription"
                                                 />
                                             </div>
                                         </div>
@@ -440,7 +389,6 @@ const MyTheatrePage = () => {
                                                 type='text'
                                                 placeholder='Введите название...'
                                                 layout='flex'
-                                                required={true}
                                             />
                                             <Button
                                                 type='button'
@@ -453,26 +401,9 @@ const MyTheatrePage = () => {
                                             />
                                             <div className="form__editor-block">
                                                 <p className="form__label">Описание посещения театра</p>
-                                                <Controller
+                                                <Editor
                                                     control={control}
-                                                    name="editor"
-                                                    defaultValue={""}
-                                                    render={({field}) => (
-                                                        <JoditEditor
-                                                            ref={field.ref}
-                                                            config={{
-                                                                readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-                                                                placeholder: 'Начните писать...'
-                                                            }}
-                                                            value={field.value}
-                                                            onChange={(value) => {
-                                                                field.onChange(value);
-                                                            }}
-                                                            onBlur={() => {
-                                                                field.onBlur();
-                                                            }}
-                                                        />
-                                                    )}
+                                                    name="editorTheatreVisit"
                                                 />
                                             </div>
                                         </div>
@@ -497,7 +428,6 @@ const MyTheatrePage = () => {
                                     <FieldInput
                                         type='select'
                                         placeholder='Выберите соцсеть из списка...'
-                                        required={true}
                                     />
                                     <Button
                                         type='button'
@@ -512,7 +442,6 @@ const MyTheatrePage = () => {
                                         type='url'
                                         extraClass='form__social-block-url'
                                         placeholder='Введите url-адрес...'
-                                        required={true}
                                     />
                                 </div>
                                 {/* Если нужно добавить еще блок тыкаем на плюс, появляется блок как выше */}
@@ -533,7 +462,6 @@ const MyTheatrePage = () => {
                                     <FieldInput
                                         type='url'
                                         placeholder='Введите url-адрес...'
-                                        required={true}
                                         {...register("theatreUrlSchool")}
                                     />
                                 </div>
