@@ -1,8 +1,10 @@
 import React from 'react';
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
+
+import useSchoolsStore from "../../../store/admin/schoolsStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -16,7 +18,6 @@ import {
     fetchRemoveTeacher,
     loadTeacher
 } from "../../../store/admin/teachersSlice";
-import { loadSchools } from "../../../store/admin/schoolsSlice";
 
 const TeacherPage = () => {
 
@@ -26,7 +27,7 @@ const TeacherPage = () => {
     const { register, handleSubmit, reset } = useForm();
 
     const { teacher, teacherStatus, statusError } = useSelector(state => state.teachers);
-    const schools = useSelector(state => state.schools);
+    const {schools, loadSchools} = useSchoolsStore();
 
     const [error, setError] = React.useState(false);
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -34,7 +35,7 @@ const TeacherPage = () => {
 
     const fetchData = async () => {
 
-        await dispatch(loadSchools());
+        await loadSchools();
 
         if (id) {
             reset();
@@ -217,7 +218,7 @@ const TeacherPage = () => {
                                     value: "",
                                     disabled: false
                                 }}
-                                selectItems={schools.data.map(item => {
+                                selectItems={schools.map(item => {
                                     return {
                                         title: item.org_short_name,
                                         value: item.ID,
@@ -374,7 +375,7 @@ const TeacherPage = () => {
                                 value: "",
                                 disabled: false
                             }}
-                            selectItems={schools.data.map(item => {
+                            selectItems={schools.map(item => {
                                 return {
                                     title: item.org_short_name,
                                     value: item.ID,

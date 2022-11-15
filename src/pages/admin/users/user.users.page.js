@@ -1,8 +1,10 @@
 import React from 'react';
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
+
+import useUsersStore from "../../../store/admin/usersStore";
+import useSchoolsStore from "../../../store/admin/schoolsStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -10,65 +12,71 @@ import Popup from "../../../components/popup/popup.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 
-import { fetchAddUser, fetchEditUser, fetchRemoveUser, loadUser } from "../../../store/admin/usersSlice";
-import { loadSchools } from "../../../store/admin/schoolsSlice";
-
 const UserUsersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     let { id } = useParams();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const user = useSelector(state => state.users.user);
-    const { status, statusError } = useSelector(state => state.users);
-    const schools = useSelector(state => state.schools);
+    const {user, loadUser, addUser, editUser, removeUser, loading, sending, error, errorText, clearErrorText} = useUsersStore();
+    const schools = useSchoolsStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
-    React.useEffect(() => {
+    const fetchData = async () => {
 
-        dispatch(loadSchools());
+        await schools.loadSchools();
 
         if (id) {
             reset();
-            dispatch(loadUser({ id }));
+            await loadUser({ id });
         }
 
-    }, [id, dispatch]);
+    };
 
     React.useEffect(() => {
 
-        if (status === "sendingError")
+        fetchData();
+
+    }, [id]);
+
+    React.useEffect(() => {
+
+        if (error.users)
             setPopupErrorOpened(true);
 
-    }, [status]);
+    }, [error.users]);
 
-    const onAddSubmit = (params) => {
+    const back = () => navigate("/admin/users");
 
-        dispatch(fetchAddUser(params));
+    const onAddSubmit = async (params) => {
+
+        const result = await addUser(params);
+
+        if(!result.error) back();
 
     }
 
-    const onEditSubmit = (params) => {
+    const onEditSubmit = async (params) => {
 
         params.id = id;
-        dispatch(fetchEditUser(params));
+        const result = await editUser(params);
+
+        if(!result.error) back();
 
     }
 
-    const onDeleteSubmit = () => {
+    const onDeleteSubmit = async () => {
 
-        dispatch(fetchRemoveUser({ id }));
+        const result = await removeUser({ id });
+
+        if(!result.error) back();
 
     }
 
-    if (status === "sendingDone")
-        return <Navigate to={"/admin/users"} />
-
-    if (status === "loading" || schools.status === "loading")
+    if (loading.users || schools.loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (id && (user === null || user.role !== "Пользователь"))
@@ -88,7 +96,7 @@ const UserUsersPage = () => {
                             iconClass={'mdi mdi-arrow-left'}
                             size='small'
                             aria-label="Назад"
-                            onClick={() => navigate("/admin/users")}
+                            onClick={() => back()}
                         />
                         <h1 className="content__title">Редактирование пользователя ID: {id}</h1>
                     </div>
@@ -137,7 +145,7 @@ const UserUsersPage = () => {
                                     value: "",
                                     disabled: false
                                 }}
-                                selectItems={schools.data.map(item => {
+                                selectItems={schools.schools.map(item => {
                                     return {
                                         title: item.org_short_name,
                                         value: item.ID,
@@ -166,8 +174,7 @@ const UserUsersPage = () => {
                             />
                             <FieldInput
                                 label={"Активировать учетную запись?"}
-                                type={"radio"}
-                                fieldClassName={"--type-checkbox-radio"}
+                                type={"checkbox_variant"}
                                 {...register("active", { value: user.active === "Активен" })}
                             />
                         </fieldset>
@@ -175,12 +182,12 @@ const UserUsersPage = () => {
                             <Button
                                 type='submit'
                                 text={"Сохранить"}
-                                spinnerActive={status === "sending"} />
+                                spinnerActive={sending.users} />
                             <Button
                                 type='button'
                                 theme='text'
                                 iconClass={'mdi mdi-delete'}
-                                extraClass={`${status === "sending" ? "--hide" : ""}`}
+                                extraClass={`${sending.users ? "--hide" : ""}`}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -220,10 +227,13 @@ const UserUsersPage = () => {
                         notif={{
                             active: true,
                             state: "error",
-                            text: statusError,
+                            text: errorText.users,
                         }}
                         opened={popupErrorOpened}
-                        onClose={() => setPopupErrorOpened(false)}
+                        onClose={() => {
+                            clearErrorText();
+                            setPopupErrorOpened(false);
+                        }}
                     />
                 </div>
             </>
@@ -241,7 +251,7 @@ const UserUsersPage = () => {
                         iconClass={'mdi mdi-arrow-left'}
                         theme='text'
                         aria-label="Назад"
-                        onClick={() => navigate("/admin/users")}
+                        onClick={() => back()}
                     />
                     <h1 className="content__title">Создание пользователя</h1>
                 </div>
@@ -285,7 +295,7 @@ const UserUsersPage = () => {
                                 value: "",
                                 disabled: false
                             }}
-                            selectItems={schools.data.map(item => {
+                            selectItems={schools.schools.map(item => {
                                 return {
                                     title: item.org_short_name,
                                     value: item.ID,
@@ -323,7 +333,7 @@ const UserUsersPage = () => {
                         <Button
                             type="submit"
                             text={"Создать"}
-                            spinnerActive={status === "sending"} />
+                            spinnerActive={sending.users} />
                     </div>
                 </form>
                 <Popup
@@ -331,10 +341,13 @@ const UserUsersPage = () => {
                     notif={{
                         active: true,
                         state: "error",
-                        text: statusError,
+                        text: errorText.users,
                     }}
                     opened={popupErrorOpened}
-                    onClose={() => setPopupErrorOpened(false)}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopupErrorOpened(false);
+                    }}
                 />
             </div>
         </>
