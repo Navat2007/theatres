@@ -10,6 +10,7 @@ $id = htmlspecialchars($_POST["id"]);
 $error = 0;
 $error_text = "";
 $sqls = array();
+$permission = array();
 $params = "";
 
 if(isset($_FILES['files']))
@@ -106,6 +107,7 @@ $content = (object)[
     'error' => $error,
     'error_text' => $error_text,
     'sql' => $sqls,
+    'permission' => $permission,
     'params' => $params,
 
 ];

@@ -31,13 +31,13 @@ const useSchoolStore = create(
 
             const response = await axios.post(urlLoadSchool, form);
 
+            set({loading: false});
+
             if(response.data.params){
 
                 set((state) => ({school: response.data.params}));
 
             }
-
-            set({loading: false});
 
         },
         editSchool: async (params) => {
@@ -75,9 +75,9 @@ const useSchoolStore = create(
 
             const response = await axios.post(urlEditPhoto, form);
 
-            set((state) => ({school: {...state.school, photo: response.data.params}}));
-
             set({sending: false});
+
+            set((state) => ({school: {...state.school, photo: response.data.params}}));
 
         },
     })
