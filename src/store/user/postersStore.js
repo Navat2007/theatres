@@ -2,16 +2,16 @@ import axios from "axios";
 
 import create from 'zustand'
 
-const urlLoadTeachers = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/load.php';
-const urlLoadTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/load_by_id.php';
-const urlAddTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/add.php';
-const urlEditTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/edit.php';
-const urlRemoveTeacher = process.env.REACT_APP_BASE_URL + 'php/models/admin/teachers/remove.php';
+const urlLoadPosters = process.env.REACT_APP_BASE_URL + 'php/models/user/posters/load.php';
+const urlLoadPoster = process.env.REACT_APP_BASE_URL + 'php/models/user/posters/load_by_id.php';
+const urlAddPoster = process.env.REACT_APP_BASE_URL + 'php/models/user/posters/add.php';
+const urlEditPoster = process.env.REACT_APP_BASE_URL + 'php/models/user/posters/edit.php';
+const urlRemovePoster = process.env.REACT_APP_BASE_URL + 'php/models/user/posters/remove.php';
 
-const useTeachersStore = create(
+const usePostersStore = create(
     (set, get) => ({
-        teachers: [],
-        teacher: {},
+        posters: [],
+        poster: {},
         loading: false,
         sending: false,
         error: false,
@@ -22,7 +22,7 @@ const useTeachersStore = create(
         clearErrorText: () => {
             set({error: false, errorText: ""});
         },
-        loadTeachers: async (params) => {
+        loadPosters: async (params) => {
 
             set({loading: true});
 
@@ -32,18 +32,18 @@ const useTeachersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlLoadTeachers, form);
+            const response = await axios.post(urlLoadPosters, form);
 
             set({loading: false});
 
             if(response.data.params){
 
-                set((state) => ({teachers: response.data.params}));
+                set((state) => ({posters: response.data.params}));
 
             }
 
         },
-        loadTeacher: async (params) => {
+        loadPoster: async (params) => {
 
             set({loading: true});
 
@@ -53,18 +53,18 @@ const useTeachersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlLoadTeacher, form);
+            const response = await axios.post(urlLoadPoster, form);
 
             set({loading: false});
 
             if(response.data.params){
 
-                set((state) => ({teacher: response.data.params[0]}));
+                set((state) => ({poster: response.data.params}));
 
             }
 
         },
-        addTeacher: async (params) => {
+        addPoster: async (params) => {
 
             set({sending: true});
 
@@ -81,7 +81,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlAddTeacher, form);
+            const response = await axios.post(urlAddPoster, form);
 
             set({sending: false});
 
@@ -103,7 +103,7 @@ const useTeachersStore = create(
             return {error: false};
 
         },
-        editTeacher: async (params) => {
+        editPoster: async (params) => {
 
             set({sending: true});
 
@@ -120,7 +120,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlEditTeacher, form);
+            const response = await axios.post(urlEditPoster, form);
 
             set({sending: false});
 
@@ -142,7 +142,7 @@ const useTeachersStore = create(
             return {error: false};
 
         },
-        removeTeacher: async (params) => {
+        removePoster: async (params) => {
 
             set({sending: true});
 
@@ -159,7 +159,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlRemoveTeacher, form);
+            const response = await axios.post(urlRemovePoster, form);
 
             set({sending: false});
 
@@ -184,4 +184,4 @@ const useTeachersStore = create(
     })
 );
 
-export default useTeachersStore;
+export default usePostersStore;

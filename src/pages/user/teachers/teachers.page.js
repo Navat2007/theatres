@@ -1,28 +1,33 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
-import { Helmet } from "react-helmet";
+import useAuthStore from "../../../store/authStore";
+import useTeachersStore from "../../../store/admin/teachersStore";
+
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
-
-import { loadTeachers } from "../../../store/admin/teachersSlice";
-import useAuthStore from "../../../store/authStore";
 
 const TeachersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const teachers = useSelector(state => state.teachers);
+
     const {user} = useAuthStore();
+    const {teachers, loadTeachers, loading} = useTeachersStore();
 
     const onItemClick = (props) => {
         navigate(`/user/teachers/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadTeachers({schoolID: user.schoolID});
+
+    }
+
     React.useEffect(() => {
 
-        dispatch(loadTeachers({ schoolID: user.schoolID }));
+        fetchData();
 
     }, []);
 
@@ -76,8 +81,8 @@ const TeachersPage = () => {
             </Helmet>
             <Table
                 title={"Таблица педагогов"}
-                loading={teachers.status === "loading"}
-                items={teachers.data}
+                loading={loading}
+                items={teachers}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

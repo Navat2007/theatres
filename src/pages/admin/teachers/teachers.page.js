@@ -1,28 +1,32 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
+
+import useTeachersStore from "../../../store/admin/teachersStore";
 
 import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
-import { loadTeachers } from "../../../store/admin/teachersSlice";
-
 const TeachersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const teachers = useSelector(state => state.teachers);
+    const {teachers, loadTeachers, loading} = useTeachersStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/teachers/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadTeachers({});
+
+    }
+
     React.useEffect(() => {
 
-        dispatch(loadTeachers());
+        fetchData();
 
-    }, [dispatch]);
+    }, []);
 
     const itemConfig = [
         {
@@ -81,8 +85,8 @@ const TeachersPage = () => {
             </Helmet>
             <Table
                 title={"Таблица педагогов"}
-                loading={teachers.status === "loading"}
-                items={teachers.data}
+                loading={loading}
+                items={teachers}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

@@ -1,28 +1,29 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+import useAuthStore from "../../../store/authStore";
 
 import { Helmet } from "react-helmet";
 import Button from '../../../components/simple/button/button.component';
 import Table from '../../../components/table/table.component';
 
-import { loadTeachers } from "../../../store/admin/teachersSlice";
-import useAuthStore from "../../../store/authStore";
-
 const MyPostersPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const teachers = useSelector(state => state.teachers);
+
     const {user} = useAuthStore();
 
     const onItemClick = (props) => {
         navigate(`/user/teachers/${props}`);
     };
 
+    const fetchData = async () => {
+
+    };
+
     React.useEffect(() => {
 
-        dispatch(loadTeachers({ schoolID: user.schoolID }));
+        fetchData();
 
     }, []);
 
@@ -71,12 +72,12 @@ const MyPostersPage = () => {
 
     return (<>
         <Helmet>
-            <title>Афишы</title>
+            <title>Афиши</title>
         </Helmet>
         <Table
                 title={"Таблица афиш"}
-                loading={teachers.status === "loading"}
-                items={teachers.data}
+                loading={false}
+                items={[]}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}

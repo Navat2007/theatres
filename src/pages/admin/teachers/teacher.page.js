@@ -1,48 +1,36 @@
 import React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 
 import useSchoolsStore from "../../../store/admin/schoolsStore";
+import useTeachersStore from "../../../store/admin/teachersStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
-import {
-    init,
-    clear,
-    fetchAddTeacher,
-    fetchEditTeacher,
-    fetchRemoveTeacher,
-    loadTeacher
-} from "../../../store/admin/teachersSlice";
-
 const TeacherPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     let { id } = useParams();
     const { register, handleSubmit, reset } = useForm();
 
-    const { teacher, teacherStatus, statusError } = useSelector(state => state.teachers);
-    const {schools, loadSchools} = useSchoolsStore();
+    const {teacher, loadTeacher, addTeacher, editTeacher, removeTeacher, loading, sending, error, errorText, setErrorText, clearErrorText} = useTeachersStore();
+    const schools = useSchoolsStore();
 
-    const [error, setError] = React.useState(false);
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
 
     const fetchData = async () => {
 
-        await loadSchools();
+        await schools.loadSchools();
 
         if (id) {
             reset();
-            await dispatch(loadTeacher({ id }));
+            await loadTeacher({ id });
         }
-        else
-            await dispatch(init());
 
     }
 
@@ -50,29 +38,21 @@ const TeacherPage = () => {
 
         fetchData();
 
-        return () => {
-            dispatch(clear());
-        };
-
     }, [id]);
 
     React.useEffect(() => {
 
-        if (teacherStatus === "sendingError")
+        if (error)
             setPopupErrorOpened(true);
 
-    }, [teacherStatus]);
+    }, [error]);
 
-    const onClose = async () => {
-
-        navigate("/admin/teachers");
-
-    }
+    const back = () => navigate("/admin/teachers");
 
     const checkPhoto = (file) => {
 
         if (!file) {
-            setError("Файл не читается.");
+            setErrorText("Файл не читается.");
             setPopupErrorOpened(true);
             return false;
         }
@@ -82,13 +62,13 @@ const TeacherPage = () => {
 
             }
             else {
-                setError("Файл больше 1,5 Мб.");
+                setErrorText("Файл больше 1,5 Мб.");
                 setPopupErrorOpened(true);
                 return false;
             }
         }
         else {
-            setError("Файл должен быть изображением.");
+            setErrorText("Файл должен быть изображением.");
             setPopupErrorOpened(true);
             return false;
         }
@@ -102,8 +82,9 @@ const TeacherPage = () => {
         if (params.photo.length > 0 && !checkPhoto(params.photo[0]))
             return;
 
-        await dispatch(fetchAddTeacher(params));
-        onClose();
+        const result = await addTeacher(params);
+
+        if(!result.error) back();
 
     }
 
@@ -113,19 +94,21 @@ const TeacherPage = () => {
             return;
 
         params.id = id;
-        await dispatch(fetchEditTeacher(params));
-        onClose();
+        const result = await editTeacher(params);
+
+        if(!result.error) back();
 
     }
 
     const onDeleteSubmit = async () => {
 
-        await dispatch(fetchRemoveTeacher({ id }));
-        onClose();
+        const result = await removeTeacher({ id });
+
+        if(!result.error) back();
 
     }
 
-    if (teacherStatus === "loading" || schools.status === "loading")
+    if (loading || schools.loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (id && teacher === null)
@@ -146,7 +129,7 @@ const TeacherPage = () => {
                             size='small'
                             theme="text"
                             aria-label="Назад"
-                            onClick={onClose}
+                            onClick={back}
                         />
                         <h1 className="content__title">Редактирование педагога ID: {id}</h1>
                     </div>
@@ -218,7 +201,7 @@ const TeacherPage = () => {
                                     value: "",
                                     disabled: false
                                 }}
-                                selectItems={schools.map(item => {
+                                selectItems={schools.schools.map(item => {
                                     return {
                                         title: item.org_short_name,
                                         value: item.ID,
@@ -233,8 +216,7 @@ const TeacherPage = () => {
                             <h2 className="form__title">Безопасность</h2>
                             <FieldInput
                                 label={"Активировать учетную запись?"}
-                                type={"radio"}
-                                fieldClassName={"--type-checkbox-radio"}
+                                type={"checkbox_variant"}
                                 {...register("active", { value: teacher.active === "Активен" })}
                             />
                         </fieldset>
@@ -242,13 +224,12 @@ const TeacherPage = () => {
                             <Button
                                 type="submit"
                                 text="Сохранить"
-                                spinnerActive={teacherStatus === "sending"} />
+                                spinnerActive={sending} />
                             <Button
                                 theme="text"
                                 type='button'
                                 iconClass={'mdi mdi-delete'}
-                                extraClass={`${teacherStatus === "sending" ? "--hide" : ""}`}
-                                spinnerActive={teacherStatus === "removing"}
+                                spinnerActive={sending}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPopupOpened(true);
@@ -286,10 +267,13 @@ const TeacherPage = () => {
                         notif={{
                             active: true,
                             state: "error",
-                            text: statusError || error,
+                            text: errorText,
                         }}
                         opened={popupErrorOpened}
-                        onClose={() => setPopupErrorOpened(false)}
+                        onClose={() => {
+                            clearErrorText();
+                            setPopupErrorOpened(false);
+                        }}
                     />
                 </div>
             </>
@@ -309,7 +293,7 @@ const TeacherPage = () => {
                         size='small'
                         theme="text"
                         aria-label="Назад"
-                        onClick={onClose}
+                        onClick={back}
                     />
                     <h1 className="content__title">Создание пользователя</h1>
                 </div>
@@ -375,7 +359,7 @@ const TeacherPage = () => {
                                 value: "",
                                 disabled: false
                             }}
-                            selectItems={schools.map(item => {
+                            selectItems={schools.schools.map(item => {
                                 return {
                                     title: item.org_short_name,
                                     value: item.ID,
@@ -398,7 +382,7 @@ const TeacherPage = () => {
                         <Button
                             type="submit"
                             text={"Создать"}
-                            spinnerActive={teacherStatus === "sending"} />
+                            spinnerActive={sending} />
                     </div>
                 </form>
                 <Popup
@@ -406,10 +390,13 @@ const TeacherPage = () => {
                     notif={{
                         active: true,
                         state: "error",
-                        text: statusError || error,
+                        text: errorText,
                     }}
                     opened={popupErrorOpened}
-                    onClose={() => setPopupErrorOpened(false)}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopupErrorOpened(false);
+                    }}
                 />
             </div>
         </>
