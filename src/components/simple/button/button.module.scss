@@ -26,7 +26,7 @@
     color: var(--darkLow);
   }
 
-  &_size_sm {
+  &_size_small {
     padding: .25em 1em;
     min-height: 2.75em;
 
@@ -38,6 +38,22 @@
       min-width: 2.75em;
       max-width: 2.75em;
       @include box(2.75em);
+    }
+  }
+
+  &_size_smaller {
+    padding: .25em .75em;
+    min-height: 2em;
+
+    .button__text {
+      font-size: .875em;
+    }
+
+    &.button_icon {
+      min-width: 2em;
+      max-width: 2em;
+      @include box(2em);
+      padding: 0;
     }
   }
 
@@ -76,6 +92,17 @@
 
     &:active {
       background: darken(map-get($colors, "primary"), 2.5%);
+    }
+  }
+
+  &_theme_white {
+    color: var(--darkLow);
+    background-image: unset;
+    background-color: rgba(white, .54);
+
+    &:hover {
+      color: var(--dark);
+      background-color: rgba(white, .75);
     }
   }
 

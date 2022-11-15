@@ -1,0 +1,101 @@
+.gallery-form {
+  @extend %reset-list;
+
+  display: grid;
+  gap: .675em;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+
+  &__item {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+
+    &:hover .gallery-form__item-panel,
+    &:hover .gallery-form__thumbs {
+      opacity: 1;
+      pointer-events: unset;
+      user-select: unset;
+    }
+  }
+
+  &__item-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: .675em;
+    display: flex;
+    justify-content: flex-end;
+    gap: .375em;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity .25s ease-in-out;
+  }
+
+  &__thumbs {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: .675em;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity .25s ease-in-out;
+  }
+
+  &__current-position {
+    position: absolute;
+    bottom: .675em;
+    left: .675em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include box(2em);
+    font-weight: 500;
+    padding: .25em;
+    box-sizing: border-box;
+    background-color: rgba($color: white, $alpha: .75);
+    border-radius: 50%;
+    color: var(--garkLow);
+    cursor: default;
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($color: white, $alpha: .75);
+    text-align: center;
+    color: var(--gark);
+    font-weight: 500;
+    padding: .675em;
+    box-sizing: border-box;
+  }
+
+  &__img {
+    display: block;
+    @include box(100%);
+    aspect-ratio: 1/.6666667;
+    object-fit: cover;
+  }
+
+  &__btn {
+    background-image: unset;
+    background-color: rgba($color: white, $alpha: .54);
+    color: var(--garkLow);
+
+    &:hover {
+      background-color: rgba($color: white, $alpha: .84);
+      color: var(--gark);
+    }
+  }
+}

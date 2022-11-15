@@ -130,6 +130,10 @@
     margin-right: auto;
   }
 
+  &__refresh-btn {
+    align-self: center;
+  }
+
   &__shows {
     @extend %reset-list;
     counter-reset: number;

@@ -15,42 +15,11 @@ const Button = ({
     ...rest
 }) => {
 
-    const [sizeClass, setSizeClass] = React.useState("");
-    const [themeClass, setThemeClass] = React.useState("");
-
-    React.useEffect(() => {
-
-        switch (size) {
-            case "small":
-                setSizeClass(styles.button_size_sm);
-                break;
-            default:
-                setSizeClass("");
-                break;
-        }
-
-        switch (theme) {
-            case "text":
-                setThemeClass(styles.button_theme_text);
-                break;
-            case "success":
-                setThemeClass(styles.button_theme_success);
-                break;
-            case "outline":
-                setThemeClass(styles.button_theme_outline);
-                break;
-            default:
-                setThemeClass(styles.button_theme_primary);
-                break;
-        }
-
-    }, [size, theme]);
-
     const config = [
         styles.button,
-        themeClass,
         isIconBtn ? styles.button_icon : ``,
-        sizeClass,
+        theme ? styles["button_theme_" + theme] : styles.button_theme_primary,
+        size ? styles["button_size_" + size] : "",
         extraClass,
         spinnerActive ? styles.button_loading : ``,
     ];
