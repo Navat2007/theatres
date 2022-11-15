@@ -5,26 +5,26 @@ import styles from './button.module.scss';
 
 const Button = ({
     type = "submit",
-    theme = "primary",
-    size = "normal",
-    extraClass = "",
+    text,
+    theme,
+    size,
+    extraClass,
     isIconBtn = false,
     iconClass,
-    text,
     spinnerActive = false,
     ...rest
 }) => {
 
     const config = [
         styles.button,
-        isIconBtn ? styles.button_icon : ``,
+        isIconBtn ? styles.button_icon : null,
         theme ? styles["button_theme_" + theme] : styles.button_theme_primary,
-        size ? styles["button_size_" + size] : "",
+        size ? styles["button_size_" + size] : null,
         extraClass,
-        spinnerActive ? styles.button_loading : ``,
+        spinnerActive ? styles.button_loading : null,
     ];
 
-    const finalClassName = config.join(' ');
+    const finalClassName = config.filter(Boolean).join(' ');
 
     return (
         <motion.button
@@ -39,7 +39,11 @@ const Button = ({
                 <span className={`${styles.mdi} ${iconClass}`} />
             }
             <span className={styles.button__text}>{text}</span>
-            <div className={styles.button__spinner}><div></div><div></div><div></div></div>
+            {
+                spinnerActive
+                &&
+                <div className={styles.button__spinner}><div></div><div></div><div></div></div>
+            }
         </motion.button>
     );
 };
