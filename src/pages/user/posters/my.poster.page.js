@@ -52,7 +52,7 @@ const MyPosterPage = () => {
                     theme="text"
                     aria-label="Назад"
                 />
-                <h1 className="content__title">Создание афишы</h1>
+                <h1 className="content__title">Создание афиши</h1>
             </div>
             <form className='form --place-theatre'>
                 <div className="form__container">
