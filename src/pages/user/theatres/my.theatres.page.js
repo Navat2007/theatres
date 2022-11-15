@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 
-import { loadTheatres } from "../../../store/admin/theatresSlice";
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -12,8 +10,6 @@ import Tabs from "../../../components/tabs/tabs.component";
 const MyTheatresPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const theatres = useSelector(state => state.theatres);
 
     const onItemClick = (props) => {
         navigate(`/user/theatres/${props}`);
@@ -21,9 +17,9 @@ const MyTheatresPage = () => {
 
     React.useEffect(() => {
 
-        dispatch(loadTheatres());
 
-    }, [dispatch]);
+
+    }, []);
 
     const itemConfig = [
         {
@@ -82,8 +78,8 @@ const MyTheatresPage = () => {
                 <Tab index={1} title={"Театры"}>
                     <Table
                         title={"Таблица театров"}
-                        loading={theatres.status === "loading"}
-                        items={theatres?.data?.filter(item => item.active === 1)}
+                        loading={false}
+                        items={[]}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
@@ -101,8 +97,8 @@ const MyTheatresPage = () => {
                 <Tab index={2} title={"Архив"}>
                     <Table
                         title={"Таблица архива театров"}
-                        loading={theatres.status === "loading"}
-                        items={theatres?.data?.filter(item => item.active === 0)}
+                        loading={false}
+                        items={[]}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}

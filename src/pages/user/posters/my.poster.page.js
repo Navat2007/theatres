@@ -71,9 +71,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={data.map((item) => {
+                                        options={theatres.map((item) => {
                                             return {
-                                                label: `${item.f} ${item.i} ${item.o}`,
+                                                label: ``,
                                                 value: item.ID,
                                             };
                                         })}
@@ -94,9 +94,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={data.map((item) => {
+                                        options={theatres.map((item) => {
                                             return {
-                                                label: `${item.f} ${item.i} ${item.o}`,
+                                                label: ``,
                                                 value: item.ID,
                                             };
                                         })}
@@ -117,9 +117,9 @@ const MyPosterPage = () => {
                                         isMulti
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
-                                        options={data.map((item) => {
+                                        options={theatres.map((item) => {
                                             return {
-                                                label: `${item.f} ${item.i} ${item.o}`,
+                                                label: ``,
                                                 value: item.ID,
                                             };
                                         })}

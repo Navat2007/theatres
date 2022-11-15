@@ -1,46 +1,42 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import {useParams} from "react-router-dom";
+import {useForm, Controller} from "react-hook-form";
 import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
 import JoditEditor from 'jodit-react';
+import {Helmet} from "react-helmet";
 
-import { Helmet } from "react-helmet";
+import useAuthStore from "../../../store/authStore";
+import useTheatresStore from "../../../store/user/theatresStore";
+
 import Button from "../../../components/simple/button/button.component";
-
-import { clear, loadTeachers } from "../../../store/admin/teachersSlice";
 import FieldInput from "../../../components/simple/field/field.input.component";
+import useTeachersStore from "../../../store/admin/teachersStore";
 
 const MyTheatrePage = () => {
 
-    let { id } = useParams();
-    const dispatch = useDispatch();
+    let {id} = useParams();
+
     const animatedComponents = makeAnimated();
 
-    const user = useSelector((state) => state.auth.user);
-    const { data, statusError } = useSelector((state) => state.teachers);
+    const {user} = useAuthStore();
+    const {theatre, loadTheatre} = useTheatresStore();
+    const {teachers, loadTeachers} = useTeachersStore();
 
-    const { register, handleSubmit, reset, control } = useForm();
-
-    const school = useSelector((state) => state.schools);
+    const {register, handleSubmit, reset, control} = useForm();
 
     const [editorState, setEditorState] = React.useState('');
 
     const fetchData = async () => {
-        await dispatch(loadTeachers({ schoolID: user.schoolID }));
+        await loadTheatre({id});
+        await loadTeachers({schoolID: user.schoolID});
     };
 
     React.useEffect(() => {
+
         fetchData();
 
-        return () => {
-            dispatch(clear());
-        };
     }, [id]);
-
-    React.useEffect(() => {
-    }, []);
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
@@ -75,19 +71,14 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="select"
                                         defaultValue={[]}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <ReactSelect
                                                 classNamePrefix="multy-select"
                                                 {...field}
                                                 isMulti
                                                 closeMenuOnSelect={false}
                                                 components={animatedComponents}
-                                                options={data.map((item) => {
-                                                    return {
-                                                        label: `${item.f} ${item.i} ${item.o}`,
-                                                        value: item.ID,
-                                                    };
-                                                })}
+                                                options={[]}
                                             />
                                         )}
                                     />
@@ -98,19 +89,14 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="select"
                                         defaultValue={[]}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <ReactSelect
                                                 classNamePrefix="multy-select"
                                                 {...field}
                                                 isMulti
                                                 closeMenuOnSelect={false}
                                                 components={animatedComponents}
-                                                options={data.map((item) => {
-                                                    return {
-                                                        label: `${item.f} ${item.i} ${item.o}`,
-                                                        value: item.ID,
-                                                    };
-                                                })}
+                                                options={[]}
                                             />
                                         )}
                                     />
@@ -121,19 +107,14 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="select"
                                         defaultValue={[]}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <ReactSelect
                                                 classNamePrefix="multy-select"
                                                 {...field}
                                                 isMulti
                                                 closeMenuOnSelect={false}
                                                 components={animatedComponents}
-                                                options={data.map((item) => {
-                                                    return {
-                                                        label: `${item.f} ${item.i} ${item.o}`,
-                                                        value: item.ID,
-                                                    };
-                                                })}
+                                                options={[]}
                                             />
                                         )}
                                     />
@@ -144,19 +125,14 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="select"
                                         defaultValue={[]}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <ReactSelect
                                                 classNamePrefix="multy-select"
                                                 {...field}
                                                 isMulti
                                                 closeMenuOnSelect={false}
                                                 components={animatedComponents}
-                                                options={data.map((item) => {
-                                                    return {
-                                                        label: `${item.f} ${item.i} ${item.o}`,
-                                                        value: item.ID,
-                                                    };
-                                                })}
+                                                options={[]}
                                             />
                                         )}
                                     />
@@ -173,7 +149,7 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="editor"
                                         defaultValue={""}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <JoditEditor
                                                 ref={field.ref}
                                                 config={{
@@ -197,7 +173,7 @@ const MyTheatrePage = () => {
                                         control={control}
                                         name="editor"
                                         defaultValue={""}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <JoditEditor
                                                 ref={field.ref}
                                                 config={{
@@ -222,14 +198,14 @@ const MyTheatrePage = () => {
                                     control={control}
                                     name="select"
                                     defaultValue={[]}
-                                    render={({ field }) => (
+                                    render={({field}) => (
                                         <ReactSelect
                                             classNamePrefix="multy-select"
                                             {...field}
                                             isMulti
                                             closeMenuOnSelect={false}
                                             components={animatedComponents}
-                                            options={data.map((item) => {
+                                            options={teachers.map((item) => {
                                                 return {
                                                     label: `${item.f} ${item.i} ${item.o}`,
                                                     value: item.ID,
@@ -245,19 +221,14 @@ const MyTheatrePage = () => {
                                     control={control}
                                     name="select"
                                     defaultValue={[]}
-                                    render={({ field }) => (
+                                    render={({field}) => (
                                         <ReactSelect
                                             classNamePrefix="multy-select"
                                             {...field}
                                             isMulti
                                             closeMenuOnSelect={false}
                                             components={animatedComponents}
-                                            options={data.map((item) => {
-                                                return {
-                                                    label: `${item.f} ${item.i} ${item.o}`,
-                                                    value: item.ID,
-                                                };
-                                            })}
+                                            options={[]}
                                         />
                                     )}
                                 />
@@ -433,7 +404,7 @@ const MyTheatrePage = () => {
                                                     control={control}
                                                     name="editor"
                                                     defaultValue={""}
-                                                    render={({ field }) => (
+                                                    render={({field}) => (
                                                         <JoditEditor
                                                             ref={field.ref}
                                                             config={{
@@ -464,7 +435,8 @@ const MyTheatrePage = () => {
                                         />
                                     </fieldset>
                                     <fieldset className='form__section'>
-                                        <h2 className="form__title">Рассказы (рецензии) о посещении других московских театрах</h2>
+                                        <h2 className="form__title">Рассказы (рецензии) о посещении других московских
+                                            театрах</h2>
                                         <div className="form__field-block">
                                             <FieldInput
                                                 label={"Название театра"}
@@ -488,7 +460,7 @@ const MyTheatrePage = () => {
                                                     control={control}
                                                     name="editor"
                                                     defaultValue={""}
-                                                    render={({ field }) => (
+                                                    render={({field}) => (
                                                         <JoditEditor
                                                             ref={field.ref}
                                                             config={{
@@ -558,7 +530,8 @@ const MyTheatrePage = () => {
                                 />
                             </fieldset>
                             <fieldset className='form__section'>
-                                <h2 className="form__title">Ссылки на страницу театра на сайт образовательной организации </h2>
+                                <h2 className="form__title">Ссылки на страницу театра на сайт образовательной
+                                    организации </h2>
                                 <div className="form__field-block">
                                     <FieldInput
                                         label={"Ссылка на сайт"}
@@ -589,7 +562,7 @@ const MyTheatrePage = () => {
                             </fieldset>
                         </div>
                         <div className="form__controls">
-                            <Button type="submit" theme="primary" text="Сохранить" />
+                            <Button type="submit" theme="primary" text="Сохранить"/>
                         </div>
                     </form>
                 </>

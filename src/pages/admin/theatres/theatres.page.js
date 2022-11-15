@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 
-import { loadTheatres } from "../../../store/admin/theatresSlice";
+import useTheatresStore from "../../../store/admin/theatresStore";
+
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -12,19 +12,24 @@ import Tabs from "../../../components/tabs/tabs.component";
 const TheatresPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const theatres = useSelector(state => state.theatres);
+    const {theatres, loadTheatres, loading} = useTheatresStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/theatres/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadTheatres({});
+
+    };
+
     React.useEffect(() => {
 
-        dispatch(loadTheatres());
+        fetchData();
 
-    }, [dispatch]);
+    }, []);
 
     const itemConfig = [
         {
@@ -82,8 +87,8 @@ const TheatresPage = () => {
             <Tab index={1} title={"Театры"}>
                 <Table
                     title={"Таблица театров"}
-                    loading={theatres.status === "loading"}
-                    items={theatres?.data?.filter(item => item.active === 1)}
+                    loading={loading}
+                    items={theatres.filter(item => item.active === 1)}
                     itemsConfig={itemConfig}
                     onItemClick={onItemClick}
                     withFilter={true}
@@ -101,8 +106,8 @@ const TheatresPage = () => {
             <Tab index={2} title={"Архив"}>
                 <Table
                     title={"Таблица архива театров"}
-                    loading={theatres.status === "loading"}
-                    items={theatres?.data?.filter(item => item.active === 0)}
+                    loading={loading}
+                    items={theatres.filter(item => item.active === 0)}
                     itemsConfig={itemConfig}
                     onItemClick={onItemClick}
                     withFilter={true}

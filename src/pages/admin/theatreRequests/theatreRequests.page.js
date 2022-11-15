@@ -1,17 +1,12 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
-import {useDispatch, useSelector} from "react-redux";
 
-import {loadTheatreRequests} from "../../../store/admin/theatreRequestsSlice";
 import Table from "../../../components/table/table.component";
 
 const TheatreRequestsPage = () => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const theatreRequests = useSelector(state => state.theatreRequests);
 
     const onItemClick = (props) => {
         navigate(`/admin/theatreRequests/${props}`);
@@ -19,9 +14,9 @@ const TheatreRequestsPage = () => {
 
     React.useEffect(() => {
 
-        dispatch(loadTheatreRequests());
 
-    }, [dispatch]);
+
+    }, []);
 
     const itemConfig = [
         {
@@ -78,8 +73,8 @@ const TheatreRequestsPage = () => {
             </Helmet>
             <Table
                 title={"Таблица заявок на театры"}
-                loading={theatreRequests.status === "loading"}
-                items={theatreRequests.data}
+                loading={false}
+                items={[]}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}
