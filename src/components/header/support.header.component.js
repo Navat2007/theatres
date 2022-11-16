@@ -7,10 +7,11 @@ import Popup from "../popup/popup.component";
 import FieldInput from "../simple/field/field.input.component";
 
 import useAuthStore from "../../store/authStore";
+import Notif from '../notif/notif.component';
 
 const SupportHeaderComponent = () => {
 
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
 
     const { register, handleSubmit, reset } = useForm();
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -76,19 +77,15 @@ const SupportHeaderComponent = () => {
                         <Button
                             type="submit"
                             text="Отправить"
-                            spinnerActive={sending} 
-                            style={{marginLeft: 'auto', display: 'block'}}/>
+                            spinnerActive={sending}
+                            style={{ marginLeft: 'auto', display: 'block' }} />
                     </div>
                 </form>
             </Popup>
-            <Popup
-                title={""}
-                notif={{
-                    active: true,
-                    state: "success",
-                    text: "Запрос успешно отправлен",
-                    timerInSeconds: 3,
-                }}
+            <Notif
+                text="Запрос успешно отправлен"
+                state="success"
+                timerInSeconds={3}
                 opened={popupNotifOpened}
                 onClose={() => setPopupNotifOpened(false)}
             />

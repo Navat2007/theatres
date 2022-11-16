@@ -12,9 +12,10 @@ import FieldInput from "../../../components/simple/field/field.input.component";
 import MultiSelect from "../../../components/multi_select/multi_select.component";
 import Editor from "../../../components/reach_editor/editor.component";
 import Accordion from "../../../components/simple/accordion/accordion.component";
-import Popup from "../../../components/popup/popup.component";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
+import Notif from "../../../components/notif/notif.component";
+import Popup from "../../../components/popup/popup.component";
 
 const MyTheatrePage = () => {
 
@@ -65,28 +66,28 @@ const MyTheatrePage = () => {
 
         if (Object.keys(tempTheatre).length > 0) {
             setPopup(
-                <Popup
-                    title={"У Вас осталась неотправленная заявка, хотите продолжить редактирование?"}
-                    notif={true}
+                <Notif
+                    text={"У Вас осталась неотправленная заявка, хотите продолжить редактирование?"}
                     opened={true}
                     onClose={() => {
                         setPopup(<></>);
                     }}
-                >
-                    <Button
-                        type='button'
-                        text={"Да"}
-                        onClick={() => {
+                    buttons={<>
+                        <Button
+                            type='button'
+                            text={"Да"}
+                            onClick={() => {
 
-                        }}
-                    />
-                    <Button
-                        type='button'
-                        text={"Нет"}
-                        theme="text"
-                        onClick={() => setPopup(<></>)}
-                    />
-                </Popup>
+                            }}
+                        />
+                        <Button
+                            type='button'
+                            text={"Нет"}
+                            theme="text"
+                            onClick={() => setPopup(<></>)}
+                        />
+                    </>}
+                />
             );
         }
 

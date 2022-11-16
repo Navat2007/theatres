@@ -1,14 +1,15 @@
 import React from 'react';
-import Button from '../components/simple/button/button.component';
-
-import no_photo_man from '../images/no_photo_man.png';
-import Popup from "../components/popup/popup.component";
 
 import useAuthStore from "../store/authStore";
 
+import Button from '../components/simple/button/button.component';
+import Notif from '../components/notif/notif.component';
+
+import no_photo_man from '../images/no_photo_man.png';
+
 const ProfilePage = () => {
 
-    const {user, fetchEditPhoto} = useAuthStore();
+    const { user, fetchEditPhoto } = useAuthStore();
 
     const [phone, setPhone] = React.useState();
     const [error, setError] = React.useState(false);
@@ -47,7 +48,7 @@ const ProfilePage = () => {
 
             if (file.type.match('image.*')) {
                 if (file.size <= 1500000) {
-                    await fetchEditPhoto({id: user.ID, photo: file});
+                    await fetchEditPhoto({ id: user.ID, photo: file });
                 }
                 else {
                     setError("Файл больше 1,5 Мб.");
@@ -65,7 +66,7 @@ const ProfilePage = () => {
 
     const onDeleteSubmit = async () => {
 
-        await fetchEditPhoto({id: user.ID, delete: 1});
+        await fetchEditPhoto({ id: user.ID, delete: 1 });
 
     }
 
@@ -181,12 +182,9 @@ const ProfilePage = () => {
                     }
                 </ul>
             </div>
-            <Popup
+            <Notif
                 title={"Вы уверены что хотите удалить?"}
-                notif={{
-                    active: true,
-                    state: "alert"
-                }}
+                state="alert"
                 opened={popupOpened}
                 onClose={() => setPopupOpened(false)}
                 buttons={
@@ -206,13 +204,10 @@ const ProfilePage = () => {
                     </>
                 }
             />
-            <Popup
+            <Notif
                 title={"Ошибка!"}
-                notif={{
-                    active: true,
-                    state: "error",
-                    text: error,
-                }}
+                state="error"
+                text={error}
                 opened={popupErrorOpened}
                 onClose={() => setPopupErrorOpened(false)}
             />

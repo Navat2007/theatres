@@ -10,6 +10,7 @@ import FieldInput from "../../../components/simple/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
+import Notif from '../../../components/notif/notif.component';
 
 const UserUsersPage = () => {
 
@@ -195,11 +196,8 @@ const UserUsersPage = () => {
 
                         </div>
                     </form>
-                    <Popup
+                    <Notif
                         title={"Вы уверены что хотите удалить?"}
-                        notif={{
-                            active: true,
-                        }}
                         opened={popupOpened}
                         onClose={() => setPopupOpened(false)}
                         buttons={<>
@@ -220,13 +218,10 @@ const UserUsersPage = () => {
                         </>
                         }
                     />
-                    <Popup
+                    <Notif
                         title={"Ошибка!"}
-                        notif={{
-                            active: true,
-                            state: "error",
-                            text: errorText.users,
-                        }}
+                        state="error"
+                        text={errorText}
                         opened={popupErrorOpened}
                         onClose={() => {
                             clearErrorText();
@@ -333,13 +328,10 @@ const UserUsersPage = () => {
                             spinnerActive={sending.users} />
                     </div>
                 </form>
-                <Popup
+                <Notif
                     title={"Ошибка!"}
-                    notif={{
-                        active: true,
-                        state: "error",
-                        text: errorText.users,
-                    }}
+                    state="error"
+                    text={errorText}
                     opened={popupErrorOpened}
                     onClose={() => {
                         clearErrorText();

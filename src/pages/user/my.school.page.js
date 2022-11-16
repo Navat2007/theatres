@@ -7,6 +7,7 @@ import FieldInput from "../../components/simple/field/field.input.component";
 
 import useAuthStore from "../../store/authStore";
 import useSchoolStore from "../../store/user/schoolStore";
+import Notif from '../../components/notif/notif.component';
 
 const MySchoolPage = () => {
 
@@ -320,12 +321,9 @@ const MySchoolPage = () => {
                     </div>
                 </form>
             </Popup>
-            <Popup
+            <Notif
                 title={"Вы уверены что хотите удалить?"}
-                notif={{
-                    active: true,
-                    state: "alert"
-                }}
+                state="alert"
                 opened={popupOpened}
                 onClose={() => setPopupOpened(false)}
                 buttons={
@@ -345,17 +343,14 @@ const MySchoolPage = () => {
                     </>
                 }
             />
-            <Popup
+            <Notif
                 title={"Ошибка!"}
-                notif={{
-                    active: true,
-                    state: "error",
-                    text: errorText,
-                }}
+                state="error"
+                text={errorText}
                 opened={popupErrorOpened}
                 onClose={() => {
-                    setPopupErrorOpened(false);
                     clearErrorText();
+                    setPopupErrorOpened(false);
                 }}
             />
         </div>

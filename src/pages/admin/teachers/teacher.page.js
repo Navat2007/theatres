@@ -7,7 +7,7 @@ import useTeachersStore from "../../../store/admin/teachersStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
-import Popup from "../../../components/popup/popup.component";
+import Notif from '../../../components/notif/notif.component';
 
 const TeacherPage = () => {
 
@@ -236,11 +236,8 @@ const TeacherPage = () => {
                             />
                         </div>
                     </form>
-                    <Popup
+                    <Notif
                         title={"Вы уверены что хотите удалить?"}
-                        notif={{
-                            active: true,
-                        }}
                         opened={popupOpened}
                         onClose={() => setPopupOpened(false)}
                         buttons={
@@ -260,13 +257,10 @@ const TeacherPage = () => {
                             </>
                         }
                     />
-                    <Popup
+                    <Notif
                         title={"Ошибка!"}
-                        notif={{
-                            active: true,
-                            state: "error",
-                            text: errorText,
-                        }}
+                        state="error"
+                        text={errorText}
                         opened={popupErrorOpened}
                         onClose={() => {
                             clearErrorText();
@@ -382,13 +376,10 @@ const TeacherPage = () => {
                             spinnerActive={sending} />
                     </div>
                 </form>
-                <Popup
+                <Notif
                     title={"Ошибка!"}
-                    notif={{
-                        active: true,
-                        state: "error",
-                        text: errorText,
-                    }}
+                    state="error"
+                    text={errorText}
                     opened={popupErrorOpened}
                     onClose={() => {
                         clearErrorText();

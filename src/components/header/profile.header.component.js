@@ -1,16 +1,17 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
+import useAuthStore from "../../store/authStore";
+
 import Button from "../simple/button/button.component";
 import Popup from "../popup/popup.component";
+import Notif from '../notif/notif.component';
 
 import no_photo_man from '../../images/no_photo_man.png';
 
-import useAuthStore from "../../store/authStore";
-
 const ProfileHeader = ({ className }) => {
 
-    const {user, logout} = useAuthStore();
+    const { user, logout } = useAuthStore();
     const navigate = useNavigate();
 
     const [userRole, setUserRole] = React.useState("");
@@ -54,11 +55,8 @@ const ProfileHeader = ({ className }) => {
                 aria-label="Выйти из профиля"
                 onClick={() => setPopupOpened(true)}
             />
-            <Popup
+            <Notif
                 title={"Вы действительно хотите выйти?"}
-                notif={{
-                    active: true,
-                }}
                 opened={popupOpened}
                 onClose={() => {
                     setPopupOpened(false);

@@ -2,13 +2,14 @@ import React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import useUsersStore from "../../../store/admin/usersStore";
+
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
-import Popup from "../../../components/popup/popup.component";
-
+import Notif from '../../../components/notif/notif.component';
 
 import no_photo_man from '../../../images/no_photo_man.png';
-import useUsersStore from "../../../store/admin/usersStore";
+
 
 const AdminUsersPage = () => {
 
@@ -201,11 +202,8 @@ const AdminUsersPage = () => {
                         />
                     </div>
                 </form>
-                <Popup
+                <Notif
                     title={"Вы уверены что хотите удалить?"}
-                    notif={{
-                        active: true,
-                    }}
                     opened={popupOpened}
                     onClose={() => setPopupOpened(false)}
                     buttons={<>
@@ -226,17 +224,14 @@ const AdminUsersPage = () => {
                     </>
                     }
                 />
-                <Popup
+                <Notif
                     title={"Ошибка!"}
-                    notif={{
-                        active: true,
-                        state: "error",
-                        text: errorText.admins,
-                    }}
+                    state="error"
+                    text={errorText}
                     opened={popupErrorOpened}
                     onClose={() => {
                         clearErrorText();
-                        setPopupErrorOpened(false)
+                        setPopupErrorOpened(false);
                     }}
                 />
             </div>
@@ -357,13 +352,10 @@ const AdminUsersPage = () => {
                         spinnerActive={sending.admins} />
                 </div>
             </form>
-            <Popup
+            <Notif
                 title={"Ошибка!"}
-                notif={{
-                    active: true,
-                    state: "error",
-                    text: errorText.admins,
-                }}
+                state="error"
+                text={errorText}
                 opened={popupErrorOpened}
                 onClose={() => {
                     clearErrorText();
