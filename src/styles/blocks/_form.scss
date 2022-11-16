@@ -84,6 +84,7 @@
   }
 
   &__section {
+    max-width: 45em;
     display: flex;
     gap: .5em;
     flex-direction: column;

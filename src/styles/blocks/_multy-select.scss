@@ -50,14 +50,14 @@ div.multy-select {
     border-radius: 12px;
     padding: .375em;
     margin: .25em;
-    display: flex;
-    align-items: center;
   }
 
   &__multi-value__label {
     font-size: 100%;
+    line-height: 1.5;
     padding: 0;
     flex: auto;
+    white-space: unset;
   }
 
   &__multi-value__remove,
