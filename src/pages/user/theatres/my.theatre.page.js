@@ -40,6 +40,7 @@ const MyTheatrePage = () => {
     const { register, handleSubmit, reset, control } = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
+    const [socialLinks, setSocialLinks] = React.useState([]);
 
     const fetchData = async () => {
 
@@ -96,20 +97,7 @@ const MyTheatrePage = () => {
 
     const handleSocialLink = () => {
 
-        setPopup(
-            <Popup
-                title={"Ссылка на соцсети"}
-                opened={true}
-                onClose={() => {
-                    setPopup(<></>);
-                }}
-            >
-
-                {/* Убрать */}
-
-
-            </Popup>
-        );
+        setSocialLinks([...socialLinks, { url: "" }]);
 
     };
 
