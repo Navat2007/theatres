@@ -200,13 +200,14 @@ const MyTheatrePage = () => {
                             {/* Фото */}
                             <Accordion title="Фотографии">
                                 <fieldset className='form__section'>
-                                    <h2 className="form__title">Фотографии</h2>
+                                    <h2 className="form__title">Фотографии театра</h2>
                                     <div className="form__field-block">
                                         <FieldInput
                                             label={"Ссылка на фото"}
                                             type='url'
                                             placeholder='Введите url-адрес...'
                                             layout='flex'
+                                            required={true}
                                         />
                                         <Button
                                             type='button'
@@ -228,9 +229,82 @@ const MyTheatrePage = () => {
                                         isIconBtn='true'
                                         aria-label='Добавить поле'
                                     />
+                                    {/* Кнопка нужна, чтобы обновить вид карточек фоток, чтобы можно было выделить главную и порядок */}
+                                    <Button
+                                        type='button'
+                                        text={'Применить'}
+                                        extraClass='form__refresh-btn'
+                                        aria-label='Применить'
+                                    />
+                                    {/* Блок для отображения картинок */}
+                                    <ul className="gallery-form">
+                                        {/* Первая всегда Главная, там нет стрелок для смены позиции, есть только удалить, если удалить, то вторая соотв.становится Главной  */}
+                                        <li className='gallery-form__item'>
+                                            <img className='gallery-form__img'
+                                                 src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg"
+                                                 alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg"/>
+                                            <div className="gallery-form__item-panel">
+                                                <Button
+                                                    type='button'
+                                                    theme='white'
+                                                    size='smaller'
+                                                    isIconBtn='true'
+                                                    iconClass={'mdi mdi-close'}
+                                                    aria-label='Удалить'
+                                                />
+                                            </div>
+                                            {/* Наглядно показывает, что картинка Главная */}
+                                            <div className="gallery-form__title">1. Главная</div>
+                                        </li>
+                                        {/* Остальные фото будут по сл.разметке */}
+                                        <li className='gallery-form__item'>
+                                            <img className='gallery-form__img'
+                                                 src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg"
+                                                 alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg"/>
+                                            {/* Показывает какая позиция у фото */}
+                                            <span className="gallery-form__current-position">2</span>
+                                            {/* Панель при наведении показывается, можно удалить фото или сделать Главной */}
+                                            <div className="gallery-form__item-panel">
+                                                <Button
+                                                    type='button'
+                                                    theme='white'
+                                                    size='smaller'
+                                                    text={'Сделать главной'}
+                                                    aria-label='Сделать главной'
+                                                />
+                                                <Button
+                                                    type='button'
+                                                    theme='white'
+                                                    size='smaller'
+                                                    isIconBtn='true'
+                                                    iconClass={'mdi mdi-close'}
+                                                    aria-label='Удалить'
+                                                />
+                                            </div>
+                                            {/* Панель при наведении показывается, для смены позиции фото, путем нажатия стрелочек влево/вправо */}
+                                            <div className="gallery-form__thumbs">
+                                                <Button
+                                                    type='button'
+                                                    theme='white'
+                                                    size='smaller'
+                                                    isIconBtn='true'
+                                                    iconClass={'mdi mdi-chevron-left'}
+                                                    aria-label='Назад'
+                                                />
+                                                <Button
+                                                    type='button'
+                                                    theme='white'
+                                                    size='smaller'
+                                                    isIconBtn='true'
+                                                    iconClass={'mdi mdi-chevron-right'}
+                                                    aria-label='Вперед'
+                                                />
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </fieldset>
                                 <fieldset className='form__section'>
-                                    <h2 className="form__title">фотографии посещения театров</h2>
+                                    <h2 className="form__title">фотографии посещения театра</h2>
                                     <div className="form__field-block">
                                         <FieldInput
                                             label={"Ссылка на фото"}
