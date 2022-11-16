@@ -97,7 +97,7 @@ const MyTheatrePage = () => {
 
     const handleSocialLink = () => {
 
-        setSocialLinks([...socialLinks, { url: "" }]);
+        setSocialLinks([...socialLinks, { id: window.global.makeid(12), url: "" }]);
 
     };
 
@@ -191,21 +191,31 @@ const MyTheatrePage = () => {
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Ссылки на соцсети</h2>
-                            <div className="form__field-block">
-                                <FieldInput
-                                    type='url'
-                                    placeholder='Введите url-адрес...'
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
-                            </div>
+                            {
+                                socialLinks.map(item => (
+                                    <div
+                                        className="form__field-block"
+                                        key={item.id}
+                                    >
+                                        <FieldInput
+                                            type='url'
+                                            placeholder='Введите url-адрес...'
+                                        />
+                                        <Button
+                                            type='button'
+                                            theme='text'
+                                            size='small'
+                                            extraClass="form__icon-btn"
+                                            iconClass={'mdi mdi-close'}
+                                            isIconBtn='true'
+                                            aria-label='Удалить поле'
+                                            onClick={() => {
+                                                setSocialLinks(socialLinks.filter(link => link.id !== item.id));
+                                            }}
+                                        />
+                                    </div>
+                                ))
+                            }
                             <Button
                                 type='button'
                                 theme='text'
