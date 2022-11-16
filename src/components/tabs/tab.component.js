@@ -7,9 +7,9 @@ const Tab = ({
     children,
 }) => {
     return (
-        <section className={`tab__section ` + extraClass}>
+        <>
             {children}
-        </section>
+        </>
     );
 };
 
