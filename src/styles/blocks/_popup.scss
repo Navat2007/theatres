@@ -57,6 +57,17 @@
       }
     }
 
+    &.--state-question {
+      .popup__icon {
+        background-color: rgba(map-get($colors, "info"), .15);
+        color: var(--info);
+
+        &:before {
+          content: '\F012C';
+        }
+      }
+    }
+
     .popup__container {
       width: min(40vmax, 30em);
 
@@ -91,7 +102,7 @@
       justify-content: center;
       margin-bottom: 0;
 
-      & .button:only-child {
+      & button:only-child {
         width: max-content;
       }
     }
@@ -217,7 +228,7 @@
       justify-content: center;
     }
 
-    & .button {
+    & button {
 
       &:only-child {
         margin: auto;
