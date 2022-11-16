@@ -66,12 +66,8 @@ const MyTheatrePage = () => {
         if (Object.keys(tempTheatre).length > 0) {
             setPopup(
                 <Popup
-                    notif={{
-                        active: true,
-                        state: "question",
-                        text: "У Вас осталась неотправленная заявка, хотите продолжить редактирование?",
-                    }}
-                    title='Внимание'
+                    title={"У Вас осталась неотправленная заявка, хотите продолжить редактирование?"}
+                    notif={true}
                     opened={true}
                     onClose={() => {
                         setPopup(<></>);
