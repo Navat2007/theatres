@@ -192,19 +192,25 @@ const MyTheatrePage = () => {
                         <fieldset className='form__section'>
                             <h2 className="form__title">Ссылки на соцсети</h2>
                             <div className="form__field-block">
-                                <FieldInput
-                                    type='url'
-                                    placeholder='Введите url-адрес...'
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
+                                {
+                                    socialLinks.map(item => (
+                                        <div key={item.url}>
+                                            <FieldInput
+                                                type='url'
+                                                placeholder='Введите url-адрес...'
+                                            />
+                                            <Button
+                                                type='button'
+                                                theme='text'
+                                                size='small'
+                                                extraClass="form__icon-btn"
+                                                iconClass={'mdi mdi-close'}
+                                                isIconBtn='true'
+                                                aria-label='Удалить поле'
+                                            />
+                                        </div>
+                                    ))
+                                }
                             </div>
                             <Button
                                 type='button'
