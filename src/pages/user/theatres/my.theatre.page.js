@@ -67,6 +67,7 @@ const MyTheatrePage = () => {
             setPopup(
                 <Popup
                     title={"У Вас осталась неотправленная заявка, хотите продолжить редактирование?"}
+                    notif={true}
                     opened={true}
                     onClose={() => {
                         setPopup(<></>);
@@ -173,7 +174,7 @@ const MyTheatrePage = () => {
                                 required={true}
                                 placeholder={"Введите название"}
                                 {...register("title")}
-                            /> 
+                            />
                             <FieldInput
                                 label={"Адрес"}
                                 type='textarea'
