@@ -144,7 +144,7 @@ const MyTheatrePage = () => {
             </div>
             <form onSubmit={onSubmit} className='form'>
                 <Tabs>
-                    <Tab index={1} title={"Основная информация"} extraClass='form__tab --view-two-columns'>
+                    <Tab index={1} title={"Основная информация"} extraClass='form__tab form__container --view-two-columns'>
                         <fieldset className='form__section'>
                             <FieldInput
                                 label={"Название театра"}
