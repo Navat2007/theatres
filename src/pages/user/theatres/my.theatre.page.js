@@ -128,7 +128,7 @@ const MyTheatrePage = () => {
                     aria-label='Назад'
                     onClick={back}
                 />
-                <h1 className='content__title'>Создание театра</h1>
+                <h1 className='content__title --mb-small'>Создание театра</h1>
             </div>
             <form onSubmit={onSubmit} className='form'>
                 <Tabs>

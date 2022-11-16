@@ -5,7 +5,7 @@
 
   &__main {
     flex: auto;
-    
+
     margin: 5.125em 0 0;
     padding: .5em .5em 3.125em;
     background-color: var(--white);
@@ -16,12 +16,7 @@
   &__title-block {
     display: flex;
     gap: .5em;
-    align-items: center;
-    margin: 0 0 min(5vmax, 3.125rem);
-
-    & .content__title {
-      margin-bottom: 0;
-    }
+    line-height: 1.5;
   }
 
   &__title {
@@ -29,6 +24,10 @@
     font-size: min(3.25vmax, 1.875em);
     font-weight: 600;
     margin: 0 0 min(5vmax, 3.125rem);
+
+    &.--mb-small {
+      margin: 0 0 min(2vmax, 1rem);
+    }
   }
 }
 
