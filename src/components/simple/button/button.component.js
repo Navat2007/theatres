@@ -29,6 +29,8 @@ const Button = ({
     return (
         <motion.button
             whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
             type={type}
             className={finalClassName}
             {...rest}
