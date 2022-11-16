@@ -77,21 +77,23 @@ const MyTheatrePage = () => {
                             type='button'
                             text={"Новая заявка"}
                             onClick={() => {
-
+                                setTempTheatre({});
+                                setPopup(<></>);
                             }}
                         />
                         <Button
                             type='button'
                             text={"Продолжить редактирование"}
                             onClick={() => {
-
+                                setValue("title", tempTheatre.title);
+                                setPopup(<></>);
                             }}
                         />
                         <Button
                             type='button'
                             text={"Открыть заявку на рассмотрении"}
                             onClick={() => {
-
+                                setPopup(<></>);
                             }}
                         />
                     </>}
@@ -239,9 +241,40 @@ const MyTheatrePage = () => {
                                         className="form__field-block"
                                         key={item.id}
                                     >
+                                        {
+                                            item.img && <p>{item.img}</p>
+                                        }
                                         <FieldInput
-                                            type='url'
+                                            type='text'
                                             placeholder='Введите url-адрес...'
+                                            onChange={(event) => {
+                                                setSocialLinks(socialLinks.map(link => {
+
+                                                    if (link.id === item.id) {
+                                                        if (event.target.value.includes("t.me/"))
+                                                            link.img = "telegram";
+                                                        else if (event.target.value.includes("vk.com/"))
+                                                            link.img = "vk";
+                                                        else if (event.target.value.includes("ok.ru/"))
+                                                            link.img = "ok";
+                                                        else if (event.target.value.includes("facebook.com/") || event.target.value.includes("fb.com/"))
+                                                            link.img = "facebook";
+                                                        else if (event.target.value.includes("plus.google.com/"))
+                                                            link.img = "google+";
+                                                        else if (event.target.value.includes("linkedin."))
+                                                            link.img = "linkedin";
+                                                        else if (event.target.value.includes("twitter.com/"))
+                                                            link.img = "twitter";
+                                                        else if (event.target.value.includes("instagram.com/"))
+                                                            link.img = "instagram";
+                                                        else
+                                                            link.img = null;
+                                                    }
+
+                                                    return link;
+
+                                                }));
+                                            }}
                                             onBlur={(event) => {
                                                 setSocialLinks(socialLinks.map(link => {
 
@@ -253,6 +286,7 @@ const MyTheatrePage = () => {
 
                                                 }));
                                             }}
+                                            required={true}
                                         />
                                         <Button
                                             type='button'
