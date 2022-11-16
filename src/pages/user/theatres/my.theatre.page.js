@@ -65,7 +65,6 @@ const MyTheatrePage = () => {
 
             //ЗАПИСАТЬ В ПЕРЕМЕННУЮ
 
-
         };
 
     }, []);
@@ -106,6 +105,9 @@ const MyTheatrePage = () => {
                 }}
             >
 
+                {/* Убрать */}
+
+
             </Popup>
         );
 
@@ -141,8 +143,8 @@ const MyTheatrePage = () => {
                 <h1 className='content__title'>Создание театра</h1>
             </div>
             <form onSubmit={onSubmit} className='form'>
-                <Tabs extraClass="form__tabs">
-                    <Tab index={1} title={"Основная информация"} extraClass='form__tab --content-main-info'>
+                <Tabs>
+                    <Tab index={1} title={"Основная информация"} extraClass='form__tab --view-two-columns'>
                         <fieldset className='form__section'>
                             <FieldInput
                                 label={"Название театра"}
@@ -200,26 +202,10 @@ const MyTheatrePage = () => {
                             />
                         </fieldset>
                         <fieldset className='form__section'>
-                            <h2 className="form__title">Педагоги</h2>
-                            <MultiSelect
-                                control={control}
-                                isMulti={true}
-                                name={"teachers_select"}
-                                closeMenuOnSelect={false}
-                                options={teachersStore.teachers.map((item) => {
-                                    return {
-                                        label: `${item.f} ${item.i} ${item.o}`,
-                                        value: item.ID,
-                                    };
-                                })}
-                            />
-                        </fieldset>
-                        <fieldset className='form__section'>
                             <h2 className="form__title">Ссылки на соцсети</h2>
                             <div className="form__field-block">
                                 <FieldInput
                                     type='url'
-                                    extraClass='form__social-block-url'
                                     placeholder='Введите url-адрес...'
                                 />
                                 <Button
@@ -244,6 +230,21 @@ const MyTheatrePage = () => {
                             />
                         </fieldset>
                         <fieldset className='form__section'>
+                            <h2 className="form__title">Педагоги</h2>
+                            <MultiSelect
+                                control={control}
+                                isMulti={true}
+                                name={"teachers_select"}
+                                closeMenuOnSelect={false}
+                                options={teachersStore.teachers.map((item) => {
+                                    return {
+                                        label: `${item.f} ${item.i} ${item.o}`,
+                                        value: item.ID,
+                                    };
+                                })}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section'>
                             <h2 className="form__title">Ссылка на страницу театра на сайте образовательной
                                 организации </h2>
                             <div className="form__field-block">
@@ -255,7 +256,7 @@ const MyTheatrePage = () => {
                             </div>
                         </fieldset>
                     </Tab>
-                    <Tab index={2} title={"Краткое описание"}>
+                    <Tab index={2} title={"Краткое описание"} extraClass='form__tab'>
                         <div className="form__editor-block">
                             <p className="form__label">Краткое описание</p>
                             <Editor
@@ -265,7 +266,7 @@ const MyTheatrePage = () => {
                             />
                         </div>
                     </Tab>
-                    <Tab index={3} title={"Обращение режиссёра"}>
+                    <Tab index={3} title={"Обращение режиссёра"} extraClass='form__tab'>
                         <div className="form__editor-block">
                             <p className="form__label">Обращение режиссёра</p>
                             <Editor
@@ -274,7 +275,7 @@ const MyTheatrePage = () => {
                             />
                         </div>
                     </Tab>
-                    <Tab index={4} title={"Фотографии"}>
+                    <Tab index={4} title={"Фотографии"} extraClass='form__tab'>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Фотографии театра</h2>
                             <ul className="gallery-form">
@@ -345,42 +346,17 @@ const MyTheatrePage = () => {
                             <Button
                                 type='button'
                                 text={'Добавить фото'}
-                                size='small'
+                                extraClass={'form__add-btn'}
                                 aria-label='Добавить поле'
                             />
                         </fieldset>
                         <fieldset className='form__section'>
-                            <h2 className="form__title">фотографии посещения театра</h2>
-                            <div className="form__field-block">
-                                <FieldInput
-                                    label={"Ссылка на фото"}
-                                    type='url'
-                                    placeholder='Введите url-адрес...'
-                                    layout='flex'
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
-                            </div>
-                            {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                extraClass="form__icon-btn"
-                                iconClass={'mdi mdi-plus'}
-                                isIconBtn='true'
-                                aria-label='Добавить поле'
-                            />
+                            <h2 className="form__title">Фотографии посещения театра</h2>
+                            {/* Такая же структура */}
+                            <p>Нет загруженного контента</p>
                         </fieldset>
                     </Tab>
-                    <Tab index={5} title={"Видео"}>
+                    <Tab index={5} title={"Видео"} extraClass='form__tab'>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Видео лучших фрагментов</h2>
                             <div className="form__field-block">
@@ -442,7 +418,7 @@ const MyTheatrePage = () => {
                             />
                         </fieldset>
                     </Tab>
-                    <Tab index={6} title={"Описания (рецензии)"}>
+                    <Tab index={6} title={"Описания (рецензии)"} extraClass='form__tab'>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Рассказ о других школьных театрах</h2>
                             <div className="form__field-block">
@@ -521,7 +497,17 @@ const MyTheatrePage = () => {
                     </Tab>
                 </Tabs>
                 <div className="form__controls">
-                    <Button type="submit" theme="primary" text="Сохранить" />
+                    <Button
+                        type="submit"
+                        theme="primary"
+                        text="Сохранить"
+                    />
+                    <Button
+                        type="button"
+                        theme="text"
+                        text="Отмена"
+                        onClick={back}
+                    />
                 </div>
             </form>
         </div>
