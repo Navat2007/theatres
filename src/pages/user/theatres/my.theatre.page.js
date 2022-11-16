@@ -26,6 +26,7 @@ const MyTheatrePage = () => {
     const {
         theatre,
         tempTheatre,
+        setTempTheatre,
         loadTheatre,
         formActivity,
         ageMembers,
@@ -37,7 +38,7 @@ const MyTheatrePage = () => {
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
 
-    const { register, handleSubmit, reset, control } = useForm();
+    const { register, handleSubmit, reset, control, getValues, setValue } = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
     const [socialLinks, setSocialLinks] = React.useState([]);
@@ -60,11 +61,42 @@ const MyTheatrePage = () => {
 
     React.useEffect(() => {
 
-        console.log("Temp theatre: ", tempTheatre);
+        console.log("Temp theatre: ", tempTheatre, Object.keys(tempTheatre).length);
+
+        if (Object.keys(tempTheatre).length > 0) {
+            setPopup(
+                <Popup
+                    title={"У Вас осталась неотправленная заявка, хотите продолжить редактирование?"}
+                    opened={true}
+                    onClose={() => {
+                        setPopup(<></>);
+                    }}
+                >
+                    <Button
+                        type='button'
+                        text={"Да"}
+                        onClick={() => {
+
+                        }}
+                    />
+                    <Button
+                        type='button'
+                        text={"Нет"}
+                        theme="text"
+                        onClick={() => setPopup(<></>)}
+                    />
+                </Popup>
+            );
+        }
 
         return () => {
 
-            //ЗАПИСАТЬ В ПЕРЕМЕННУЮ
+            let object = {};
+
+            if (getValues('title'))
+                object['title'] = getValues('title');
+
+            setTempTheatre(object);
 
         };
 
@@ -74,8 +106,8 @@ const MyTheatrePage = () => {
 
     const onSubmit = handleSubmit((data) => {
 
-        console.log(data);
-        //console.log(editorState);
+        console.log("Форма: ", data);
+        console.log("Соц сети: ", socialLinks);
 
     });
 
@@ -183,7 +215,7 @@ const MyTheatrePage = () => {
                                 />
                             </div>
                             <FieldInput
-                                label={"Год основания"}
+                                label={"Дата основания"}
                                 type='date'
                                 layout='flex'
                                 required={true}
@@ -200,6 +232,17 @@ const MyTheatrePage = () => {
                                         <FieldInput
                                             type='url'
                                             placeholder='Введите url-адрес...'
+                                            onBlur={(event) => {
+                                                setSocialLinks(socialLinks.map(link => {
+
+                                                    if (link.id === item.id) {
+                                                        link.url = event.target.value;
+                                                    }
+
+                                                    return link;
+
+                                                }));
+                                            }}
                                         />
                                         <Button
                                             type='button'

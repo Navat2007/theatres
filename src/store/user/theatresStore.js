@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import create from 'zustand'
-import {persist} from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load.php';
 const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_by_id.php';
@@ -38,16 +38,19 @@ const useTheatresStore = create(
                 "Классик",
             ],
 
+            setTempTheatre: (object) => {
+                set({ tempTheatre: object });
+            },
             setErrorText: (text) => {
-                set({error: true, errorText: text});
+                set({ error: true, errorText: text });
             },
             clearErrorText: () => {
-                set({error: false, errorText: ""});
+                set({ error: false, errorText: "" });
             },
 
             loadTheatres: async (params) => {
 
-                set({loading: true});
+                set({ loading: true });
 
                 let form = new FormData();
 
@@ -59,18 +62,18 @@ const useTheatresStore = create(
                     console.log(error);
                 });
 
-                set({loading: false});
+                set({ loading: false });
 
                 if (response?.data?.params) {
 
-                    set((state) => ({theatres: response.data.params}));
+                    set((state) => ({ theatres: response.data.params }));
 
                 }
 
             },
             loadTheatre: async (params) => {
 
-                set({loading: true});
+                set({ loading: true });
 
                 let form = new FormData();
 
@@ -82,18 +85,18 @@ const useTheatresStore = create(
                     console.log(error);
                 });
 
-                set({loading: false});
+                set({ loading: false });
 
                 if (response?.data?.params) {
 
-                    set((state) => ({theatre: response.data.params}));
+                    set((state) => ({ theatre: response.data.params }));
 
                 }
 
             },
             addTheatre: async (params) => {
 
-                set({sending: true});
+                set({ sending: true });
 
                 let form = new FormData();
 
@@ -111,7 +114,7 @@ const useTheatresStore = create(
                     console.log(error);
                 });
 
-                set({sending: false});
+                set({ sending: false });
 
                 if (response?.data) {
 
@@ -122,18 +125,18 @@ const useTheatresStore = create(
                             errorText: response.data.error_text
                         }));
 
-                        return {error: true};
+                        return { error: true };
 
                     }
 
                 }
 
-                return {error: false};
+                return { error: false };
 
             },
             editTheatre: async (params) => {
 
-                set({sending: true});
+                set({ sending: true });
 
                 let form = new FormData();
 
@@ -151,7 +154,7 @@ const useTheatresStore = create(
                     console.log(error);
                 });
 
-                set({sending: false});
+                set({ sending: false });
 
                 if (response?.data) {
 
@@ -162,18 +165,18 @@ const useTheatresStore = create(
                             errorText: response.data.error_text
                         }));
 
-                        return {error: true};
+                        return { error: true };
 
                     }
 
                 }
 
-                return {error: false};
+                return { error: false };
 
             },
             removeTheatre: async (params) => {
 
-                set({sending: true});
+                set({ sending: true });
 
                 let form = new FormData();
 
@@ -191,7 +194,7 @@ const useTheatresStore = create(
                     console.log(error);
                 });
 
-                set({sending: false});
+                set({ sending: false });
 
                 if (response?.data) {
 
@@ -202,13 +205,13 @@ const useTheatresStore = create(
                             errorText: response.data.error_text
                         });
 
-                        return {error: true};
+                        return { error: true };
 
                     }
 
                 }
 
-                return {error: false};
+                return { error: false };
 
             },
         }),
