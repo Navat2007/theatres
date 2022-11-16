@@ -1,30 +1,29 @@
 import React from 'react';
 
 const Popup = ({
-                   children,
-                   buttons,
-                   onClose,
-                   opened = false,
-                   notif = {
-                       active: false,
-                       state: "",
-                       text: "",
-                       timerInSeconds: 0,
-                   },
-                   className = "",
-                   title = "",
-                   text = "",
-
-                   image = {src: "", alt: "", className: ""}
-               }) => {
+    children,
+    buttons,
+    onClose,
+    opened = false,
+    notif = {
+        active: false,
+        state: "",
+        text: "",
+        timerInSeconds: 0,
+    },
+    className = "",
+    title = "",
+    text = "",
+    image = { src: "", alt: "", className: "" }
+}) => {
 
     const [notifIcon, setNotifIcon] = React.useState("");
 
     React.useEffect(() => {
 
-        if(notif.active){
+        if (notif.active) {
 
-            switch (notif.state){
+            switch (notif.state) {
                 case "error":
                     setNotifIcon("--state-error")
                     break
@@ -47,17 +46,17 @@ const Popup = ({
 
     const handleBackgroundClick = (event) => {
 
-        if(event.target === event.currentTarget && onClose){
+        if (event.target === event.currentTarget && onClose) {
             onClose();
         }
 
     };
 
-    if(notif.timerInSeconds > 0){
+    if (notif.timerInSeconds > 0) {
 
         setTimeout(() => {
 
-            if(onClose)
+            if (onClose)
                 onClose();
             else
                 opened = false;
@@ -73,9 +72,9 @@ const Popup = ({
                 onClick={(e) => handleBackgroundClick(e)}
             >
                 <div className="popup__container">
-                    <button type='button' aria-label='Закрыть' className='popup__close' onClick={onClose}/>
+                    <button type='button' aria-label='Закрыть' className='popup__close' onClick={onClose} />
                     <div className="popup__caption">
-                        <span className='popup__icon'/>
+                        <span className='popup__icon' />
                         <p className="popup__title">{title}</p>
                     </div>
                     <div className="popup__body">
@@ -99,7 +98,7 @@ const Popup = ({
         >
             <div className="popup__container">
                 {
-                    image.src !== "" && <img src={image.src} alt={image.alt} className={image.className}/>
+                    image.src !== "" && <img src={image.src} alt={image.alt} className={image.className} />
                 }
                 <h1 className="popup__title">{title}</h1>
                 <button
