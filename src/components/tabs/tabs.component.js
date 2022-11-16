@@ -10,6 +10,16 @@ const Tabs = ({
 
     const [activeTab, setActiveTab] = React.useState(1);
 
+    if(!children.length)
+        return (
+            <section
+                key={children.props.title}
+                className={children.props.extraClass}
+            >
+                {children}
+            </section>
+        );
+
     return (
         <div className={styles.tabs}>
             <ul className={styles.list}>
