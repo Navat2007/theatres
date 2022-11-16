@@ -2,7 +2,6 @@ import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import styles from './tabs.module.scss';
 
-console.log(styles);
 const Tabs = ({
     extraClass,
     children
