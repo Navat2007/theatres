@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Tab = ({children, index, title}) => {
+const Tab = ({
+    index,
+    title,
+    extraClass,
+    children,
+}) => {
     return (
-        <section className="tab__section">
+        <section className={`tab__section ` + extraClass}>
             {children}
         </section>
     );

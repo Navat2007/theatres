@@ -152,4 +152,15 @@
       content: counter(number);
     }
   }
+
+  &__tabs {
+    
+  }
+
+  &__tab {
+    &.--content-main-info {
+      display: grid;
+      grid-template-columns: .6fr .4fr;
+    }
+  }
 }

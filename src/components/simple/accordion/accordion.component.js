@@ -1,22 +1,61 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
-import {More, Less} from "../../svgs";
+import styles from './accordion.module.scss';
 
-const Accordion = ({children, title, ...rest}) => {
+export const More = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width='24'
+        height='24'
+    >
+        <path fill='currentColor' d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+    </svg>
+);
+
+export const Less = ({ className, ...props }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width='24'
+        height='24'
+    >
+        <path fill='currentColor' d="M19,13H5V11H19V13Z" />
+    </svg>
+);
+
+const Accordion = ({
+    theme = 'text',
+    icon = 'plus',
+    extraClass,
+    children,
+    title,
+    ...rest
+}) => {
 
     const [isOpen, setIsOpen] = React.useState(false);
 
+    const config = [
+        styles.accordion,
+        theme ? styles["accordion_theme_" + theme] : null,
+        icon ? styles["accordion_icon_" + icon] : null,
+        extraClass,
+    ];
+
+    const finalClassName = config.filter(Boolean).join(' ');
+
     return (
-        <div className="accordion --theme-text form__accordion">
+        <div className={finalClassName}>
             <div
                 aria-controls={title}
                 aria-expanded={isOpen}
-                className="accordion__caption"
+                className={styles.caption}
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <div>{title}</div>
                 <AnimatePresence initial={false} mode="wait">
                     <motion.div
+                        className={styles.icon}
                         key={isOpen ? "minus" : "plus"}
                         initial={{
                             rotate: isOpen ? -90 : 90,
@@ -77,7 +116,6 @@ const Accordion = ({children, title, ...rest}) => {
                             },
                         }
                 }
-                className=""
             >
                 {children}
             </motion.div>
@@ -86,72 +124,3 @@ const Accordion = ({children, title, ...rest}) => {
 };
 
 export default Accordion;
-
-//<div className="accordion --theme-text --icon-plus form__accordion">
-    //     <div className="accordion__caption">
-    //         Видео
-    //     </div>
-    //     <div className="accordion__section">
-    //         <fieldset className='form__section'>
-    //             <h2 className="form__title">Видео лучших фрагментов</h2>
-    //             <div className="form__field-block">
-    //                 <FieldInput
-//                     label={"Ссылка на видео"}
-//                     type='url'
-//                     placeholder='Введите url-адрес...'
-//                     layout='flex'
-//                 />
-//                 <Button
-//                     type='button'
-//                     theme='text'
-//                     size='small'
-//                     extraClass="form__icon-btn"
-//                     iconClass={'mdi mdi-close'}
-//                     isIconBtn='true'
-//                     aria-label='Удалить поле'
-//                 />
-//             </div>
-//             {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
-//             <Button
-//                 type='button'
-//                 theme='text'
-//                 size='small'
-//                 extraClass="form__icon-btn"
-//                 iconClass={'mdi mdi-plus'}
-//                 isIconBtn='true'
-//                 aria-label='Добавить поле'
-//             />
-//         </fieldset>
-//         <fieldset className='form__section'>
-//             <h2 className="form__title">Видео визитка школьного театра</h2>
-//             <div className="form__field-block">
-//                 <FieldInput
-//                     label={"Ссылка на видео"}
-//                     type='url'
-//                     placeholder='Введите url-адрес...'
-//                     layout='flex'
-//                 />
-//                 <Button
-//                     type='button'
-//                     theme='text'
-//                     size='small'
-//                     extraClass="form__icon-btn"
-//                     iconClass={'mdi mdi-close'}
-//                     isIconBtn='true'
-//                     aria-label='Удалить поле'
-//                 />
-//             </div>
-//             {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
-//             <Button
-//                 type='button'
-//                 theme='text'
-//                 size='small'
-//                 extraClass="form__icon-btn"
-//                 iconClass={'mdi mdi-plus'}
-//                 isIconBtn='true'
-//                 aria-label='Добавить поле'
-//             />
-//         </fieldset>
-//     </div>
-// </div>
-//
