@@ -1,6 +1,5 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
 
 import Table from "../../../components/table/table.component";
 
@@ -68,9 +67,6 @@ const MyTheatreRequestsPage = () => {
 
     return (
         <div className='content__section'>
-            <Helmet>
-                <title>Заявки на театры</title>
-            </Helmet>
             <Table
                 title={"Таблица заявок на театры"}
                 loading={false}

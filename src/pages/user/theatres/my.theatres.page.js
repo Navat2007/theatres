@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
@@ -71,9 +70,6 @@ const MyTheatresPage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Театры</title>
-            </Helmet>
             <Tabs>
                 <Tab index={1} title={"Театры"}>
                     <Table

@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import Button from '../../../components/simple/button/button.component';
-import FieldInput from '../../../components/simple/field/field.input.component';
 
 const TheatrePage = () => {
 

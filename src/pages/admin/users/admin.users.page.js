@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
@@ -73,9 +72,6 @@ const AdminUsersPage = () => {
 
     if (id && admin)
         return (<>
-            <Helmet>
-                <title>Редактирование администратора ID: {id}</title>
-            </Helmet>
             <div className='content__section'>
                 <div className="content__title-block">
                     <Button
@@ -246,9 +242,6 @@ const AdminUsersPage = () => {
         );
 
     return (<>
-        <Helmet>
-            <title>Создание администратора</title>
-        </Helmet>
         <div className='content__section'>
             <div className="content__title-block">
                 <Button

@@ -4,7 +4,6 @@ import { useForm, Controller } from "react-hook-form";
 import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
 import JoditEditor from 'jodit-react';
-import { Helmet } from "react-helmet";
 
 import useAuthStore from "../../../store/authStore";
 import usePostersStore from "../../../store/user/postersStore";
@@ -40,9 +39,6 @@ const MyPosterPage = () => {
     }, [id]);
 
     return (<>
-        <Helmet>
-            <title>Создание афиши</title>
-        </Helmet>
         <div className='content__section'>
             <div className="content__title-block">
                 <Button

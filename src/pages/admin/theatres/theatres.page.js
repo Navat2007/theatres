@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import useTheatresStore from "../../../store/admin/theatresStore";
 
@@ -80,9 +79,6 @@ const TheatresPage = () => {
     ];
 
     return (<>
-        <Helmet>
-            <title>Театры</title>
-        </Helmet>
         <Tabs>
             <Tab index={1} title={"Театры"}>
                 <Table

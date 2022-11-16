@@ -3,7 +3,15 @@ import JoditEditor from "jodit-react";
 import {Controller} from "react-hook-form";
 
 // all options from https://xdsoft.net/jodit/doc/,
-const Editor = ({control, name, readonly, placeholder = 'Начните писать...', value}, ...rest) => {
+const Editor = ({control, name, readonly, placeholder, value, ...rest}) => {
+
+    const config = {
+        readonly: false,
+        about: false,
+        addNewLine: false,
+        placeholder: placeholder || 'Начните писать...'
+    };
+
     return (
         <Controller
             control={control}
@@ -12,16 +20,11 @@ const Editor = ({control, name, readonly, placeholder = 'Начните писа
             render={({field}) => (
                 <JoditEditor
                     ref={field.ref}
-                    config={{
-                        readonly: readonly,
-                        placeholder: placeholder
-                    }}
+                    config={config}
                     value={field.value}
-                    onChange={(value) => {
-                        //field.onChange(value);
-                    }}
-                    onBlur={() => {
-                        field.onBlur();
+                    onChange={(value) => {}}
+                    onBlur={(value) => {
+                        field.onChange(value);
                     }}
                     {...rest}
                 />

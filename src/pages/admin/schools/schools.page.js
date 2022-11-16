@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import useSchoolsStore from "../../../store/admin/schoolsStore";
 
@@ -81,9 +80,6 @@ const SchoolsPage = () => {
 
     return (
         <div className='content__section'>
-            <Helmet>
-                <title>Школы</title>
-            </Helmet>
             <Table
                 title={"Таблица школ"}
                 loading={loading}

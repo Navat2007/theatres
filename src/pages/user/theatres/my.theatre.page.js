@@ -1,7 +1,6 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useForm, Controller} from "react-hook-form";
-import {Helmet} from "react-helmet";
+import {useForm} from "react-hook-form";
 
 import useAuthStore from "../../../store/authStore";
 import useTheatresStore from "../../../store/user/theatresStore";
@@ -12,6 +11,7 @@ import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
 import MultiSelect from "../../../components/multi_select/multi_select.component";
 import Editor from "../../../components/reach_editor/editor.component";
+import Accordion from "../../../components/simple/accordion/accordion.component";
 
 const MyTheatrePage = () => {
 
@@ -26,7 +26,6 @@ const MyTheatrePage = () => {
         loadTheatre,
         formActivity,
         ageMembers,
-        theatreLevel,
         loading,
         sending,
         error,
@@ -84,9 +83,6 @@ const MyTheatrePage = () => {
 
     if (id && theatre) {
         return (<>
-            <Helmet>
-                <title>Создание театра</title>
-            </Helmet>
             <div className="content__section">
 
             </div>
@@ -94,9 +90,6 @@ const MyTheatrePage = () => {
     }
 
     return (<>
-        <Helmet>
-            <title>Создание театра</title>
-        </Helmet>
         <div className="content__section">
             {!id && (
                 <>
@@ -173,6 +166,7 @@ const MyTheatrePage = () => {
                                 <div className="form__editor-block">
                                     <p className="form__label">Краткое описание</p>
                                     <Editor
+                                        required={true}
                                         control={control}
                                         name="editorShortDescription"
                                     />
@@ -204,224 +198,209 @@ const MyTheatrePage = () => {
                                 <h2 className="form__title">Афиши спектаклей</h2>
                             </fieldset>
                             {/* Фото */}
-                            <div className="accordion --theme-text --icon-plus form__accordion">
-                                <div className="accordion__caption">
-                                    Фотографии
-                                </div>
-                                <div className="accordion__section">
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">Фотографии</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Ссылка на фото"}
-                                                type='url'
-                                                placeholder='Введите url-адрес...'
-                                                layout='flex'
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                        </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            <Accordion title="Фотографии">
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">Фотографии</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Ссылка на фото"}
+                                            type='url'
+                                            placeholder='Введите url-адрес...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">фотографии посещения театров</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Ссылка на фото"}
-                                                type='url'
-                                                placeholder='Введите url-адрес...'
-                                                layout='flex'
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                        </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">фотографии посещения театров</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Ссылка на фото"}
+                                            type='url'
+                                            placeholder='Введите url-адрес...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                </div>
-                            </div>
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                            </Accordion>
                             {/* Видео */}
-                            <div className="accordion --theme-text --icon-plus form__accordion">
-                                <div className="accordion__caption">
-                                    Видео
-                                </div>
-                                <div className="accordion__section">
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">Видео лучших фрагментов</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Ссылка на видео"}
-                                                type='url'
-                                                placeholder='Введите url-адрес...'
-                                                layout='flex'
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                        </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            <Accordion title="Видео">
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">Видео лучших фрагментов</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Ссылка на видео"}
+                                            type='url'
+                                            placeholder='Введите url-адрес...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">Видео визитка школьного театра</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Ссылка на видео"}
-                                                type='url'
-                                                placeholder='Введите url-адрес...'
-                                                layout='flex'
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                        </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">Видео визитка школьного театра</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Ссылка на видео"}
+                                            type='url'
+                                            placeholder='Введите url-адрес...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                </div>
-                            </div>
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                            </Accordion>
                             {/* Описания (рецензии) */}
-                            <div className="accordion --theme-text --icon-plus form__accordion">
-                                <div className="accordion__caption">
-                                    Описания (рецензии)
-                                </div>
-                                <div className="accordion__section">
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">Рассказ о других школьных театрах</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Название театра"}
-                                                type='text'
-                                                placeholder='Введите название...'
-                                                layout='flex'
-                                            />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                            <div className="form__editor-block">
-                                                <p className="form__label">Описание театра</p>
-                                                <Editor
-                                                    control={control}
-                                                    name="editorTheatreDescription"
-                                                />
-                                            </div>
-                                        </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            <Accordion title="Описания (рецензии)">
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">Рассказ о других школьных театрах</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Название театра"}
+                                            type='text'
+                                            placeholder='Введите название...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                    <fieldset className='form__section'>
-                                        <h2 className="form__title">Рассказы (рецензии) о посещении других московских
-                                            театрах</h2>
-                                        <div className="form__field-block">
-                                            <FieldInput
-                                                label={"Название театра"}
-                                                type='text'
-                                                placeholder='Введите название...'
-                                                layout='flex'
+                                        <div className="form__editor-block">
+                                            <p className="form__label">Описание театра</p>
+                                            <Editor
+                                                control={control}
+                                                name="editorTheatreDescription"
                                             />
-                                            <Button
-                                                type='button'
-                                                theme='text'
-                                                size='small'
-                                                extraClass="form__icon-btn"
-                                                iconClass={'mdi mdi-close'}
-                                                isIconBtn='true'
-                                                aria-label='Удалить поле'
-                                            />
-                                            <div className="form__editor-block">
-                                                <p className="form__label">Описание посещения театра</p>
-                                                <Editor
-                                                    control={control}
-                                                    name="editorTheatreVisit"
-                                                />
-                                            </div>
                                         </div>
-                                        {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                                <fieldset className='form__section'>
+                                    <h2 className="form__title">Рассказы (рецензии) о посещении других московских
+                                        театрах</h2>
+                                    <div className="form__field-block">
+                                        <FieldInput
+                                            label={"Название театра"}
+                                            type='text'
+                                            placeholder='Введите название...'
+                                            layout='flex'
+                                        />
                                         <Button
                                             type='button'
                                             theme='text'
                                             size='small'
                                             extraClass="form__icon-btn"
-                                            iconClass={'mdi mdi-plus'}
+                                            iconClass={'mdi mdi-close'}
                                             isIconBtn='true'
-                                            aria-label='Добавить поле'
+                                            aria-label='Удалить поле'
                                         />
-                                    </fieldset>
-                                </div>
-                            </div>
+                                        <div className="form__editor-block">
+                                            <p className="form__label">Описание посещения театра</p>
+                                            <Editor
+                                                control={control}
+                                                name="editorTheatreVisit"
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                                    <Button
+                                        type='button'
+                                        theme='text'
+                                        size='small'
+                                        extraClass="form__icon-btn"
+                                        iconClass={'mdi mdi-plus'}
+                                        isIconBtn='true'
+                                        aria-label='Добавить поле'
+                                    />
+                                </fieldset>
+                            </Accordion>
                         </div>
                         <div className="form__container">
                             <fieldset className='form__section'>

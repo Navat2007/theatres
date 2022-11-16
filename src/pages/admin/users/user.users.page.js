@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet";
 
 import useUsersStore from "../../../store/admin/usersStore";
 import useSchoolsStore from "../../../store/admin/schoolsStore";
@@ -85,9 +84,6 @@ const UserUsersPage = () => {
     if (id && user)
         return (
             <>
-                <Helmet>
-                    <title>Редактирование пользователя ID: {id}</title>
-                </Helmet>
                 <div className='content__section'>
                     <div className="content__title-block">
                         <Button
@@ -241,9 +237,6 @@ const UserUsersPage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Создание пользователя</title>
-            </Helmet>
             <div className='content__section'>
                 <div className="content__title-block">
                     <Button

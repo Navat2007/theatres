@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../../store/authStore";
 
-import { Helmet } from "react-helmet";
 import Button from '../../../components/simple/button/button.component';
 import Table from '../../../components/table/table.component';
 
@@ -71,9 +70,6 @@ const MyPostersPage = () => {
     ];
 
     return (<>
-        <Helmet>
-            <title>Афиши</title>
-        </Helmet>
         <Table
                 title={"Таблица афиш"}
                 loading={false}

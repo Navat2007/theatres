@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -127,9 +126,6 @@ const UsersPage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Пользователи</title>
-            </Helmet>
             <Tabs>
                 <Tab index={1} title={"Администраторы"}>
                     <Table

@@ -1,6 +1,5 @@
-import React from 'react';
-import {HashRouter} from "react-router-dom";
-import {Helmet} from "react-helmet";
+import React, { StrictMode } from 'react';
+import {BrowserRouter} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 
@@ -58,17 +57,13 @@ const App = () => {
         return <Preloader />;
 
     return (
-        <>
-            <Helmet
-                defaultTitle="Театры Патриот Спорт"
-                titleTemplate="%s - Театры Патриот Спорт"
-            />
-            <HashRouter>
+        <StrictMode>
+            <BrowserRouter>
                 <div className="content">
                     <RoutesList />
                 </div>
-            </HashRouter>
-        </>
+            </BrowserRouter>
+        </StrictMode>
     )
 }
 
