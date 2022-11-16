@@ -16,7 +16,7 @@ const TeacherPage = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
     const { teacher, loadTeacher, addTeacher, editTeacher, removeTeacher, loading, sending, error, errorText, setErrorText, cleatErrorText } = useTeachersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -26,7 +26,7 @@ const TeacherPage = () => {
 
         if (id) {
             reset();
-            await loadTeacher({id});
+            await loadTeacher({ id });
         }
     }
 
@@ -47,8 +47,7 @@ const TeacherPage = () => {
 
     const checkPhoto = (file) => {
 
-        if(!file)
-        {
+        if (!file) {
             setErrorText("Файл не читается.");
             setPopupErrorOpened(true);
             return false;
@@ -76,26 +75,26 @@ const TeacherPage = () => {
 
     const onAddSubmit = async (params) => {
 
-        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+        if (params.photo.length > 0 && !checkPhoto(params.photo[0]))
             return;
 
         params.schoolID = user.schoolID;
         const result = await addTeacher(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
     const onEditSubmit = async (params) => {
 
-        if(params.photo.length > 0 && !checkPhoto(params.photo[0]))
+        if (params.photo.length > 0 && !checkPhoto(params.photo[0]))
             return;
 
         params.id = id;
         params.schoolID = user.schoolID;
         const result = await editTeacher(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -103,7 +102,7 @@ const TeacherPage = () => {
 
         const result = await removeTeacher({ id });
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -128,75 +127,77 @@ const TeacherPage = () => {
                         />
                         <h1 className="content__title">Редактирование педагога ID: {id}</h1>
                     </div>
-                    <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
-                        <fieldset className='form__section --content-info'>
-                            <h2 className="form__title">Основная информация</h2>
-                            <div className="profile --place-edit-profile">
-                                <p className='profile__text'>Фото</p>
-                                <img className='profile__img'
-                                    src={window.global.baseUrl + teacher.photo}
-                                    alt={""} />
-                            </div>
-                            <FieldInput
-                                label={"Новое фото"}
-                                type="file"
-                                placeholder={"Выберите фото для замены..."}
-                                layout={"flex"}
-                                {...register("photo")}
-                            />
-                            <FieldInput
-                                label={"Фамилия"}
-                                placeholder={"Введите фамилию..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("f", { value: teacher.f })}
-                            />
-                            <FieldInput
-                                label={"Имя"}
-                                placeholder={"Введите имя..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("i", { value: teacher.i })}
-                            />
-                            <FieldInput
-                                label={"Отчество"}
-                                placeholder={"Введите отчество..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("o", { value: teacher.o })}
-                            />
-                            <FieldInput
-                                label={"Должность"}
-                                placeholder={"Введите должность..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("position", { value: teacher.position })}
-                            />
-                            <FieldInput
-                                label={"Педагогический стаж"}
-                                placeholder={"Введите педагогический стаж..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("experience", { value: teacher.experience })}
-                            />
-                            <FieldInput
-                                label={"Описание"}
-                                type={"textarea"}
-                                rows={5}
-                                placeholder={"Введите описание..."}
-                                layout={"flex"}
-                                required={true}
-                                {...register("text", { value: teacher.text })}
-                            />
-                        </fieldset>
-                        <fieldset className='form__section --content-security'>
-                            <h2 className="form__title">Безопасность</h2>
-                            <FieldInput
-                                label={"Активировать учетную запись?"}
-                                type={"checkbox_variant"}
-                                {...register("active", { value: teacher.active === "Активен" })}
-                            />
-                        </fieldset>
+                    <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                        <div className="form__container --view-two-columns">
+                            <fieldset className='form__section'>
+                                <h2 className="form__title">Основная информация</h2>
+                                <div className="profile --place-edit-profile">
+                                    <p className='profile__text'>Фото</p>
+                                    <img className='profile__img'
+                                        src={window.global.baseUrl + teacher.photo}
+                                        alt={""} />
+                                </div>
+                                <FieldInput
+                                    label={"Новое фото"}
+                                    type="file"
+                                    placeholder={"Выберите фото для замены..."}
+                                    layout={"flex"}
+                                    {...register("photo")}
+                                />
+                                <FieldInput
+                                    label={"Фамилия"}
+                                    placeholder={"Введите фамилию..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("f", { value: teacher.f })}
+                                />
+                                <FieldInput
+                                    label={"Имя"}
+                                    placeholder={"Введите имя..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("i", { value: teacher.i })}
+                                />
+                                <FieldInput
+                                    label={"Отчество"}
+                                    placeholder={"Введите отчество..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("o", { value: teacher.o })}
+                                />
+                                <FieldInput
+                                    label={"Должность"}
+                                    placeholder={"Введите должность..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("position", { value: teacher.position })}
+                                />
+                                <FieldInput
+                                    label={"Педагогический стаж"}
+                                    placeholder={"Введите педагогический стаж..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("experience", { value: teacher.experience })}
+                                />
+                                <FieldInput
+                                    label={"Описание"}
+                                    type={"textarea"}
+                                    rows={5}
+                                    placeholder={"Введите описание..."}
+                                    layout={"flex"}
+                                    required={true}
+                                    {...register("text", { value: teacher.text })}
+                                />
+                            </fieldset>
+                            <fieldset className='form__section'>
+                                <h2 className="form__title">Безопасность</h2>
+                                <FieldInput
+                                    label={"Активировать учетную запись?"}
+                                    type={"checkbox_variant"}
+                                    {...register("active", { value: teacher.active === "Активен" })}
+                                />
+                            </fieldset>
+                        </div>
                         <div className="form__controls">
                             <Button
                                 type='submit'
@@ -271,69 +272,71 @@ const TeacherPage = () => {
                     />
                     <h1 className="content__title">Создание пользователя</h1>
                 </div>
-                <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
-                    <fieldset className='form__section --content-info'>
-                        <h2 className="form__title">Основная информация</h2>
-                        <FieldInput
-                            label={"Фото"}
-                            type="file"
-                            placeholder={"Выберите фото..."}
-                            layout={"flex"}
-                            {...register("photo")}
-                        />
-                        <FieldInput
-                            label={"Фамилия"}
-                            placeholder={"Введите фамилию..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("f")}
-                        />
-                        <FieldInput
-                            label={"Имя"}
-                            placeholder={"Введите имя..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("i")}
-                        />
-                        <FieldInput
-                            label={"Отчество"}
-                            placeholder={"Введите отчество..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("o")}
-                        />
-                        <FieldInput
-                            label={"Должность"}
-                            placeholder={"Введите должность..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("position")}
-                        />
-                        <FieldInput
-                            label={"Педагогический стаж"}
-                            placeholder={"Введите педагогический стаж..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("experience")}
-                        />
-                        <FieldInput
-                            label={"Описание"}
-                            type={"textarea"}
-                            rows={5}
-                            placeholder={"Введите описание..."}
-                            layout={"flex"}
-                            required={true}
-                            {...register("text")}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section --content-security'>
-                        <h2 className="form__title">Безопасность</h2>
-                        <FieldInput
-                            label={"Активировать учетную запись?"}
-                            type={"checkbox_variant"}
-                            {...register("active", { value: true })}
-                        />
-                    </fieldset>
+                <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
+                    <div className="form__container --view-two-columns">
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Основная информация</h2>
+                            <FieldInput
+                                label={"Фото"}
+                                type="file"
+                                placeholder={"Выберите фото..."}
+                                layout={"flex"}
+                                {...register("photo")}
+                            />
+                            <FieldInput
+                                label={"Фамилия"}
+                                placeholder={"Введите фамилию..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("f")}
+                            />
+                            <FieldInput
+                                label={"Имя"}
+                                placeholder={"Введите имя..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("i")}
+                            />
+                            <FieldInput
+                                label={"Отчество"}
+                                placeholder={"Введите отчество..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("o")}
+                            />
+                            <FieldInput
+                                label={"Должность"}
+                                placeholder={"Введите должность..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("position")}
+                            />
+                            <FieldInput
+                                label={"Педагогический стаж"}
+                                placeholder={"Введите педагогический стаж..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("experience")}
+                            />
+                            <FieldInput
+                                label={"Описание"}
+                                type={"textarea"}
+                                rows={5}
+                                placeholder={"Введите описание..."}
+                                layout={"flex"}
+                                required={true}
+                                {...register("text")}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Безопасность</h2>
+                            <FieldInput
+                                label={"Активировать учетную запись?"}
+                                type={"checkbox_variant"}
+                                {...register("active", { value: true })}
+                            />
+                        </fieldset>
+                    </div>
                     <div className="form__controls">
                         <Button
                             type='submit'

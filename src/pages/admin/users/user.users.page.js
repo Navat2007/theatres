@@ -18,7 +18,7 @@ const UserUsersPage = () => {
     let { id } = useParams();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const {user, loadUser, addUser, editUser, removeUser, loading, sending, error, errorText, clearErrorText} = useUsersStore();
+    const { user, loadUser, addUser, editUser, removeUser, loading, sending, error, errorText, clearErrorText } = useUsersStore();
     const schools = useSchoolsStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
@@ -54,7 +54,7 @@ const UserUsersPage = () => {
 
         const result = await addUser(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -63,7 +63,7 @@ const UserUsersPage = () => {
         params.id = id;
         const result = await editUser(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -71,7 +71,7 @@ const UserUsersPage = () => {
 
         const result = await removeUser({ id });
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -96,84 +96,86 @@ const UserUsersPage = () => {
                         />
                         <h1 className="content__title">Редактирование пользователя ID: {id}</h1>
                     </div>
-                    <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
-                        <fieldset className='form__section --content-info'>
-                            <h2 className="form__title">Основная информация</h2>
-                            <div className="profile --place-edit-profile">
-                                <p className='profile__text'>Фото</p>
-                                <img className='profile__img'
-                                    src={user.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
-                                    alt={""} />
-                            </div>
-                            <FieldInput
-                                label={"Логин"}
-                                placeholder={"Введите логин..."}
-                                layout='flex'
-                                {...register("login", { value: user.login })}
-                            />
-                            <FieldInput
-                                label={"Email"}
-                                placeholder={"Введите email..."}
-                                layout='flex'
-                                required={true}
-                                {...register("email", { value: user.email })}
-                            />
-                            <FieldInput
-                                label={"ФИО"}
-                                placeholder={"Введите фио..."}
-                                layout='flex'
-                                required={true}
-                                {...register("fio", { value: user.fio })}
-                            />
-                            <FieldInput
-                                label={"Контактный телефон"}
-                                type={"phone"}
-                                placeholder={"Введите контактный телефон..."}
-                                layout='flex'
-                                required={true}
-                                {...register("phone", { value: user.phone })}
-                            />
-                            <FieldInput
-                                label={"Школа"}
-                                type={"select"}
-                                defaultSelectItem={{
-                                    title: "Выберите школу",
-                                    value: "",
-                                    disabled: false
-                                }}
-                                selectItems={schools.schools.map(item => {
-                                    return {
-                                        title: item.org_short_name,
-                                        value: item.ID,
-                                    }
-                                }).sort()}
-                                layout='flex'
-                                required={true}
-                                {...register("schoolID", { value: user.schoolID })}
-                            />
-                        </fieldset>
-                        <fieldset className='form__section --content-security'>
-                            <h2 className="form__title">Безопасность</h2>
-                            <FieldInput
-                                label={"Пароль"}
-                                type={"password"}
-                                placeholder={"Введите новый пароль..."}
-                                layout='flex'
-                                autoComplete={"new-password"}
-                                {...register("password", {
-                                    minLength: {
-                                        value: 6,
-                                        message: "Минимальная длина пароля 6 символов"
-                                    }
-                                })}
-                                errorText={errors?.password && errors.password.message}
-                            />
-                            <FieldInput
-                                label={"Активировать учетную запись?"}
-                                type={"checkbox_variant"}
-                                {...register("active", { value: user.active === "Активен" })}
-                            />
-                        </fieldset>
+                    <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                        <div className="form__container --view-two-columns">
+                            <fieldset className='form__section'>
+                                <h2 className="form__title">Основная информация</h2>
+                                <div className="profile --place-edit-profile">
+                                    <p className='profile__text'>Фото</p>
+                                    <img className='profile__img'
+                                        src={user.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man}
+                                        alt={""} />
+                                </div>
+                                <FieldInput
+                                    label={"Логин"}
+                                    placeholder={"Введите логин..."}
+                                    layout='flex'
+                                    {...register("login", { value: user.login })}
+                                />
+                                <FieldInput
+                                    label={"Email"}
+                                    placeholder={"Введите email..."}
+                                    layout='flex'
+                                    required={true}
+                                    {...register("email", { value: user.email })}
+                                />
+                                <FieldInput
+                                    label={"ФИО"}
+                                    placeholder={"Введите фио..."}
+                                    layout='flex'
+                                    required={true}
+                                    {...register("fio", { value: user.fio })}
+                                />
+                                <FieldInput
+                                    label={"Контактный телефон"}
+                                    type={"phone"}
+                                    placeholder={"Введите контактный телефон..."}
+                                    layout='flex'
+                                    required={true}
+                                    {...register("phone", { value: user.phone })}
+                                />
+                                <FieldInput
+                                    label={"Школа"}
+                                    type={"select"}
+                                    defaultSelectItem={{
+                                        title: "Выберите школу",
+                                        value: "",
+                                        disabled: false
+                                    }}
+                                    selectItems={schools.schools.map(item => {
+                                        return {
+                                            title: item.org_short_name,
+                                            value: item.ID,
+                                        }
+                                    }).sort()}
+                                    layout='flex'
+                                    required={true}
+                                    {...register("schoolID", { value: user.schoolID })}
+                                />
+                            </fieldset>
+                            <fieldset className='form__section'>
+                                <h2 className="form__title">Безопасность</h2>
+                                <FieldInput
+                                    label={"Пароль"}
+                                    type={"password"}
+                                    placeholder={"Введите новый пароль..."}
+                                    layout='flex'
+                                    autoComplete={"new-password"}
+                                    {...register("password", {
+                                        minLength: {
+                                            value: 6,
+                                            message: "Минимальная длина пароля 6 символов"
+                                        }
+                                    })}
+                                    errorText={errors?.password && errors.password.message}
+                                />
+                                <FieldInput
+                                    label={"Активировать учетную запись?"}
+                                    type={"checkbox_variant"}
+                                    {...register("active", { value: user.active === "Активен" })}
+                                />
+                            </fieldset>
+                        </div>
                         <div className="form__controls">
                             <Button
                                 type='submit'
@@ -248,80 +250,82 @@ const UserUsersPage = () => {
                     />
                     <h1 className="content__title">Создание пользователя</h1>
                 </div>
-                <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
-                    <fieldset className='form__section --content-info'>
-                        <h2 className="form__title">Основная информация</h2>
-                        <FieldInput
-                            label={"Логин"}
-                            placeholder={"Введите логин..."}
-                            layout='flex'
-                            required={true}
-                            {...register("login")}
-                        />
-                        <FieldInput
-                            label={"Email"}
-                            placeholder={"Введите email..."}
-                            layout='flex'
-                            required={true}
-                            {...register("email")}
-                        />
-                        <FieldInput
-                            label={"ФИО"}
-                            placeholder={"Введите фио..."}
-                            layout='flex'
-                            required={true}
-                            {...register("fio")}
-                        />
-                        <FieldInput
-                            label={"Контактный телефон"}
-                            type={"phone"}
-                            placeholder={"Введите контактный телефон..."}
-                            layout='flex'
-                            required={true}
-                            {...register("phone")}
-                        />
-                        <FieldInput
-                            label={"Школа"}
-                            type={"select"}
-                            defaultSelectItem={{
-                                title: "Выберите школу",
-                                value: "",
-                                disabled: false
-                            }}
-                            selectItems={schools.schools.map(item => {
-                                return {
-                                    title: item.org_short_name,
-                                    value: item.ID,
-                                }
-                            }).sort()}
-                            layout='flex'
-                            required={true}
-                            {...register("schoolID")}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section --content-security'>
-                        <h2 className="form__title">Безопасность</h2>
-                        <FieldInput
-                            label={"Пароль"}
-                            type={"password"}
-                            placeholder={"Введите пароль..."}
-                            layout='flex'
-                            autoComplete={"new-password"}
-                            required={true}
-                            {...register("password", {
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимальная длина пароля 6 символов"
-                                }
-                            })}
-                            errorText={errors?.password && errors.password.message}
-                        />
-                        <FieldInput
-                            label={"Активировать учетную запись?"}
-                            type={"checkbox_variant"}
-                            {...register("active", { value: true })}
-                        />
-                    </fieldset>
+                <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
+                    <div className="form__container --view-two-columns">
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Основная информация</h2>
+                            <FieldInput
+                                label={"Логин"}
+                                placeholder={"Введите логин..."}
+                                layout='flex'
+                                required={true}
+                                {...register("login")}
+                            />
+                            <FieldInput
+                                label={"Email"}
+                                placeholder={"Введите email..."}
+                                layout='flex'
+                                required={true}
+                                {...register("email")}
+                            />
+                            <FieldInput
+                                label={"ФИО"}
+                                placeholder={"Введите фио..."}
+                                layout='flex'
+                                required={true}
+                                {...register("fio")}
+                            />
+                            <FieldInput
+                                label={"Контактный телефон"}
+                                type={"phone"}
+                                placeholder={"Введите контактный телефон..."}
+                                layout='flex'
+                                required={true}
+                                {...register("phone")}
+                            />
+                            <FieldInput
+                                label={"Школа"}
+                                type={"select"}
+                                defaultSelectItem={{
+                                    title: "Выберите школу",
+                                    value: "",
+                                    disabled: false
+                                }}
+                                selectItems={schools.schools.map(item => {
+                                    return {
+                                        title: item.org_short_name,
+                                        value: item.ID,
+                                    }
+                                }).sort()}
+                                layout='flex'
+                                required={true}
+                                {...register("schoolID")}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Безопасность</h2>
+                            <FieldInput
+                                label={"Пароль"}
+                                type={"password"}
+                                placeholder={"Введите пароль..."}
+                                layout='flex'
+                                autoComplete={"new-password"}
+                                required={true}
+                                {...register("password", {
+                                    minLength: {
+                                        value: 6,
+                                        message: "Минимальная длина пароля 6 символов"
+                                    }
+                                })}
+                                errorText={errors?.password && errors.password.message}
+                            />
+                            <FieldInput
+                                label={"Активировать учетную запись?"}
+                                type={"checkbox_variant"}
+                                {...register("active", { value: true })}
+                            />
+                        </fieldset>
+                    </div>
                     <div className="form__controls">
                         <Button
                             type="submit"

@@ -15,7 +15,7 @@ const SchoolPage = () => {
     let { id } = useParams();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const {school, loadSchool, editSchool, loading, sending, error, errorText, clearErrorText} = useSchoolsStore();
+    const { school, loadSchool, editSchool, loading, sending, error, errorText, clearErrorText } = useSchoolsStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -49,7 +49,7 @@ const SchoolPage = () => {
         params.id = id;
         const result = await editSchool(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -80,62 +80,64 @@ const SchoolPage = () => {
                     />
                     <h1 className="content__title">Редактирование школы ID: {id}</h1>
                 </div>
-                <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
-                    <fieldset className='form__section --content-info'>
-                        <h2 className="form__title">Основная информация</h2>
-                        <div className="profile --place-edit-profile">
-                            <p className='profile__text'>Фото</p>
-                            <img className='profile__img'
-                                src={school.photo}
-                                alt={""} />
-                        </div>
-                        <FieldInput
-                            label={"Полное наименование организации"}
-                            type={"textarea"}
-                            rows={5}
-                            placeholder={"Введите полное наименование организации..."}
-                            layout='flex'
-                            required={true}
-                            {...register("org_name", { value: school.org_name })}
-                        />
-                        <FieldInput
-                            label={"Краткое наименование организации"}
-                            placeholder={"Введите краткое наименование организации..."}
-                            layout='flex'
-                            required={true}
-                            {...register("org_short_name", { value: school.org_short_name })}
-                        />
-                        <FieldInput
-                            label={"ФИО директора"}
-                            placeholder={"Введите фио директора..."}
-                            layout='flex'
-                            required={true}
-                            {...register("dir_fio", { value: school.dir_fio })}
-                        />
-                        <FieldInput
-                            label={"E-mail директора"}
-                            placeholder={"Введите email директора..."}
-                            layout='flex'
-                            required={true}
-                            {...register("dir_email", { value: school.dir_email })}
-                        />
-                        <FieldInput
-                            label={"Контактный телефон директора"}
-                            placeholder={"Введите телефон директора..."}
-                            layout='flex'
-                            required={true}
-                            {...register("dir_phone", { value: school.dir_phone })}
-                        />
-                        <FieldInput
-                            label={"Адрес"}
-                            type={"textarea"}
-                            rows={3}
-                            placeholder={"Введите адрес..."}
-                            layout='flex'
-                            required={true}
-                            {...register("address", { value: school.address })}
-                        />
-                    </fieldset>
+                <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                    <div className="form__container --view-one-column">
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Основная информация</h2>
+                            <div className="profile --place-edit-profile">
+                                <p className='profile__text'>Фото</p>
+                                <img className='profile__img'
+                                    src={school.photo}
+                                    alt={""} />
+                            </div>
+                            <FieldInput
+                                label={"Полное наименование организации"}
+                                type={"textarea"}
+                                rows={5}
+                                placeholder={"Введите полное наименование организации..."}
+                                layout='flex'
+                                required={true}
+                                {...register("org_name", { value: school.org_name })}
+                            />
+                            <FieldInput
+                                label={"Краткое наименование организации"}
+                                placeholder={"Введите краткое наименование организации..."}
+                                layout='flex'
+                                required={true}
+                                {...register("org_short_name", { value: school.org_short_name })}
+                            />
+                            <FieldInput
+                                label={"ФИО директора"}
+                                placeholder={"Введите фио директора..."}
+                                layout='flex'
+                                required={true}
+                                {...register("dir_fio", { value: school.dir_fio })}
+                            />
+                            <FieldInput
+                                label={"E-mail директора"}
+                                placeholder={"Введите email директора..."}
+                                layout='flex'
+                                required={true}
+                                {...register("dir_email", { value: school.dir_email })}
+                            />
+                            <FieldInput
+                                label={"Контактный телефон директора"}
+                                placeholder={"Введите телефон директора..."}
+                                layout='flex'
+                                required={true}
+                                {...register("dir_phone", { value: school.dir_phone })}
+                            />
+                            <FieldInput
+                                label={"Адрес"}
+                                type={"textarea"}
+                                rows={3}
+                                placeholder={"Введите адрес..."}
+                                layout='flex'
+                                required={true}
+                                {...register("address", { value: school.address })}
+                            />
+                        </fieldset>
+                    </div>
                     <div className="form__controls">
                         <Button
                             type='submit'

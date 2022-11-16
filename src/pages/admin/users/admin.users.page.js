@@ -16,7 +16,7 @@ const AdminUsersPage = () => {
 
     let { id } = useParams();
     const { register, setValue, handleSubmit, reset, formState: { errors } } = useForm();
-    const {admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText} = useUsersStore();
+    const { admin, loadAdmin, addAdmin, editAdmin, removeAdmin, loading, sending, error, errorText, clearErrorText } = useUsersStore();
 
     const [popupOpened, setPopupOpened] = React.useState(false);
     const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
@@ -43,7 +43,7 @@ const AdminUsersPage = () => {
 
         const result = await addAdmin(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -52,7 +52,7 @@ const AdminUsersPage = () => {
         params.id = id;
         const result = await editAdmin(params);
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -60,7 +60,7 @@ const AdminUsersPage = () => {
 
         const result = await removeAdmin({ id });
 
-        if(!result.error) back();
+        if (!result.error) back();
 
     }
 
@@ -85,102 +85,104 @@ const AdminUsersPage = () => {
                     />
                     <h1 className="content__title">Редактирование администратора ID: {id}</h1>
                 </div>
-                <form onSubmit={handleSubmit(onEditSubmit)} className='form --place-new-user'>
-                    <fieldset className='form__section --content-info'>
-                        <h2 className="form__title">Основная информация</h2>
-                        <div className="profile --place-edit-profile">
-                            <p className='profile__text'>Фото</p>
-                            <img className='profile__img'
-                                src={admin.photo !== "" ? window.global.baseUrl + admin.photo : no_photo_man}
-                                alt={""} />
-                        </div>
-                        <FieldInput
-                            label={"Логин"}
-                            placeholder={"Введите логин..."}
-                            layout='flex'
-                            {...register("login", { value: admin.login })}
-                        />
-                        <FieldInput
-                            label={"Email"}
-                            placeholder={"Введите email..."}
-                            layout='flex'
-                            required={true}
-                            {...register("email", { value: admin.email })}
-                        />
-                        <FieldInput
-                            label={"ФИО"}
-                            placeholder={"Введите фио..."}
-                            layout='flex'
-                            required={true}
-                            {...register("fio", { value: admin.fio })}
-                        />
-                        <FieldInput
-                            label={"Контактный телефон"}
-                            type={"phone"}
-                            placeholder={"Введите контактный телефон..."}
-                            layout='flex'
-                            required={true}
-                            {...register("phone", { value: admin.phone })}
-                        />
-                        <FieldInput
-                            label={"Наименование организации"}
-                            placeholder={"Введите наименование организации..."}
-                            layout='flex'
-                            required={true}
-                            {...register("org_name", { value: admin.org_name })}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section --content-security'>
-                        <h2 className="form__title">Безопасность</h2>
-                        <FieldInput
-                            label={"Пароль"}
-                            type={"password"}
-                            placeholder={"Введите новый пароль..."}
-                            layout='flex'
-                            autoComplete={"new-password"}
-                            {...register("password", {
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимальная длина пароля 6 символов"
-                                }
-                            })}
-                            errorText={errors?.password && errors.password.message}
-                        />
-                        <FieldInput
-                            label={"Активировать учетную запись?"}
-                            type={"checkbox_variant"}
-                            {...register("active", { value: admin.active === "Активен" })}
-                        />
-                    </fieldset>
-                    <fieldset className='form__section --content-access'>
-                        <h2 className="form__title">Права доступа</h2>
-                        <FieldInput
-                            id={"id_1"}
-                            label={"Главный администратор"}
-                            type={"checkbox_variant"}
-                            {...register("superadmin", {
-                                value: admin.role === "Главный администратор",
-                                onChange: (e) => {
-                                    if (e.target.checked) {
-                                        setValue("admin", false);
+                <form onSubmit={handleSubmit(onEditSubmit)} className='form'>
+                    <div className="form__container --view-two-columns">
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Основная информация</h2>
+                            <div className="profile --place-edit-profile">
+                                <p className='profile__text'>Фото</p>
+                                <img className='profile__img'
+                                    src={admin.photo !== "" ? window.global.baseUrl + admin.photo : no_photo_man}
+                                    alt={""} />
+                            </div>
+                            <FieldInput
+                                label={"Логин"}
+                                placeholder={"Введите логин..."}
+                                layout='flex'
+                                {...register("login", { value: admin.login })}
+                            />
+                            <FieldInput
+                                label={"Email"}
+                                placeholder={"Введите email..."}
+                                layout='flex'
+                                required={true}
+                                {...register("email", { value: admin.email })}
+                            />
+                            <FieldInput
+                                label={"ФИО"}
+                                placeholder={"Введите фио..."}
+                                layout='flex'
+                                required={true}
+                                {...register("fio", { value: admin.fio })}
+                            />
+                            <FieldInput
+                                label={"Контактный телефон"}
+                                type={"phone"}
+                                placeholder={"Введите контактный телефон..."}
+                                layout='flex'
+                                required={true}
+                                {...register("phone", { value: admin.phone })}
+                            />
+                            <FieldInput
+                                label={"Наименование организации"}
+                                placeholder={"Введите наименование организации..."}
+                                layout='flex'
+                                required={true}
+                                {...register("org_name", { value: admin.org_name })}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Безопасность</h2>
+                            <FieldInput
+                                label={"Пароль"}
+                                type={"password"}
+                                placeholder={"Введите новый пароль..."}
+                                layout='flex'
+                                autoComplete={"new-password"}
+                                {...register("password", {
+                                    minLength: {
+                                        value: 6,
+                                        message: "Минимальная длина пароля 6 символов"
                                     }
-                                }
-                            })}
-                        />
-                        <FieldInput
-                            id={"id_2"}
-                            label={"Администратор"}
-                            type={"checkbox_variant"}
-                            {...register("admin", {
-                                value: admin.role === "Администратор",
-                                onChange: (e) => {
-                                    if (e.target.checked) {
-                                        setValue("superadmin", false);
+                                })}
+                                errorText={errors?.password && errors.password.message}
+                            />
+                            <FieldInput
+                                label={"Активировать учетную запись?"}
+                                type={"checkbox_variant"}
+                                {...register("active", { value: admin.active === "Активен" })}
+                            />
+                        </fieldset>
+                        <fieldset className='form__section'>
+                            <h2 className="form__title">Права доступа</h2>
+                            <FieldInput
+                                id={"id_1"}
+                                label={"Главный администратор"}
+                                type={"checkbox_variant"}
+                                {...register("superadmin", {
+                                    value: admin.role === "Главный администратор",
+                                    onChange: (e) => {
+                                        if (e.target.checked) {
+                                            setValue("admin", false);
+                                        }
                                     }
-                                }
-                            })}
-                        />
-                    </fieldset>
+                                })}
+                            />
+                            <FieldInput
+                                id={"id_2"}
+                                label={"Администратор"}
+                                type={"checkbox_variant"}
+                                {...register("admin", {
+                                    value: admin.role === "Администратор",
+                                    onChange: (e) => {
+                                        if (e.target.checked) {
+                                            setValue("superadmin", false);
+                                        }
+                                    }
+                                })}
+                            />
+                        </fieldset>
+                    </div>
                     <div className="form__controls">
                         <Button
                             type='submit'
@@ -255,97 +257,99 @@ const AdminUsersPage = () => {
                 />
                 <h1 className="content__title">Создание администратора</h1>
             </div>
-            <form onSubmit={handleSubmit(onAddSubmit)} className='form --place-new-user'>
-                <fieldset className='form__section --content-info'>
-                    <h2 className="form__title">Основная информация</h2>
-                    <FieldInput
-                        label={"Логин"}
-                        placeholder={"Введите логин..."}
-                        layout='flex'
-                        required={true}
-                        {...register("login")}
-                    />
-                    <FieldInput
-                        label={"Email"}
-                        placeholder={"Введите email..."}
-                        layout='flex'
-                        required={true}
-                        {...register("email")}
-                    />
-                    <FieldInput
-                        label={"ФИО"}
-                        placeholder={"Введите фио..."}
-                        layout='flex'
-                        required={true}
-                        {...register("fio")}
-                    />
-                    <FieldInput
-                        label={"Контактный телефон"}
-                        type={"phone"}
-                        placeholder={"Введите контактный телефон..."}
-                        layout='flex'
-                        required={true}
-                        {...register("phone")}
-                    />
-                    <FieldInput
-                        label={"Наименование организации"}
-                        placeholder={"Введите наименование организации..."}
-                        layout='flex'
-                        required={true}
-                        {...register("org_name")}
-                    />
-                </fieldset>
-                <fieldset className='form__section --content-security'>
-                    <h2 className="form__title">Безопасность</h2>
-                    <FieldInput
-                        label={"Пароль"}
-                        type={"password"}
-                        placeholder={"Введите пароль..."}
-                        layout='flex'
-                        autoComplete={"new-password"}
-                        required={true}
-                        {...register("password", {
-                            minLength: {
-                                value: 6,
-                                message: "Минимальная длина пароля 6 символов"
-                            }
-                        })}
-                        errorText={errors?.password && errors.password.message}
-                    />
-                    <FieldInput
-                        label={"Активировать учетную запись?"}
-                        type={"checkbox_variant"}
-                        {...register("active", { value: true })}
-                    />
-                </fieldset>
-                <fieldset className='form__section --content-access'>
-                    <h2 className="form__title">Права доступа</h2>
-                    <FieldInput
-                        id={"id_1"}
-                        label={"Главный администратор"}
-                        type={"checkbox_variant"}
-                        {...register("superadmin", {
-                            value: true,
-                            onChange: (e) => {
-                                if (e.target.checked) {
-                                    setValue("admin", false);
+            <form onSubmit={handleSubmit(onAddSubmit)} className='form'>
+                <div className="form__container --view-two-columns">
+                    <fieldset className='form__section'>
+                        <h2 className="form__title">Основная информация</h2>
+                        <FieldInput
+                            label={"Логин"}
+                            placeholder={"Введите логин..."}
+                            layout='flex'
+                            required={true}
+                            {...register("login")}
+                        />
+                        <FieldInput
+                            label={"Email"}
+                            placeholder={"Введите email..."}
+                            layout='flex'
+                            required={true}
+                            {...register("email")}
+                        />
+                        <FieldInput
+                            label={"ФИО"}
+                            placeholder={"Введите фио..."}
+                            layout='flex'
+                            required={true}
+                            {...register("fio")}
+                        />
+                        <FieldInput
+                            label={"Контактный телефон"}
+                            type={"phone"}
+                            placeholder={"Введите контактный телефон..."}
+                            layout='flex'
+                            required={true}
+                            {...register("phone")}
+                        />
+                        <FieldInput
+                            label={"Наименование организации"}
+                            placeholder={"Введите наименование организации..."}
+                            layout='flex'
+                            required={true}
+                            {...register("org_name")}
+                        />
+                    </fieldset>
+                    <fieldset className='form__section'>
+                        <h2 className="form__title">Безопасность</h2>
+                        <FieldInput
+                            label={"Пароль"}
+                            type={"password"}
+                            placeholder={"Введите пароль..."}
+                            layout='flex'
+                            autoComplete={"new-password"}
+                            required={true}
+                            {...register("password", {
+                                minLength: {
+                                    value: 6,
+                                    message: "Минимальная длина пароля 6 символов"
                                 }
-                            }
-                        })}
-                    />
-                    <FieldInput
-                        id={"id_2"}
-                        label={"Администратор"}
-                        type={"checkbox_variant"}
-                        {...register("admin", {
-                            onChange: (e) => {
-                                if (e.target.checked) {
-                                    setValue("superadmin", false);
+                            })}
+                            errorText={errors?.password && errors.password.message}
+                        />
+                        <FieldInput
+                            label={"Активировать учетную запись?"}
+                            type={"checkbox_variant"}
+                            {...register("active", { value: true })}
+                        />
+                    </fieldset>
+                    <fieldset className='form__section'>
+                        <h2 className="form__title">Права доступа</h2>
+                        <FieldInput
+                            id={"id_1"}
+                            label={"Главный администратор"}
+                            type={"checkbox_variant"}
+                            {...register("superadmin", {
+                                value: true,
+                                onChange: (e) => {
+                                    if (e.target.checked) {
+                                        setValue("admin", false);
+                                    }
                                 }
-                            }
-                        })}
-                    />
-                </fieldset>
+                            })}
+                        />
+                        <FieldInput
+                            id={"id_2"}
+                            label={"Администратор"}
+                            type={"checkbox_variant"}
+                            {...register("admin", {
+                                onChange: (e) => {
+                                    if (e.target.checked) {
+                                        setValue("superadmin", false);
+                                    }
+                                }
+                            })}
+                        />
+                    </fieldset>
+                </div>
                 <div className="form__controls">
                     <Button
                         type='submit'
