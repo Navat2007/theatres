@@ -270,6 +270,15 @@ const MyTheatrePage = () => {
                                 aria-label='Добавить поле'
                                 onClick={handleSocialLink}
                             />
+                            <h2 className="form__title">Ссылка на страницу театра на сайте образовательной
+                                организации </h2>
+                            <div className="form__field-block">
+                                <FieldInput
+                                    type='url'
+                                    placeholder='Введите url-адрес...'
+                                    {...register("theatreUrlSchool")}
+                                />
+                            </div>
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Педагоги</h2>
@@ -285,17 +294,6 @@ const MyTheatrePage = () => {
                                     };
                                 })}
                             />
-                        </fieldset>
-                        <fieldset className='form__section'>
-                            <h2 className="form__title">Ссылка на страницу театра на сайте образовательной
-                                организации </h2>
-                            <div className="form__field-block">
-                                <FieldInput
-                                    type='url'
-                                    placeholder='Введите url-адрес...'
-                                    {...register("theatreUrlSchool")}
-                                />
-                            </div>
                         </fieldset>
                     </Tab>
                     <Tab index={2} title={"Краткое описание"} extraClass='form__tab'>
