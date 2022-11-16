@@ -1,14 +1,15 @@
 import React from 'react';
 import JoditEditor from "jodit-react";
-import {Controller} from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 // all options from https://xdsoft.net/jodit/doc/,
-const Editor = ({control, name, readonly, placeholder, value, ...rest}) => {
+const Editor = ({ control, name, readonly, placeholder, value, ...rest }) => {
 
     const config = {
         readonly: false,
         about: false,
         addNewLine: false,
+        minHeight: '500px',
         placeholder: placeholder || 'Начните писать...'
     };
 
@@ -17,12 +18,12 @@ const Editor = ({control, name, readonly, placeholder, value, ...rest}) => {
             control={control}
             name={name}
             defaultValue={value}
-            render={({field}) => (
+            render={({ field }) => (
                 <JoditEditor
                     ref={field.ref}
                     config={config}
                     value={field.value}
-                    onChange={(value) => {}}
+                    onChange={(value) => { }}
                     onBlur={(value) => {
                         field.onChange(value);
                     }}
