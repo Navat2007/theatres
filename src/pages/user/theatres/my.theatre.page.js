@@ -141,7 +141,7 @@ const MyTheatrePage = () => {
                                 required={true}
                                 placeholder={"Введите название"}
                                 {...register("title")}
-                            />
+                            /> 
                             <FieldInput
                                 label={"Адрес"}
                                 type='textarea'
