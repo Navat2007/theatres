@@ -218,23 +218,26 @@ const TeacherPage = () => {
                         </div>
                     </form>
                     <Notif
-                        title={"Вы уверены что хотите удалить?"}
+                        text={"Вы уверены что хотите удалить?"}
                         opened={popupOpened}
                         onClose={() => setPopupOpened(false)}
                         buttons={<>
                             <Button
                                 type='button'
+                                size={'small'}
+                                text={"Нет"}
+                                theme="text"
+                                onClick={() => setPopupOpened(false)}
+                            />
+                            <Button
+                                type='button'
+                                size={'small'}
+                                theme='info'
                                 text={"Да"}
                                 onClick={() => {
                                     setPopupOpened(false);
                                     onDeleteSubmit();
                                 }}
-                            />
-                            <Button
-                                type='button'
-                                text={"Нет"}
-                                theme="text"
-                                onClick={() => setPopupOpened(false)}
                             />
                         </>
                         }

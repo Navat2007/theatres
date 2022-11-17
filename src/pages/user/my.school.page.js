@@ -322,23 +322,25 @@ const MySchoolPage = () => {
                 </form>
             </Popup>
             <Notif
-                title={"Вы уверены что хотите удалить?"}
-                state="alert"
+                text={"Вы уверены что хотите удалить?"}
                 opened={popupOpened}
                 onClose={() => setPopupOpened(false)}
                 buttons={
                     <>
                         <Button
+                            text={"Нет"}
+                            theme="text"
+                            size={'small'}
+                            onClick={() => setPopupOpened(false)}
+                        />
+                        <Button
                             text={"Да"}
+                            theme='info'
+                            size={'small'}
                             onClick={() => {
                                 setPopupOpened(false);
                                 onPhotoDeleteSubmit();
                             }}
-                        />
-                        <Button
-                            text={"Нет"}
-                            theme="text"
-                            onClick={() => setPopupOpened(false)}
                         />
                     </>
                 }
