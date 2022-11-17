@@ -144,9 +144,39 @@ const MyTheatrePage = () => {
     const onSubmit = handleSubmit(async (data) => {
 
         console.log("Форма: ", data);
-        console.log("Соц сети: ", socialLinks);
 
-        await addTheatre();
+        let sendObject = {
+            schoolID: user.schoolID,
+            title: data.title,
+            address: data.address,
+            foundationDate: data.foundationDate,
+            theatreUrlSchool: data.theatreUrlSchool,
+        };
+
+        if (data.form_activity_select && data.form_activity_select.length > 0)
+            sendObject['formActivity'] = Array.from(data.form_activity_select.map(item => item.value));
+
+        if (data.age_members_select && data.age_members_select.length > 0)
+            sendObject['ageMembers'] = Array.from(data.age_members_select.map(item => item.value));
+
+        if (data.teachers_select && data.teachers_select.length > 0)
+            sendObject['teachers'] = Array.from(data.teachers_select.map(item => item.value));
+
+        if (socialLinks.length > 0)
+            sendObject['socialLinks'] = Array.from(socialLinks.map(link => link.url));
+
+        if (data.editorShortDescription)
+            sendObject['editorShortDescription'] = data.editorShortDescription;
+
+        if (data.editorDirectorMessage)
+            sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
+
+        const result = await addTheatre(sendObject);
+
+        if (!result.error) {
+            reset();
+            navigate("/user/theatreRequests");
+        }
 
     });
 
@@ -258,6 +288,7 @@ const MyTheatrePage = () => {
                                 type='date'
                                 layout='flex'
                                 required={true}
+                                {...register("foundationDate")}
                             />
                         </fieldset>
                         <fieldset className='form__section'>
@@ -274,6 +305,7 @@ const MyTheatrePage = () => {
                                         <FieldInput
                                             type='text'
                                             placeholder='Введите url-адрес...'
+                                            {...register("social_" + item.id)}
                                             onChange={(event) => {
                                                 setSocialLinks(socialLinks.map(link => {
 
@@ -301,6 +333,7 @@ const MyTheatrePage = () => {
                                                     return link;
 
                                                 }));
+                                                setValue("social_" + item.id, event.target.value);
                                             }}
                                             onBlur={(event) => {
                                                 setSocialLinks(socialLinks.map(link => {
@@ -312,6 +345,7 @@ const MyTheatrePage = () => {
                                                     return link;
 
                                                 }));
+                                                setValue("social_" + item.id, event.target.value);
                                             }}
                                             required={true}
                                         />
