@@ -7,7 +7,7 @@ import { persist } from "zustand/middleware";
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load.php';
 const urlLoadTheatreRequests = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_requests.php';
 const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_by_id.php';
-const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_request.php';
+const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_request_by_id.php';
 const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/add_request.php';
 const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/edit_request.php';
 const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/remove_request.php';
@@ -219,7 +219,7 @@ const useTheatresStore = create(
             },
             loadTheatreRequest: async (params) => {
 
-                set({ loading: true });
+                set({ loading: true, theatreRequest: {} });
 
                 let form = new FormData();
                 window.global.buildFormData(form, params);
