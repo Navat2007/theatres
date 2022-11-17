@@ -1,15 +1,17 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from 'moment';
 
 import useTheatresStore from '../../../store/user/theatresStore';
 import useAuthStore from '../../../store/authStore';
 
 import Notif from '../../../components/notif/notif.component';
+import Button from '../../../components/simple/button/button.component';
 
 const MyTheatreRequestPage = () => {
 
     let { id } = useParams();
+    const navigate = useNavigate();
 
     const { user } = useAuthStore();
     const { theatreRequest, loadTheatreRequest, loading, error, errorText, clearErrorText } = useTheatresStore();
@@ -20,6 +22,7 @@ const MyTheatreRequestPage = () => {
 
         await loadTheatreRequest({ id });
 
+        console.clear();
         console.log(theatreRequest);
 
     };
@@ -48,6 +51,8 @@ const MyTheatreRequestPage = () => {
 
     }, []);
 
+    const back = () => navigate("/user/theatreRequests");
+
     if (loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
@@ -57,12 +62,27 @@ const MyTheatreRequestPage = () => {
                 id && Object.keys(theatreRequest).length > 0
                     ?
                     <>
-                        <p>Заявка №{id}</p>
+                        <div className="content__title-block">
+                            <Button
+                                type='button'
+                                theme='text'
+                                size='small'
+                                iconClass={'mdi mdi-arrow-left'}
+                                isIconBtn='true'
+                                aria-label='Назад'
+                                onClick={back}
+                            />
+                            <h1 className='content__title --mb-small'>Заявка №{id}</h1>
+                        </div>
                         <p>Статус: {theatreRequest.status}</p>
                         <p>Название театра: {theatreRequest.title}</p>
                         <p>Дата подачи: {moment(theatreRequest.create_time).format('hh:mm DD.MM.YYYY')}</p>
                         <p>Дата обновления: {moment(theatreRequest.update_time).format('hh:mm DD.MM.YYYY')}</p>
                         <p>Текст отказа: {theatreRequest.decline_text}</p>
+                        <Button text={"Редактировать"} />
+                        <br />
+                        <br />
+                        <Button text={"Отозвать"} />
                     </>
                     :
                     <p>Заявки № {id} не существует</p>
