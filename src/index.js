@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from "axios";
 
+import { SocialIcons } from './components/svgs';
+
 import App from './App';
 
 const baseConfig = () => {
@@ -39,6 +41,29 @@ const baseConfig = () => {
             formData.append(parentKey, value);
         }
     }
+
+    window.global.getSocialIcon = (text) => {
+
+        if (text.includes("t.me/"))
+            return SocialIcons.t;
+        else if (text.includes("vk.com/"))
+            return SocialIcons.vk;
+        else if (text.includes("ok.ru/"))
+            return SocialIcons.ok;
+        else if (text.includes("facebook.com/") || text.includes("fb.com/"))
+            return SocialIcons.facebook;
+        else if (text.includes("plus.google.com/"))
+            return SocialIcons.google;
+        else if (text.includes("linkedin."))
+            return SocialIcons.linkedin;
+        else if (text.includes("twitter.com/"))
+            return SocialIcons.twitter;
+        else if (text.includes("instagram.com/"))
+            return SocialIcons.instagram;
+        else
+            return null;
+
+    };
 
     axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';

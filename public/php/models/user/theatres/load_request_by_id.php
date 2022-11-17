@@ -19,7 +19,6 @@ $sql = "SELECT
         WHERE 
             request.ID = '$id'";
 
-
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -83,4 +82,25 @@ function getStatusText($statusIndex)
 function getSocialLinks($ID)
 {
     global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            sl.url
+        FROM 
+            theatre_requests_social_links as sl 
+        WHERE 
+            sl.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = $row->url;
+        }
+    }
+
+    return $data;
 }
