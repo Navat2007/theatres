@@ -28,8 +28,9 @@ if (mysqli_num_rows($result) > 0) {
         $params = (object)[
 
             'ID' => (int)$row->ID,
-            'schoolID' => $row->schoolID,
-            'userID' => $row->userID,
+            'theatreID' => (int)$row->theatreID,
+            'schoolID' => (int)$row->schoolID,
+            'userID' => (int)$row->userID,
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
             'title' => $row->title,
@@ -42,7 +43,10 @@ if (mysqli_num_rows($result) > 0) {
             'director_message' => html_entity_decode($row->director_message),
             'video_business_card' => $row->video_business_card,
             'social_links' => getSocialLinks($row->ID),
-            'last_user_changed' => $row->last_user_changed,
+            'teachers' => getTeachers($row->ID),
+            'age_members' => getAgeMembers($row->ID),
+            'form_activity' => getFormActivity($row->ID),
+            'last_user_changed' => (int)$row->last_user_changed,
 
         ];
     }
@@ -77,6 +81,93 @@ function getStatusText($statusIndex)
         case 5:
             return "Отозвана";
     }
+}
+
+function getFormActivity($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            fa.activity
+        FROM 
+            theatre_requests_form_activity as fa 
+        WHERE 
+            fa.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object) [
+                'activity' => $row->activity
+            ];
+        }
+    }
+
+    return $data;
+}
+
+function getAgeMembers($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            am.age
+        FROM 
+            theatre_requests_age_members as am 
+        WHERE 
+            am.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object) [
+                'age' => $row->age
+            ];
+        }
+    }
+
+    return $data;
+}
+
+function getTeachers($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            t.teacherID, teacher.f, teacher.i, teacher.o
+        FROM 
+            theatre_requests_teachers as t 
+        LEFT JOIN
+            teachers as teacher on teacher.ID = t.teacherID
+        WHERE 
+            t.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object) [
+                'ID' => (int)$row->teacherID,
+                'fio' => $row->f . ' ' . $row->i . ' ' . $row->o
+            ];
+        }
+    }
+
+    return $data;
 }
 
 function getSocialLinks($ID)

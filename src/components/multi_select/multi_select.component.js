@@ -1,21 +1,22 @@
 import React from "react";
-import ReactSelect, {components} from "react-select";
-import {Controller} from "react-hook-form";
+import ReactSelect, { components } from "react-select";
+import { Controller } from "react-hook-form";
 import makeAnimated from 'react-select/animated';
 
 const MultiSelect = ({
-                         control,
-                         name,
-                         isMulti,
-                         closeMenuOnSelect = true,
-                         placeholder = "Выберите или введите для поиска...",
-                         options = [],
-                         ...rest
-                     }) => {
+    control,
+    name,
+    isMulti,
+    closeMenuOnSelect = true,
+    placeholder = "Выберите или введите для поиска...",
+    values = [],
+    options = [],
+    ...rest
+}) => {
 
     const animatedComponents = makeAnimated();
 
-    const NoOptionsMessage = ({children, ...rest}) => {
+    const NoOptionsMessage = ({ children, ...rest }) => {
 
         return (
             <>
@@ -29,14 +30,15 @@ const MultiSelect = ({
         <Controller
             control={control}
             name={name}
-            render={({field}) => (
+            defaultValue={values}
+            render={({ field }) => (
                 <ReactSelect
                     classNamePrefix="multy-select"
                     {...field}
                     isMulti={isMulti}
                     placeholder={placeholder}
                     closeMenuOnSelect={closeMenuOnSelect}
-                    components={{animatedComponents, NoOptionsMessage}}
+                    components={{ animatedComponents, NoOptionsMessage }}
                     options={options}
                     {...rest}
                 />

@@ -36,6 +36,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
             setValue("address", request.address);
             setValue("foundationDate", request.foundation_date);
             setValue("theatreUrlSchool", request.theatre_url_school);
+            setValue("videoBusinessCard", request.video_business_card);
             setValue("editorShortDescription", request.short_description);
             setValue("editorDirectorMessage", request.director_message);
 
@@ -43,8 +44,8 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                 return { id: window.global.makeid(12), url: link, img: window.global.getSocialIcon(link) };
             });
 
-            console.log(socialLinksArray);
             setSocialLinks(socialLinksArray);
+
         }
 
     }, []);
@@ -81,6 +82,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
             address: data.address,
             foundationDate: data.foundationDate,
             theatreUrlSchool: data.theatreUrlSchool,
+            videoBusinessCard: data.videoBusinessCard,
         };
 
         if (data.form_activity_select && data.form_activity_select.length > 0)
@@ -100,7 +102,6 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
 
         if (data.editorDirectorMessage)
             sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
-
 
         onSubmitDone(sendObject);
 
@@ -125,7 +126,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                             layout='flex'
                             required={true}
                             placeholder={"Введите адрес"}
-                            {...register("address", { value: schoolStore.school.address })}
+                            {...register("address", { value: schoolStore?.school?.address })}
                         />
                         <div className="form__multy-block">
                             <p className="form__label">Форма осуществления деятельности</p>
@@ -135,6 +136,12 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                                 isMulti={true}
                                 name={"form_activity_select"}
                                 closeMenuOnSelect={false}
+                                values={request?.form_activity?.map((item) => {
+                                    return {
+                                        label: item.activity,
+                                        value: item.activity,
+                                    };
+                                })}
                                 options={theatreStore.formActivity.map((item) => {
                                     return {
                                         label: item,
@@ -151,6 +158,12 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                                 isMulti={true}
                                 name={"age_members_select"}
                                 closeMenuOnSelect={false}
+                                values={request?.age_members?.map((item) => {
+                                    return {
+                                        label: item.age,
+                                        value: item.age,
+                                    };
+                                })}
                                 options={theatreStore.ageMembers.map((item) => {
                                     return {
                                         label: item,
@@ -251,7 +264,13 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                             isMulti={true}
                             name={"teachers_select"}
                             closeMenuOnSelect={false}
-                            options={teachersStore.teachers.map((item) => {
+                            values={request?.teachers?.map((item) => {
+                                return {
+                                    label: item.fio,
+                                    value: item.ID,
+                                };
+                            })}
+                            options={teachersStore?.teachers?.map((item) => {
                                 return {
                                     label: `${item.f} ${item.i} ${item.o}`,
                                     value: item.ID,
@@ -362,13 +381,14 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                 </Tab>
                 <Tab index={5} title={"Видео"} extraClass='form__tab'>
                     <fieldset className='form__section'>
-                        <h2 className="form__title">Видео лучших фрагментов</h2>
+                        <h2 className="form__title">Видео визитка школьного театра</h2>
                         <div className="form__field-block">
                             <FieldInput
                                 label={"Ссылка на видео"}
                                 type='url'
                                 placeholder='Введите url-адрес...'
                                 layout='flex'
+                                {...register("videoBusinessCard")}
                             />
                             <Button
                                 type='button'
@@ -392,7 +412,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         />
                     </fieldset>
                     <fieldset className='form__section'>
-                        <h2 className="form__title">Видео визитка школьного театра</h2>
+                        <h2 className="form__title">Видео лучших фрагментов</h2>
                         <div className="form__field-block">
                             <FieldInput
                                 label={"Ссылка на видео"}

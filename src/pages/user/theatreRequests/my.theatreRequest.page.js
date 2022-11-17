@@ -8,6 +8,7 @@ import useAuthStore from '../../../store/authStore';
 import Notif from '../../../components/notif/notif.component';
 import Button from '../../../components/simple/button/button.component';
 import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
+import useTeachersStore from '../../../store/admin/teachersStore';
 
 const MyTheatreRequestPage = () => {
 
@@ -15,7 +16,8 @@ const MyTheatreRequestPage = () => {
     const navigate = useNavigate();
 
     const { user } = useAuthStore();
-    const { theatreRequest, loadTheatreRequest, loading, error, errorText, clearErrorText } = useTheatresStore();
+    const { theatreRequest, loadTheatreRequest, editTheatre, loading, error, errorText, clearErrorText } = useTheatresStore();
+    const teachersStore = useTeachersStore();
 
     const [popup, setPopup] = React.useState(<></>);
     const [edit, setEdit] = React.useState(false);
@@ -23,6 +25,7 @@ const MyTheatreRequestPage = () => {
     const fetchData = async () => {
 
         await loadTheatreRequest({ id });
+        await teachersStore.loadTeachers({ schoolID: user.schoolID });
 
         console.clear();
         console.log(theatreRequest);
@@ -55,19 +58,58 @@ const MyTheatreRequestPage = () => {
 
     const back = () => navigate("/user/theatreRequests");
 
-    const onEditSubmit = async (data) => {
+    const onEditSubmit = async (params) => {
 
-        console.log(data);
+        params.id = id;
+        params.status = 2;
+        params.theatreID = theatreRequest.theatreID;
 
-        //const result = await editTheatre(data);
+        const result = await editTheatre(params);
 
-        // if (!result.error) {
-        //     navigate("/user/theatreRequests");
-        // }
+        if (!result.error) {
+            navigate("/user/theatreRequests");
+        }
 
     };
 
-    if (loading)
+    const onRevokeSubmit = async () => {
+
+        setPopup(
+            <Notif
+                text={"Вы действительно хотите отозвать заявку?"}
+                opened={true}
+                onClose={() => {
+                    setPopup(<></>);
+                }}
+                buttons={<>
+                    <Button
+                        type='button'
+                        text="Нет"
+                        size={'small'}
+                        theme="text"
+                        onClick={() => setPopup(<></>)}
+                    />
+                    <Button
+                        type='button'
+                        text="Да"
+                        theme='info'
+                        size={'small'}
+                        onClick={async () => {
+                            const result = await editTheatre({ id, status: 5 });
+
+                            if (!result.error) {
+                                setPopup(<></>);
+                                navigate("/user/theatreRequests");
+                            }
+                        }}
+                    />
+                </>}
+            />
+        );
+
+    };
+
+    if (loading || teachersStore.loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (edit) {
@@ -85,6 +127,7 @@ const MyTheatreRequestPage = () => {
                 <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
             </div>
             <TheatreRequest request={theatreRequest} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)} />
+            {popup}
         </>);
     }
 
@@ -114,7 +157,7 @@ const MyTheatreRequestPage = () => {
                         <Button text={"Редактировать"} onClick={() => setEdit(true)} />
                         <br />
                         <br />
-                        <Button text={"Отозвать"} />
+                        {theatreRequest.status !== "Отозвана" && <Button text={"Отозвать"} onClick={onRevokeSubmit} />}
                     </>
                     :
                     <p>Заявки № {id} не существует</p>

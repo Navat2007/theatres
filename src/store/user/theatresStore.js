@@ -147,6 +147,8 @@ const useTheatresStore = create(
 
                 if (response?.data) {
 
+                    console.log(response.data);
+
                     if (response.data.error === 1) {
 
                         set((state) => ({

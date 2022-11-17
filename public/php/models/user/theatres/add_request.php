@@ -11,6 +11,7 @@ $title = htmlspecialchars($_POST["title"]);
 $address = htmlspecialchars($_POST["address"]);
 $foundationDate = htmlspecialchars($_POST["foundationDate"]);
 $theatreUrlSchool = htmlspecialchars($_POST["theatreUrlSchool"]);
+$videoBusinessCard = htmlspecialchars($_POST["videoBusinessCard"]);
 $teachers = $_POST["teachers"];
 $socialLinks = $_POST["socialLinks"];
 $formActivity = $_POST["formActivity"];
@@ -32,7 +33,7 @@ if (mysqli_num_rows($result) > 0) {
     $error_text = "Театр с таким названием уже существует в данной школе";
 }
 
-$sql = "SELECT * FROM theatre_requests WHERE title = '$title' AND schoolID = '$schoolID' AND archive = 0";
+$sql = "SELECT * FROM theatre_requests WHERE title = '$title' AND schoolID = '$schoolID' AND status <> '5' AND archive = 0";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -44,12 +45,32 @@ if (mysqli_num_rows($result) > 0) {
 if ($error === 0) {
 
     $sql = "
-        INSERT INTO theatre_requests (schoolID, userID, title, address, foundation_date, theatre_url_school, short_description, director_message, last_user_changed) 
-        VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+        INSERT INTO theatre_requests (schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+        VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
     ";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
+
+    foreach ($formActivity as $activity) {
+
+        $sql = "
+        INSERT INTO theatre_requests_form_activity (requestID, activity) 
+        VALUES ('$lastID', '$activity')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
+
+    foreach ($ageMembers as $age) {
+
+        $sql = "
+        INSERT INTO theatre_requests_age_members (requestID, age) 
+        VALUES ('$lastID', '$age')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
 
     foreach ($teachers as $teacher) {
 
