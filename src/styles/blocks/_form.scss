@@ -42,6 +42,22 @@
     grid-column: 1/-1;
   }
 
+  &__social-block {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+
+    svg {
+      flex: none;
+      @include box(2em);
+      margin: .5em;
+    }
+
+    .form__social-field {
+      flex: auto;
+    }
+  }
+
   &__field-block {
     display: grid;
     gap: .5em 0;
