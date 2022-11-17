@@ -28,6 +28,18 @@ const baseConfig = () => {
 
     }
 
+    window.global.buildFormData = (formData, data, parentKey) => {
+        if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+            Object.keys(data).forEach(key => {
+                window.global.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+            });
+        } else {
+            const value = data == null ? '' : data;
+
+            formData.append(parentKey, value);
+        }
+    }
+
     axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 

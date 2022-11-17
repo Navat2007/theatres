@@ -1,13 +1,16 @@
 import axios from "axios";
+import { isArray } from "lodash";
 
 import create from 'zustand'
 import { persist } from "zustand/middleware";
 
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load.php';
+const urlLoadTheatreRequests = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_requests.php';
 const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_by_id.php';
-const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/add.php';
-const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/edit.php';
-const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/remove.php';
+const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_request.php';
+const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/add_request.php';
+const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/edit_request.php';
+const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/remove_request.php';
 
 const useTheatresStore = create(
     persist(
@@ -15,6 +18,8 @@ const useTheatresStore = create(
             theatres: [],
             theatre: {},
             tempTheatre: {},
+            theatreRequests: [],
+            theatreRequest: {},
 
             loading: false,
             sending: false,
@@ -53,13 +58,11 @@ const useTheatresStore = create(
                 set({ loading: true });
 
                 let form = new FormData();
-
-                for (let key in params) {
-                    form.append(key, params[key]);
-                }
+                window.global.buildFormData(form, params);
 
                 const response = await axios.post(urlLoadTheatres, form).catch(error => {
-                    console.log(error);
+                    set({ loading: false, sending: false, error: true, errorText: error });
+                    return { error: true };
                 });
 
                 set({ loading: false });
@@ -76,13 +79,11 @@ const useTheatresStore = create(
                 set({ loading: true });
 
                 let form = new FormData();
-
-                for (let key in params) {
-                    form.append(key, params[key]);
-                }
+                window.global.buildFormData(form, params);
 
                 const response = await axios.post(urlLoadTheatre, form).catch(error => {
-                    console.log(error);
+                    set({ loading: false, sending: false, error: true, errorText: error });
+                    return { error: true };
                 });
 
                 set({ loading: false });
@@ -99,21 +100,9 @@ const useTheatresStore = create(
                 set({ sending: true });
 
                 let form = new FormData();
-
-                console.log(params);
-
-                for (let key in params) {
-
-                    if (key === "photo") {
-                        form.append("files[]", params[key][0]);
-                    } else {
-                        form.append(key, params[key]);
-                    }
-
-                }
+                window.global.buildFormData(form, params);
 
                 const response = await axios.post(urlAddTheatre, form).catch(error => {
-                    console.log(error);
                     set({ sending: false, error: true, errorText: error });
                     return { error: true };
                 });
@@ -121,6 +110,8 @@ const useTheatresStore = create(
                 set({ sending: false });
 
                 if (response?.data) {
+
+                    console.log("Add theatre request: ", response.data);
 
                     if (response.data.error === 1) {
 
@@ -135,6 +126,8 @@ const useTheatresStore = create(
 
                 }
 
+                set({ tempTheatre: {} });
+
                 return { error: false };
 
             },
@@ -143,19 +136,11 @@ const useTheatresStore = create(
                 set({ sending: true });
 
                 let form = new FormData();
-
-                for (let key in params) {
-
-                    if (key === "photo") {
-                        form.append("files[]", params[key][0]);
-                    } else {
-                        form.append(key, params[key]);
-                    }
-
-                }
+                window.global.buildFormData(form, params);
 
                 const response = await axios.post(urlEditTheatre, form).catch(error => {
-                    console.log(error);
+                    set({ sending: false, error: true, errorText: error });
+                    return { error: true };
                 });
 
                 set({ sending: false });
@@ -183,19 +168,11 @@ const useTheatresStore = create(
                 set({ sending: true });
 
                 let form = new FormData();
-
-                for (let key in params) {
-
-                    if (key === "photo") {
-                        form.append("files[]", params[key][0]);
-                    } else {
-                        form.append(key, params[key]);
-                    }
-
-                }
+                window.global.buildFormData(form, params);
 
                 const response = await axios.post(urlRemoveTheatre, form).catch(error => {
-                    console.log(error);
+                    set({ sending: false, error: true, errorText: error });
+                    return { error: true };
                 });
 
                 set({ sending: false });
@@ -216,6 +193,49 @@ const useTheatresStore = create(
                 }
 
                 return { error: false };
+
+            },
+
+            loadTheatreRequests: async (params) => {
+
+                set({ loading: true });
+
+                let form = new FormData();
+                window.global.buildFormData(form, params);
+
+                const response = await axios.post(urlLoadTheatreRequests, form).catch(error => {
+                    set({ loading: false, sending: false, error: true, errorText: error });
+                    return { error: true };
+                });
+
+                set({ loading: false });
+
+                if (response?.data?.params) {
+
+                    set((state) => ({ theatreRequests: response.data.params }));
+
+                }
+
+            },
+            loadTheatreRequest: async (params) => {
+
+                set({ loading: true });
+
+                let form = new FormData();
+                window.global.buildFormData(form, params);
+
+                const response = await axios.post(urlLoadTheatreRequest, form).catch(error => {
+                    set({ loading: false, sending: false, error: true, errorText: error });
+                    return { error: true };
+                });
+
+                set({ loading: false });
+
+                if (response?.data?.params) {
+
+                    set((state) => ({ theatreRequest: response.data.params }));
+
+                }
 
             },
         }),
