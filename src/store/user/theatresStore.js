@@ -16,10 +16,10 @@ const useTheatresStore = create(
     persist(
         (set, get) => ({
             theatres: [],
-            theatre: {},
-            tempTheatre: {},
+            theatre: null,
+            tempTheatre: null,
             theatreRequests: [],
-            theatreRequest: {},
+            theatreRequest: null,
 
             loading: false,
             sending: false,
@@ -219,7 +219,7 @@ const useTheatresStore = create(
             },
             loadTheatreRequest: async (params) => {
 
-                set({ loading: true, theatreRequest: {} });
+                set({ loading: true, theatreRequest: null });
 
                 let form = new FormData();
                 window.global.buildFormData(form, params);

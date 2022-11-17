@@ -3,21 +3,20 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Auth-Token');
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $id = htmlspecialchars($_POST["id"]);
 
 $error = 0;
 $error_text = "";
 $sqls = array();
-$params = (object)[];
+$params = null;
 
 $sql = "SELECT 
-            request.*
+            theatre.*
         FROM 
-            theatre_requests as request 
+            theatres as theatre
         WHERE 
-            request.ID = '$id'";
+            theatre.ID = '$id'";
 
 
 $sqls[] = $sql;
@@ -35,19 +34,18 @@ if (mysqli_num_rows($result) > 0) {
             'update_time' => $row->update_time,
             'title' => $row->title,
             'address' => $row->address,
-            'status' => getStatusText($row->status),
-            'decline_text' => $row->decline_text,
             'foundation_date' => $row->foundation_date,
             'theatre_url_school' => $row->theatre_url_school,
             'short_description' => html_entity_decode($row->short_description),
             'director_message' => html_entity_decode($row->director_message),
             'video_business_card' => $row->video_business_card,
-            'social_links' => getSocialLinks($row->ID),
+            'social_links' => $row->url,
             'last_user_changed' => $row->last_user_changed,
 
         ];
     }
-}
+} else
+    $params = null;
 
 $content = (object)[
 
@@ -63,24 +61,3 @@ $content = (object)[
 
 ];
 echo json_encode($content);
-
-function getStatusText($statusIndex)
-{
-    switch ((int)$statusIndex) {
-        case 1:
-            return "Рассмотрение";
-        case 2:
-            return "Рассмотрение";
-        case 3:
-            return "Принята";
-        case 4:
-            return "Отклонена";
-        case 5:
-            return "Отозвана";
-    }
-}
-
-function getSocialLinks($ID)
-{
-    global $conn;
-}

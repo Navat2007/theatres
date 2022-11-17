@@ -17,7 +17,6 @@ const HeaderComponent = ({ children, handleBurger }) => {
                 onClick={handleBurger}
             />
             {children}
-            <ProfileHeader className="--place-header" />
         </header>
     );
 };
