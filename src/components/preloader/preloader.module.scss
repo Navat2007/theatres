@@ -42,6 +42,7 @@
       left: 50%;
       transform: translate3d(-50%, -50%, 0);
       @include box(calc(#{var(--preloaderSize)} * 0.35px));
+      border-radius: 50%;
       animation: spin 2s ease infinite;
       background-color: var(--primary);
 

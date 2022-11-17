@@ -86,7 +86,7 @@ const MyTheatrePage = () => {
         if (Object.keys(tempTheatre).length > 0) {
             setPopup(
                 <Notif
-                    text={"У Вас осталась неотправленная заявка, а так же есть заявка в статусе 'Рассмотрение'"}
+                    text="У Вас осталась неотправленная заявка, а так же есть заявка в статусе - Рассмотрение"
                     opened={true}
                     onClose={() => {
                         setPopup(<></>);
@@ -94,6 +94,8 @@ const MyTheatrePage = () => {
                     buttons={<>
                         <Button
                             type='button'
+                            theme={'text'}
+                            size={'small'}
                             text={"Новая заявка"}
                             onClick={() => {
                                 setTempTheatre({});
@@ -102,6 +104,8 @@ const MyTheatrePage = () => {
                         />
                         <Button
                             type='button'
+                            theme={'text'}
+                            size={'small'}
                             text={"Продолжить редактирование"}
                             onClick={() => {
                                 setValue("title", tempTheatre.title);
@@ -110,6 +114,8 @@ const MyTheatrePage = () => {
                         />
                         <Button
                             type='button'
+                            theme={'info'}
+                            size={'small'}
                             text={"Открыть заявку на рассмотрении"}
                             onClick={() => {
                                 setPopup(<></>);

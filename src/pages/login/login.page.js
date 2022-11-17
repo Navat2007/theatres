@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
@@ -12,7 +12,7 @@ import logo from "../../images/login/logo.png";
 
 const LoginPage = () => {
 
-    const {login, loading, error, errorText} = useAuthStore();
+    const { login, loading, error, errorText } = useAuthStore();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
@@ -22,12 +22,22 @@ const LoginPage = () => {
         navigate("/", { replace: true });
 
     };
-
+    
     return (
 
-        <Popup opened={true} title={"Окно входа"} className={"--type-login"}
-            image={{ src: logo, alt: "Логотип патриот.спорт", className: "logo --place-login" }}>
-            <form onSubmit={handleSubmit(onSubmit)} className="form --place-login">
+        <Popup
+            opened={true}
+            title={"Окно входа"}
+            extraClass={"popup-login"}>
+            <img
+                src={logo}
+                className='logo --place-login'
+                alt="Изображение театральных масок"
+            />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="form --place-login"
+            >
                 <FieldInput
                     placeholder={"Введите логин..."}
                     {...register("login", { required: "Поле обязательно к заполнению" })}

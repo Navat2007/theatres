@@ -56,7 +56,8 @@ const ProfileHeader = ({ className }) => {
                 onClick={() => setPopupOpened(true)}
             />
             <Notif
-                title={"Вы действительно хотите выйти?"}
+                title={"Внимание"}
+                text={"Вы действительно хотите выйти?"}
                 opened={popupOpened}
                 onClose={() => {
                     setPopupOpened(false);
@@ -64,17 +65,20 @@ const ProfileHeader = ({ className }) => {
                 buttons={<>
                     <Button
                         type='button'
+                        text="Нет"
+                        size={'small'}
+                        theme="text"
+                        onClick={() => setPopupOpened(false)}
+                    />
+                    <Button
+                        type='button'
                         text="Да"
+                        theme='info'
+                        size={'small'}
                         onClick={() => {
                             logout();
                             navigate("/", { replace: true });
                         }}
-                    />
-                    <Button
-                        type='button'
-                        text="Нет"
-                        theme="text"
-                        onClick={() => setPopupOpened(false)}
                     />
                 </>}
             />

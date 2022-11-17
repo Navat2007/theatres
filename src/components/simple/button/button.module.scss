@@ -120,6 +120,19 @@
     }
   }
 
+  &_theme_info {
+    color: var(--white);
+    background-color: var(--info);
+
+    &:hover {
+      box-shadow: 0 2px 6px rgba(black, .15);
+    }
+
+    &:active {
+      background: darken(map-get($colors, "info"), 2.5%);
+    }
+  }
+
   &_theme_outline {
     color: var(--dark);
     border-color: var(--primary);

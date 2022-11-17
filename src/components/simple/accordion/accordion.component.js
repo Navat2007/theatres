@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import styles from './accordion.module.scss';
 
-export const More = () => (
+const More = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -13,7 +13,7 @@ export const More = () => (
     </svg>
 );
 
-export const Less = ({ className, ...props }) => (
+const Less = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
