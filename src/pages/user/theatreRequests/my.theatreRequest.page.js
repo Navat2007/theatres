@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import moment from 'moment';
 
 import useTheatresStore from '../../../store/user/theatresStore';
 import useAuthStore from '../../../store/authStore';
@@ -18,6 +19,8 @@ const MyTheatreRequestPage = () => {
     const fetchData = async () => {
 
         await loadTheatreRequest({ id });
+
+        console.log(theatreRequest);
 
     };
 
@@ -54,7 +57,12 @@ const MyTheatreRequestPage = () => {
                 id && Object.keys(theatreRequest).length > 0
                     ?
                     <>
-                        <p>Заявка №{id}, статус: {theatreRequest.status}</p>
+                        <p>Заявка №{id}</p>
+                        <p>Статус: {theatreRequest.status}</p>
+                        <p>Название театра: {theatreRequest.title}</p>
+                        <p>Дата подачи: {moment(theatreRequest.create_time).format('hh:mm DD.MM.YYYY')}</p>
+                        <p>Дата обновления: {moment(theatreRequest.update_time).format('hh:mm DD.MM.YYYY')}</p>
+                        <p>Текст отказа: {theatreRequest.decline_text}</p>
                     </>
                     :
                     <p>Заявки № {id} не существует</p>
