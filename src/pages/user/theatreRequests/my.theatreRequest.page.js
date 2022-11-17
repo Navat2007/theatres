@@ -55,6 +55,18 @@ const MyTheatreRequestPage = () => {
 
     const back = () => navigate("/user/theatreRequests");
 
+    const onEditSubmit = async (data) => {
+
+        console.log(data);
+
+        //const result = await editTheatre(data);
+
+        // if (!result.error) {
+        //     navigate("/user/theatreRequests");
+        // }
+
+    };
+
     if (loading)
         return <div className='content__section'><p>Загрузка...</p></div>;
 
@@ -72,7 +84,7 @@ const MyTheatreRequestPage = () => {
                 />
                 <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
             </div>
-            <TheatreRequest request={theatreRequest} onBack={() => setEdit(false)} />
+            <TheatreRequest request={theatreRequest} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)} />
         </>);
     }
 

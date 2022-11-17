@@ -26,6 +26,23 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
     const teachersStore = useTeachersStore();
     const schoolStore = useSchoolStore();
 
+    React.useEffect(() => {
+
+        if (request) {
+
+            console.log("Have data: ", request);
+
+            setValue("title", request.title);
+            setValue("address", request.address);
+            setValue("foundationDate", request.foundation_date);
+            setValue("theatreUrlSchool", request.theatre_url_school);
+            setValue("editorShortDescription", request.short_description);
+            setValue("editorDirectorMessage", request.director_message);
+
+        }
+
+    }, []);
+
     const handlePhoto = () => {
 
         setPopup(
