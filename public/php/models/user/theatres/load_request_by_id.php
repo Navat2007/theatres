@@ -67,7 +67,7 @@ function getStatusText($statusIndex)
 {
     switch ((int)$statusIndex) {
         case 1:
-            return "Новая";
+            return "Рассмотрение";
         case 2:
             return "Рассмотрение";
         case 3:

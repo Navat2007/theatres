@@ -5,7 +5,7 @@ import moment from "moment";
 import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search_filter/search.filter.component";
 
-const Table = ({children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12}) => {
+const Table = ({ children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12 }) => {
 
     const [order, setOrder] = React.useState("ASC");
     const [sorted, setSorted] = React.useState([]);
@@ -103,12 +103,11 @@ const Table = ({children, title, itemsConfig, items, onItemClick, loading, withF
 
             case "image":
                 return value ?
-                    <img className='table-school-logo' src={window.global.baseUrl + value} alt={""}/> : <></>;
+                    <img className='table-school-logo' src={window.global.baseUrl + value} alt={""} /> : <></>;
 
             case "string":
-                if(configItem.key === "status")
-                {
-                    switch (value){
+                if (configItem.key === "status") {
+                    switch (value) {
                         case "Новая":
                             return <p className='table__request --status-new'>Новая</p>;
                         case "Принята":
@@ -126,6 +125,12 @@ const Table = ({children, title, itemsConfig, items, onItemClick, loading, withF
 
                 return <>{value}</>;
 
+            case "date":
+                return <>{moment(value).format('DD.MM.YYYY')}</>;
+
+            case "datetime":
+                return <>{moment(value).format('hh:mm DD.MM.YYYY')}</>;
+
             default:
                 return <>{value}</>;
 
@@ -137,7 +142,7 @@ const Table = ({children, title, itemsConfig, items, onItemClick, loading, withF
 
         function checkItem(config, itemValue, filterValue, prop) {
 
-            if(prop === "search_string"){
+            if (prop === "search_string") {
 
                 let tmpFilter = {};
 
@@ -158,17 +163,28 @@ const Table = ({children, title, itemsConfig, items, onItemClick, loading, withF
                     return config.filter === "select" ? itemValue[prop] === filterValue[prop] : itemValue[prop].toLowerCase().includes(filterValue[prop].toLowerCase());
 
                 case "date":
-                    if("linkKey" in config){
-                        if("dateFilter" in config && config.dateFilter === "to")
+                    if ("linkKey" in config) {
+                        if ("dateFilter" in config && config.dateFilter === "to")
                             return moment(itemValue[config["linkKey"]]).isBefore(moment(filterValue[prop]));
-                        if("dateFilter" in config && config.dateFilter === "from")
+                        if ("dateFilter" in config && config.dateFilter === "from")
                             return moment(itemValue[config["linkKey"]]).isAfter(moment(filterValue[prop]));
                     }
 
                     return moment(itemValue[prop]).isSame(moment(filterValue[prop]));
 
+                case "datetime":
+                    if ("linkKey" in config) {
+                        if ("dateFilter" in config && config.dateFilter === "to")
+                            return moment(itemValue[config["linkKey"]]).isBefore(moment(filterValue[prop]));
+                        if ("dateFilter" in config && config.dateFilter === "from")
+                            return moment(itemValue[config["linkKey"]]).isAfter(moment(filterValue[prop]));
+                    }
+
+                    const itemDate = moment(itemValue[prop]);
+                    return moment({ year: itemDate.get('year'), month: itemDate.get('month'), day: itemDate.get('date') }).isSame(moment(filterValue[prop]));
+
                 default:
-                    if(itemValue[prop])
+                    if (itemValue[prop])
                         return itemValue[prop] === filterValue[prop];
                     else
                         return false;
@@ -223,56 +239,56 @@ const Table = ({children, title, itemsConfig, items, onItemClick, loading, withF
                 filtered && filtered.length > 0
                 &&
                 <>
-                    <Pagination pageCount={pageCount} setPageCallback={handleChangePage}/>
+                    <Pagination pageCount={pageCount} setPageCallback={handleChangePage} />
                     <div className="table">
                         <div className="table__container">
                             <table>
                                 <thead>
-                                <tr>
-                                    {
-                                        itemsConfig.map((item) => (
-                                            !item.hide
-                                            &&
-                                            <th key={item.header}>
-                                                <p
-                                                    className={`${'sorting' in item ? "table__sorting" : ""} ${sortKey === item.key ? "--actived" : ""} ${sortKey === item.key && order === "ASC" ? "--state-ascending" : "--state-descending"}`}
-                                                    aria-label='Сортировать по возрастанию'
-                                                    onClick={() => {
-                                                        if ('sorting' in item) {
-                                                            setSortKey(item.key);
-                                                            sorting(item.key, item.type);
-                                                        }
-                                                    }}
-                                                >
-                                                    {item.header}
-                                                </p>
-                                            </th>
-                                        ))
-                                    }
-                                </tr>
+                                    <tr>
+                                        {
+                                            itemsConfig.map((item) => (
+                                                !item.hide
+                                                &&
+                                                <th key={item.header}>
+                                                    <p
+                                                        className={`${'sorting' in item ? "table__sorting" : ""} ${sortKey === item.key ? "--actived" : ""} ${sortKey === item.key && order === "ASC" ? "--state-ascending" : "--state-descending"}`}
+                                                        aria-label='Сортировать по возрастанию'
+                                                        onClick={() => {
+                                                            if ('sorting' in item) {
+                                                                setSortKey(item.key);
+                                                                sorting(item.key, item.type);
+                                                            }
+                                                        }}
+                                                    >
+                                                        {item.header}
+                                                    </p>
+                                                </th>
+                                            ))
+                                        }
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {
-                                    paginatedItems.map(item => (
-                                        <tr
-                                            className='table__row-hover'
-                                            key={item.ID}
-                                            onClick={() => onItemClick && onItemClick(item.ID)}
-                                        >
-                                            {
-                                                itemsConfig.map(itemKey => (
-                                                    !itemKey.hide
-                                                    &&
-                                                    <td key={itemKey.key}>
-                                                        {
-                                                            getElementByType(itemKey, item[itemKey.key])
-                                                        }
-                                                    </td>
-                                                ))
-                                            }
-                                        </tr>
-                                    ))
-                                }
+                                    {
+                                        paginatedItems.map(item => (
+                                            <tr
+                                                className='table__row-hover'
+                                                key={item.ID}
+                                                onClick={() => onItemClick && onItemClick(item.ID)}
+                                            >
+                                                {
+                                                    itemsConfig.map(itemKey => (
+                                                        !itemKey.hide
+                                                        &&
+                                                        <td key={itemKey.key}>
+                                                            {
+                                                                getElementByType(itemKey, item[itemKey.key])
+                                                            }
+                                                        </td>
+                                                    ))
+                                                }
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>

@@ -54,14 +54,14 @@ const MyTheatreRequestsPage = () => {
         {
             header: "Дата подачи",
             key: "create_time",
-            type: "date",
+            type: "datetime",
             filter: "date",
             sorting: true,
         },
         {
             header: "Дата обновления",
             key: "update_time",
-            type: "date",
+            type: "datetime",
             filter: "date",
             sorting: true,
         },
