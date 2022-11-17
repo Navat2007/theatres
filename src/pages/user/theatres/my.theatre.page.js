@@ -29,6 +29,7 @@ const MyTheatrePage = () => {
         tempTheatre,
         setTempTheatre,
         loadTheatre,
+        addTheatre,
         formActivity,
         ageMembers,
         loading,
@@ -59,6 +60,24 @@ const MyTheatrePage = () => {
         fetchData();
 
     }, [id]);
+
+    React.useEffect(() => {
+
+        if (error) {
+            setPopup(
+                <Notif
+                    title="Ошибка"
+                    text={errorText}
+                    opened={true}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopup(<></>);
+                    }}
+                />
+            );
+        }
+
+    }, [error]);
 
     React.useEffect(() => {
 
@@ -116,10 +135,12 @@ const MyTheatrePage = () => {
 
     const back = () => navigate("/user/theatres");
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(async (data) => {
 
         console.log("Форма: ", data);
         console.log("Соц сети: ", socialLinks);
+
+        await addTheatre();
 
     });
 

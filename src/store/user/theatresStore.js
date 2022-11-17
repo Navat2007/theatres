@@ -100,6 +100,8 @@ const useTheatresStore = create(
 
                 let form = new FormData();
 
+                console.log(params);
+
                 for (let key in params) {
 
                     if (key === "photo") {
@@ -112,6 +114,8 @@ const useTheatresStore = create(
 
                 const response = await axios.post(urlAddTheatre, form).catch(error => {
                     console.log(error);
+                    set({ sending: false, error: true, errorText: error });
+                    return { error: true };
                 });
 
                 set({ sending: false });
