@@ -39,8 +39,8 @@ if (mysqli_num_rows($result) > 0) {
             'decline_text' => $row->decline_text,
             'foundation_date' => $row->foundation_date,
             'theatre_url_school' => $row->theatre_url_school,
-            'short_description' => $row->short_description,
-            'director_message' => $row->director_message,
+            'short_description' => html_entity_decode($row->short_description),
+            'director_message' => html_entity_decode($row->director_message),
             'video_business_card' => $row->video_business_card,
             'last_user_changed' => $row->last_user_changed,
 
