@@ -183,23 +183,24 @@ const ProfilePage = () => {
                 </ul>
             </div>
             <Notif
-                title={"Вы уверены что хотите удалить?"}
-                state="alert"
+                text={"Вы уверены что хотите удалить?"}
                 opened={popupOpened}
                 onClose={() => setPopupOpened(false)}
                 buttons={
                     <>
                         <Button
+                            text={"Нет"}
+                            theme="text"
+                            size={'small'}
+                            onClick={() => setPopupOpened(false)}
+                        />
+                        <Button
                             text={"Да"}
+                            theme='info'
                             onClick={() => {
                                 setPopupOpened(false);
                                 onDeleteSubmit();
                             }}
-                        />
-                        <Button
-                            text={"Нет"}
-                            theme="text"
-                            onClick={() => setPopupOpened(false)}
                         />
                     </>
                 }

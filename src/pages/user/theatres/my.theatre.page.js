@@ -66,7 +66,7 @@ const MyTheatrePage = () => {
         if (error) {
             setPopup(
                 <Notif
-                    title="Ошибка"
+                    title="Ошибка!"
                     text={errorText}
                     opened={true}
                     onClose={() => {

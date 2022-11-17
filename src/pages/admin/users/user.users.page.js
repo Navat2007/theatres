@@ -197,24 +197,28 @@ const UserUsersPage = () => {
                         </div>
                     </form>
                     <Notif
-                        title={"Вы уверены что хотите удалить?"}
+                        text={"Вы уверены что хотите удалить?"}
                         opened={popupOpened}
                         onClose={() => setPopupOpened(false)}
                         buttons={<>
                             <Button
                                 type='button'
+                                text={"Нет"}
+                                size='size'
+                                theme='text'
+                                onClick={() => setPopupOpened(false)}
+                            />
+                            <Button
+                                type='button'
                                 text={"Да"}
+                                size='size'
+                                theme={'info'}
                                 onClick={() => {
                                     setPopupOpened(false);
                                     onDeleteSubmit();
                                 }}
                             />
-                            <Button
-                                type='button'
-                                text={"Нет"}
-                                theme='text'
-                                onClick={() => setPopupOpened(false)}
-                            />
+
                         </>
                         }
                     />

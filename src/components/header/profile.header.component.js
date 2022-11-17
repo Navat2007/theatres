@@ -56,7 +56,6 @@ const ProfileHeader = ({ className }) => {
                 onClick={() => setPopupOpened(true)}
             />
             <Notif
-                title={"Внимание"}
                 text={"Вы действительно хотите выйти?"}
                 opened={popupOpened}
                 onClose={() => {
