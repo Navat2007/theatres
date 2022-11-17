@@ -1,5 +1,8 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import useTheatresStore from '../../../store/user/theatresStore';
+import useAuthStore from '../../../store/authStore';
 
 import Table from "../../../components/table/table.component";
 
@@ -7,13 +10,22 @@ const MyTheatreRequestsPage = () => {
 
     const navigate = useNavigate();
 
+    const { user } = useAuthStore();
+    const { theatreRequests, loadTheatreRequests, loading } = useTheatresStore();
+
     const onItemClick = (props) => {
         navigate(`/user/theatreRequests/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadTheatreRequests({ schoolID: user.schoolID });
+
+    };
+
     React.useEffect(() => {
 
-
+        fetchData();
 
     }, []);
 
@@ -26,34 +38,31 @@ const MyTheatreRequestsPage = () => {
             sorting: true,
         },
         {
-            header: "Название мероприятия",
+            header: "Название театра",
             key: "title",
             type: "string",
             filter: "string",
             sorting: true,
         },
         {
-            header: "Вид спорта",
-            key: "sport_type",
+            header: "Адрес",
+            key: "address",
             type: "string",
-            filter: "select",
+            filter: "string",
             sorting: true,
         },
         {
-            header: "Дата начала проведения",
-            key: "event_start",
-            type: "string",
+            header: "Дата подачи",
+            key: "create_time",
+            type: "date",
+            filter: "date",
+            sorting: true,
         },
         {
-            header: "Дата завершения",
-            key: "event_end",
-            type: "string"
-        },
-        {
-            header: "Кол-во этапов",
-            key: "stages",
-            type: "int",
-            filter: "select",
+            header: "Дата обновления",
+            key: "update_time",
+            type: "date",
+            filter: "date",
             sorting: true,
         },
         {
@@ -69,8 +78,8 @@ const MyTheatreRequestsPage = () => {
         <div className='content__section'>
             <Table
                 title={"Таблица заявок на театры"}
-                loading={false}
-                items={[]}
+                loading={loading}
+                items={theatreRequests}
                 itemsConfig={itemConfig}
                 onItemClick={onItemClick}
                 withFilter={true}
