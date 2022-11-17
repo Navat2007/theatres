@@ -29,6 +29,8 @@ const MyTheatrePage = () => {
         theatre,
         loadTheatre,
         addTheatre,
+        editTheatre,
+        removeTheatre,
         loading,
         sending,
         error,
