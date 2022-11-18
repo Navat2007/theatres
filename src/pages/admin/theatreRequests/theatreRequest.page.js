@@ -138,7 +138,18 @@ const TheatreRequestPage = () => {
                 />
                 <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
             </div>
-            <TheatreRequest request={theatreRequest} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)}/>
+            <TheatreRequest
+                isAdmin={true}
+                request={theatreRequest}
+                onAccept={() => {
+                    console.log("accept");
+                }}
+                onDecline={() => {
+                    console.log("decline");
+                }}
+                onSubmitDone={onEditSubmit}
+                onBack={() => setEdit(false)}
+            />
             {popup}
         </div>);
     }

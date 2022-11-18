@@ -14,7 +14,7 @@ import Tab from '../../tabs/tab.component';
 import Tabs from '../../tabs/tabs.component';
 import Popup from "../../../components/popup/popup.component";
 
-function TheatreRequest({ onSubmitDone, onBack, request }) {
+function TheatreRequest({ onSubmitDone, onBack, onAccept, onDecline, request, isAdmin }) {
 
     const { register, handleSubmit, reset, control, getValues, setValue } = useForm();
 
@@ -110,7 +110,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
     return (
         <form onSubmit={onSubmit} className='form'>
             <Tabs>
-                <Tab index={1} title={"Основная информация"} extraClass='form__tab form__container --view-two-columns'>
+                <Tab title={"Основная информация"} extraClass='form__tab form__container --view-two-columns'>
                     <fieldset className='form__section'>
                         <FieldInput
                             label={"Название театра"}
@@ -279,7 +279,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         />
                     </fieldset>
                 </Tab>
-                <Tab index={2} title={"Краткое описание"} extraClass='form__tab'>
+                <Tab title={"Краткое описание"} extraClass='form__tab'>
                     <div className="form__editor-block">
                         <p className="form__label">Краткое описание</p>
                         <Editor
@@ -289,7 +289,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         />
                     </div>
                 </Tab>
-                <Tab index={3} title={"Обращение режиссёра"} extraClass='form__tab'>
+                <Tab title={"Обращение режиссёра"} extraClass='form__tab'>
                     <div className="form__editor-block">
                         <p className="form__label">Обращение режиссёра</p>
                         <Editor
@@ -298,7 +298,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         />
                     </div>
                 </Tab>
-                <Tab index={4} title={"Фотографии"} extraClass='form__tab'>
+                <Tab title={"Фотографии"} extraClass='form__tab'>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Фотографии театра</h2>
                         <ul className="gallery-form">
@@ -379,7 +379,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         <p>Нет загруженного контента</p>
                     </fieldset>
                 </Tab>
-                <Tab index={5} title={"Видео"} extraClass='form__tab'>
+                <Tab title={"Видео"} extraClass='form__tab'>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Видео визитка школьного театра</h2>
                         <div className="form__field-block">
@@ -442,7 +442,7 @@ function TheatreRequest({ onSubmitDone, onBack, request }) {
                         />
                     </fieldset>
                 </Tab>
-                <Tab index={6} title={"Описания (рецензии)"} extraClass='form__tab'>
+                <Tab title={"Описания (рецензии)"} extraClass='form__tab'>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Рассказ о других школьных театрах</h2>
                         <div className="form__field-block">

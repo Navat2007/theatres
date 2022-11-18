@@ -7,7 +7,7 @@ const Tabs = ({
     children
 }) => {
 
-    const [activeTab, setActiveTab] = React.useState(1);
+    const [activeTab, setActiveTab] = React.useState(0);
 
     if(!children.length)
         return (
@@ -23,11 +23,11 @@ const Tabs = ({
         <div className={styles.tabs}>
             <ul className={styles.list}>
                 {
-                    children.map(child => (
+                    children.map((child, index) => (
                         <li
                             key={child.props.title}
-                            onClick={() => setActiveTab(child.props.index)}
-                            className={styles.item + (child.props.index === activeTab ? ` ` + styles.item_actived : "")}
+                            onClick={() => setActiveTab(index)}
+                            className={styles.item + (index === activeTab ? ` ` + styles.item_actived : "")}
                         >
                             {child.props.title}
                         </li>
@@ -43,7 +43,7 @@ const Tabs = ({
                     transition={{ duration: 0.2 }}
                 >
                     {
-                        children.filter(child => activeTab === child.props.index).map(child => (
+                        children.filter((child, index) => activeTab === index).map(child => (
                             <section
                                 key={child.props.title}
                                 className={child.props.extraClass}
