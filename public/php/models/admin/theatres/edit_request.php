@@ -127,8 +127,8 @@ if ($error === 0) {
             foreach ($formActivity as $activity) {
 
                 $sql = "
-                INSERT INTO theatres_form_activity (requestID, activity) 
-                VALUES ('$id', '$activity')";
+                INSERT INTO theatres_form_activity (theatreID, activity) 
+                VALUES ('$lastID', '$activity')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -137,8 +137,8 @@ if ($error === 0) {
             foreach ($ageMembers as $age) {
 
                 $sql = "
-                INSERT INTO theatres_age_members (requestID, age) 
-                VALUES ('$id', '$age')";
+                INSERT INTO theatres_age_members (theatreID, age) 
+                VALUES ('$lastID', '$age')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -147,8 +147,8 @@ if ($error === 0) {
             foreach ($teachers as $teacher) {
 
                 $sql = "
-                INSERT INTO theatres_teachers (requestID, teacherID) 
-                VALUES ('$id', '$teacher')";
+                INSERT INTO theatres_teachers (theatreID, teacherID) 
+                VALUES ('$lastID', '$teacher')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -157,8 +157,8 @@ if ($error === 0) {
             foreach ($socialLinks as $link) {
 
                 $sql = "
-                INSERT INTO theatres_social_links (requestID, url) 
-                VALUES ('$id', '$link')";
+                INSERT INTO theatres_social_links (theatreID, url) 
+                VALUES ('$lastID', '$link')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);

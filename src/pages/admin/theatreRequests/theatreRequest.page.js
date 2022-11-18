@@ -40,9 +40,12 @@ const TheatreRequestPage = () => {
 
     const fetchData = async () => {
 
-        await requestChangeNew({id});
+
         const request = await loadTheatreRequest({id});
         await teachersStore.loadTeachers({schoolID: request.schoolID});
+
+        if(request.status === "Новая")
+            await requestChangeNew({id});
 
         console.clear();
         console.log(request);

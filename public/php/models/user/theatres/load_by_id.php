@@ -103,7 +103,7 @@ function getAgeMembers($ID)
         FROM 
             theatres_age_members as am 
         WHERE 
-            am.requestID = '$ID'";
+            am.theatreID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
