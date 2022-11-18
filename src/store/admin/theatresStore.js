@@ -7,7 +7,7 @@ const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatr
 const urlLoadTheatreRequests = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/load_requests.php';
 const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/load_request_by_id.php';
 const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/add.php';
-const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/edit.php';
+const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/edit_request.php';
 const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/remove.php';
 const urlRequestChangeNew = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/change_new.php';
 

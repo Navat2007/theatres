@@ -10,6 +10,7 @@ import TheatreRequest from '../../../components/page_components/theatre_request/
 import Notif from '../../../components/notif/notif.component';
 
 import no_photo_man from "../../../images/no_photo_man.png";
+import Popup from "../../../components/popup/popup.component";
 
 const TheatreRequestPage = () => {
 
@@ -90,39 +91,17 @@ const TheatreRequestPage = () => {
 
         console.log(params);
 
-        return;
-
         setPopup(
-            <Notif
-                text={"Вы действительно хотите отозвать заявку?"}
+            <Popup
+                title={"Укажите причину отклонения заявки"}
                 opened={true}
                 onClose={() => {
                     setPopup(<></>);
                 }}
-                buttons={<>
-                    <Button
-                        type='button'
-                        text="Нет"
-                        size={'small'}
-                        theme="text"
-                        onClick={() => setPopup(<></>)}
-                    />
-                    <Button
-                        type='button'
-                        text="Да"
-                        theme='info'
-                        size={'small'}
-                        onClick={async () => {
-                            const result = await editTheatre({id, status: 5});
 
-                            if (!result.error) {
-                                setPopup(<></>);
-                                navigate("/user/theatreRequests");
-                            }
-                        }}
-                    />
-                </>}
-            />
+            >
+
+            </Popup>
         );
 
     };
