@@ -322,7 +322,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                     <div className="form__editor-block">
                         <p className="form__label">Краткое описание</p>
                         <Editor
-                            required={true}
                             control={control}
                             name="editorShortDescription"
                         />
