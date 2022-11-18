@@ -1,7 +1,7 @@
 import React from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 import useTeachersStore from '../../../store/admin/teachersStore';
 import useTheatresStore from '../../../store/admin/theatresStore';
@@ -10,18 +10,17 @@ import Button from '../../../components/simple/button/button.component';
 import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
 import Notif from '../../../components/notif/notif.component';
 import Popup from "../../../components/popup/popup.component";
-import FieldInput from "../../../components/simple/field/field.input.component";
 
-import no_photo_man from "../../../images/no_photo_man.png";
 import Editor from "../../../components/reach_editor/editor.component";
 import Accordion from '../../../components/simple/accordion/accordion.component';
+import JoditEditor from "jodit-react";
 
 const TheatreRequestPage = () => {
 
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
 
-    const { register, handleSubmit, control } = useForm();
+    const {register, handleSubmit, control} = useForm();
 
     const {
         theatreRequest,
@@ -42,11 +41,11 @@ const TheatreRequestPage = () => {
     const fetchData = async () => {
 
 
-        const request = await loadTheatreRequest({ id });
-        await teachersStore.loadTeachers({ schoolID: request.schoolID });
+        const request = await loadTheatreRequest({id});
+        await teachersStore.loadTeachers({schoolID: request.schoolID});
 
         if (request.status === "Новая")
-            await requestChangeNew({ id });
+            await requestChangeNew({id});
 
         console.clear();
         console.log(request);
@@ -78,6 +77,23 @@ const TheatreRequestPage = () => {
     }, []);
 
     const back = () => navigate("/admin/theatreRequests");
+
+    const getStatusText = (value) => {
+        switch (value) {
+            case "Новая":
+                return <p className='request-status --status-new'>Новая</p>;
+            case "Принята":
+                return <p className='request-status --status-accept'>Принята</p>;
+            case "Отклонена":
+                return <p className='request-status --status-decline'>Отклонена</p>;
+            case "Отозвана":
+                return <p className='request-status --status-callback'>Отозвана</p>;
+            case "Рассмотрение":
+                return <p className='request-status --status-review'>Рассмотрение</p>
+            default:
+                return <>{value}</>;
+        }
+    };
 
     const onAcceptSubmit = async (params) => {
 
@@ -133,7 +149,7 @@ const TheatreRequestPage = () => {
                             type="submit"
                             text="Отправить"
                             spinnerActive={sending}
-                            style={{ marginLeft: 'auto', display: 'block' }}
+                            style={{marginLeft: 'auto', display: 'block'}}
                         />
                     </div>
                 </form>
@@ -190,26 +206,29 @@ const TheatreRequestPage = () => {
                         </div>
                         <div className="request-card">
                             <div className="request-card__section --content-main-info">
+                                <>{getStatusText(theatreRequest.status)}</>
                                 {
-                                    theatreRequest.status === "Отклонена" ?
-                                        <Accordion title={'Отклонена: Причина отказа'}>
-                                            {theatreRequest.decline_text}
-                                        </Accordion>
-                                        :
-                                        // Подключить классы на разные статусы как в таблице
-                                        <p className='request-status --status-review'>
-                                            {theatreRequest.status}
-                                        </p>
+                                    theatreRequest.status === "Отклонена"
+                                    &&
+                                    <Accordion title={'Причина отказа'}>
+                                        <JoditEditor
+                                            config={{readonly: true, toolbar: false}}
+                                            value={theatreRequest.decline_text}
+                                        />
+                                    </Accordion>
+
                                 }
                                 <ul className='request-card__dates'>
                                     <li>
                                         <p className="request-card__date">Дата подачи:
-                                            <span className='request-card__date-accent'> {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</span>
+                                            <span
+                                                className='request-card__date-accent'> {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p className="request-card__date">Дата обновления:
-                                            <span className='request-card__date-accent'> {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</span>
+                                            <span
+                                                className='request-card__date-accent'> {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</span>
                                         </p>
                                     </li>
                                 </ul>
@@ -233,9 +252,9 @@ const TheatreRequestPage = () => {
                                         &&
                                         <li>
                                             <a href={`email:${theatreRequest.user.email}`}
-                                                className='profile__link link --type-icon --icon-email'
-                                                rel='noreferrer nofollow noopener'
-                                                target='_blank'
+                                               className='profile__link link --type-icon --icon-email'
+                                               rel='noreferrer nofollow noopener'
+                                               target='_blank'
                                             >
                                                 {theatreRequest.user.email}
                                             </a>
@@ -246,9 +265,9 @@ const TheatreRequestPage = () => {
                                         &&
                                         <li>
                                             <a href={`tel:${theatreRequest.user.phone}`}
-                                                className='profile__link link --type-icon --icon-phone'
-                                                rel='noreferrer nofollow noopener'
-                                                target='_blank'
+                                               className='profile__link link --type-icon --icon-phone'
+                                               rel='noreferrer nofollow noopener'
+                                               target='_blank'
                                             >
                                                 {theatreRequest.user.phone}
                                             </a>

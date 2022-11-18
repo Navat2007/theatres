@@ -10,6 +10,7 @@ import Button from '../../../components/simple/button/button.component';
 import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
 import useTeachersStore from '../../../store/admin/teachersStore';
 import Accordion from '../../../components/simple/accordion/accordion.component';
+import JoditEditor from "jodit-react";
 
 const MyTheatreRequestPage = () => {
 
@@ -58,6 +59,23 @@ const MyTheatreRequestPage = () => {
     }, []);
 
     const back = () => navigate("/user/theatreRequests");
+
+    const getStatusText = (value) => {
+        switch (value) {
+            case "Новая":
+                return <p className='request-status --status-new'>Новая</p>;
+            case "Принята":
+                return <p className='request-status --status-accept'>Принята</p>;
+            case "Отклонена":
+                return <p className='request-status --status-decline'>Отклонена</p>;
+            case "Отозвана":
+                return <p className='request-status --status-callback'>Отозвана</p>;
+            case "Рассмотрение":
+                return <p className='request-status --status-review'>Рассмотрение</p>
+            default:
+                return <>{value}</>;
+        }
+    };
 
     const onEditSubmit = async (params) => {
 
@@ -152,16 +170,17 @@ const MyTheatreRequestPage = () => {
                         </div>
                         <div className="request-card">
                             <div className="request-card__section">
+                                <>{getStatusText(theatreRequest.status)}</>
                                 {
-                                    theatreRequest.status === "Отклонена" ?
-                                        <Accordion title={'Отклонена: Причина отказа'}>
-                                            {theatreRequest.decline_text}
-                                        </Accordion>
-                                        :
-                                        // Подключить классы на разные статусы как в таблице
-                                        <p className='request-status --status-review'>
-                                            {theatreRequest.status}
-                                        </p>
+                                    theatreRequest.status === "Отклонена"
+                                    &&
+                                    <Accordion title={'Причина отказа'}>
+                                        <JoditEditor
+                                            config={{readonly: true, toolbar: false}}
+                                            value={theatreRequest.decline_text}
+                                        />
+                                    </Accordion>
+
                                 }
                                 <ul className='request-card__dates'>
                                     <li>
