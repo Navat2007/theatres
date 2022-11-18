@@ -1,6 +1,9 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
+import useAuthStore from "../../../store/authStore";
+import useTheatresStore from "../../../store/user/theatresStore";
+
 import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
@@ -10,13 +13,22 @@ const MyTheatresPage = () => {
 
     const navigate = useNavigate();
 
+    const { user } = useAuthStore();
+    const {theatres, loadTheatres, loading} = useTheatresStore();
+
     const onItemClick = (props) => {
         navigate(`/user/theatres/${props}`);
     };
 
+    const fetchData = async () => {
+
+        await loadTheatres({schoolID: user.schoolID});
+
+    };
+
     React.useEffect(() => {
 
-
+        fetchData();
 
     }, []);
 
@@ -29,39 +41,15 @@ const MyTheatresPage = () => {
             sorting: true,
         },
         {
-            header: "Название мероприятия",
+            header: "Название театра",
             key: "title",
             type: "string",
             filter: "string",
             sorting: true,
         },
         {
-            header: "Вид спорта",
-            key: "sport_type",
-            type: "string",
-            filter: "select",
-            sorting: true,
-        },
-        {
-            header: "Дата начала проведения",
-            key: "event_start",
-            type: "string",
-        },
-        {
-            header: "Дата завершения",
-            key: "event_end",
-            type: "string"
-        },
-        {
-            header: "Кол-во этапов",
-            key: "stages",
-            type: "int",
-            filter: "select",
-            sorting: true,
-        },
-        {
             header: "Статус",
-            key: "status",
+            key: "active",
             type: "string",
             filter: "select",
             sorting: true,
@@ -71,11 +59,11 @@ const MyTheatresPage = () => {
     return (
         <>
             <Tabs>
-                <Tab index={1} title={"Театры"}>
+                <Tab title={"Театры"}>
                     <Table
                         title={"Таблица театров"}
-                        loading={false}
-                        items={[]}
+                        loading={loading}
+                        items={theatres}
                         itemsConfig={itemConfig}
                         onItemClick={onItemClick}
                         withFilter={true}
@@ -89,16 +77,6 @@ const MyTheatresPage = () => {
                             onClick={() => navigate("/user/theatres/new")}
                         />
                     </Table>
-                </Tab>
-                <Tab index={2} title={"Архив"}>
-                    <Table
-                        title={"Таблица архива театров"}
-                        loading={false}
-                        items={[]}
-                        itemsConfig={itemConfig}
-                        onItemClick={onItemClick}
-                        withFilter={true}
-                    />
                 </Tab>
             </Tabs>
         </>

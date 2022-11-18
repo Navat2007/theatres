@@ -76,7 +76,7 @@ const useTheatresStore = create(
             },
             loadTheatre: async (params) => {
 
-                set({ loading: true });
+                set({ loading: true,  theatre: null });
 
                 let form = new FormData();
                 window.global.buildFormData(form, params);
@@ -90,7 +90,7 @@ const useTheatresStore = create(
 
                 if (response?.data?.params) {
 
-                    set((state) => ({ theatre: response.data.params }));
+                    set({ theatre: response.data.params });
 
                 }
 

@@ -5,20 +5,19 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+$schoolID = htmlspecialchars($_POST["schoolID"]);
+
 $error = 0;
 $error_text = "";
 $sqls = array();
 $params = array();
 
 $sql = "SELECT 
-        theatre.ID, theatre.title, theatre.active, theatre.last_user_changed,
-        school.org_short_name as school_title
+        theatre.ID, theatre.title, theatre.active, theatre.last_user_changed
     FROM 
          theatres as theatre
-    LEFT JOIN 
-         schools as school on school.ID = theatre.schoolID
     WHERE 
-         theatre.archive = '0'";
+         theatre.archive = '0' AND theatre.schoolID = '$schoolID'";
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
@@ -31,7 +30,6 @@ if (mysqli_num_rows($result) > 0) {
             'title' => htmlspecialchars_decode($row->title),
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'last_user_changed' => (int)$row->last_user_changed,
-            'school_title' => $row->school_title,
         ];
 
         $params[] = $types;
