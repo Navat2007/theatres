@@ -71,16 +71,7 @@ const TheatresPage = () => {
                     itemsConfig={itemConfig}
                     onItemClick={onItemClick}
                     withFilter={true}
-                >
-                    <Button
-                        type='button'
-                        text="Создать"
-                        size="small"
-                        iconClass={'mdi mdi-plus'}
-                        aria-label="Добавить театр"
-                        onClick={() => navigate("/admin/theatres/new")}
-                    />
-                </Table>
+                />
             </Tab>
         </Tabs>
     </>
