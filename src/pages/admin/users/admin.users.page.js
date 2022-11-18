@@ -10,7 +10,6 @@ import Notif from '../../../components/notif/notif.component';
 
 import no_photo_man from '../../../images/no_photo_man.png';
 
-
 const AdminUsersPage = () => {
 
     const navigate = useNavigate();
@@ -230,7 +229,7 @@ const AdminUsersPage = () => {
                 <Notif
                     title={"Ошибка!"}
                     state="error"
-                    text={errorText}
+                    text={errorText.admins}
                     opened={popupErrorOpened}
                     onClose={() => {
                         clearErrorText();
@@ -358,7 +357,7 @@ const AdminUsersPage = () => {
             <Notif
                 title={"Ошибка!"}
                 state="error"
-                text={errorText}
+                text={errorText.admins}
                 opened={popupErrorOpened}
                 onClose={() => {
                     clearErrorText();
