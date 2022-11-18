@@ -1,0 +1,101 @@
+.request-card {
+  display: flex;
+  gap: min(2.5vmax, 1.25em);
+  flex-direction: column;
+  max-width: 50em;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: min(2.5vmax, 1.25em);
+  }
+
+  &__status-msg {
+    padding: .75em 1.25em;
+    box-sizing: border-box;
+    border: 1px solid var(--error);
+    background-color: rgba(map-get($colors, "error"), $alpha: .1);
+
+    .request-card__description {
+      font-weight: 500;
+      color: var(--error);
+      margin-bottom: .5em;
+    }
+
+    .request-card__text {
+      font-size: 1em;
+    }
+  }
+
+  &__logo-img {
+    @extend %alt-text-on-after;
+    display: block;
+    width: 100%;
+    max-width: min(10vmax, 5em);
+    border-radius: 15px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+
+  &__list {
+    @extend %reset-list;
+
+    display: flex;
+    flex-direction: column;
+    gap: min(2.5vmax, 1.25em);
+
+    &.--place-header {
+      gap: .5em;
+    }
+  }
+
+  &__date-item {
+    @extend %reset-list;
+
+    display: flex;
+    align-items: baseline;
+    gap: min(2.5vmax, 2.5em);
+
+    .request-card__description {
+      flex: auto;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: min(3.5vmax, 2em);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: min(2.75vmax, 1.5em);
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  &__description {
+    display: block;
+    margin: 0;
+    line-height: 150%;
+    color: var(--darkLow);
+    font-size: min(1.6vmax, 1rem);
+    font-weight: normal;
+    max-width: 45rem;
+  }
+
+  &__item {
+    display: inline-block;
+    font-size: min(2.5vmax, 1.25em);
+    font-weight: 500;
+
+    &::before {
+      color: var(--primary);
+    }
+  }
+
+  &__btn {
+    align-self: start;
+  }
+}

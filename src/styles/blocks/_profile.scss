@@ -6,29 +6,16 @@
   padding: .5em;
   box-sizing: border-box;
 
-  &.--place-header {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: calc(100% - 14vmax);
-  }  
-
-  &.--place-edit-profile {
-    cursor: default;
-
-    & .profile__img {
-      margin-left: auto;
-      @include box(8em);
-      min-width: 8em;
-      max-width: 8em;
-      border-radius: 15px;
-    }
-  }
-
   &__content {
     display: grid;
     gap: 0 .875em;
     grid-template-columns: auto 1fr;
     cursor: pointer;
+  }
+
+  &__list {
+    @extend %reset-list;
+    grid-column: 2/3;
   }
 
   &__img {
@@ -52,5 +39,35 @@
     line-height: 150%;
     font-size: .75em;
     @extend %cutText;
+  }
+
+  &.--place-header {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: calc(100% - 14vmax);
+  }
+
+  &.--place-edit-profile {
+    cursor: default;
+
+    .profile__img {
+      margin-left: auto;
+      @include box(8em);
+      min-width: 8em;
+      max-width: 8em;
+      border-radius: 15px;
+    }
+  }
+
+  &.--place-request {
+    display: block;
+
+    padding: 0;
+    border-top: 1px solid var(--g200);
+    padding-top: min(2.5vmax, 1.25em);
+
+    .profile__img {
+      border-radius: 15px;
+    }
   }
 }

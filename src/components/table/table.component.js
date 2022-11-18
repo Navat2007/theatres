@@ -108,16 +108,16 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
             case "string":
                 if (configItem.key === "status") {
                     switch (value) {
-                        case "Новая":
-                            return <p className='table__request --status-new'>Новая</p>;
+                        case "Новая": 
+                            return <p className='request-status --place-table --status-new'>Новая</p>;
                         case "Принята":
-                            return <p className='table__request --status-accept'>Принята</p>;
+                            return <p className='request-status --place-table --status-accept'>Принята</p>;
                         case "Отклонена":
-                            return <p className='table__request --status-decline'>Отклонена</p>;
+                            return <p className='request-status --place-table --status-decline'>Отклонена</p>;
                         case "Отозвана":
-                            return <p className='table__request --status-callback'>Отозвана</p>;
+                            return <p className='request-status --place-table --status-callback'>Отозвана</p>;
                         case "Рассмотрение":
-                            return <p className='table__request --status-review'>Рассмотрение</p>
+                            return <p className='request-status --place-table --status-review'>Рассмотрение</p>
                         default:
                             return <>{value}</>;
                     }

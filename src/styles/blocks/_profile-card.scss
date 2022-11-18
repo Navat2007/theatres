@@ -87,6 +87,21 @@
   &__edit-btn {
     margin-top: min(2.5vmax, 1.25em);
   }
+
+  &__user-block {
+    display: grid;
+    gap: 0 min(2.5vmax, 1.25em);
+    grid-template-columns: auto 1fr;
+
+    .profile-card__img {
+      max-width: min(10vmax, 5em);
+      grid-row: span 2;
+    }
+
+    .profile-card__text {
+      align-self: end;
+    }
+  }
 }
 
 @include media(md) {
