@@ -9,6 +9,7 @@ import Notif from '../../../components/notif/notif.component';
 import Button from '../../../components/simple/button/button.component';
 import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
 import useTeachersStore from '../../../store/admin/teachersStore';
+import Accordion from '../../../components/simple/accordion/accordion.component';
 
 const MyTheatreRequestPage = () => {
 
@@ -147,17 +148,44 @@ const MyTheatreRequestPage = () => {
                                 aria-label='Назад'
                                 onClick={back}
                             />
-                            <h1 className='content__title --mb-small'>Заявка №{id}</h1>
+                            <h1 className='content__title'>Заявка №{id}</h1>
                         </div>
-                        <p>Статус: {theatreRequest.status}</p>
-                        <p>Название театра: {theatreRequest.title}</p>
-                        <p>Дата подачи: {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</p>
-                        <p>Дата обновления: {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</p>
-                        <p>Текст отказа: {theatreRequest.decline_text}</p>
-                        <Button text={"Редактировать"} onClick={() => setEdit(true)} />
-                        <br />
-                        <br />
-                        {theatreRequest.status !== "Отозвана" && <Button text={"Отозвать"} onClick={onRevokeSubmit} />}
+                        <div className="request-card">
+                            <div className="request-card__section">
+                                {
+                                    theatreRequest.status === "Отклонена" ?
+                                        <Accordion title={'Отклонена: Причина отказа'}>
+                                            {theatreRequest.decline_text}
+                                        </Accordion>
+                                        :
+                                        // Подключить классы на разные статусы как в таблице
+                                        <p className='request-status --status-review'>
+                                            {theatreRequest.status}
+                                        </p>
+                                }
+                                <ul className='request-card__dates'>
+                                    <li>
+                                        <p className="request-card__date">Дата подачи:
+                                            <span className='request-card__date-accent'> {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p className="request-card__date">Дата обновления:
+                                            <span className='request-card__date-accent'> {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <h1 className="request-card__title">{theatreRequest.title}</h1>
+                                <div className="request-card__controls">
+                                    {theatreRequest.status !== "Отозвана" && <Button type='button' theme={'outline'} text={"Отозвать"} onClick={onRevokeSubmit} />}
+                                    <Button
+                                        type='button'
+                                        extraClass={'request-card__btn'}
+                                        text={"Редактировать"}
+                                        onClick={() => setEdit(true)} />
+                                </div>
+                            </div>
+                        </div>
                     </>
                     :
                     <p>Не удалось найти заявку № {id}</p>

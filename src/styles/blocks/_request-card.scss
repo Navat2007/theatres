@@ -5,9 +5,13 @@
     align-items: flex-start;
     gap: min(2.5vmax, 1.25em);
     max-width: 60em;
-  }
+  } 
 
   &__section {
+    display: flex;
+    flex-direction: column;
+    gap: min(2.5vmax, 1.25em);
+    width: min(40vmax, 30em);
 
     @include media(md) {
       padding: min(2.5vmax, 1.25em);
@@ -17,12 +21,12 @@
 
     &.--content-main-info {
       flex: auto;
-      display: flex;
-      flex-direction: column;
-      gap: min(2.5vmax, 1.25em);
+      width: unset;
     }
 
     &.--content-contact-person {
+      width: fit-content;
+
       @include media(md, max) {
         border-top: 1px solid var(--g300);
         margin-top: min(2.5vmax, 1.25em);
@@ -85,5 +89,12 @@
     @include media(md) {
       align-self: flex-end;
     }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5em;
+    flex-wrap: wrap;
   }
 }

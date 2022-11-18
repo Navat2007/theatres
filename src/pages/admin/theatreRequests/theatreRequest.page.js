@@ -157,7 +157,7 @@ const TheatreRequestPage = () => {
                     aria-label='Назад'
                     onClick={() => setEdit(false)}
                 />
-                <h1 className='content__title'>Редактирование заявки ID: {id} </h1>
+                <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
             </div>
             <TheatreRequest
                 isAdmin={true}
