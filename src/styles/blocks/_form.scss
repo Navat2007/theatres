@@ -38,15 +38,15 @@
     }
   }
 
-  &__editor-block {
-    min-width: 100%;
-  }
-
   &__group-block {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: .5em;
+  }
+
+  &__editor-block {
+    min-width: 100%;
   }
 
   .form__field {
