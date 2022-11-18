@@ -117,8 +117,8 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
 
             $sql = "
-                INSERT INTO theatres (schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
-                VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+                INSERT INTO theatres (schoolID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+                VALUES ('$schoolID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
             ";
             $sqls[] = $sql;
             $result = mysqli_query($conn, $sql);

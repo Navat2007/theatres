@@ -35,16 +35,16 @@ const useTheatresStore = create(
             set({ loading: true });
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTheatres, form);
+            const response = await axios.post(urlLoadTheatres, form).catch(error => {
+                set({ sending: false, error: true, errorText: error });
+                return { error: true };
+            });
 
             set({ loading: false });
 
-            if (response.data.params) {
+            if (response?.data?.params) {
 
                 set((state) => ({ theatres: response.data.params }));
 
@@ -56,16 +56,16 @@ const useTheatresStore = create(
             set({ loading: true });
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTheatre, form);
+            const response = await axios.post(urlLoadTheatre, form).catch(error => {
+                set({ sending: false, error: true, errorText: error });
+                return { error: true };
+            });
 
             set({ loading: false });
 
-            if (response.data.params) {
+            if (response?.data?.params) {
 
                 set((state) => ({ theatre: response.data.params }));
 

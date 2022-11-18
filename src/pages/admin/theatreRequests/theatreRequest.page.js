@@ -80,6 +80,7 @@ const TheatreRequestPage = () => {
         params.id = id;
         params.status = 3;
         params.theatreID = theatreRequest.theatreID;
+        params.schoolID = theatreRequest.schoolID;
 
         const result = await editTheatre(params);
 
@@ -97,6 +98,7 @@ const TheatreRequestPage = () => {
             params.status = 4;
             params.declineText = text.declineText;
             params.theatreID = theatreRequest.theatreID;
+            params.schoolID = theatreRequest.schoolID;
 
             const result = await editTheatre(params);
 

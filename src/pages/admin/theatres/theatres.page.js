@@ -39,39 +39,15 @@ const TheatresPage = () => {
             sorting: true,
         },
         {
-            header: "Название мероприятия",
+            header: "Название театра",
             key: "title",
             type: "string",
             filter: "string",
             sorting: true,
         },
         {
-            header: "Вид спорта",
-            key: "sport_type",
-            type: "string",
-            filter: "select",
-            sorting: true,
-        },
-        {
-            header: "Дата начала проведения",
-            key: "event_start",
-            type: "string",
-        },
-        {
-            header: "Дата завершения",
-            key: "event_end",
-            type: "string"
-        },
-        {
-            header: "Кол-во этапов",
-            key: "stages",
-            type: "int",
-            filter: "select",
-            sorting: true,
-        },
-        {
             header: "Статус",
-            key: "status",
+            key: "active",
             type: "string",
             filter: "select",
             sorting: true,
@@ -80,11 +56,11 @@ const TheatresPage = () => {
 
     return (<>
         <Tabs>
-            <Tab index={1} title={"Театры"}>
+            <Tab title={"Театры"}>
                 <Table
                     title={"Таблица театров"}
                     loading={loading}
-                    items={theatres.filter(item => item.active === 1)}
+                    items={theatres}
                     itemsConfig={itemConfig}
                     onItemClick={onItemClick}
                     withFilter={true}
@@ -98,16 +74,6 @@ const TheatresPage = () => {
                         onClick={() => navigate("/admin/theatres/new")}
                     />
                 </Table>
-            </Tab>
-            <Tab index={2} title={"Архив"}>
-                <Table
-                    title={"Таблица архива театров"}
-                    loading={loading}
-                    items={theatres.filter(item => item.active === 0)}
-                    itemsConfig={itemConfig}
-                    onItemClick={onItemClick}
-                    withFilter={true}
-                />
             </Tab>
         </Tabs>
     </>
