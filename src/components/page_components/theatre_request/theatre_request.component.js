@@ -1,5 +1,5 @@
 import React from 'react';
-import {useForm} from 'react-hook-form';
+import {useForm } from 'react-hook-form';
 
 import useAuthStore from '../../../store/authStore';
 import useTeachersStore from './../../../store/admin/teachersStore';
@@ -16,10 +16,13 @@ import Popup from "../../../components/popup/popup.component";
 
 function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecline = () => null, request, isAdmin}) {
 
-    const {register, handleSubmit, reset, control, getValues, setValue} = useForm();
+    const {register, handleSubmit, reset, control, getValues, setValue, watch} = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
     const [socialLinks, setSocialLinks] = React.useState([]);
+
+    const theatreUrlSchoolWatch = watch('theatreUrlSchool');
+    const videoBusinessCardWatch = watch('videoBusinessCard');
 
     const {user} = useAuthStore();
     const theatreStore = useTheatresStore();
@@ -232,15 +235,18 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                         }}
                                         required={true}
                                     />
-                                    <a
-                                        className='form__social-link'
-                                        href=""
-                                        aria-label='Открыть в новой вкладке'
-                                        title='Открыть в новой вкладке'
-                                        target={'_blank'}
-                                        rel='nofollow noreferer noopener'>
-                                        <span className='mdi mdi-open-in-new'></span>
-                                    </a>
+                                    {
+                                        item.img &&
+                                        <a
+                                            className='form__social-link'
+                                            href={item.url.includes('http') ? item.url : 'http://' + item.url}
+                                            aria-label='Открыть в новой вкладке'
+                                            title='Открыть в новой вкладке'
+                                            target={'_blank'}
+                                            rel='nofollow noreferer noopener'>
+                                            <span className='mdi mdi-open-in-new'/>
+                                        </a>
+                                    }
                                     <Button
                                         type='button'
                                         theme='text'
@@ -275,15 +281,19 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 placeholder='Введите url-адрес...'
                                 {...register("theatreUrlSchool")}
                             />
-                            <a
-                                className='form__social-link'
-                                href=""
-                                aria-label='Открыть в новой вкладке'
-                                title='Открыть в новой вкладке'
-                                target={'_blank'}
-                                rel='nofollow noreferer noopener'>
-                                <span className='mdi mdi-open-in-new'></span>
-                            </a>
+                            {
+                                theatreUrlSchoolWatch && theatreUrlSchoolWatch.length > 0
+                                &&
+                                <a
+                                    className='form__social-link'
+                                    href={theatreUrlSchoolWatch.includes('http') ? theatreUrlSchoolWatch : 'http://' + theatreUrlSchoolWatch}
+                                    aria-label='Открыть в новой вкладке'
+                                    title='Открыть в новой вкладке'
+                                    target={'_blank'}
+                                    rel='nofollow noreferer noopener'>
+                                    <span className='mdi mdi-open-in-new'/>
+                                </a>
+                            }
                         </div>
                     </fieldset>
                     <fieldset className='form__section'>
@@ -312,7 +322,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                     <div className="form__editor-block">
                         <p className="form__label">Краткое описание</p>
                         <Editor
-                            required={true}
                             control={control}
                             name="editorShortDescription"
                         />
@@ -420,15 +429,19 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 layout='flex'
                                 {...register("videoBusinessCard")}
                             />
-                            <a
-                                className='form__social-link'
-                                href=""
-                                aria-label='Открыть в новой вкладке'
-                                title='Открыть в новой вкладке'
-                                target={'_blank'}
-                                rel='nofollow noreferer noopener'>
-                                <span className='mdi mdi-open-in-new'></span>
-                            </a>
+                            {
+                                videoBusinessCardWatch && videoBusinessCardWatch.length > 0
+                                &&
+                                <a
+                                    className='form__social-link'
+                                    href={videoBusinessCardWatch.includes('http') ? videoBusinessCardWatch : 'http://' + videoBusinessCardWatch}
+                                    aria-label='Открыть в новой вкладке'
+                                    title='Открыть в новой вкладке'
+                                    target={'_blank'}
+                                    rel='nofollow noreferer noopener'>
+                                    <span className='mdi mdi-open-in-new'/>
+                                </a>
+                            }
                             <Button
                                 type='button'
                                 theme='text'
@@ -467,7 +480,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 title='Открыть в новой вкладке'
                                 target={'_blank'}
                                 rel='nofollow noreferer noopener'>
-                                <span className='mdi mdi-open-in-new'></span>
+                                <span className='mdi mdi-open-in-new'/>
                             </a>
                             <Button
                                 type='button'

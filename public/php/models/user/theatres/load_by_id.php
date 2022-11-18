@@ -10,14 +10,14 @@ $id = htmlspecialchars($_POST["id"]);
 $error = 0;
 $error_text = "";
 $sqls = array();
-$params = (object)[];
+$params = null;
 
 $sql = "SELECT 
-            request.*
+            theatre.*
         FROM 
-            theatre_requests as request 
+            theatres as theatre 
         WHERE 
-            request.ID = '$id'";
+            theatre.ID = '$id'";
 
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
@@ -28,15 +28,11 @@ if (mysqli_num_rows($result) > 0) {
         $params = (object)[
 
             'ID' => (int)$row->ID,
-            'theatreID' => (int)$row->theatreID,
             'schoolID' => (int)$row->schoolID,
-            'userID' => (int)$row->userID,
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
             'title' => $row->title,
             'address' => $row->address,
-            'status' => getStatusText($row->status),
-            'decline_text' => html_entity_decode($row->decline_text),
             'foundation_date' => $row->foundation_date,
             'theatre_url_school' => $row->theatre_url_school,
             'short_description' => html_entity_decode($row->short_description),
@@ -46,6 +42,7 @@ if (mysqli_num_rows($result) > 0) {
             'teachers' => getTeachers($row->ID),
             'age_members' => getAgeMembers($row->ID),
             'form_activity' => getFormActivity($row->ID),
+            'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'last_user_changed' => (int)$row->last_user_changed,
 
         ];
@@ -67,22 +64,6 @@ $content = (object)[
 ];
 echo json_encode($content);
 
-function getStatusText($statusIndex)
-{
-    switch ((int)$statusIndex) {
-        case 1:
-            return "Рассмотрение";
-        case 2:
-            return "Рассмотрение";
-        case 3:
-            return "Принята";
-        case 4:
-            return "Отклонена";
-        case 5:
-            return "Отозвана";
-    }
-}
-
 function getFormActivity($ID)
 {
     global $conn;
@@ -92,9 +73,9 @@ function getFormActivity($ID)
     $sql = "SELECT 
             fa.activity
         FROM 
-            theatre_requests_form_activity as fa 
+            theatres_form_activity as fa 
         WHERE 
-            fa.requestID = '$ID'";
+            fa.theatreID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -120,9 +101,9 @@ function getAgeMembers($ID)
     $sql = "SELECT 
             am.age
         FROM 
-            theatre_requests_age_members as am 
+            theatres_age_members as am 
         WHERE 
-            am.requestID = '$ID'";
+            am.theatreID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -148,11 +129,11 @@ function getTeachers($ID)
     $sql = "SELECT 
             t.teacherID, teacher.f, teacher.i, teacher.o
         FROM 
-            theatre_requests_teachers as t 
+            theatres_teachers as t 
         LEFT JOIN
             teachers as teacher on teacher.ID = t.teacherID
         WHERE 
-            t.requestID = '$ID'";
+            t.theatreID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
@@ -179,9 +160,9 @@ function getSocialLinks($ID)
     $sql = "SELECT 
             sl.url
         FROM 
-            theatre_requests_social_links as sl 
+            theatres_social_links as sl 
         WHERE 
-            sl.requestID = '$ID'";
+            sl.theatreID = '$ID'";
 
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);

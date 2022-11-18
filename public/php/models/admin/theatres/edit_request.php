@@ -7,6 +7,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $id = htmlspecialchars($_POST["id"]);
 $status = htmlspecialchars($_POST["status"]);
+$declineText = htmlspecialchars($_POST["declineText"]);
 $theatreID = htmlspecialchars($_POST["theatreID"]);
 $schoolID = htmlspecialchars($_POST["schoolID"]);
 $userID = $authorization[1];
@@ -116,8 +117,8 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
 
             $sql = "
-                INSERT INTO theatres (schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
-                VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+                INSERT INTO theatres (schoolID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+                VALUES ('$schoolID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
             ";
             $sqls[] = $sql;
             $result = mysqli_query($conn, $sql);
@@ -126,8 +127,8 @@ if ($error === 0) {
             foreach ($formActivity as $activity) {
 
                 $sql = "
-                INSERT INTO theatres_form_activity (requestID, activity) 
-                VALUES ('$id', '$activity')";
+                INSERT INTO theatres_form_activity (theatreID, activity) 
+                VALUES ('$lastID', '$activity')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -136,8 +137,8 @@ if ($error === 0) {
             foreach ($ageMembers as $age) {
 
                 $sql = "
-                INSERT INTO theatres_age_members (requestID, age) 
-                VALUES ('$id', '$age')";
+                INSERT INTO theatres_age_members (theatreID, age) 
+                VALUES ('$lastID', '$age')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -146,8 +147,8 @@ if ($error === 0) {
             foreach ($teachers as $teacher) {
 
                 $sql = "
-                INSERT INTO theatres_teachers (requestID, teacherID) 
-                VALUES ('$id', '$teacher')";
+                INSERT INTO theatres_teachers (theatreID, teacherID) 
+                VALUES ('$lastID', '$teacher')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -156,8 +157,8 @@ if ($error === 0) {
             foreach ($socialLinks as $link) {
 
                 $sql = "
-                INSERT INTO theatres_social_links (requestID, url) 
-                VALUES ('$id', '$link')";
+                INSERT INTO theatres_social_links (theatreID, url) 
+                VALUES ('$lastID', '$link')";
 
                 $sqls[] = $sql;
                 mysqli_query($conn, $sql);
@@ -179,6 +180,7 @@ if ($error === 0) {
                 theatre_requests
             SET
                 status = '$status',
+                decline_text = '$declineText',
                 title = '$title', 
                 address = '$address', 
                 foundation_date = '$foundationDate', 

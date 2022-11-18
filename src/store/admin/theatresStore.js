@@ -7,7 +7,7 @@ const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatr
 const urlLoadTheatreRequests = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/load_requests.php';
 const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/load_request_by_id.php';
 const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/add.php';
-const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/edit.php';
+const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/edit_request.php';
 const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/remove.php';
 const urlRequestChangeNew = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/change_new.php';
 
@@ -35,16 +35,16 @@ const useTheatresStore = create(
             set({ loading: true });
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTheatres, form);
+            const response = await axios.post(urlLoadTheatres, form).catch(error => {
+                set({ sending: false, error: true, errorText: error });
+                return { error: true };
+            });
 
             set({ loading: false });
 
-            if (response.data.params) {
+            if (response?.data?.params) {
 
                 set((state) => ({ theatres: response.data.params }));
 
@@ -56,16 +56,16 @@ const useTheatresStore = create(
             set({ loading: true });
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTheatre, form);
+            const response = await axios.post(urlLoadTheatre, form).catch(error => {
+                set({ sending: false, error: true, errorText: error });
+                return { error: true };
+            });
 
             set({ loading: false });
 
-            if (response.data.params) {
+            if (response?.data?.params) {
 
                 set((state) => ({ theatre: response.data.params }));
 
@@ -235,13 +235,17 @@ const useTheatresStore = create(
         },
         requestChangeNew: async (params) => {
 
+            set({ sending: true });
+
             let form = new FormData();
             window.global.buildFormData(form, params);
 
             const response = await axios.post(urlRequestChangeNew, form).catch(error => {
-                set({ error: true, errorText: error });
+                set({ sending: false, error: true, errorText: error });
                 return { error: true };
             });
+
+            set({ sending: false });
 
             if (response?.data?.params) {
 

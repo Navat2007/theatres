@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import moment from 'moment';
+import {useForm} from "react-hook-form";
 
 import useTeachersStore from '../../../store/admin/teachersStore';
 import useTheatresStore from '../../../store/admin/theatresStore';
@@ -8,13 +9,18 @@ import useTheatresStore from '../../../store/admin/theatresStore';
 import Button from '../../../components/simple/button/button.component';
 import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
 import Notif from '../../../components/notif/notif.component';
+import Popup from "../../../components/popup/popup.component";
+import FieldInput from "../../../components/simple/field/field.input.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
+import Editor from "../../../components/reach_editor/editor.component";
 
 const TheatreRequestPage = () => {
 
     let { id } = useParams();
     const navigate = useNavigate();
+
+    const { register, handleSubmit, control } = useForm();
 
     const {
         theatreRequest,
@@ -22,6 +28,7 @@ const TheatreRequestPage = () => {
         editTheatre,
         requestChangeNew,
         loading,
+        sending,
         error,
         errorText,
         clearErrorText
@@ -33,9 +40,12 @@ const TheatreRequestPage = () => {
 
     const fetchData = async () => {
 
-        await requestChangeNew({ id });
-        const request = await loadTheatreRequest({ id });
-        await teachersStore.loadTeachers({ schoolID: request.schoolID });
+
+        const request = await loadTheatreRequest({id});
+        await teachersStore.loadTeachers({schoolID: request.schoolID});
+
+        if(request.status === "Новая")
+            await requestChangeNew({id});
 
         console.clear();
         console.log(request);
@@ -73,6 +83,7 @@ const TheatreRequestPage = () => {
         params.id = id;
         params.status = 3;
         params.theatreID = theatreRequest.theatreID;
+        params.schoolID = theatreRequest.schoolID;
 
         const result = await editTheatre(params);
 
@@ -84,45 +95,48 @@ const TheatreRequestPage = () => {
 
     const onDeclineSubmit = async (params) => {
 
-        params.id = id;
-        params.status = 4;
-        params.theatreID = theatreRequest.theatreID;
+        const onSendSubmit = async (text) => {
 
-        console.log(params);
+            params.id = id;
+            params.status = 4;
+            params.declineText = text.declineText;
+            params.theatreID = theatreRequest.theatreID;
+            params.schoolID = theatreRequest.schoolID;
 
-        return;
+            const result = await editTheatre(params);
+
+            if (!result.error) {
+                back();
+            }
+
+        }
 
         setPopup(
-            <Notif
-                text={"Вы действительно хотите отозвать заявку?"}
+            (<Popup
+                title={"Укажите причину отклонения заявки"}
                 opened={true}
                 onClose={() => {
                     setPopup(<></>);
                 }}
-                buttons={<>
-                    <Button
-                        type='button'
-                        text="Нет"
-                        size={'small'}
-                        theme="text"
-                        onClick={() => setPopup(<></>)}
-                    />
-                    <Button
-                        type='button'
-                        text="Да"
-                        theme='info'
-                        size={'small'}
-                        onClick={async () => {
-                            const result = await editTheatre({ id, status: 5 });
-
-                            if (!result.error) {
-                                setPopup(<></>);
-                                navigate("/user/theatreRequests");
-                            }
-                        }}
-                    />
-                </>}
-            />
+            >
+                <form onSubmit={handleSubmit(onSendSubmit)} className='form'>
+                    <fieldset className='form__section --content-info'>
+                        <Editor
+                            required={true}
+                            control={control}
+                            name="declineText"
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={sending}
+                            style={{ marginLeft: 'auto', display: 'block' }}
+                        />
+                    </div>
+                </form>
+            </Popup>)
         );
 
     };
