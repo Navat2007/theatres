@@ -43,7 +43,7 @@ if (mysqli_num_rows($result) > 0) {
             'title' => $row->title,
             'address' => $row->address,
             'status' => getStatusText($row->status),
-            'decline_text' => $row->decline_text,
+            'decline_text' => html_entity_decode($row->decline_text),
             'foundation_date' => $row->foundation_date,
             'theatre_url_school' => $row->theatre_url_school,
             'short_description' => html_entity_decode($row->short_description),
