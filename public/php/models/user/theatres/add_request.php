@@ -5,6 +5,7 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
+$theatreID = htmlspecialchars($_POST["theatreID"]);
 $schoolID = htmlspecialchars($_POST["schoolID"]);
 $userID = $authorization[1];
 $title = htmlspecialchars($_POST["title"]);
@@ -45,8 +46,8 @@ if (mysqli_num_rows($result) > 0) {
 if ($error === 0) {
 
     $sql = "
-        INSERT INTO theatre_requests (schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
-        VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+        INSERT INTO theatre_requests (theatreID, schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+        VALUES ('$theatreID', '$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
     ";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);

@@ -617,7 +617,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                             <Button
                                 type="submit"
                                 theme="primary"
-                                text="Сохранить"
+                                text="Отправить заявку"
                             />
                             <Button
                                 type="button"

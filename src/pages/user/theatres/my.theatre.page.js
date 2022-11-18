@@ -63,7 +63,7 @@ const MyTheatrePage = () => {
 
     const onAddSubmit = async (params) => {
 
-        params.status = 1;
+        params.theatreID = 0;
         params.schoolID = user.schoolID;
 
         const result = await addTheatre(params);
@@ -76,10 +76,15 @@ const MyTheatrePage = () => {
 
     const onEditSubmit = async (params) => {
 
-        params.id = id;
-        params.status = 2;
+        params.theatreID = id;
+        params.schoolID = user.schoolID;
 
-        const result = await editTheatre(params);
+        console.log(theatre);
+        console.log(params);
+
+        return;
+
+        const result = await addTheatre(params);
 
         if (!result.error) {
             back();
@@ -145,7 +150,7 @@ const MyTheatrePage = () => {
                             aria-label='Назад'
                             onClick={() => setEdit(false)}
                         />
-                        <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
+                        <h1 className='content__title --mb-small'>Редактирование театра ID: {id} </h1>
                     </div>
                     <TheatreRequest request={theatre} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)}/>
                 </>
