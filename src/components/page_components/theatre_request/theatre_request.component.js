@@ -106,40 +106,13 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
 
         console.log("Подготовленные данные: ", sendObject);
 
+        return sendObject;
+
     };
 
     const onSubmit = handleSubmit(async (data) => {
 
-        console.log("Форма: ", data);
-
-        let sendObject = {
-            schoolID: user.schoolID,
-            title: data.title,
-            address: data.address,
-            foundationDate: data.foundationDate,
-            theatreUrlSchool: data.theatreUrlSchool,
-            videoBusinessCard: data.videoBusinessCard,
-        };
-
-        if (data.form_activity_select && data.form_activity_select.length > 0)
-            sendObject['formActivity'] = Array.from(data.form_activity_select.map(item => item.value));
-
-        if (data.age_members_select && data.age_members_select.length > 0)
-            sendObject['ageMembers'] = Array.from(data.age_members_select.map(item => item.value));
-
-        if (data.teachers_select && data.teachers_select.length > 0)
-            sendObject['teachers'] = Array.from(data.teachers_select.map(item => item.value));
-
-        if (socialLinks.length > 0)
-            sendObject['socialLinks'] = Array.from(socialLinks.map(link => link.url));
-
-        if (data.editorShortDescription)
-            sendObject['editorShortDescription'] = data.editorShortDescription;
-
-        if (data.editorDirectorMessage)
-            sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
-
-        onSubmitDone(sendObject);
+        onSubmitDone(performData());
 
     });
 
@@ -570,7 +543,12 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                 type="button"
                                 theme="primary"
                                 text="Отклонить"
-                                onClick={performData}
+                                onClick={() => {
+
+                                    if(onDecline)
+                                        onDecline(performData());
+
+                                }}
                             />
                             <Button
                                 type="button"
