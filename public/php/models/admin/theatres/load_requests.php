@@ -11,7 +11,7 @@ $sqls = array();
 $params = array();
 
 $sql = "SELECT 
-            request.ID, request.title, request.address, request.create_time, request.update_time, request.status
+            request.ID, request.theatreID, request.title, request.address, request.create_time, request.update_time, request.status
         FROM 
             theatre_requests as request 
         WHERE 
@@ -32,6 +32,7 @@ if (mysqli_num_rows($result) > 0) {
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
             'status' => getStatusText($row->status),
+            'type' => getTypeText($row->theatreID),
 
         ];
 
@@ -67,5 +68,15 @@ function getStatusText($statusIndex)
             return "Отклонена";
         case 5:
             return "Отозвана";
+    }
+}
+
+function getTypeText($theatreID): string
+{
+    switch ((int)$theatreID) {
+        case 0:
+            return "Новый театр";
+        default:
+            return "Редактирование театра ID: " . $theatreID;
     }
 }

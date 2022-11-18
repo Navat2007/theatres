@@ -76,11 +76,6 @@ const MyTheatrePage = () => {
         params.theatreID = id;
         params.schoolID = user.schoolID;
 
-        console.log(theatre);
-        console.log(params);
-
-        return;
-
         const result = await addTheatre(params);
 
         if (!result.error) {

@@ -91,12 +91,17 @@ if ($error === 0) {
 
     if ((int)$status === 3) {
 
+        $sql = "DELETE FROM theatre_requests WHERE ID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        $updateID = $theatreID;
+
         if ((int)$theatreID !== 0) {
 
             $sql = "UPDATE 
                 theatres
             SET
-                status = '$status',
                 title = '$title', 
                 address = '$address', 
                 foundation_date = '$foundationDate', 
@@ -106,15 +111,27 @@ if ($error === 0) {
                 video_business_card = '$videoBusinessCard',
                 last_user_changed = '$userID'
             WHERE 
-                ID = '$theatreID'";
+                ID = '$updateID'";
             $sqls[] = $sql;
             $result = mysqli_query($conn, $sql);
 
-        } else {
-
-            $sql = "DELETE FROM theatre_requests WHERE ID = '$id'";
+            $sql = "DELETE FROM theatres_form_activity WHERE theatreID = '$updateID'";
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_age_members WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_teachers WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_social_links WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+        } else {
 
             $sql = "
                 INSERT INTO theatres (schoolID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
@@ -122,48 +139,48 @@ if ($error === 0) {
             ";
             $sqls[] = $sql;
             $result = mysqli_query($conn, $sql);
-            $lastID = mysqli_insert_id($conn);
+            $updateID = mysqli_insert_id($conn);
 
-            foreach ($formActivity as $activity) {
+        }
 
-                $sql = "
+        foreach ($formActivity as $activity) {
+
+            $sql = "
                 INSERT INTO theatres_form_activity (theatreID, activity) 
-                VALUES ('$lastID', '$activity')";
+                VALUES ('$updateID', '$activity')";
 
-                $sqls[] = $sql;
-                mysqli_query($conn, $sql);
-            }
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
 
-            foreach ($ageMembers as $age) {
+        foreach ($ageMembers as $age) {
 
-                $sql = "
+            $sql = "
                 INSERT INTO theatres_age_members (theatreID, age) 
-                VALUES ('$lastID', '$age')";
+                VALUES ('$updateID', '$age')";
 
-                $sqls[] = $sql;
-                mysqli_query($conn, $sql);
-            }
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
 
-            foreach ($teachers as $teacher) {
+        foreach ($teachers as $teacher) {
 
-                $sql = "
+            $sql = "
                 INSERT INTO theatres_teachers (theatreID, teacherID) 
-                VALUES ('$lastID', '$teacher')";
+                VALUES ('$updateID', '$teacher')";
 
-                $sqls[] = $sql;
-                mysqli_query($conn, $sql);
-            }
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
 
-            foreach ($socialLinks as $link) {
+        foreach ($socialLinks as $link) {
 
-                $sql = "
+            $sql = "
                 INSERT INTO theatres_social_links (theatreID, url) 
-                VALUES ('$lastID', '$link')";
+                VALUES ('$updateID', '$link')";
 
-                $sqls[] = $sql;
-                mysqli_query($conn, $sql);
-            }
-
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
         }
 
         if (!$result) {
