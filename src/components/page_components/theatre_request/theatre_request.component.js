@@ -221,11 +221,20 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                             setValue("social_" + item.id, event.target.value);
                                         }}
                                         required={true}
-                                    />
+                                    /> 
+                                    <a
+                                        className='form__social-link'
+                                        href=""
+                                        aria-label='Открыть в новой вкладке'
+                                        title='Открыть в новой вкладке'
+                                        target={'_blank'}
+                                        rel='nofollow noreferer noopener'>
+                                        <span className='mdi mdi-open-in-new'></span>
+                                    </a>
                                     <Button
                                         type='button'
                                         theme='text'
-                                        size='small'
+                                        size='smaller'
                                         extraClass="form__icon-btn"
                                         iconClass={'mdi mdi-close'}
                                         isIconBtn='true'
