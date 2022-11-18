@@ -16,6 +16,10 @@
   &__list {
     @extend %reset-list;
     grid-column: 2/3;
+
+    display: flex;
+    gap: .5em;
+    flex-direction: column;
   }
 
   &__img {
@@ -41,6 +45,11 @@
     @extend %cutText;
   }
 
+  &__link {
+    color: var(--dark);
+    font-weight: 500;
+  }
+
   &.--place-header {
     padding-left: 0;
     padding-right: 0;
@@ -60,14 +69,18 @@
   }
 
   &.--place-request {
+
+    flex: unset;
     display: block;
 
-    padding: 0;
-    border-top: 1px solid var(--g200);
-    padding-top: min(2.5vmax, 1.25em);
+    .profile__subtitle {
+      white-space: unset;
+    }
 
-    .profile__img {
-      border-radius: 15px;
+    .profile__title {
+      white-space: unset;
+      font-size: min(3vmax, 1.5em);
+      margin-bottom: 1.25rem;
     }
   }
 }

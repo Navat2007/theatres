@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import moment from 'moment';
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import useTeachersStore from '../../../store/admin/teachersStore';
 import useTheatresStore from '../../../store/admin/theatresStore';
@@ -14,6 +14,7 @@ import FieldInput from "../../../components/simple/field/field.input.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import Editor from "../../../components/reach_editor/editor.component";
+import Accordion from '../../../components/simple/accordion/accordion.component';
 
 const TheatreRequestPage = () => {
 
@@ -41,11 +42,11 @@ const TheatreRequestPage = () => {
     const fetchData = async () => {
 
 
-        const request = await loadTheatreRequest({id});
-        await teachersStore.loadTeachers({schoolID: request.schoolID});
+        const request = await loadTheatreRequest({ id });
+        await teachersStore.loadTeachers({ schoolID: request.schoolID });
 
-        if(request.status === "Новая")
-            await requestChangeNew({id});
+        if (request.status === "Новая")
+            await requestChangeNew({ id });
 
         console.clear();
         console.log(request);
@@ -156,7 +157,7 @@ const TheatreRequestPage = () => {
                     aria-label='Назад'
                     onClick={() => setEdit(false)}
                 />
-                <h1 className='content__title --mb-small'>Редактирование заявки ID: {id} </h1>
+                <h1 className='content__title'>Редактирование заявки ID: {id} </h1>
             </div>
             <TheatreRequest
                 isAdmin={true}
@@ -185,123 +186,76 @@ const TheatreRequestPage = () => {
                                 aria-label='Назад'
                                 onClick={back}
                             />
-                            <h1 className='content__title --mb-small'>Заявка №{id}</h1>
+                            <h1 className='content__title'>Заявка №{id}</h1>
                         </div>
                         <div className="request-card">
-                            <p className='request-status --status-review'>
-                                {theatreRequest.status}
-                            </p>
-                            {
-                                theatreRequest.status === "Отклонена" &&
-                                <div className='request-card__status-msg'>
-                                    <p className='request-card__description'>Причина отказа</p>
-                                    <h3 className='request-card__text'>
-                                        {theatreRequest.decline_text}
-                                    </h3>
-                                </div>
-                            }
-                            <div className="request-card__header">
+                            <div className="request-card__section --content-main-info">
                                 {
-                                    theatreRequest.school.photo &&
-                                    <img className="request-card__logo-img"
-                                        src={window.global.baseUrl + theatreRequest.school.photo}
-                                        alt={"Логотип школы"} />
+                                    theatreRequest.status === "Отклонена" ?
+                                        <Accordion title={'Отклонена: Причина отказа'}>
+                                            {theatreRequest.decline_text}
+                                        </Accordion>
+                                        :
+                                        // Подключить классы на разные статусы как в таблице
+                                        <p className='request-status --status-review'>
+                                            {theatreRequest.status}
+                                        </p>
                                 }
-                                <ul className='request-card__list --place-header'>
-                                    <li className='request-card__date-item'>
-                                        <p className="request-card__description">Дата подачи</p>
-                                        <p className="request-card__text">
-                                            {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}
+                                <ul className='request-card__dates'>
+                                    <li>
+                                        <p className="request-card__date">Дата подачи:
+                                            <span className='request-card__date-accent'> {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</span>
                                         </p>
                                     </li>
-                                    <li className='request-card__date-item'>
-                                        <p className="request-card__description">Дата обновления</p>
-                                        <p className="request-card__text">
-                                            {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}
+                                    <li>
+                                        <p className="request-card__date">Дата обновления:
+                                            <span className='request-card__date-accent'> {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</span>
                                         </p>
                                     </li>
                                 </ul>
+                                <h1 className="request-card__title">{theatreRequest.title}</h1>
+                                <p className='request-card__item link --type-icon --icon-company'>{theatreRequest.school.title}
+                                    <span className='request-card__description'>Полное наименование школы</span></p>
+                                <Button
+                                    type='button'
+                                    theme={'outline'}
+                                    extraClass='request-card__btn'
+                                    text={"Просмотр заявки"}
+                                    onClick={() => setEdit(true)}
+                                />
                             </div>
-                            <h1 className="request-card__title">{theatreRequest.title}</h1>
-                            <ul className='request-card__list'>
-                                <li>
-                                    <h3 className='request-card__text'>{theatreRequest.school.dir_fio}</h3>
-                                    <p className='request-card__description'>Директор</p>
-                                </li>
-                                <li>
-                                    <p className='request-card__item link --type-icon --icon-company'>{theatreRequest.school.title}
-                                        <span className='request-card__description'>Полное наименование школы</span></p>
-                                </li>
-                                {
-                                    theatreRequest.school.dir_phone &&
-                                    <li>
-                                        <a href={`tel:${theatreRequest.school.dir_phone}`}
-                                            className='request-card__item link --type-icon --icon-phone'
-                                            rel='noreferrer nofollow noopener'
-                                            target='_blank'
-                                        >
-                                            {theatreRequest.school.dir_phone}
-                                        </a>
-                                    </li>
-                                }
-                                {
-                                    theatreRequest.school.dir_phone &&
-                                    <li>
-                                        <a href={`mailto:${theatreRequest.school.dir_email}`}
-                                            className='request-card__item link --type-icon --icon-email'
-                                            rel='noreferrer nofollow noopener'
-                                            target='_blank'
-                                        >
-                                            {theatreRequest.school.dir_email}
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                            <div class="profile --place-request">
-                                <div class="profile__content">
-                                    <img
-                                        class="profile__img"
-                                        src={theatreRequest.user.photo !== "" ? window.global.baseUrl + theatreRequest.user.photo : no_photo_man}
-                                        alt={theatreRequest.user.fio} />
-                                    <p class="profile__title">{theatreRequest.user.fio}</p>
-                                    <p class="profile__subtitle">Пользователь</p>
-                                    <ul className='profile__list'>
-                                        {
-                                            theatreRequest.user.email
-                                            &&
-                                            <li>
-                                                <a href={`email:${theatreRequest.user.email}`}
-                                                    className='link --type-icon --icon-email'
-                                                    rel='noreferrer nofollow noopener'
-                                                    target='_blank'
-                                                >
-                                                    {theatreRequest.user.email}
-                                                </a>
-                                            </li>
-                                        }
-                                        {
-                                            theatreRequest.user.phone
-                                            &&
-                                            <li>
-                                                <a href={`tel:${theatreRequest.user.phone}`}
-                                                    className='link --type-icon --icon-phone'
-                                                    rel='noreferrer nofollow noopener'
-                                                    target='_blank'
-                                                >
-                                                    {theatreRequest.user.phone}
-                                                </a>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
+                            <div class="request-card__section --content-contact-person profile --place-request">
+                                <p class="profile__subtitle">Контактное лицо</p>
+                                <p class="profile__title">{theatreRequest.user.fio}</p>
+                                <ul className='profile__list'>
+                                    {
+                                        theatreRequest.user.email
+                                        &&
+                                        <li>
+                                            <a href={`email:${theatreRequest.user.email}`}
+                                                className='profile__link link --type-icon --icon-email'
+                                                rel='noreferrer nofollow noopener'
+                                                target='_blank'
+                                            >
+                                                {theatreRequest.user.email}
+                                            </a>
+                                        </li>
+                                    }
+                                    {
+                                        theatreRequest.user.phone
+                                        &&
+                                        <li>
+                                            <a href={`tel:${theatreRequest.user.phone}`}
+                                                className='profile__link link --type-icon --icon-phone'
+                                                rel='noreferrer nofollow noopener'
+                                                target='_blank'
+                                            >
+                                                {theatreRequest.user.phone}
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
                             </div>
-                            <Button
-                                type='button'
-                                theme={'outline'}
-                                extraClass='request-card__btn'
-                                text={"Просмотр заявки"}
-                                onClick={() => setEdit(true)}
-                            />
                         </div>
                     </>
                     :

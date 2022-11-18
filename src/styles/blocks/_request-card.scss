@@ -1,64 +1,50 @@
 .request-card {
-  display: flex;
-  gap: min(2.5vmax, 1.25em);
-  flex-direction: column;
-  max-width: 50em;
 
-  &__header {
+  @include media(md) {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: min(2.5vmax, 1.25em);
+    max-width: 60em;
   }
 
-  &__status-msg {
-    padding: .75em 1.25em;
-    box-sizing: border-box;
-    border: 1px solid var(--error);
-    background-color: rgba(map-get($colors, "error"), $alpha: .1);
+  &__section {
 
-    .request-card__description {
-      font-weight: 500;
-      color: var(--error);
-      margin-bottom: .5em;
+    @include media(md) {
+      padding: min(2.5vmax, 1.25em);
+      box-shadow: 0 0 6px rgba(black, .15);
+      border-radius: 5px;
     }
 
-    .request-card__text {
-      font-size: 1em;
-    }
-  }
-
-  &__logo-img {
-    @extend %alt-text-on-after;
-    display: block;
-    width: 100%;
-    max-width: min(10vmax, 5em);
-    border-radius: 15px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-  }
-
-  &__list {
-    @extend %reset-list;
-
-    display: flex;
-    flex-direction: column;
-    gap: min(2.5vmax, 1.25em);
-
-    &.--place-header {
-      gap: .5em;
-    }
-  }
-
-  &__date-item {
-    @extend %reset-list;
-
-    display: flex;
-    align-items: baseline;
-    gap: min(2.5vmax, 2.5em);
-
-    .request-card__description {
+    &.--content-main-info {
       flex: auto;
+      display: flex;
+      flex-direction: column;
+      gap: min(2.5vmax, 1.25em);
     }
+
+    &.--content-contact-person {
+      @include media(md, max) {
+        border-top: 1px solid var(--g300);
+        margin-top: min(2.5vmax, 1.25em);
+      }
+    }
+  }
+
+  &__dates {
+    @extend %reset-list;
+    padding-bottom: min(2.5vmax, 1.25em);
+    border-bottom: 1px solid var(--g300);
+  }
+
+  &__date {
+    margin: 0;
+    line-height: 2;
+    color: var(--darkLow);
+  }
+
+  &__date-accent {
+    font-weight: 600;
+    color: var(--dark);
   }
 
   &__title {
@@ -96,6 +82,8 @@
   }
 
   &__btn {
-    align-self: start;
+    @include media(md) {
+      align-self: flex-end;
+    }
   }
 }

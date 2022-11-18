@@ -4,7 +4,6 @@
   text-align: center;
   padding: .25em 1.25em;
   box-sizing: border-box;
-  width: fit-content;
   font-weight: 600;
   line-height: 150%;
   text-transform: uppercase;
@@ -41,7 +40,6 @@
   }
 
   &.--place-table {
-    width: unset;
     font-size: .75em;
     font-weight: 500;
     border-width: 1px;

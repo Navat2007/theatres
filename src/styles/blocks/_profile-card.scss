@@ -78,10 +78,6 @@
     display: inline-block;
     font-size: min(2.5vmax, 1.25em);
     font-weight: 500;
-
-    &::before {
-      color: var(--primary);
-    }
   }
 
   &__edit-btn {
