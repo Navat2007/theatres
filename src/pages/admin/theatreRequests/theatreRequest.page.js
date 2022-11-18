@@ -85,10 +85,6 @@ const TheatreRequestPage = () => {
         params.theatreID = theatreRequest.theatreID;
         params.schoolID = theatreRequest.schoolID;
 
-        console.log(params);
-
-        return;
-
         const result = await editTheatre(params);
 
         if (!result.error) {
@@ -106,8 +102,6 @@ const TheatreRequestPage = () => {
             params.declineText = text.declineText;
             params.theatreID = theatreRequest.theatreID;
             params.schoolID = theatreRequest.schoolID;
-
-            console.log(params);
 
             const result = await editTheatre(params);
 
