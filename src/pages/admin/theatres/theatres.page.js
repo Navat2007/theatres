@@ -46,6 +46,13 @@ const TheatresPage = () => {
             sorting: true,
         },
         {
+            header: "Школа",
+            key: "school_title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
             header: "Статус",
             key: "active",
             type: "string",
