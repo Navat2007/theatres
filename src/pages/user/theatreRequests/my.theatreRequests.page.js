@@ -38,6 +38,13 @@ const MyTheatreRequestsPage = () => {
             sorting: true,
         },
         {
+            header: "Тип заявки",
+            key: "type",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
             header: "Название театра",
             key: "title",
             type: "string",
