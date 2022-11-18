@@ -140,8 +140,7 @@
   }
 
   &__icon-btn {
-    align-self: end;
-    margin-bottom: .25rem;
+    align-self: center;
     margin-left: auto;
     margin-right: auto;
   }
@@ -149,5 +148,25 @@
   &__add-btn {
     margin-top: min(3vmax, 1.875em);
     align-self: start;
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include box(2em); 
+    border-radius: 50%;
+    box-sizing: border-box;
+    align-self: center;
+    text-decoration: unset; 
+    color: inherit;
+
+    &:hover {
+      background-color: var(--g200);
+    }
+
+    .mdi {
+      line-height: 1;
+    }
   }
 }
