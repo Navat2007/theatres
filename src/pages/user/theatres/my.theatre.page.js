@@ -30,9 +30,6 @@ const MyTheatrePage = () => {
         await schoolStore.loadSchool({id: user.schoolID});
         await teachersStore.loadTeachers({schoolID: user.schoolID});
 
-        //console.clear();
-        console.log(theatre);
-
     };
 
     React.useEffect(() => {
