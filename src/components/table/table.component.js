@@ -129,7 +129,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                 return <>{moment(value).format('DD.MM.YYYY')}</>;
 
             case "datetime":
-                return <>{moment(value).format('hh:mm DD.MM.YYYY')}</>;
+                return <>{moment(value).format('DD.MM.YYYY hh:mm')}</>;
 
             default:
                 return <>{value}</>;
