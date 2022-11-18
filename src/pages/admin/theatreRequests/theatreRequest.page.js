@@ -66,10 +66,10 @@ const TheatreRequestPage = () => {
 
     const back = () => navigate("/admin/theatreRequests");
 
-    const onEditSubmit = async (params) => {
+    const onAcceptSubmit = async (params) => {
 
         params.id = id;
-        params.status = 2;
+        params.status = 3;
         params.theatreID = theatreRequest.theatreID;
 
         console.log(params);
@@ -84,7 +84,15 @@ const TheatreRequestPage = () => {
 
     };
 
-    const onRevokeSubmit = async () => {
+    const onDeclineSubmit = async (params) => {
+
+        params.id = id;
+        params.status = 4;
+        params.theatreID = theatreRequest.theatreID;
+
+        console.log(params);
+
+        return;
 
         setPopup(
             <Notif
@@ -141,13 +149,8 @@ const TheatreRequestPage = () => {
             <TheatreRequest
                 isAdmin={true}
                 request={theatreRequest}
-                onAccept={() => {
-                    console.log("accept");
-                }}
-                onDecline={() => {
-                    console.log("decline");
-                }}
-                onSubmitDone={onEditSubmit}
+                onDecline={onDeclineSubmit}
+                onSubmitDone={onAcceptSubmit}
                 onBack={() => setEdit(false)}
             />
             {popup}

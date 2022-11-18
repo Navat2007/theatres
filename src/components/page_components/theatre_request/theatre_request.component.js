@@ -14,7 +14,7 @@ import Tab from '../../tabs/tab.component';
 import Tabs from '../../tabs/tabs.component';
 import Popup from "../../../components/popup/popup.component";
 
-function TheatreRequest({ onSubmitDone, onBack, onAccept, onDecline, request, isAdmin }) {
+function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
 
     const { register, handleSubmit, reset, control, getValues, setValue } = useForm();
 
@@ -521,17 +521,43 @@ function TheatreRequest({ onSubmitDone, onBack, onAccept, onDecline, request, is
                 </Tab>
             </Tabs>
             <div className="form__controls">
-                <Button
-                    type="submit"
-                    theme="primary"
-                    text="Сохранить"
-                />
-                <Button
-                    type="button"
-                    theme="text"
-                    text="Отмена"
-                    onClick={onBack}
-                />
+                {
+                    isAdmin
+                        ?
+                        <>
+                            <Button
+                                type="submit"
+                                theme="primary"
+                                text="Принять"
+                            />
+                            <Button
+                                type="button"
+                                theme="primary"
+                                text="Отклонить"
+                                onClick={onDecline}
+                            />
+                            <Button
+                                type="button"
+                                theme="text"
+                                text="Отмена"
+                                onClick={onBack}
+                            />
+                        </>
+                        :
+                        <>
+                            <Button
+                                type="submit"
+                                theme="primary"
+                                text="Сохранить"
+                            />
+                            <Button
+                                type="button"
+                                theme="text"
+                                text="Отмена"
+                                onClick={onBack}
+                            />
+                        </>
+                }
             </div>
         </form>
     )
