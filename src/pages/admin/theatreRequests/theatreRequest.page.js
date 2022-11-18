@@ -85,6 +85,10 @@ const TheatreRequestPage = () => {
         params.theatreID = theatreRequest.theatreID;
         params.schoolID = theatreRequest.schoolID;
 
+        console.log(params);
+
+        return;
+
         const result = await editTheatre(params);
 
         if (!result.error) {
@@ -102,6 +106,8 @@ const TheatreRequestPage = () => {
             params.declineText = text.declineText;
             params.theatreID = theatreRequest.theatreID;
             params.schoolID = theatreRequest.schoolID;
+
+            console.log(params);
 
             const result = await editTheatre(params);
 
@@ -192,7 +198,7 @@ const TheatreRequestPage = () => {
                                 {theatreRequest.status}
                             </p>
                             {
-                                theatreRequest.decline_text &&
+                                theatreRequest.status === "Отклонена" &&
                                 <div className='request-card__status-msg'>
                                     <p className='request-card__description'>Причина отказа</p>
                                     <h3 className='request-card__text'>

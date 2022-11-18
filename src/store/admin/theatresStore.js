@@ -116,23 +116,15 @@ const useTheatresStore = create(
             set({ sending: true });
 
             let form = new FormData();
-
-            for (let key in params) {
-
-                if (key === "photo") {
-                    form.append("files[]", params[key][0]);
-                }
-                else {
-                    form.append(key, params[key]);
-                }
-
-            }
+            window.global.buildFormData(form, params);
 
             const response = await axios.post(urlEditTheatre, form);
 
             set({ sending: false });
 
             if (response.data) {
+
+                console.log("editTheatre: ", response.data);
 
                 if (response.data.error === 1) {
 
