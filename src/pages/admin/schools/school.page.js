@@ -88,7 +88,7 @@ const SchoolPage = () => {
                             <div className="profile --place-edit-profile">
                                 <p className='profile__text'>Фото</p>
                                 <img className='profile__img'
-                                    src={school.photo}
+                                     src={school?.photo !== "" ? window.global.baseUrl + school?.photo : ""} alt={"Логотип школы"}
                                     alt={""} />
                             </div>
                             <FieldInput

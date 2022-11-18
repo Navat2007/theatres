@@ -20,6 +20,7 @@ const TheatreRequestPage = () => {
         theatreRequest,
         loadTheatreRequest,
         editTheatre,
+        requestChangeNew,
         loading,
         error,
         errorText,
@@ -32,6 +33,7 @@ const TheatreRequestPage = () => {
 
     const fetchData = async () => {
 
+        await requestChangeNew({id});
         const request = await loadTheatreRequest({id});
         await teachersStore.loadTeachers({schoolID: request.schoolID});
 
@@ -71,10 +73,6 @@ const TheatreRequestPage = () => {
         params.id = id;
         params.status = 3;
         params.theatreID = theatreRequest.theatreID;
-
-        console.log(params);
-
-        return;
 
         const result = await editTheatre(params);
 

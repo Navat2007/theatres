@@ -4,8 +4,6 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/php/classes/admin/Theatre.php';
 
 $id = htmlspecialchars($_POST["id"]);
 $status = htmlspecialchars($_POST["status"]);

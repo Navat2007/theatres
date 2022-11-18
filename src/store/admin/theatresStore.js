@@ -9,6 +9,7 @@ const urlLoadTheatreRequest = process.env.REACT_APP_BASE_URL + 'php/models/admin
 const urlAddTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/add.php';
 const urlEditTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/edit.php';
 const urlRemoveTheatre = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/remove.php';
+const urlRequestChangeNew = process.env.REACT_APP_BASE_URL + 'php/models/admin/theatres/change_new.php';
 
 const useTheatresStore = create(
     (set, get) => ({
@@ -227,6 +228,24 @@ const useTheatresStore = create(
             if (response?.data?.params) {
 
                 set({ theatreRequest: response.data.params });
+                return response.data.params;
+
+            }
+
+        },
+        requestChangeNew: async (params) => {
+
+            let form = new FormData();
+            window.global.buildFormData(form, params);
+
+            const response = await axios.post(urlRequestChangeNew, form).catch(error => {
+                set({ error: true, errorText: error });
+                return { error: true };
+            });
+
+            if (response?.data?.params) {
+
+                set({ theatre: {...get().theatre, status: 2} });
                 return response.data.params;
 
             }
