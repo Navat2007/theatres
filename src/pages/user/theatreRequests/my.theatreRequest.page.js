@@ -67,7 +67,7 @@ const MyTheatreRequestPage = () => {
         const result = await editTheatre(params);
 
         if (!result.error) {
-            navigate("/user/theatreRequests");
+            back();
         }
 
     };
@@ -99,7 +99,7 @@ const MyTheatreRequestPage = () => {
 
                             if (!result.error) {
                                 setPopup(<></>);
-                                navigate("/user/theatreRequests");
+                                back();
                             }
                         }}
                     />
@@ -113,7 +113,7 @@ const MyTheatreRequestPage = () => {
         return <div className='content__section'><p>Загрузка...</p></div>;
 
     if (edit) {
-        return (<>
+        return (<div className='content__section'>
             <div className="content__title-block">
                 <Button
                     type='button'
@@ -128,13 +128,13 @@ const MyTheatreRequestPage = () => {
             </div>
             <TheatreRequest request={theatreRequest} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)} />
             {popup}
-        </>);
+        </div>);
     }
 
     return (
         <div className='content__section'>
             {
-                id && Object.keys(theatreRequest).length > 0
+                id && theatreRequest && Object.keys(theatreRequest).length > 0
                     ?
                     <>
                         <div className="content__title-block">
@@ -151,8 +151,8 @@ const MyTheatreRequestPage = () => {
                         </div>
                         <p>Статус: {theatreRequest.status}</p>
                         <p>Название театра: {theatreRequest.title}</p>
-                        <p>Дата подачи: {moment(theatreRequest.create_time).format('hh:mm DD.MM.YYYY')}</p>
-                        <p>Дата обновления: {moment(theatreRequest.update_time).format('hh:mm DD.MM.YYYY')}</p>
+                        <p>Дата подачи: {moment(theatreRequest.create_time).format('HH:mm DD.MM.YYYY')}</p>
+                        <p>Дата обновления: {moment(theatreRequest.update_time).format('HH:mm DD.MM.YYYY')}</p>
                         <p>Текст отказа: {theatreRequest.decline_text}</p>
                         <Button text={"Редактировать"} onClick={() => setEdit(true)} />
                         <br />
@@ -160,7 +160,7 @@ const MyTheatreRequestPage = () => {
                         {theatreRequest.status !== "Отозвана" && <Button text={"Отозвать"} onClick={onRevokeSubmit} />}
                     </>
                     :
-                    <p>Заявки № {id} не существует</p>
+                    <p>Не удалось найти заявку № {id}</p>
             }
             {popup}
         </div>

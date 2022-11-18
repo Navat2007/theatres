@@ -13,9 +13,16 @@ $sqls = array();
 $params = (object)[];
 
 $sql = "SELECT 
-            request.*
+            request.*, 
+            school.org_short_name as school_title, school.msrd as school_msrd, school.photo as school_photo,
+            school.dir_fio as school_dir_fio, school.dir_phone as school_dir_phone, school.dir_email as school_dir_email, 
+            account.email as user_email, account.fio as user_fio, account.phone as user_phone, account.photo as user_photo
         FROM 
             theatre_requests as request 
+        LEFT JOIN 
+            schools as school on school.ID = request.schoolID
+        LEFT JOIN 
+            accounts as account on account.ID = request.userID
         WHERE 
             request.ID = '$id'";
 
@@ -47,6 +54,24 @@ if (mysqli_num_rows($result) > 0) {
             'age_members' => getAgeMembers($row->ID),
             'form_activity' => getFormActivity($row->ID),
             'last_user_changed' => (int)$row->last_user_changed,
+            'school' => (object)[
+
+                'title' => $row->school_title,
+                'msrd' => $row->school_msrd,
+                'photo' => $row->school_photo,
+                'dir_fio' => $row->school_dir_fio,
+                'dir_phone' => $row->school_dir_phone,
+                'dir_email' => $row->school_dir_email,
+
+            ],
+            'user' => (object)[
+
+                'fio' => $row->user_fio,
+                'email' => $row->user_email,
+                'phone' => $row->user_phone,
+                'photo' => $row->user_photo,
+
+            ]
 
         ];
     }
@@ -71,7 +96,7 @@ function getStatusText($statusIndex)
 {
     switch ((int)$statusIndex) {
         case 1:
-            return "Рассмотрение";
+            return "Новая";
         case 2:
             return "Рассмотрение";
         case 3:
@@ -102,7 +127,7 @@ function getFormActivity($ID)
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_object($result)) {
 
-            $data[] = (object) [
+            $data[] = (object)[
                 'activity' => $row->activity
             ];
         }
@@ -130,7 +155,7 @@ function getAgeMembers($ID)
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_object($result)) {
 
-            $data[] = (object) [
+            $data[] = (object)[
                 'age' => $row->age
             ];
         }
@@ -160,7 +185,7 @@ function getTeachers($ID)
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_object($result)) {
 
-            $data[] = (object) [
+            $data[] = (object)[
                 'ID' => (int)$row->teacherID,
                 'fio' => $row->f . ' ' . $row->i . ' ' . $row->o
             ];
