@@ -194,15 +194,16 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                         {
                             socialLinks.map(item => (
                                 <div
-                                    className="form__social-block"
+                                    className="form__group-block"
                                     key={item.id}
                                 >
                                     {
-                                        item.img
+                                        item.img &&
+                                        <span className="form__social-icon">{item.img}</span>
                                     }
                                     <FieldInput
                                         type='text'
-                                        extraClass='form__social-field'
+                                        extraClass='form__field'
                                         placeholder='Введите url-адрес...'
                                         {...register("social_" + item.id, { value: item.url })}
                                         onChange={(event) => {
@@ -230,7 +231,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                             setValue("social_" + item.id, event.target.value);
                                         }}
                                         required={true}
-                                    /> 
+                                    />
                                     <a
                                         className='form__social-link'
                                         href=""
@@ -267,12 +268,22 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                         />
                         <h2 className="form__title">Ссылка на страницу театра на сайте образовательной
                             организации </h2>
-                        <div className="form__field-block">
+                        <div className="form__group-block">
                             <FieldInput
                                 type='url'
+                                extraClass='form__field'
                                 placeholder='Введите url-адрес...'
                                 {...register("theatreUrlSchool")}
                             />
+                            <a
+                                className='form__social-link'
+                                href=""
+                                aria-label='Открыть в новой вкладке'
+                                title='Открыть в новой вкладке'
+                                target={'_blank'}
+                                rel='nofollow noreferer noopener'>
+                                <span className='mdi mdi-open-in-new'></span>
+                            </a>
                         </div>
                     </fieldset>
                     <fieldset className='form__section'>
@@ -400,14 +411,24 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                 <Tab title={"Видео"} extraClass='form__tab'>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Видео визитка школьного театра</h2>
-                        <div className="form__field-block">
+                        <div className="form__group-block">
                             <FieldInput
                                 label={"Ссылка на видео"}
                                 type='url'
+                                extraClass='form__field'
                                 placeholder='Введите url-адрес...'
                                 layout='flex'
                                 {...register("videoBusinessCard")}
                             />
+                            <a
+                                className='form__social-link'
+                                href=""
+                                aria-label='Открыть в новой вкладке'
+                                title='Открыть в новой вкладке'
+                                target={'_blank'}
+                                rel='nofollow noreferer noopener'>
+                                <span className='mdi mdi-open-in-new'></span>
+                            </a>
                             <Button
                                 type='button'
                                 theme='text'
@@ -431,13 +452,23 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                     </fieldset>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Видео лучших фрагментов</h2>
-                        <div className="form__field-block">
+                        <div className="form__group-block">
                             <FieldInput
                                 label={"Ссылка на видео"}
                                 type='url'
+                                extraClass='form__field'
                                 placeholder='Введите url-адрес...'
                                 layout='flex'
                             />
+                            <a
+                                className='form__social-link'
+                                href=""
+                                aria-label='Открыть в новой вкладке'
+                                title='Открыть в новой вкладке'
+                                target={'_blank'}
+                                rel='nofollow noreferer noopener'>
+                                <span className='mdi mdi-open-in-new'></span>
+                            </a>
                             <Button
                                 type='button'
                                 theme='text'
@@ -463,10 +494,11 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                 <Tab title={"Описания (рецензии)"} extraClass='form__tab'>
                     <fieldset className='form__section'>
                         <h2 className="form__title">Рассказ о других школьных театрах</h2>
-                        <div className="form__field-block">
+                        <div className="form__group-block">
                             <FieldInput
                                 label={"Название театра"}
                                 type='text'
+                                extraClass='form__field'
                                 placeholder='Введите название...'
                                 layout='flex'
                             />
@@ -501,10 +533,11 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                     <fieldset className='form__section'>
                         <h2 className="form__title">Рассказы (рецензии) о посещении других московских
                             театров</h2>
-                        <div className="form__field-block">
+                        <div className="form__group-block">
                             <FieldInput
                                 label={"Название театра"}
                                 type='text'
+                                extraClass='form__field'
                                 placeholder='Введите название...'
                                 layout='flex'
                             />
@@ -554,7 +587,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                 text="Отклонить"
                                 onClick={() => {
 
-                                    if(onDecline)
+                                    if (onDecline)
                                         onDecline(performData());
 
                                 }}
