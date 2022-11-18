@@ -4,6 +4,8 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/classes/admin/Theatre.php';
 
 $id = htmlspecialchars($_POST["id"]);
 $status = htmlspecialchars($_POST["status"]);
@@ -72,14 +74,108 @@ if (mysqli_num_rows($result) > 0) {
 
 if ($error === 0) {
 
-    $sql = "SELECT * FROM theatre_requests WHERE ID = '$id'";
+    $sql = "DELETE FROM theatre_requests_form_activity WHERE requestID = '$id'";
     $sqls[] = $sql;
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_object($result);
+    mysqli_query($conn, $sql);
 
-    if ((int)$status === 2) {
+    $sql = "DELETE FROM theatre_requests_age_members WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
 
-        $status = (int)$row->status === 1 ? 1 : 2;
+    $sql = "DELETE FROM theatre_requests_teachers WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM theatre_requests_social_links WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    if ((int)$status === 3) {
+
+        if ((int)$theatreID !== 0) {
+
+            $sql = "UPDATE 
+                theatres
+            SET
+                status = '$status',
+                title = '$title', 
+                address = '$address', 
+                foundation_date = '$foundationDate', 
+                theatre_url_school = '$theatreUrlSchool',
+                short_description = '$editorShortDescription',
+                director_message = '$editorDirectorMessage',
+                video_business_card = '$videoBusinessCard',
+                last_user_changed = '$userID'
+            WHERE 
+                ID = '$theatreID'";
+            $sqls[] = $sql;
+            $result = mysqli_query($conn, $sql);
+
+        } else {
+
+            $sql = "DELETE FROM theatre_requests WHERE ID = '$id'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "
+                INSERT INTO theatres (schoolID, userID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+                VALUES ('$schoolID', '$userID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+            ";
+            $sqls[] = $sql;
+            $result = mysqli_query($conn, $sql);
+            $lastID = mysqli_insert_id($conn);
+
+            foreach ($formActivity as $activity) {
+
+                $sql = "
+                INSERT INTO theatres_form_activity (requestID, activity) 
+                VALUES ('$id', '$activity')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
+
+            foreach ($ageMembers as $age) {
+
+                $sql = "
+                INSERT INTO theatres_age_members (requestID, age) 
+                VALUES ('$id', '$age')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
+
+            foreach ($teachers as $teacher) {
+
+                $sql = "
+                INSERT INTO theatres_teachers (requestID, teacherID) 
+                VALUES ('$id', '$teacher')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
+
+            foreach ($socialLinks as $link) {
+
+                $sql = "
+                INSERT INTO theatres_social_links (requestID, url) 
+                VALUES ('$id', '$link')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
+
+        }
+
+        if (!$result) {
+            $error = 1;
+            $error_text = mysqli_error($conn);
+        } else {
+            $log->add($conn, $authorization[1], 'Заявка ID: ' . $id . ' принята');
+        }
+    }
+
+    if ((int)$status === 4) {
 
         $sql = "UPDATE 
                 theatre_requests
@@ -98,10 +194,6 @@ if ($error === 0) {
         $sqls[] = $sql;
         $result = mysqli_query($conn, $sql);
 
-        $sql = "DELETE FROM theatre_requests_form_activity WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
         foreach ($formActivity as $activity) {
 
             $sql = "
@@ -111,10 +203,6 @@ if ($error === 0) {
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
         }
-
-        $sql = "DELETE FROM theatre_requests_age_members WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
 
         foreach ($ageMembers as $age) {
 
@@ -126,10 +214,6 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
         }
 
-        $sql = "DELETE FROM theatre_requests_teachers WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
         foreach ($teachers as $teacher) {
 
             $sql = "
@@ -140,10 +224,6 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
         }
 
-        $sql = "DELETE FROM theatre_requests_social_links WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
         foreach ($socialLinks as $link) {
 
             $sql = "
@@ -153,40 +233,16 @@ if ($error === 0) {
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
         }
+
+        if (!$result) {
+            $error = 1;
+            $error_text = mysqli_error($conn);
+        } else {
+            $log->add($conn, $authorization[1], 'Заявка ID: ' . $id . ' отклонена');
+        }
+
     }
 
-    if ((int)$status === 5) {
-
-        $sql = "DELETE FROM theatre_requests_form_activity WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
-        $sql = "DELETE FROM theatre_requests_age_members WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
-        $sql = "DELETE FROM theatre_requests_teachers WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
-        $sql = "DELETE FROM theatre_requests_social_links WHERE requestID = '$id'";
-        $sqls[] = $sql;
-        mysqli_query($conn, $sql);
-
-        $sql = "DELETE FROM 
-                theatre_requests
-            WHERE 
-                ID = '$id'";
-        $sqls[] = $sql;
-        $result = mysqli_query($conn, $sql);
-    }
-
-    if (!$result) {
-        $error = 1;
-        $error_text = mysqli_error($conn);
-    } else {
-        $log->add($conn, $authorization[1], 'Отредактирована заявка ID: ' . $id . ' в школе ID: ' . $schoolID);
-    }
 }
 
 $content = (object)[

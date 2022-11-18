@@ -72,9 +72,10 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
 
     };
 
-    const onSubmit = handleSubmit(async (data) => {
+    const performData = () => {
 
-        console.log("Форма: ", data);
+        const data = getValues();
+        console.log("GetValues: ", data);
 
         let sendObject = {
             schoolID: user.schoolID,
@@ -103,7 +104,15 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
         if (data.editorDirectorMessage)
             sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
 
-        onSubmitDone(sendObject);
+        console.log("Подготовленные данные: ", sendObject);
+
+        return sendObject;
+
+    };
+
+    const onSubmit = handleSubmit(async (data) => {
+
+        onSubmitDone(performData());
 
     });
 
@@ -543,7 +552,12 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                 type="button"
                                 theme="primary"
                                 text="Отклонить"
-                                onClick={onDecline}
+                                onClick={() => {
+
+                                    if(onDecline)
+                                        onDecline(performData());
+
+                                }}
                             />
                             <Button
                                 type="button"

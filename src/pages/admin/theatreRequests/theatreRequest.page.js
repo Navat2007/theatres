@@ -32,11 +32,11 @@ const TheatreRequestPage = () => {
 
     const fetchData = async () => {
 
-        await loadTheatreRequest({id});
-        await teachersStore.loadTeachers({schoolID: theatreRequest.schoolID});
+        const request = await loadTheatreRequest({id});
+        await teachersStore.loadTeachers({schoolID: request.schoolID});
 
         console.clear();
-        console.log(theatreRequest);
+        console.log(request);
 
     };
 

@@ -226,7 +226,8 @@ const useTheatresStore = create(
 
             if (response?.data?.params) {
 
-                set((state) => ({ theatreRequest: response.data.params }));
+                set({ theatreRequest: response.data.params });
+                return response.data.params;
 
             }
 

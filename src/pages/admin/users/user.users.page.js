@@ -225,7 +225,7 @@ const UserUsersPage = () => {
                     <Notif
                         title={"Ошибка!"}
                         state="error"
-                        text={errorText}
+                        text={errorText.users}
                         opened={popupErrorOpened}
                         onClose={() => {
                             clearErrorText();
@@ -335,7 +335,7 @@ const UserUsersPage = () => {
                 <Notif
                     title={"Ошибка!"}
                     state="error"
-                    text={errorText}
+                    text={errorText.users}
                     opened={popupErrorOpened}
                     onClose={() => {
                         clearErrorText();
