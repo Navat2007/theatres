@@ -191,9 +191,9 @@ const TeacherPage = () => {
                                 />
                             </fieldset>
                             <fieldset className='form__section'>
-                                <h2 className="form__title">Безопасность</h2>
+                                <h2 className="form__title">Отображение</h2>
                                 <FieldInput
-                                    label={"Активировать учетную запись?"}
+                                    label={"Доступен для выбора?"}
                                     type={"checkbox_variant"}
                                     {...register("active", { value: teacher.active === "Активен" })}
                                 />
