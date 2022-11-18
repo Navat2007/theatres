@@ -7,6 +7,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
 $id = htmlspecialchars($_POST["id"]);
 $status = htmlspecialchars($_POST["status"]);
+$declineText = htmlspecialchars($_POST["declineText"]);
 $theatreID = htmlspecialchars($_POST["theatreID"]);
 $schoolID = htmlspecialchars($_POST["schoolID"]);
 $userID = $authorization[1];
@@ -179,6 +180,7 @@ if ($error === 0) {
                 theatre_requests
             SET
                 status = '$status',
+                decline_text = '$declineText',
                 title = '$title', 
                 address = '$address', 
                 foundation_date = '$foundationDate', 

@@ -235,13 +235,17 @@ const useTheatresStore = create(
         },
         requestChangeNew: async (params) => {
 
+            set({ sending: true });
+
             let form = new FormData();
             window.global.buildFormData(form, params);
 
             const response = await axios.post(urlRequestChangeNew, form).catch(error => {
-                set({ error: true, errorText: error });
+                set({ sending: false, error: true, errorText: error });
                 return { error: true };
             });
+
+            set({ sending: false });
 
             if (response?.data?.params) {
 

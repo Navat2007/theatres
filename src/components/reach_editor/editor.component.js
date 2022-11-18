@@ -3,7 +3,7 @@ import JoditEditor from "jodit-react";
 import { Controller } from "react-hook-form";
 
 // all options from https://xdsoft.net/jodit/doc/,
-const Editor = ({ control, name, readonly, placeholder, value, ...rest }) => {
+const Editor = ({ control, name, readonly, placeholder, required, value, ...rest }) => {
 
     const config = {
         readonly: false,
@@ -18,6 +18,7 @@ const Editor = ({ control, name, readonly, placeholder, value, ...rest }) => {
             control={control}
             name={name}
             defaultValue={value}
+            rules={{ required: required }}
             render={({ field }) => (
                 <JoditEditor
                     ref={field.ref}
