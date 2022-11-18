@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 import useAuthStore from '../../../store/authStore';
 import useTeachersStore from './../../../store/admin/teachersStore';
@@ -14,14 +14,14 @@ import Tab from '../../tabs/tab.component';
 import Tabs from '../../tabs/tabs.component';
 import Popup from "../../../components/popup/popup.component";
 
-function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
+function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecline = () => null, request, isAdmin}) {
 
-    const { register, handleSubmit, reset, control, getValues, setValue } = useForm();
+    const {register, handleSubmit, reset, control, getValues, setValue} = useForm();
 
     const [popup, setPopup] = React.useState(<></>);
     const [socialLinks, setSocialLinks] = React.useState([]);
 
-    const { user } = useAuthStore();
+    const {user} = useAuthStore();
     const theatreStore = useTheatresStore();
     const teachersStore = useTeachersStore();
     const schoolStore = useSchoolStore();
@@ -41,7 +41,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
             setValue("editorDirectorMessage", request.director_message);
 
             let socialLinksArray = request.social_links.map((link) => {
-                return { id: window.global.makeid(12), url: link, img: window.global.getSocialIcon(link) };
+                return {id: window.global.makeid(12), url: link, img: window.global.getSocialIcon(link)};
             });
 
             setSocialLinks(socialLinksArray);
@@ -68,7 +68,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
 
     const handleSocialLink = () => {
 
-        setSocialLinks([...socialLinks, { id: window.global.makeid(12), url: "" }]);
+        setSocialLinks([...socialLinks, {id: window.global.makeid(12), url: ""}]);
 
     };
 
@@ -135,7 +135,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                             layout='flex'
                             required={true}
                             placeholder={"Введите адрес"}
-                            {...register("address", { value: schoolStore?.school?.address })}
+                            {...register("address", {value: schoolStore?.school?.address})}
                         />
                         <div className="form__multy-block">
                             <p className="form__label">Форма осуществления деятельности</p>
@@ -205,7 +205,7 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                                         type='text'
                                         extraClass='form__field'
                                         placeholder='Введите url-адрес...'
-                                        {...register("social_" + item.id, { value: item.url })}
+                                        {...register("social_" + item.id, {value: item.url})}
                                         onChange={(event) => {
                                             setSocialLinks(socialLinks.map(link => {
 
@@ -334,8 +334,8 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                             {/* Первая всегда Главная, там нет стрелок для смены позиции, есть только удалить, если удалить, то вторая соотв.становится Главной  */}
                             <li className='gallery-form__item'>
                                 <img className='gallery-form__img'
-                                    src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg"
-                                    alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg" />
+                                     src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg"
+                                     alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678393_126-vsegda-pomnim-com-p-reki-rossii-foto-133.jpg"/>
                                 <div className="gallery-form__item-panel">
                                     <Button
                                         type='button'
@@ -352,8 +352,8 @@ function TheatreRequest({ onSubmitDone, onBack, onDecline, request, isAdmin }) {
                             {/* Остальные фото будут по сл.разметке */}
                             <li className='gallery-form__item'>
                                 <img className='gallery-form__img'
-                                    src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg"
-                                    alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg" />
+                                     src="https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg"
+                                     alt="Изображение https://vsegda-pomnim.com/uploads/posts/2022-03/1648678358_6-vsegda-pomnim-com-p-reki-rossii-foto-6.jpg"/>
                                 {/* Показывает какая позиция у фото */}
                                 <span className="gallery-form__current-position">2</span>
                                 {/* Панель при наведении показывается, можно удалить фото или сделать Главной */}
