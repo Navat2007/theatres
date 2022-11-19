@@ -1,5 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url(https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap);
 @import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
 @import "_assets/variables";
 @import "_assets/mixins";
@@ -11,7 +11,7 @@
     }
 
     // FONT
-    --ff-firm: "Bebas Neue", cursive;
+    --ff-firm: "Oswald", sans-serif;
     --ff-base: "Montserrat", sans-serif;
     --ff-public: "Open Sans", sans-serif;
 }
@@ -63,10 +63,46 @@ html {
     -ms-user-select: none;
 }
 
+%main-width {
+    width: 100%;
+    max-width: 90em;
+    margin: 0 auto;
+}
+
+%padding-section {
+    padding-top: min(4.375vmax, 4.375em);
+    padding-bottom: min(4.375vmax, 4.375em);
+}
+
+.public-content {
+    font-family: var(--ff-public);
+
+    &__section {
+        &_bg_light-grey {
+            background-color: var(--g100);
+        }
+    }
+
+    &__wrap {
+        @extend %main-width;
+        @extend %padding-section;
+    }
+}
+
 .header {
-    display: flex;
+    background-color: var(--g600);
+
+    &__wrap {
+        @extend %main-width;
+        display: flex;
+        align-items: center;
+    }
+
     &__logo {
-        padding: 0.675em;
+        flex: none;
+        align-self: stretch;
+        background-color: var(--white);
+        padding: 0.675em min(6vmax, 3em);
         img {
             width: 200px;
             object-fit: contain;
@@ -75,9 +111,46 @@ html {
 }
 
 .menu {
+    flex: auto;
     &__list {
-      @extend %reset-list;
+        @extend %reset-list;
+        display: flex;
+        gap: min(4vmax, 3em);
+        justify-content: center;
     }
     &__link {
+        color: var(--white);
+        text-decoration: unset;
+        font-size: min(2.5vmax, 1.25em);
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.25s ease-in;
+
+        &:hover {
+            color: var(--public-primary);
+        }
     }
+}
+
+.section-title {
+    margin: 0;
+    font-family: var(--ff-firm);
+    font-weight: 500;
+    font-size: min(5.5vmax, 2.75em);
+    text-transform: uppercase;
+    color: var(--public-primary);
+}
+.section-subtitle {
+    margin: 0;
+    font-family: var(--ff-firm);
+    font-weight: 500;
+    font-size: min(4vmax, 2em);
+    text-transform: uppercase;
+    color: var(--public-accent);
+}
+
+.about {
+}
+
+.teachers {
 }
