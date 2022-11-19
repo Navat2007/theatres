@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/user/schoolStore";
+import Slider from "../../../components/slider/slider.component";
 
 function PublicTheatrePage() {
 
@@ -22,9 +23,9 @@ function PublicTheatrePage() {
     const teachersStore = useTeachersStore();
 
     const slides = [
-        {url: "https://source.unsplash.com/random/200x200?sig=1"},
-        {url: "https://source.unsplash.com/random/200x200?sig=2"},
-        {url: "https://source.unsplash.com/random/200x200?sig=3"},
+        {url: "https://source.unsplash.com/random/200x200?sig=1", alt: "1"},
+        {url: "https://source.unsplash.com/random/200x200?sig=2", alt: "2"},
+        {url: "https://source.unsplash.com/random/200x200?sig=3", alt: "3"},
     ];
 
     const fetchData = async () => {
@@ -72,6 +73,11 @@ function PublicTheatrePage() {
     return (
         <>
             <p>Страница театра</p>
+            <Slider
+                items={slides}
+                swipeable={true}
+                autoPlay={true}
+            />
         </>
     );
 
