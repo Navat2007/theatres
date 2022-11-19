@@ -125,14 +125,40 @@ const PublicLayout = () => {
                                 <li className="teachers__card">
                                     <img
                                         className="teachers__img"
-                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        src="https://i.pinimg.com/originals/4a/79/19/4a791974c79323c38c7db00bdd985df5.jpg"
                                         alt="Иванова Любовь Валерьевна"
                                     />
                                     <h3 className="teachers__title">
-                                        Иванова
-                                        <p className="teachers__subtitle">
-                                            Любовь Валерьевна
-                                        </p>
+                                        <span className="teachers__span-accent">
+                                            Иванова
+                                        </span>
+                                        Любовь Валерьевна
+                                    </h3>
+                                </li>
+                                <li className="teachers__card">
+                                    <img
+                                        className="teachers__img"
+                                        src="https://coolsen.ru/wp-content/uploads/2022/02/63-20220220_141754.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                    <h3 className="teachers__title">
+                                        <span className="teachers__span-accent">
+                                            Загогулькина
+                                        </span>
+                                        Анастасия Дрыздовна
+                                    </h3>
+                                </li>
+                                <li className="teachers__card">
+                                    <img
+                                        className="teachers__img"
+                                        src="https://img.alicdn.com/imgextra/i4/1968041872/O1CN01ylonbB1PhPuW19t7S_!!0-item_pic.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                    <h3 className="teachers__title">
+                                        <span className="teachers__span-accent">
+                                            Крюк
+                                        </span>
+                                        Кутиля Бутковна
                                     </h3>
                                 </li>
                                 <li className="teachers__card">
@@ -142,36 +168,10 @@ const PublicLayout = () => {
                                         alt="Иванова Любовь Валерьевна"
                                     />
                                     <h3 className="teachers__title">
-                                        Иванова
-                                        <p className="teachers__subtitle">
-                                            Любовь Валерьевна
-                                        </p>
-                                    </h3>
-                                </li>
-                                <li className="teachers__card">
-                                    <img
-                                        className="teachers__img"
-                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
-                                        alt="Иванова Любовь Валерьевна"
-                                    />
-                                    <h3 className="teachers__title">
-                                        Иванова
-                                        <p className="teachers__subtitle">
-                                            Любовь Валерьевна
-                                        </p>
-                                    </h3>
-                                </li>
-                                <li className="teachers__card">
-                                    <img
-                                        className="teachers__img"
-                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
-                                        alt="Иванова Любовь Валерьевна"
-                                    />
-                                    <h3 className="teachers__title">
-                                        Иванова
-                                        <p className="teachers__subtitle">
-                                            Любовь Валерьевна
-                                        </p>
+                                        <span className="teachers__span-accent">
+                                            Куница
+                                        </span>
+                                        Хвостатая Валерьевна
                                     </h3>
                                 </li>
                             </ul>
@@ -181,6 +181,251 @@ const PublicLayout = () => {
                         <article className="public-content__wrap gallery">
                             <h2 className="section-title">Галерея</h2>
                             <ul className="gallery__card-deck">
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
+                                <li className="gallery__card">
+                                    <img
+                                        className="gallery__img"
+                                        src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                        alt="Иванова Любовь Валерьевна"
+                                    />
+                                </li>
                                 <li className="gallery__card">
                                     <img
                                         className="gallery__img"
