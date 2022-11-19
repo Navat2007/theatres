@@ -21,12 +21,10 @@ function PublicTheatrePage() {
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
 
-    const [sliderValue, setSliderValue] = React.useState(0);
-
     const slides = [
-        (<img src={"https://source.unsplash.com/random/200x200?sig=1"}/>),
-        (<img src={"https://source.unsplash.com/random/200x200?sig=2"}/>),
-        (<img src={"https://source.unsplash.com/random/200x200?sig=3"}/>),
+        {url: "https://source.unsplash.com/random/200x200?sig=1"},
+        {url: "https://source.unsplash.com/random/200x200?sig=2"},
+        {url: "https://source.unsplash.com/random/200x200?sig=3"},
     ];
 
     const fetchData = async () => {
