@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 const Editor = ({ control, name, readonly, placeholder, required, value, ...rest }) => {
 
     const config = {
-        readonly: false,
+        readonly: readonly,
         about: false,
         addNewLine: false,
         minHeight: '500px',
