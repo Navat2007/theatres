@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 
 import Button from "../simple/button/button.component";
-import Popup from "../popup/popup.component";
 import Notif from '../notif/notif.component';
+
+import styles from './profile.module.scss';
 
 import no_photo_man from '../../images/no_photo_man.png';
 
@@ -37,15 +38,15 @@ const ProfileHeader = ({ className }) => {
     }, [user.role]);
 
     return (
-        <div className={`profile ${className}`}>
+        <div className={styles.profile}>
             <div
-                className='profile__content'
+                className={styles.content}
                 onClick={() => { navigate("/profile") }}
             >
-                <img className="profile__img"
+                <img className={styles.img}
                     src={user?.photo !== "" ? window.global.baseUrl + user.photo : no_photo_man} alt="Фото профиля" />
-                <p className="profile__title">{user.login ? user.login : user.email}</p>
-                <p className="profile__subtitle">{userRole}</p>
+                <p className={styles.title}>{user.login ? user.login : user.email}</p>
+                <p className={styles.subtitle}>{userRole}</p>
             </div>
             <Button
                 type='button'

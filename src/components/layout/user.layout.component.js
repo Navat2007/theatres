@@ -6,8 +6,6 @@ import ProfileHeader from "../header/profile.header.component";
 import SupportHeaderComponent from "../header/support.header.component";
 import Menu from "../menu/menu.component";
 
-import '../../styles/App.scss';
-
 const UserLayout = () => {
 
     const [burgerOpened, setBurgerOpened] = React.useState(false);
@@ -48,7 +46,7 @@ const UserLayout = () => {
         <>
             <Header handleBurger={handleBurgerMenu}>
                 <SupportHeaderComponent />
-                <ProfileHeader className="--place-header" />
+                <ProfileHeader />
             </Header>
             <Menu menu={menu} burgerOpened={burgerOpened} setBurgerOpened={handleBurgerMenu} />
             <main className="content__main">

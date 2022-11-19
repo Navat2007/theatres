@@ -1,0 +1,43 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 .75em;
+  box-sizing: border-box;
+  gap: .875em;
+  background-color: var(--white);
+  box-shadow: 0 0 15px rgba(black, .15);
+  position: relative;
+}
+
+.item {
+  align-self: center;
+  margin-right: auto;
+}
+
+@include media(sm, max) {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+}
+
+@include media(sm) {
+  .header {
+    grid-column: 2/3;
+
+    margin-left: .5em;
+    margin-right: .5em;
+    border-radius: 25px;
+  }
+
+  .item {
+    display: none;
+  }
+}

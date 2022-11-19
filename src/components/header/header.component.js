@@ -3,16 +3,18 @@ import React from 'react';
 import ProfileHeader from "./profile.header.component";
 import Button from "../simple/button/button.component";
 
+import styles from './header.module.scss';
+
 const HeaderComponent = ({ children, handleBurger }) => {
 
     return (
-        <header className="header content__header">
+        <header className={styles.header}>
             <Button
                 type='button'
                 theme='text'
                 isIconBtn={true}
                 iconClass='mdi mdi-menu'
-                extraClass='header__item --type-burger-menu'
+                extraClass={styles.item}
                 aria-label="Открыть/Закрыть меню"
                 onClick={handleBurger}
             />

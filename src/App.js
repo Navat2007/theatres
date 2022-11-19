@@ -8,6 +8,8 @@ import Preloader from "./components/preloader/preloader.component";
 
 import useAuthStore from "./store/authStore";
 
+import './styles/App.scss';
+
 const App = () => {
 
     const {setUser, logout} = useAuthStore();

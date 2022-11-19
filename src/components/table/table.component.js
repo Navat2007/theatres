@@ -6,6 +6,7 @@ import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search_filter/search.filter.component";
 
 import styles from './table.module.scss';
+import { AdminIcons } from '../svgs.js';
 
 const Table = ({ children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12 }) => {
 
@@ -253,7 +254,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                                                 &&
                                                 <th className={styles.th} key={item.header}>
                                                     <p
-                                                        className={`${'sorting' in item ? styles.sorting : ""} ${sortKey === item.key ? styles.sorting_actived : ""} ${sortKey === item.key && order === "ASC" ? styles.sorting_state_ascending : styles.sorting_state_descending}`}
+                                                        className={`${'sorting' in item ? styles.sorting : ""} ${sortKey === item.key && styles.sorting_actived}`}
                                                         aria-label='Сортировать по возрастанию'
                                                         onClick={() => {
                                                             if ('sorting' in item) {
@@ -262,6 +263,18 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                                                             }
                                                         }}
                                                     >
+                                                        {
+                                                            item.sorting &&
+                                                            <>
+                                                                {
+                                                                    sortKey === item.key && order === "ASC" ?
+                                                                        AdminIcons.ascending
+                                                                        :
+                                                                        AdminIcons.descending
+                                                                }
+                                                            </>
+                                                        }
+
                                                         {item.header}
                                                     </p>
                                                 </th>

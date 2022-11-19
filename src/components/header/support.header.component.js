@@ -9,6 +9,8 @@ import FieldInput from "../simple/field/field.input.component";
 import useAuthStore from "../../store/authStore";
 import Notif from '../notif/notif.component';
 
+import styles from './support.module.scss';
+
 const SupportHeaderComponent = () => {
 
     const { user } = useAuthStore();
@@ -44,7 +46,7 @@ const SupportHeaderComponent = () => {
                 type='button'
                 theme='outline'
                 iconClass='mdi mdi-help'
-                extraClass="header__item --type-support"
+                extraClass={styles.support}
                 aria-label="Задать вопрос"
                 text="Поддержка"
                 onClick={() => setPopupOpened(true)}

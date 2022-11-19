@@ -42,14 +42,6 @@
     grid-template-columns: auto 1fr;
     background-color: var(--g100);
 
-    &__menu {
-      grid-row: 1/-1;
-    }
-
-    &__header {
-      grid-column: 2/3;
-    }
-
     &__main {
       margin: 1em .5em 0;
       padding: 1.25em;

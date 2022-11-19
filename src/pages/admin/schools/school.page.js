@@ -6,7 +6,6 @@ import useSchoolsStore from "../../../store/admin/schoolsStore";
 
 import Button from "../../../components/simple/button/button.component";
 import FieldInput from "../../../components/simple/field/field.input.component";
-import Popup from "../../../components/popup/popup.component";
 import Notif from '../../../components/notif/notif.component';
 
 const SchoolPage = () => {
@@ -54,11 +53,7 @@ const SchoolPage = () => {
 
     }
 
-    const onDeleteSubmit = () => {
-
-
-
-    }
+    const onDeleteSubmit = () => {}
 
     if (loading)
         return <div className='content__section'><p>Загрузка...</p></div>;

@@ -1,7 +1,5 @@
 import React from "react";
 
-import '../../styles/App.public.scss';
-
 const PublicLayout = () => {
 
     return (
