@@ -1,9 +1,6 @@
 import React from 'react'
 import {useParams} from 'react-router-dom';
 
-import Carousel, {slidesToShowPlugin, Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/user/schoolStore";
@@ -77,33 +74,7 @@ function PublicTheatrePage() {
     return (
         <>
             <p>Страница театра</p>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexFlow: 'row',
-                alignContent: 'center',
-                textAlign: 'center'
-            }}>
-                <Carousel
-                    value={sliderValue}
-                    onChange={setSliderValue}
-                    slides={slides}
-                    plugins={[
-                        'centered',
-                        'infinite',
-                        'arrows',
-                        {
-                            resolve: slidesToShowPlugin,
-                            options: {
-                                numberOfSlides: 2,
-                            },
-                        },
-                    ]}
-                />
-                <Dots value={sliderValue} onChange={setSliderValue} number={slides.length} />
-            </div>
         </>
-
     );
 
 }
