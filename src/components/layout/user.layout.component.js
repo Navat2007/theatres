@@ -43,7 +43,7 @@ const UserLayout = () => {
     };
 
     return (
-        <>
+        <div className="content">
             <Header handleBurger={handleBurgerMenu}>
                 <SupportHeaderComponent />
                 <ProfileHeader />
@@ -52,7 +52,7 @@ const UserLayout = () => {
             <main className="content__main">
                 <Outlet />
             </main>
-        </>
+        </div>
     )
 }
 

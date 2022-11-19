@@ -47,7 +47,7 @@ const AdminLayout = () => {
     };
 
     return (
-        <>
+        <div className="content">
             <Header handleBurger={handleBurgerMenu}>
                 <SupportHeaderComponent />
                 <ProfileHeader />
@@ -56,7 +56,7 @@ const AdminLayout = () => {
             <main className="content__main">
                 <Outlet />
             </main>
-        </>
+        </div>
     )
 }
 

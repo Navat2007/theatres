@@ -59,9 +59,7 @@ const App = () => {
     return (
         <StrictMode>
             <BrowserRouter>
-                <div className="content">
-                    <RoutesList />
-                </div>
+                <RoutesList />
             </BrowserRouter>
         </StrictMode>
     )
