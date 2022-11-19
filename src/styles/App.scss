@@ -194,32 +194,33 @@ html {
         display: grid;
         gap: 0.675em;
         grid-template-columns: repeat(8, 1fr);
+        grid-auto-flow: dense;
     }
     &__card {
-        &:nth-child(14n + 1) {
+        &:nth-child(13n + 1) {
             grid-column: 1/6;
             grid-row: span 2;
             aspect-ratio: 1/0.7;
         }
-        &:nth-child(8n + 2),
-        &:nth-child(8n + 3) {
+        &:nth-child(7n + 2),
+        &:nth-child(7n + 3) {
             grid-column: 6/9;
             aspect-ratio: 1/0.575;
         }
-        &:nth-child(6n + 4) {
+        &:nth-child(5n + 4) {
             grid-column: 1/5;
             aspect-ratio: 1/0.6;
         }
-        &:nth-child(6n + 5) {
+        &:nth-child(5n + 5) {
             grid-column: 5/9;
             aspect-ratio: 1/0.6;
         }
-        &:nth-child(8n + 6),
-        &:nth-child(8n + 7) {
+        &:nth-child(7n + 6),
+        &:nth-child(7n + 7) {
             grid-column: 1/4;
             aspect-ratio: 1/0.575;
         }
-        &:nth-child(14n + 7) {
+        &:nth-child(13n + 8) {
             grid-column: 4/9;
             grid-row: span 2;
             aspect-ratio: 1/0.7;
