@@ -1,5 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+
+import Carousel, {slidesToShowPlugin, Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -7,7 +10,7 @@ import useSchoolStore from "../../../store/user/schoolStore";
 
 function PublicTheatrePage() {
 
-    let { id } = useParams();
+    let {id} = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -21,17 +24,25 @@ function PublicTheatrePage() {
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
 
+    const [sliderValue, setSliderValue] = React.useState(0);
+
+    const slides = [
+        (<img src={"https://source.unsplash.com/random/200x200?sig=1"}/>),
+        (<img src={"https://source.unsplash.com/random/200x200?sig=2"}/>),
+        (<img src={"https://source.unsplash.com/random/200x200?sig=3"}/>),
+    ];
+
     const fetchData = async () => {
 
         if (id) {
-            await loadTheatre({ id });
+            await loadTheatre({id});
 
             console.log(theatre);
 
             if (theatre) {
 
-                await schoolStore.loadSchool({ id: theatre.schoolID });
-                await teachersStore.loadTeachers({ schoolID: theatre.schoolID });
+                await schoolStore.loadSchool({id: theatre.schoolID});
+                await teachersStore.loadTeachers({schoolID: theatre.schoolID});
 
             }
 
@@ -50,7 +61,10 @@ function PublicTheatrePage() {
 
     if (id === "test") {
         return (
-            <p>Тестовая страница театра</p>
+            <>
+
+
+            </>
         );
     }
 
@@ -61,7 +75,35 @@ function PublicTheatrePage() {
     }
 
     return (
-        <p>Страница театра</p>
+        <>
+            <p>Страница театра</p>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexFlow: 'row',
+                alignContent: 'center',
+                textAlign: 'center'
+            }}>
+                <Carousel
+                    value={sliderValue}
+                    onChange={setSliderValue}
+                    slides={slides}
+                    plugins={[
+                        'centered',
+                        'infinite',
+                        'arrows',
+                        {
+                            resolve: slidesToShowPlugin,
+                            options: {
+                                numberOfSlides: 2,
+                            },
+                        },
+                    ]}
+                />
+                <Dots value={sliderValue} onChange={setSliderValue} number={slides.length} />
+            </div>
+        </>
+
     );
 
 }
