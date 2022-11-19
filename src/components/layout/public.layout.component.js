@@ -1,16 +1,32 @@
 import React from "react";
-import { Outlet } from 'react-router-dom';
 
-import Header from "../header/header.component";
+import '../../styles/App.public.scss';
 
 const PublicLayout = () => {
 
     return (
         <>
-            <Header>
-                <p>Публичный layout</p>
-            </Header>
-            <Outlet />
+             <header className="header">
+                <menu className="menu">
+                    <ul className="menu__list">
+                        <li>
+                            <a className="menu__link" href="">О содружестве</a>
+                        </li>
+                        <li>
+                            <a className="menu__link" href="">Участники</a>
+                        </li>
+                        <li>
+                            <a className="menu__link" href="">Проекты</a>
+                        </li>
+                        <li>
+                            <a className="menu__link" href="">Фестиваль</a>
+                        </li>
+                        <li>
+                            <a className="menu__link" href="">Театральная премия</a>
+                        </li>
+                    </ul>
+                </menu>
+             </header>
         </>
     );
 

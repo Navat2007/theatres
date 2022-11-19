@@ -1,7 +1,7 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap);  
+@import url(https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Infant:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap);  
 @import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
-@import "_assets/variables";
+@import "_assets/variables.public"; 
 @import "_assets/mixins";
 @import "_assets/extends";
 
@@ -13,8 +13,8 @@
   }
  
   // FONT 
-  // --ff-firm: 'Cormorant Infant', sans-serif;
-  --ff-base: Montserrat, sans-serif; 
+  --ff-firm: 'Bebas Neue', cursive;
+  --ff-base: 'Open Sans', sans-serif; 
 }
  
 html {  
@@ -22,30 +22,7 @@ html {
   font-family: var(--ff-base);
 }
 
-@import "blocks/popup-login";
-@import "blocks/form";
-@import "blocks/icon";
-@import "blocks/link";
-
-@import "blocks/content";
-@import "blocks/header";
-@import "blocks/logo";
-@import "blocks/menu";
-
-@import "blocks/search";
-@import "blocks/pagin";
-@import "blocks/table";
-@import "blocks/profile";
-@import "blocks/profile-card";
-@import "blocks/table-school-logo"; 
-
-@import "blocks/error-page";
-@import "blocks/multy-select";
-@import "blocks/gallery-form";
-@import "blocks/request-status";
-@import "blocks/request-card";
-// @import "blocks/event-item";
-// @import "blocks/game-item";
+@import "blocks.public/header";
 
 // Общие 
 

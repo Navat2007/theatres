@@ -6,6 +6,8 @@ import Menu from "../menu/menu.component";
 import SupportHeaderComponent from "../header/support.header.component";
 import ProfileHeader from "../header/profile.header.component";
 
+import '../../styles/App.scss';
+
 const AdminLayout = () => {
 
     const [burgerOpened, setBurgerOpened] = React.useState(false);

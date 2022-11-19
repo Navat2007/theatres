@@ -5,6 +5,8 @@ import moment from "moment";
 import Pagination from "../pagination/pagination.component";
 import SearchFilter from "../search_filter/search.filter.component";
 
+import styles from './table.module.scss';
+
 const Table = ({ children, title, itemsConfig, items, onItemClick, loading, withFilter = false, pageSize = 12 }) => {
 
     const [order, setOrder] = React.useState("ASC");
@@ -103,12 +105,12 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
 
             case "image":
                 return value ?
-                    <img className='table-school-logo' src={window.global.baseUrl + value} alt={""} /> : <></>;
+                    <img className={styles.school_logo} src={window.global.baseUrl + value} alt={""} /> : <></>;
 
             case "string":
                 if (configItem.key === "status") {
                     switch (value) {
-                        case "Новая": 
+                        case "Новая":
                             return <p className='request-status --place-table --status-new'>Новая</p>;
                         case "Принята":
                             return <p className='request-status --place-table --status-accept'>Принята</p>;
@@ -240,18 +242,18 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                 &&
                 <>
                     <Pagination pageCount={pageCount} setPageCallback={handleChangePage} />
-                    <div className="table">
-                        <div className="table__container">
-                            <table>
+                    <div className={styles.div}>
+                        <div className={styles.container}>
+                            <table className={styles.table}>
                                 <thead>
-                                    <tr>
+                                    <tr className={styles.tr}>
                                         {
                                             itemsConfig.map((item) => (
                                                 !item.hide
                                                 &&
-                                                <th key={item.header}>
+                                                <th className={styles.th} key={item.header}>
                                                     <p
-                                                        className={`${'sorting' in item ? "table__sorting" : ""} ${sortKey === item.key ? "--actived" : ""} ${sortKey === item.key && order === "ASC" ? "--state-ascending" : "--state-descending"}`}
+                                                        className={`${'sorting' in item ? styles.sorting : ""} ${sortKey === item.key ? styles.sorting_actived : ""} ${sortKey === item.key && order === "ASC" ? styles.sorting_state_ascending : styles.sorting_state_descending}`}
                                                         aria-label='Сортировать по возрастанию'
                                                         onClick={() => {
                                                             if ('sorting' in item) {
@@ -271,7 +273,7 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                                     {
                                         paginatedItems.map(item => (
                                             <tr
-                                                className='table__row-hover'
+                                                className={styles.tr + styles.tr_row_hover}
                                                 key={item.ID}
                                                 onClick={() => onItemClick && onItemClick(item.ID)}
                                             >
@@ -279,7 +281,8 @@ const Table = ({ children, title, itemsConfig, items, onItemClick, loading, with
                                                     itemsConfig.map(itemKey => (
                                                         !itemKey.hide
                                                         &&
-                                                        <td key={itemKey.key}>
+                                                        <td className={styles.td}
+                                                            key={itemKey.key}>
                                                             {
                                                                 getElementByType(itemKey, item[itemKey.key])
                                                             }
