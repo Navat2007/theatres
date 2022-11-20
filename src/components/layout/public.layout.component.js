@@ -10,7 +10,6 @@ const PublicLayout = () => {
                 <header className="header">
                     <div className="header__wrap">
                         <a
-                            href="./"
                             className="header__logo"
                             rel="noopener nofolloe noreferer"
                         >
@@ -24,7 +23,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         О содружестве
                                     </a>
@@ -32,7 +30,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Участники
                                     </a>
@@ -40,7 +37,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Проекты
                                     </a>
@@ -48,7 +44,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Фестиваль
                                     </a>
@@ -56,7 +51,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Театральная премия
                                     </a>
