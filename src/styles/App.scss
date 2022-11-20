@@ -1,5 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Marck+Script&display=swap);
 @import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
 @import "_assets/variables";
 @import "_assets/mixins";
@@ -11,6 +11,7 @@
     }
 
     // FONT
+    --ff-banner: "Marck Script", cursive;
     --ff-firm: "Oswald", sans-serif;
     --ff-base: "Montserrat", sans-serif;
     --ff-public: "Open Sans", sans-serif;
@@ -102,27 +103,32 @@ html {
         flex: none;
         align-self: stretch;
         background-color: var(--white);
-        padding: 0.675em min(6vmax, 3em);
+        padding: 0.675em min(3vmax, 3em);
+        box-sizing: border-box;
+        width: min(20vmax, 18.75em);
         img {
-            width: 200px;
             object-fit: contain;
+            width: 100%;
         }
     }
 }
 
 .menu {
     flex: auto;
+    margin: 0;
+    padding-left: 0;
+
     &__list {
         @extend %reset-list;
         display: flex;
-        gap: min(4vmax, 3em);
         justify-content: center;
     }
     &__link {
         color: var(--white);
         text-decoration: unset;
-        font-size: min(2.5vmax, 1.25em);
+        font-size: min(1.5vmax, 1.25em);
         font-weight: 600;
+        padding: min(1.5vmax, 1.25em);
         cursor: pointer;
         transition: color 0.25s ease-in;
 
@@ -149,6 +155,65 @@ html {
     font-size: min(4vmax, 2em);
     text-transform: uppercase;
     color: var(--public-accent);
+}
+
+.banner {
+    position: relative;
+    z-index: 1;
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        height: min(70vmax, 80vh);
+        color: var(--white);
+        padding-left: min(15vmax, 10em);
+        box-sizing: border-box;
+    }
+
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include box(100%);
+        z-index: -2;
+        object-fit: cover;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include box(100%);
+        z-index: -1;
+        background-color: rgba(black, 0.54);
+        background-image: linear-gradient(
+            to bottom,
+            rgba(black, 0.75) 0%,
+            rgba(black, 0) 50%,
+            rgba(black, 0) 51%,
+            rgba(black, 0.75) 100%
+        );
+    }
+
+    &__title {
+        margin: 1.5rem 0;
+        line-height: 0.85;
+        font-family: var(--ff-banner);
+        font-weight: normal;
+        font-size: min(7.5vmax, 5em);
+        max-width: min(50vmax, 40rem);
+    }
+    &__subtitle {
+        font-family: var(--ff-public);
+        font-weight: normal;
+        color: var(--lightLow);
+        margin: 0;
+        font-size: min(2.25vmax, 1.5em);
+        max-width: min(50vmax, 40rem);
+    }
 }
 
 .about {

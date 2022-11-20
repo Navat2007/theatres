@@ -4,8 +4,11 @@ import { useParams } from "react-router-dom";
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/user/schoolStore";
-import Slider from "../../../components/slider/slider.component";
+// import Slider from "../../../components/slider/slider.component";
 import { YMaps, Map } from "react-yandex-maps";
+
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { SocialIcons } from "../../../components/svgs.js";
 
@@ -23,12 +26,6 @@ function PublicTheatrePage() {
         clearErrorText,
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
-
-    const slides = [
-        { url: "https://source.unsplash.com/random/200x200?sig=1", alt: "1" },
-        { url: "https://source.unsplash.com/random/200x200?sig=2", alt: "2" },
-        { url: "https://source.unsplash.com/random/200x200?sig=3", alt: "3" },
-    ];
 
     const fetchData = async () => {
         if (id) {
@@ -66,11 +63,70 @@ function PublicTheatrePage() {
 
     return (
         <>
-            <Slider
-                items={slides}
-                swipeable={true}
-                autoPlay={true}
-            />
+            <Carousel
+                infiniteLoop
+                // showIndicators={false}
+                showArrows={false}
+                showStatus={false}
+                autoPlay
+                animationHandler={"fade"}
+                interval={5000}
+                transitionTime={1000}
+                stopOnHover
+                swipeable={false}
+                emulateTouch={false}
+                swipeScrollTolerance={5}
+                showThumbs={false}
+            >
+                <div className="banner">
+                    <div className="banner__wrap">
+                        <img
+                            className="banner__img"
+                            src="https://photocentra.ru/images/main63/633728_main.jpg"
+                            alt=""
+                        />
+                        <h2 className="banner__title">
+                            Чинк: Хвостатый детектив
+                        </h2>
+                        <p className="banner__subtitle">
+                            Приключения в Медовой Долине в озвучке Мирославы
+                            Карпович, Александра Олешко и Эвелины Блёданс
+                        </p>
+                    </div>
+                </div>
+                <div className="banner">
+                    <div className="banner__wrap">
+                        <img
+                            className="banner__img"
+                            src="https://meloman.ru/media/upload/photos/AJyopZNpajU_tikK8m9.jpg"
+                            alt=""
+                        />
+                        <h2 className="banner__title">
+                            Чинк: Хвостатый детектив
+                        </h2>
+                        <p className="banner__subtitle">
+                            Приключения в Медовой Долине в озвучке Мирославы
+                            Карпович, Александра Олешко и Эвелины Блёданс
+                        </p>
+                    </div>
+                </div>
+                <div className="banner">
+                    <div className="banner__wrap">
+                        <img
+                            className="banner__img"
+                            src="https://meloman.ru/media/upload/photos/AJyopZNpajU_tikK8m9.jpg"
+                            alt=""
+                        />
+                        <h2 className="banner__title">
+                            Чинк: Хвостатый детектив
+                        </h2>
+                        <p className="banner__subtitle">
+                            Приключения в Медовой Долине в озвучке Мирославы
+                            Карпович, Александра Олешко и Эвелины Блёданс
+                        </p>
+                    </div>
+                </div>
+            </Carousel>
             <section className="public-content__section">
                 <article className="public-content__wrap about">
                     <h1 className="section-title">Театр Чайковского</h1>
