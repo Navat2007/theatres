@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
+import ReactPlayer from "react-player";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -28,13 +29,10 @@ function PublicTheatrePage() {
 
     React.useEffect(() => {
         const fetchData = async () => {
-
             if (id) {
-
                 let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
-
                     await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
@@ -43,11 +41,8 @@ function PublicTheatrePage() {
                     console.log(theatre);
                     console.log(schoolStore.school);
                     console.log(teachersStore.teachers);
-
                 }
-
             }
-
         };
 
         fetchData();
@@ -72,7 +67,7 @@ function PublicTheatrePage() {
                     animationHandler={"fade"}
                     interval={5000}
                     transitionTime={1000}
-                    stopOnHover={false}
+                    stopOnHover
                     swipeable={false}
                     emulateTouch={false}
                     swipeScrollTolerance={5}
@@ -161,6 +156,30 @@ function PublicTheatrePage() {
                                 </li>
                             </ul>
                             <div className="about__description-block">
+                                <p>
+                                    На прошлой неделе в школе прошел школьный
+                                    конкурс «Театральные подмостки». В нем
+                                    приняли участие все классы. Было
+                                    представлено 6 постановок. Жюри под
+                                    председательством директора школы Суханкиной
+                                    О.А., проанализировав
+                                </p>
+                                <p>
+                                    На прошлой неделе в школе прошел школьный
+                                    конкурс «Театральные подмостки». В нем
+                                    приняли участие все классы. Было
+                                    представлено 6 постановок. Жюри под
+                                    председательством директора школы Суханкиной
+                                    О.А., проанализировав
+                                </p>
+                                <p>
+                                    На прошлой неделе в школе прошел школьный
+                                    конкурс «Театральные подмостки». В нем
+                                    приняли участие все классы. Было
+                                    представлено 6 постановок. Жюри под
+                                    председательством директора школы Суханкиной
+                                    О.А., проанализировав
+                                </p>
                                 <p>
                                     На прошлой неделе в школе прошел школьный
                                     конкурс «Театральные подмостки». В нем
@@ -466,7 +485,7 @@ function PublicTheatrePage() {
             <section className="public-content__section">
                 <article className="public-content__wrap about">
                     <h1 className="section-title">Театр Чайковского</h1>
-                    <div className="level-item">дебютант</div>
+                    <div className="about__level-item">дебютант</div>
                     <div className="about__main-text">
                         <ul className="about__list">
                             <li>
@@ -496,6 +515,27 @@ function PublicTheatrePage() {
                             </li>
                         </ul>
                         <div className="about__description-block">
+                            <p>
+                                На прошлой неделе в школе прошел школьный
+                                конкурс «Театральные подмостки». В нем приняли
+                                участие все классы. Было представлено 6
+                                постановок. Жюри под председательством директора
+                                школы Суханкиной О.А., проанализировав
+                            </p>
+                            <p>
+                                На прошлой неделе в школе прошел школьный
+                                конкурс «Театральные подмостки». В нем приняли
+                                участие все классы. Было представлено 6
+                                постановок. Жюри под председательством директора
+                                школы Суханкиной О.А., проанализировав
+                            </p>
+                            <p>
+                                На прошлой неделе в школе прошел школьный
+                                конкурс «Театральные подмостки». В нем приняли
+                                участие все классы. Было представлено 6
+                                постановок. Жюри под председательством директора
+                                школы Суханкиной О.А., проанализировав
+                            </p>
                             <p>
                                 На прошлой неделе в школе прошел школьный
                                 конкурс «Театральные подмостки». В нем приняли
@@ -619,6 +659,31 @@ function PublicTheatrePage() {
                             />
                         </li>
                     </ul>
+                </article>
+            </section>
+            <section className="public-content__section">
+                <article className="public-content__wrap video">
+                    <h2 className="section-title">Видео</h2>
+                    <Carousel>
+                        <ReactPlayer
+                            className="video__react-player"
+                            width="100%"
+                            height={"auto"}
+                            url="https://www.youtube.com/embed/AVn-Yjr7kDc"
+                        />
+                        <ReactPlayer
+                            className="video__react-player"
+                            width="100%"
+                            height={"auto"}
+                            url="https://www.youtube.com/embed/mOdmi9SVeWY"
+                        />
+                        <ReactPlayer
+                            className="video__react-player"
+                            width="100%"
+                            height={"auto"}
+                            url="https://www.youtube.com/embed/n0F6hSpxaFc"
+                        />
+                    </Carousel>
                 </article>
             </section>
             <section className="public-content__section public-content__section_bg_light-grey contact">
