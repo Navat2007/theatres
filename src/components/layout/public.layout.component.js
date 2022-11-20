@@ -21,37 +21,19 @@ const PublicLayout = () => {
                         <menu className="menu">
                             <ul className="menu__list">
                                 <li>
-                                    <a
-                                        className="menu__link"
-                                    >
-                                        О содружестве
-                                    </a>
+                                    <a className="menu__link">О содружестве</a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="menu__link"
-                                    >
-                                        Участники
-                                    </a>
+                                    <a className="menu__link">Участники</a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="menu__link"
-                                    >
-                                        Проекты
-                                    </a>
+                                    <a className="menu__link">Проекты</a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="menu__link"
-                                    >
-                                        Фестиваль
-                                    </a>
+                                    <a className="menu__link">Фестиваль</a>
                                 </li>
                                 <li>
-                                    <a
-                                        className="menu__link"
-                                    >
+                                    <a className="menu__link">
                                         Театральная премия
                                     </a>
                                 </li>
