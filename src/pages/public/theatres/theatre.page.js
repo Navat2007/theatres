@@ -50,8 +50,7 @@ function PublicTheatrePage() {
         fetchData();
     }, [id]);
 
-    if (loading || schoolStore.loading || teachersStore.loading)
-    {
+    if (loading || schoolStore.loading || teachersStore.loading) {
         return (
             <div className="content__section">
                 <p>Загрузка...</p>
@@ -104,8 +103,8 @@ function PublicTheatrePage() {
                                     <p className="about__text">
                                         Год основания:
                                         <span className="about__span-accent">
-                                        2020г.
-                                    </span>
+                                            2020г.
+                                        </span>
                                     </p>
                                 </li>
                                 <li>
@@ -128,10 +127,17 @@ function PublicTheatrePage() {
                             </ul>
                             <div className="about__description-block">
                                 <p>
-                                    Теа́тр (греч. θέατρον — основное значение — место для зрелищ, затем — зрелище, от θεάομαι — смотреть, видеть) — зрелищный вид искусства, представляющий собой синтез различных искусств: литературы, музыки, хореографии, вокала, изобразительного искусства и других[1][2][3][4] — и обладающий собственной спецификой: отражение действительности, конфликтов, характеров, а также их трактовка и оценка, утверждение тех или иных идей здесь происходит посредством драматического действия, главным носителем которого является актёр
+                                    Теа́тр (греч. θέατρον — основное значение — место для зрелищ, затем — зрелище, от
+                                    θεάομαι — смотреть, видеть) — зрелищный вид искусства, представляющий собой синтез
+                                    различных искусств: литературы, музыки, хореографии, вокала, изобразительного
+                                    искусства и других[1][2][3][4] — и обладающий собственной спецификой: отражение
+                                    действительности, конфликтов, характеров, а также их трактовка и оценка, утверждение
+                                    тех или иных идей здесь происходит посредством драматического действия, главным
+                                    носителем которого является актёр
                                 </p>
                                 <p>
-                                    Родовое понятие «театр» включает в себя различные его виды и формы: драматический театр, оперный, балетный, кукольный, театр пантомимы и др.
+                                    Родовое понятие «театр» включает в себя различные его виды и формы: драматический
+                                    театр, оперный, балетный, кукольный, театр пантомимы и др.
                                 </p>
                                 <p>
                                     На прошлой неделе в школе прошел школьный
@@ -147,9 +153,14 @@ function PublicTheatrePage() {
                                         <p>
                                             Уважаемые зрители!
 
-                                            Убедительная просьба соблюдать меры безопасности, оставаться в масках и сохранять социальную дистанцию во время спектакля, а также всего времени пребывания в театре. После третьего звонка любые перемещения по залу категорически запрещены. Своими действиями Вы мешаете артистам, а также другим зрителям. В случае нарушений мы будем вынуждены остановить спектакль.
+                                            Убедительная просьба соблюдать меры безопасности, оставаться в масках и
+                                            сохранять социальную дистанцию во время спектакля, а также всего времени
+                                            пребывания в театре. После третьего звонка любые перемещения по залу
+                                            категорически запрещены. Своими действиями Вы мешаете артистам, а также
+                                            другим зрителям. В случае нарушений мы будем вынуждены остановить спектакль.
 
-                                            Дорогие зрители! Надеемся на ваше понимание и самодисциплину. Берегите себя и своих близких.
+                                            Дорогие зрители! Надеемся на ваше понимание и самодисциплину. Берегите себя
+                                            и своих близких.
                                         </p>
                                     </>
                                 }
@@ -160,7 +171,9 @@ function PublicTheatrePage() {
                                 <button
                                     type="button"
                                     className="about__more-btn"
-                                    onClick={() => {setShowDescription(true)}}
+                                    onClick={() => {
+                                        setShowDescription(true)
+                                    }}
                                 >
                                     Читать полностью
                                 </button>
@@ -229,47 +242,96 @@ function PublicTheatrePage() {
                 </section>
                 <section className="public-content__section">
                     <article className="public-content__wrap gallery">
-                        <h2 className="section-title">Галерея</h2>
+                        <h2 className="section-title">Фото театра</h2>
                         <ul className="gallery__card-deck">
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                    src="https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=92778def2b1184a361d1741b0caf899843bf4f31-7086399-images-thumbs&n=13"
+                                    src="https://avatars.mds.yandex.net/i?id=884fb757352a3a5e8fca312b496ba69b-5179886-images-thumbs&n=13&exp=1"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://garden.hozvo.ru/storage/photos/shares/2020/28/5f0eb212d4227.jpg"
+                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maCrwjXtVQOIXI3nY06E82o6Nu9wiGO1B9NGYKKC11POJCFTbQbrZtFvyPCpIAs4eQb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkgUtxqu-2ZccW4IxpxL5ArqaKTM5SRkZCeTgDn6uOyic"
+                                    src="https://avatars.mds.yandex.net/i?id=2fbaa1348893089467299b3b18e33a5d8528cb02-5121678-images-thumbs&n=13&exp=1"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://proprikol.ru/wp-content/uploads/2021/12/kartinki-ezhika-na-avu-3.jpg"
+                                    src="https://avatars.mds.yandex.net/i?id=407d8e2f059f4edabbb33e8eda68913492ab92c8-4077743-images-thumbs&n=13&exp=1"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
                             <li className="gallery__card">
                                 <img
                                     className="gallery__img"
-                                    src="https://funart.pro/uploads/posts/2021-04/thumbs/1618123210_4-p-spyashchii-yezhik-zhivotnie-krasivo-foto-4.jpg"
+                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maWeggUNEDMYLAiyo16ENko6c59QGGNQR2ZDNbLnklPrNLFj_XOeQ9QfyNAZMGsIybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                        </ul>
+                    </article>
+                </section>
+                <section className="public-content__section">
+                    <article className="public-content__wrap gallery">
+                        <h2 className="section-title">Фото посещения театра</h2>
+                        <ul className="gallery__card-deck">
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://avatars.mds.yandex.net/i?id=c74aab2dff3321263371312c509551ac-4857366-images-thumbs&n=13&exp=1"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maC71wDddSPIfCi3c14hRm9vM88wjSPAZ-MWFXfXoia-AeQzjXOLFpQ_yIBZQBtoieb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maX-sqUYJXPdfJ3npj7k838fI08AHVNAF6MDQKK3ola-YYRjrQO-RoFPyOAJEBuYybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://avatars.mds.yandex.net/i?id=324e2759928ba0407e4c8aadca3500e4838b6b47-5541108-images-thumbs&n=13&exp=1"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://avatars.mds.yandex.net/i?id=5afe3b2a027705b4946eade5f77c75f6-4012866-images-thumbs&n=13&exp=1"
+                                    alt="Иванова Любовь Валерьевна"
+                                />
+                            </li>
+                            <li className="gallery__card">
+                                <img
+                                    className="gallery__img"
+                                    src="https://avatars.mds.yandex.net/i?id=f648145c743319b555b3129764c250f4-5348469-images-thumbs&n=13&exp=1"
                                     alt="Иванова Любовь Валерьевна"
                                 />
                             </li>
