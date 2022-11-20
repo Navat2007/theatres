@@ -6,8 +6,6 @@ import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import {Carousel} from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import {SocialIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
