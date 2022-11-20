@@ -54,7 +54,13 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     }, []);
 
-    const handlePhoto = () => {
+    const handleSocialLink = () => {
+
+        setSocialLinks([...socialLinks, {id: window.global.makeid(12), url: ""}]);
+
+    };
+
+    const handleAddPhoto = (place) => {
 
         setPopup(
             <Popup
@@ -67,12 +73,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
             </Popup>
         );
-
-    };
-
-    const handleSocialLink = () => {
-
-        setSocialLinks([...socialLinks, {id: window.global.makeid(12), url: ""}]);
 
     };
 

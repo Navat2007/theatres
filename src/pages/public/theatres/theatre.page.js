@@ -28,20 +28,26 @@ function PublicTheatrePage() {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            if (id) {
-                await loadTheatre({ id });
 
-                if (theatre) {
-                    await schoolStore.loadSchool({ id: theatre.schoolID });
+            if (id) {
+
+                let tempTheatre = await loadTheatre({ id });
+
+                if (tempTheatre) {
+
+                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
-                        schoolID: theatre.schoolID,
+                        schoolID: tempTheatre.schoolID,
                     });
 
                     console.log(theatre);
                     console.log(schoolStore.school);
                     console.log(teachersStore.teachers);
+
                 }
+
             }
+
         };
 
         fetchData();
