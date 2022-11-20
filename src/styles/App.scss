@@ -212,3 +212,92 @@ html {
         transition: transform 0.25s ease-in;
     }
 }
+
+.contact {
+    &__map {
+        height: 30em;
+        background-color: var(--g300);
+        margin-bottom: min(2.5vmax, 1.875em);
+    }
+    &__columns {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    &__column {
+        margin-bottom: min(2.5vmax, 1.875em);
+    }
+    &__title {
+        margin-bottom: 0.5em;
+    }
+    &__address {
+        margin: 0 0 min(2.5vmax, 1.875em);
+        color: var(--info);
+    }
+    &__link {
+        font-size: min(2.5vmax, 1.25em);
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+.social {
+    display: flex;
+    gap: min(5vmax, 2.5em);
+    align-items: center;
+    &__label {
+        margin: 0;
+    }
+    &__list {
+        @extend %reset-list;
+        display: flex;
+        align-items: center;
+        gap: 0.675em;
+    }
+    &__link {
+        text-decoration: unset;
+        border-radius: 50%;
+        @include box(2.5em);
+        display: flex;
+        background-color: var(--g200);
+        transition: all 0.15s ease-in;
+
+        &:hover {
+            transform: translateZ(0) scale(1.1);
+        }
+        & svg {
+            margin: auto;
+            @include box(1.5em);
+        }
+    }
+}
+
+.school-info {
+    &__detail {
+        display: flex;
+        gap: min(2.5vmax, 1.25em);
+        max-width: 50em;
+    }
+
+    &__logo {
+        @include box(min(12vmax, 6.75em));
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+    &__title {
+        margin: 0;
+        font-weight: 600;
+        font-size: min(3vmax, 1.5em);
+    }
+    &__subtitle {
+        margin: min(2.5vmax, 1.25rem) 0 0;
+        font-size: min(2.5vmax, 1.25em);
+    }
+
+    &__description {
+        margin: 0.5rem 0;
+        font-size: 0.875em;
+        line-height: 1.5;
+        color: var(--darkLow);
+    }
+}
