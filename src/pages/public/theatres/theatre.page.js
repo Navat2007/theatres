@@ -1,7 +1,6 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {YMaps, Map, Placemark} from "react-yandex-maps";
-import ReactPlayer from "react-player";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -12,6 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import {SocialIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
+import ImageSlider from "../../../components/slider/image.slider.component";
 
 function PublicTheatrePage() {
 
@@ -62,70 +62,38 @@ function PublicTheatrePage() {
     if (id === "test") {
         return (
             <>
-                <Carousel
-                    infiniteLoop
-                    // showIndicators={false}
+                <ImageSlider
+                    autoPlay={true}
+                    swipe={false}
                     showArrows={false}
-                    showStatus={false}
-                    autoPlay
-                    animationHandler={"fade"}
-                    interval={5000}
-                    transitionTime={1000}
-                    stopOnHover
-                    swipeable={false}
-                    emulateTouch={false}
-                    swipeScrollTolerance={5}
-                    showThumbs={false}
-                >
-                    <div className="banner">
-                        <div className="banner__wrap">
-                            <img
-                                className="banner__img"
-                                src="https://photocentra.ru/images/main63/633728_main.jpg"
-                                alt=""
-                            />
-                            <h2 className="banner__title">
-                                Чинк: Хвостатый детектив
-                            </h2>
-                            <p className="banner__subtitle">
-                                Приключения в Медовой Долине в озвучке Мирославы
-                                Карпович, Александра Олешко и Эвелины Блёданс
-                            </p>
-                        </div>
-                    </div>
-                    <div className="banner">
-                        <div className="banner__wrap">
-                            <img
-                                className="banner__img"
-                                src="https://meloman.ru/media/upload/photos/AJyopZNpajU_tikK8m9.jpg"
-                                alt=""
-                            />
-                            <h2 className="banner__title">
-                                Чинк: Хвостатый детектив
-                            </h2>
-                            <p className="banner__subtitle">
-                                Приключения в Медовой Долине в озвучке Мирославы
-                                Карпович, Александра Олешко и Эвелины Блёданс
-                            </p>
-                        </div>
-                    </div>
-                    <div className="banner">
-                        <div className="banner__wrap">
-                            <img
-                                className="banner__img"
-                                src="https://meloman.ru/media/upload/photos/AJyopZNpajU_tikK8m9.jpg"
-                                alt=""
-                            />
-                            <h2 className="banner__title">
-                                Чинк: Хвостатый детектив
-                            </h2>
-                            <p className="banner__subtitle">
-                                Приключения в Медовой Долине в озвучке Мирославы
-                                Карпович, Александра Олешко и Эвелины Блёданс
-                            </p>
-                        </div>
-                    </div>
-                </Carousel>
+                    items={[
+                        {
+                            url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Таланты-и-поклонники-1280x854.jpg",
+                            title: "Таланты и поклонники",
+                            text: "В жизни людей, принимающих на себя различные роли на сцене, постоянно случаются заботы, быт и привычки, от которых просто та избавиться не удается. А тот, кто восхищается талантом, в глубине души только посягает на него и стремиться овладеть теми же навыками."
+                        },
+                        {
+                            url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Тартюф.jpg",
+                            title: "Тартюф",
+                            text: "Целью самозванца является завоевание сердца жены хозяина, но вот добиться цели не так просто, как может показаться на первый взгляд. Трудности, с которыми персонажу предстоит столкнуться, сопровождаются настоящими эмоциями и не дают зрителям расслабиться до самого конца."
+                        },
+                        {
+                            url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Ревизор-1280x854.jpg",
+                            title: "Ревизор",
+                            text: "Знаменитая комедия Гоголя уже не раз была успешной постановкой в различных театрах, но в 2020 году зрителей ожидает настоящий шедевр. В Ермоловском театре для посетителей будет представлена история без слов."
+                        },
+                        {
+                            url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Там-же-тогда-же.jpg",
+                            title: "Там же, тогда же",
+                            text: "Спектакль доносит до зрителей общепризнанные факты: в жизни все меняется, все уходит и исчезает незадолго после появления. Но есть и нечто вечное – персонажи встречаются каждый год в то же время и в том же месте."
+                        },
+                        {
+                            url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Бестолочь-1280x853.jpg",
+                            title: "Бестолочь",
+                            text: "Она – настоящая недотепа, недалекая деревенская дама без особенностей во внешности и сложного характера. Но супружеская чета даже не считает недостатками проблемы в работе Анны, ведь эта девушка теперь является бесконечным поводом для веселья и семейных шуток."
+                        },
+                    ]}
+                />
                 <section className="public-content__section">
                     <article className="public-content__wrap about">
                         <h1 className="section-title">Театр Чайковского</h1>
