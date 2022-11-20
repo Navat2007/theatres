@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import {BrowserRouter} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
@@ -57,11 +57,9 @@ const App = () => {
         return <Preloader />;
 
     return (
-        <StrictMode>
-            <BrowserRouter>
-                <RoutesList />
-            </BrowserRouter>
-        </StrictMode>
+        <BrowserRouter>
+            <RoutesList />
+        </BrowserRouter>
     )
 }
 
