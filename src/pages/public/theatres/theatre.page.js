@@ -300,7 +300,10 @@ function PublicTheatrePage() {
                                     <Placemark
                                         geometry={[55.76, 37.64]}
                                         properties={{
-                                            iconContent: "Test",
+                                            iconCaption: "Название театра",
+                                        }}
+                                        options={{
+                                            preset: 'islands#redDotIconWithCaption'
                                         }}
                                     />
                                 </Map>
