@@ -14,7 +14,7 @@ const urlRequestChangeNew = process.env.REACT_APP_BASE_URL + 'php/models/admin/t
 const useTheatresStore = create(
     (set, get) => ({
         theatres: [],
-        theatre: {},
+        theatre: null,
         theatreRequests: [],
         theatreRequest: null,
 
@@ -53,7 +53,7 @@ const useTheatresStore = create(
         },
         loadTheatre: async (params) => {
 
-            set({ loading: true });
+            set({ loading: true, theatre: null });
 
             let form = new FormData();
             window.global.buildFormData(form, params);
@@ -68,6 +68,7 @@ const useTheatresStore = create(
             if (response?.data?.params) {
 
                 set((state) => ({ theatre: response.data.params }));
+                return response.data.params;
 
             }
 

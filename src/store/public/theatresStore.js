@@ -63,6 +63,7 @@ const useTheatresStore = create(
                 if (response?.data?.params) {
 
                     set((state) => ({ theatre: response.data.params }));
+                    return response.data.params;
 
                 }
 
