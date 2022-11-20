@@ -1,48 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { YMaps, Map, Placemark } from "react-yandex-maps";
+import {useParams} from "react-router-dom";
+import {YMaps, Map, Placemark} from "react-yandex-maps";
 import ReactPlayer from "react-player";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import { Carousel } from "react-responsive-carousel";
+import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { SocialIcons } from "../../../components/svgs.js";
+import {SocialIcons} from "../../../components/svgs.js";
+import VideoSlider from "../../../components/slider/video.slider.component";
 
 function PublicTheatrePage() {
-    let { id } = useParams();
 
-    const YoutubeSlide = ({ url, isSelected }) => (
-        <ReactPlayer
-            width="100%"
-            height={"auto"}
-            className="video__react-player"
-            url={url}
-            playing={isSelected}
-        />
-    );
-
-    const customRenderItem = (item, props) => (
-        <item.type
-            {...item.props}
-            {...props}
-        />
-    );
-
-    const getVideoThumb = (videoId) =>
-        `https://img.youtube.com/vi/${videoId}/default.jpg`;
-
-    const getVideoId = (url) =>
-        url.substr("https://www.youtube.com/embed/".length, url.length);
-
-    const customRenderThumb = (children) =>
-        children.map((item) => {
-            const videoId = getVideoId(item.props.url);
-            return <img src={getVideoThumb(videoId)} />;
-        });
+    let {id} = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -59,10 +32,10 @@ function PublicTheatrePage() {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -78,11 +51,13 @@ function PublicTheatrePage() {
     }, [id]);
 
     if (loading || schoolStore.loading || teachersStore.loading)
+    {
         return (
             <div className="content__section">
                 <p>Загрузка...</p>
             </div>
         );
+    }
 
     if (id === "test") {
         return (
@@ -333,19 +308,12 @@ function PublicTheatrePage() {
                 <section className="public-content__section">
                     <article className="public-content__wrap video">
                         <h2 className="section-title">Видео</h2>
-                        <Carousel
-                            renderItem={customRenderItem}
-                            renderThumbs={customRenderThumb}
-                        >
-                            <YoutubeSlide
-                                key="youtube-1"
-                                url="https://www.youtube.com/watch?v=FihWD9OKn-g"
-                            />
-                            <YoutubeSlide
-                                key="youtube-2"
-                                url="https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP"
-                            />
-                        </Carousel>
+                        <VideoSlider
+                            items={[
+                                {url: "https://www.youtube.com/watch?v=FihWD9OKn-g"},
+                                {url: "https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP"},
+                            ]}
+                        />
                     </article>
                 </section>
                 <section className="public-content__section public-content__section_bg_light-grey contact">
@@ -354,7 +322,7 @@ function PublicTheatrePage() {
                         <div className="contact__map">
                             <YMaps>
                                 <Map
-                                    state={{ center: [55.76, 37.64], zoom: 14 }}
+                                    state={{center: [55.76, 37.64], zoom: 14}}
                                     width="100%"
                                     height="100%"
                                 >
