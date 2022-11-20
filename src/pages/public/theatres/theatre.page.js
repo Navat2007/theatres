@@ -15,6 +15,35 @@ import { SocialIcons } from "../../../components/svgs.js";
 function PublicTheatrePage() {
     let { id } = useParams();
 
+    const YoutubeSlide = ({ url, isSelected }) => (
+        <ReactPlayer
+            width="100%"
+            height={"auto"}
+            className="video__react-player"
+            url={url}
+            playing={isSelected}
+        />
+    );
+
+    const customRenderItem = (item, props) => (
+        <item.type
+            {...item.props}
+            {...props}
+        />
+    );
+
+    const getVideoThumb = (videoId) =>
+        `https://img.youtube.com/vi/${videoId}/default.jpg`;
+
+    const getVideoId = (url) =>
+        url.substr("https://www.youtube.com/embed/".length, url.length);
+
+    const customRenderThumb = (children) =>
+        children.map((item) => {
+            const videoId = getVideoId(item.props.url);
+            return <img src={getVideoThumb(videoId)} />;
+        });
+
     const schoolStore = useSchoolStore();
     const {
         theatre,
@@ -322,7 +351,7 @@ function PublicTheatrePage() {
                                             iconCaption: "Название театра",
                                         }}
                                         options={{
-                                            preset: 'islands#redDotIconWithCaption'
+                                            preset: "islands#redDotIconWithCaption",
                                         }}
                                     />
                                 </Map>
@@ -667,24 +696,17 @@ function PublicTheatrePage() {
             <section className="public-content__section">
                 <article className="public-content__wrap video">
                     <h2 className="section-title">Видео</h2>
-                    <Carousel>
-                        <ReactPlayer
-                            className="video__react-player"
-                            width="100%"
-                            height={"auto"}
-                            url="https://www.youtube.com/embed/AVn-Yjr7kDc"
+                    <Carousel
+                        renderItem={customRenderItem}
+                        renderThumbs={customRenderThumb}
+                    >
+                        <YoutubeSlide
+                            key="youtube-1"
+                            url="https://www.youtube.com/watch?v=FihWD9OKn-g"
                         />
-                        <ReactPlayer
-                            className="video__react-player"
-                            width="100%"
-                            height={"auto"}
-                            url="https://www.youtube.com/embed/mOdmi9SVeWY"
-                        />
-                        <ReactPlayer
-                            className="video__react-player"
-                            width="100%"
-                            height={"auto"}
-                            url="https://www.youtube.com/embed/n0F6hSpxaFc"
+                        <YoutubeSlide
+                            key="youtube-2"
+                            url="https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP"
                         />
                     </Carousel>
                 </article>
