@@ -20,6 +20,8 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     const [popup, setPopup] = React.useState(<></>);
     const [socialLinks, setSocialLinks] = React.useState([]);
+    const [photo, setPhoto] = React.useState([]);
+    const [reviews, setReviews] = React.useState([]);
 
     const theatreUrlSchoolWatch = watch('theatreUrlSchool');
     const videoBusinessCardWatch = watch('videoBusinessCard');
