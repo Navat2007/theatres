@@ -57,9 +57,11 @@ const App = () => {
         return <Preloader />;
 
     return (
-        <BrowserRouter>
-            <RoutesList />
-        </BrowserRouter>
+        <React.StrictMode>
+            <HashRouter hashType="noslash">
+                <RoutesList />
+            </HashRouter>
+        </React.StrictMode>
     )
 }
 
