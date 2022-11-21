@@ -137,7 +137,10 @@ function PublicTheatrePage() {
                 <section className="public-content__section">
                     <article className="public-content__wrap about">
                         <h1 className="section-title">Театр Чайковского</h1>
-                        <div className="about__level-item">дебютант</div>
+                        <div className="about__level-item">Дебютант
+
+                        {medalIcons.debutant}
+                        </div>
                         <div className="about__main-text">
                             <ul className="about__list">
                                 <li>
