@@ -13,6 +13,7 @@ $schoolID = htmlspecialchars($_POST["schoolID"]);
 $userID = $authorization[1];
 $title = htmlspecialchars($_POST["title"]);
 $address = htmlspecialchars($_POST["address"]);
+$coordinates = htmlspecialchars($_POST["coordinates"]);
 $foundationDate = htmlspecialchars($_POST["foundationDate"]);
 $theatreUrlSchool = htmlspecialchars($_POST["theatreUrlSchool"]);
 $videoBusinessCard = htmlspecialchars($_POST["videoBusinessCard"]);
@@ -104,6 +105,7 @@ if ($error === 0) {
             SET
                 title = '$title', 
                 address = '$address', 
+                coordinates = '$coordinates', 
                 foundation_date = '$foundationDate', 
                 theatre_url_school = '$theatreUrlSchool',
                 short_description = '$editorShortDescription',
@@ -134,8 +136,8 @@ if ($error === 0) {
         } else {
 
             $sql = "
-                INSERT INTO theatres (schoolID, title, address, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
-                VALUES ('$schoolID', '$title', '$address', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
+                INSERT INTO theatres (schoolID, title, address, coordinates, foundation_date, theatre_url_school, video_business_card, short_description, director_message, last_user_changed) 
+                VALUES ('$schoolID', '$title', '$address', '$coordinates', '$foundationDate', '$theatreUrlSchool', '$videoBusinessCard', '$editorShortDescription', '$editorDirectorMessage', '$userID')
             ";
             $sqls[] = $sql;
             $result = mysqli_query($conn, $sql);
@@ -200,6 +202,7 @@ if ($error === 0) {
                 decline_text = '$declineText',
                 title = '$title', 
                 address = '$address', 
+                coordinates = '$coordinates', 
                 foundation_date = '$foundationDate', 
                 theatre_url_school = '$theatreUrlSchool',
                 short_description = '$editorShortDescription',

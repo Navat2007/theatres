@@ -12,6 +12,7 @@ $schoolID = htmlspecialchars($_POST["schoolID"]);
 $userID = $authorization[1];
 $title = htmlspecialchars($_POST["title"]);
 $address = htmlspecialchars($_POST["address"]);
+$coordinates = htmlspecialchars($_POST["coordinates"]);
 $foundationDate = htmlspecialchars($_POST["foundationDate"]);
 $theatreUrlSchool = htmlspecialchars($_POST["theatreUrlSchool"]);
 $videoBusinessCard = htmlspecialchars($_POST["videoBusinessCard"]);
@@ -87,6 +88,7 @@ if ($error === 0) {
                 status = '$status',
                 title = '$title', 
                 address = '$address', 
+                coordinates = '$coordinates', 
                 foundation_date = '$foundationDate', 
                 theatre_url_school = '$theatreUrlSchool',
                 short_description = '$editorShortDescription',

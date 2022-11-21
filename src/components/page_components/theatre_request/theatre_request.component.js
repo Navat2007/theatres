@@ -38,6 +38,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
             setValue("title", request.title);
             setValue("address", request.address);
+            setValue("coordinates", request.coordinates);
             setValue("foundationDate", request.foundation_date);
             setValue("theatreUrlSchool", request.theatre_url_school);
             setValue("videoBusinessCard", request.video_business_card);
