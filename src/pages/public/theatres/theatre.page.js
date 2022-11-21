@@ -1,20 +1,20 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import { YMaps, Map, Placemark } from "react-yandex-maps";
+import {useParams} from "react-router-dom";
+import {motion} from "framer-motion";
+import {YMaps, Map, Placemark} from "react-yandex-maps";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import { SocialIcons, MedalIcons } from "../../../components/svgs.js";
+import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 import Button from "../../../components/simple/button/button.component";
 
 function PublicTheatrePage() {
-    let { id } = useParams();
+    let {id} = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -75,10 +75,10 @@ function PublicTheatrePage() {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -143,7 +143,14 @@ function PublicTheatrePage() {
                             Дебютант
                             {MedalIcons.debutant}
                         </div>
-                        <motion.div className="about__main-text">
+                        <motion.div
+                            initial={false}
+                            animate={{maxHeight: showDescription ? "100%" : "10em"}}
+                            transition={{
+                                duration: 0.3,
+                            }}
+                            className="about__main-text"
+                        >
                             <ul className="about__list">
                                 <li>
                                     <p className="about__text">
