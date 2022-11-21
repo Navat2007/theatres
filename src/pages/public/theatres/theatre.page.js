@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { motion } from 'framer-motion';
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 import useTheatresStore from "../../../store/public/theatresStore";
@@ -10,6 +11,7 @@ import { SocialIcons, medalIcons } from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
+import Button from "../../../components/simple/button/button.component";
 
 function PublicTheatrePage() {
     let { id } = useParams();
@@ -137,11 +139,11 @@ function PublicTheatrePage() {
                 <section className="public-content__section">
                     <article className="public-content__wrap about">
                         <h1 className="section-title">Театр Чайковского</h1>
-                        <div className="about__level-item">Дебютант
+                        <div className="about__level-item">дебютант</div>
+                        <motion.div
 
-                        {medalIcons.debutant}
-                        </div>
-                        <div className="about__main-text">
+                            className="about__main-text"
+                        >
                             <ul className="about__list">
                                 <li>
                                     <p className="about__text">
@@ -178,7 +180,7 @@ function PublicTheatrePage() {
                                     искусства, представляющий собой синтез
                                     различных искусств: литературы, музыки,
                                     хореографии, вокала, изобразительного
-                                    искусства и других[1][2][3][4] — и
+                                    искусства и
                                     обладающий собственной спецификой: отражение
                                     действительности, конфликтов, характеров, а
                                     также их трактовка и оценка, утверждение тех
@@ -200,40 +202,34 @@ function PublicTheatrePage() {
                                     председательством директора школы Суханкиной
                                     О.А., проанализировав
                                 </p>
-                                {showDescription && (
-                                    <>
-                                        <p>
-                                            Уважаемые зрители! Убедительная
-                                            просьба соблюдать меры безопасности,
-                                            оставаться в масках и сохранять
-                                            социальную дистанцию во время
-                                            спектакля, а также всего времени
-                                            пребывания в театре. После третьего
-                                            звонка любые перемещения по залу
-                                            категорически запрещены. Своими
-                                            действиями Вы мешаете артистам, а
-                                            также другим зрителям. В случае
-                                            нарушений мы будем вынуждены
-                                            остановить спектакль. Дорогие
-                                            зрители! Надеемся на ваше понимание
-                                            и самодисциплину. Берегите себя и
-                                            своих близких.
-                                        </p>
-                                    </>
-                                )}
+                                <h3>Обращение режиссера:</h3>
+                                <p>
+                                    Уважаемые зрители! Убедительная
+                                    просьба соблюдать меры безопасности,
+                                    оставаться в масках и сохранять
+                                    социальную дистанцию во время
+                                    спектакля, а также всего времени
+                                    пребывания в театре. После третьего
+                                    звонка любые перемещения по залу
+                                    категорически запрещены. Своими
+                                    действиями Вы мешаете артистам, а
+                                    также другим зрителям. В случае
+                                    нарушений мы будем вынуждены
+                                    остановить спектакль. Дорогие
+                                    зрители! Надеемся на ваше понимание
+                                    и самодисциплину. Берегите себя и
+                                    своих близких.
+                                </p>
                             </div>
-                        </div>
-                        {!showDescription && (
-                            <button
-                                type="button"
-                                className="about__more-btn"
-                                onClick={() => {
-                                    setShowDescription(true);
-                                }}
-                            >
-                                Читать полностью
-                            </button>
-                        )}
+                        </motion.div>
+                        <Button
+                            text="Читать полностью"
+                            type="button"
+                            className="about__more-btn"
+                            onClick={() => {
+                                setShowDescription(!showDescription);
+                            }}
+                        />
                     </article>
                 </section>
                 <section className="public-content__section public-content__section_bg_light-grey">
