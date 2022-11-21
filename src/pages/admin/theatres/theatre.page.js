@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 
 import useSchoolStore from "../../../store/admin/schoolsStore";
 import useTheatresStore from "../../../store/admin/theatresStore";
@@ -8,9 +8,10 @@ import useTeachersStore from "../../../store/admin/teachersStore";
 import Button from "../../../components/simple/button/button.component";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
+import moment from "moment";
 
 const TheatrePage = () => {
-    let { id } = useParams();
+    let {id} = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -27,10 +28,10 @@ const TheatrePage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -79,10 +80,9 @@ const TheatrePage = () => {
                                 <ul className="info__list">
                                     <li className="info__item">
                                         <h3 className="info__label">
-                                            Название театра
+                                            Публичная страница
                                         </h3>
                                         <p className="info__description">
-                                            Test2
                                             <NavLink
                                                 className="link"
                                                 to={"/theatre/" + id}
@@ -90,15 +90,28 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 Страница театра{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </NavLink>
                                         </p>
                                     </li>
                                     <li className="info__item">
                                         <h3 className="info__label">Адрес</h3>
                                         <p className="info__description">
-                                            127206, город Москва, улица
-                                            Вучетича, дом 30, стр. 5
+                                            {theatre.address}
+                                        </p>
+                                    </li>
+                                    <li className="info__item">
+                                        <h3 className="info__label">Координаты</h3>
+                                        <p className="info__description">
+
+                                            <a
+                                                className="link"
+                                                href={"http://maps.yandex.ru/?text=" + theatre.coordinates}
+                                                target={"_blank"}
+                                                rel="noopener nofollow noreferer"
+                                            >
+                                                {theatre.coordinates}{" "}<span className="mdi mdi-open-in-new"/>
+                                            </a>
                                         </p>
                                     </li>
                                     <li className="info__item">
@@ -106,8 +119,7 @@ const TheatrePage = () => {
                                             Форма осуществления деятельности
                                         </h3>
                                         <p className="info__description">
-                                            Объединение дополнительного
-                                            образования
+                                            {theatre.form_activity.map(item => item.activity).join(", ")}
                                         </p>
                                     </li>
                                     <li className="info__item">
@@ -116,7 +128,7 @@ const TheatrePage = () => {
                                             школьного театра
                                         </h3>
                                         <p className="info__description">
-                                            5-9 класс
+                                            {theatre.age_members.map(item => item.age).join(", ")}
                                         </p>
                                     </li>
                                     <li className="info__item">
@@ -124,7 +136,7 @@ const TheatrePage = () => {
                                             Дата основания
                                         </h3>
                                         <p className="info__description">
-                                            04.11.2022
+                                            {moment(theatre.foundation_date).format('DD.MM.YYYY')}
                                         </p>
                                     </li>
                                 </ul>
