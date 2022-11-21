@@ -5,6 +5,7 @@ import Header from "../header/header.component";
 import ProfileHeader from "../header/profile.header.component";
 import SupportHeaderComponent from "../header/support.header.component";
 import Menu from "../menu/menu.component";
+import {MenuIcons} from '../svgs.js';
 
 const UserLayout = () => {
 
@@ -13,27 +14,27 @@ const UserLayout = () => {
     const menu = [
         {
             title: "Моя школа",
-            icon: "--type-my-school",
+            icon: MenuIcons.my_school,
             link: "/user/my_school"
         },
         {
             title: "Театры",
-            icon: "--type-theatres",
+            icon: MenuIcons.theatres,
             link: "/user/theatres"
         },
         {
             title: "Заявки на театры",
-            icon: "--type-requests",
+            icon: MenuIcons.requests,
             link: "/user/theatreRequests"
         },
         {
             title: "Педагоги",
-            icon: "--type-users",
+            icon: MenuIcons.users,
             link: "/user/teachers"
         },
         {
             title: "Афиши",
-            icon: "--type-poster",
+            icon: MenuIcons.poster,
             link: "/user/posters"
         },
     ];

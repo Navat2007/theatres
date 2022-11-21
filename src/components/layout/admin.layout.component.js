@@ -5,6 +5,7 @@ import Header from "../header/header.component";
 import Menu from "../menu/menu.component";
 import SupportHeaderComponent from "../header/support.header.component";
 import ProfileHeader from "../header/profile.header.component";
+import {MenuIcons} from '../svgs.js';
 
 const AdminLayout = () => {
 
@@ -12,27 +13,27 @@ const AdminLayout = () => {
     const menu = [
         {
             title: "Пользователи",
-            icon: "--type-users",
+            icon: MenuIcons.users,
             link: "/admin/users"
         },
         {
             title: "Школы",
-            icon: "--type-school",
+            icon: MenuIcons.schools,
             link: "/admin/schools"
         },
         {
             title: "Театры",
-            icon: "--type-theatres",
+            icon: MenuIcons.theatres,
             link: "/admin/theatres"
         },
         {
             title: "Заявки на театры",
-            icon: "--type-requests",
+            icon: MenuIcons.requests,
             link: "/admin/theatreRequests"
         },
         {
             title: "Педагоги",
-            icon: "--type-users",
+            icon: MenuIcons.users,
             link: "/admin/teachers"
         },
         // {
