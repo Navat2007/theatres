@@ -1,46 +1,56 @@
-import React from 'react';
-import {motion} from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import styles from "./image.preview.module.scss";
 
-import ImageSlider from "../slider/image.slider.component";
+const ImagePreview = ({
+    children,
+    items,
+    open = false,
+    index = 0,
+    onClose,
+}) => {
+    const config = [styles.container, open ? styles.container_opened : null];
 
-const ImagePreview = ({children, items, open = false, index = 0, onClose}) => {
-
-    const config = [
-        "img-preview",
-        open ? "--opened" : ""
-    ];
-
-    const finalClassName = config.join(' ');
+    const finalClassName = config.filter(Boolean).join(" ");
 
     return (
         <motion.div
             initial={{
-                opacity: 0
+                opacity: 0,
             }}
             animate={{
-                opacity: 1
+                opacity: 1,
             }}
             transition={{
-                duration: 0.7
+                duration: 0.7,
             }}
             className={finalClassName}
         >
             <span
-                className="img-preview__close-btn mdi mdi-close"
+                className={`${styles.close} mdi mdi-close`}
                 aria-label="Закрыть"
                 title="Закрыть"
                 onClick={onClose}
             />
-            <div className="img-preview__wrap">
-                <ImageSlider
-                    autoPlay={false}
-                    swipe={false}
-                    showIndicators={false}
-                    showThumbs={true}
-                    showArrows={true}
-                    items={items}
-                    index={index}
-                />
+            <div className={styles.wrap}>
+                <Carousel
+                    swipeable={true}
+                    emulateTouch={true}
+                    swipeScrollTolerance={5}
+                    thumbWidth={50}
+                    className={styles.wrap}
+                >
+                    {items.map((item, index) => (
+                        <img
+                            className={styles.image}
+                            key={index}
+                            src={item.url}
+                            alt={item.url}
+                        />
+                    ))}
+                </Carousel>
             </div>
         </motion.div>
     );
