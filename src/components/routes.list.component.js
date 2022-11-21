@@ -41,7 +41,11 @@ const RoutesList = () => {
 
     const { user } = useAuthStore();
 
+    console.log(user);
+
     if (user && (user.role === "admin" || user.role === "superadmin")) {
+
+        console.log("admin routes");
 
         return (
             <Routes>
@@ -91,6 +95,8 @@ const RoutesList = () => {
 
     if (user && user.role === "user") {
 
+        console.log("user routes");
+
         return (
             <Routes>
                 <Route path="/user" element={<UserLayout />}>
@@ -130,6 +136,8 @@ const RoutesList = () => {
         );
 
     }
+
+    console.log("public routes");
 
     return (
         <Routes>

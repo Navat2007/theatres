@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 
@@ -57,9 +57,9 @@ const App = () => {
         return <Preloader />;
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <RoutesList />
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
