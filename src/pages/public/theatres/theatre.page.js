@@ -31,6 +31,12 @@ function PublicTheatrePage() {
 
     const photo = [
         {
+            url: "https://proprikol.ru/wp-content/uploads/2021/05/kartinki-teatr-30.jpg",
+        },
+        {
+            url: "https://blog.postel-deluxe.ru/wp-content/uploads/hm/0606c590c33e2183d027c36d33f493d7f404532b0d399f76a3ea1ab18eb5e3cf.jpeg",
+        },
+        {
             url: "https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1",
         },
         {

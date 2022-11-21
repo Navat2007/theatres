@@ -5,7 +5,7 @@
     right: 0;
     bottom: 0;
     z-index: 1000;
-    padding-top: 4em;
+    // padding-top: 4em;
     background-color: rgba(black, 0.9);
     box-sizing: border-box;
     display: none;
@@ -14,7 +14,9 @@
         display: flex;
     }
 }
-// .wrap {}
+.wrap {
+    width: 100%;
+}
 
 .close {
     position: absolute;
@@ -32,5 +34,8 @@
 }
 .image {
     object-fit: contain;
-    max-height: 80vh;
+    margin: auto;
+    display: block;
+    width: 100vw;
+    height: 100vh;
 }

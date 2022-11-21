@@ -1,6 +1,6 @@
 import React from "react";
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 
 import styles from "./image.preview.module.scss";
 
@@ -23,22 +23,24 @@ const ImagePreview = ({
                 title="Закрыть"
                 onClick={onClose}
             />
-            <div>
-                <Splide aria-label=""
-                    config={{
-                        rewind: true,
-                        width: "100%"
-                    }}
-                >
-                    {
-                        items.map((item, index) => (
-                            <SplideSlide key={index}>
-                                <img src={item.url} alt=""/>
-                            </SplideSlide>
-                        ))
-                    }
-                </Splide>
-            </div>
+            <Splide
+                className={styles.wrap}
+                options={{
+                    rewind: true,
+                    perPage: 1,
+                    pagination: true,
+                }}
+            >
+                {items.map((item, index) => (
+                    <SplideSlide key={index}>
+                        <img
+                            className={styles.image}
+                            src={item.url}
+                            alt={item.url}
+                        />
+                    </SplideSlide>
+                ))}
+            </Splide>
         </div>
     );
 };
