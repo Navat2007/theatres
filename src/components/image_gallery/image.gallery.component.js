@@ -4,10 +4,18 @@ import ImagePreview from "../image_preview/image.preview.component";
 
 const ImageGallery = ({title, items}) => {
 
-    const [opened, setOpened] = React.useState({
-        open: false,
-        index: 0
-    });
+    const [preview, setPreview] = React.useState(<></>);
+
+    const handleOpenPreview = (slideIndex) => {
+
+        setPreview(<ImagePreview
+            open={true}
+            index={slideIndex}
+            items={items}
+            onClose={() => setPreview(<></>)}
+        />)
+
+    };
 
     return (
         <>
@@ -18,7 +26,7 @@ const ImageGallery = ({title, items}) => {
                         <li
                             key={index}
                             className="gallery__card"
-                            onClick={() => setOpened({open: true, index})}
+                            onClick={() => handleOpenPreview(index)}
                         >
                             <img
                                 className="gallery__img"
@@ -29,12 +37,7 @@ const ImageGallery = ({title, items}) => {
                     ))}
                 </ul>
             </article>
-            <ImagePreview
-                open={opened.open}
-                index={opened.index}
-                items={items}
-                onClose={() => setOpened({open: false, index: 0})}
-            />
+            {preview}
         </>
     );
 };

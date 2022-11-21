@@ -15,6 +15,17 @@ const ImagePreview = ({
 
     const finalClassName = config.filter(Boolean).join(" ");
 
+    const ref = React.createRef();
+
+    React.useEffect(() => {
+
+        if(ref.current)
+        {
+            ref.current.go(index);
+        }
+
+    }, []);
+
     return (
         <div className={finalClassName}>
             <span
@@ -24,11 +35,13 @@ const ImagePreview = ({
                 onClick={onClose}
             />
             <Splide
+                ref={ref}
                 className={styles.wrap}
                 options={{
                     rewind: true,
                     perPage: 1,
                     pagination: true,
+                    speed: 0
                 }}
             >
                 {items.map((item, index) => (
