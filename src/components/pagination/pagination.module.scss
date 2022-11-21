@@ -17,11 +17,10 @@
     align-items: center;
     justify-content: center;
 
-    height: 1.5em;
-    width: 1.5em;
-    min-width: 1.5em;
-    max-width: 1.5em;
-    padding: 0;
+    // height: 1.5em;
+    // width: 1.5em;
+    // min-width: 1.5em;
+    // max-width: 1.5em;
 }
 
 .list {
@@ -53,6 +52,5 @@
 
     &_actived {
         color: var(--dark);
-        font-weight: 500;
     }
 }
