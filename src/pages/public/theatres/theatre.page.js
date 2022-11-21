@@ -360,7 +360,7 @@ function PublicTheatrePage() {
                                     height="100%"
                                 >
                                     <Placemark
-                                        geometry={[55.76, 37.64]}
+                                        geometry={[55.760178, 37.618574]}
                                         properties={{
                                             iconCaption: "Название театра",
                                         }}
