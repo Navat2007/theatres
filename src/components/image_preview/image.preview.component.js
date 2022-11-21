@@ -1,7 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+
 import styles from "./image.preview.module.scss";
 
 const ImagePreview = ({
@@ -16,43 +16,30 @@ const ImagePreview = ({
     const finalClassName = config.filter(Boolean).join(" ");
 
     return (
-        <motion.div
-            initial={{
-                opacity: 0,
-            }}
-            animate={{
-                opacity: 1,
-            }}
-            transition={{
-                duration: 0.7,
-            }}
-            className={finalClassName}
-        >
+        <div className={finalClassName}>
             <span
                 className={`${styles.close} mdi mdi-close`}
                 aria-label="Закрыть"
                 title="Закрыть"
                 onClick={onClose}
             />
-            <div className={styles.wrap}>
-                <Carousel
-                    swipeable={true}
-                    emulateTouch={true}
-                    swipeScrollTolerance={5}
-                    thumbWidth={50}
-                    className={styles.wrap}
+            <div>
+                <Splide aria-label=""
+                    config={{
+                        rewind: true,
+                        width: "100%"
+                    }}
                 >
-                    {items.map((item, index) => (
-                        <img
-                            className={styles.image}
-                            key={index}
-                            src={item.url}
-                            alt={item.url}
-                        />
-                    ))}
-                </Carousel>
+                    {
+                        items.map((item, index) => (
+                            <SplideSlide key={index}>
+                                <img src={item.url} alt=""/>
+                            </SplideSlide>
+                        ))
+                    }
+                </Splide>
             </div>
-        </motion.div>
+        </div>
     );
 };
 
