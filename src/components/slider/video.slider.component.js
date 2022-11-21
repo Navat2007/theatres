@@ -16,7 +16,8 @@ const VideoSlider = ({items}) => {
             height={"auto"}
             className="video__react-player"
             url={url}
-            playing={false}
+            playing={isSelected}
+            controls={true}
         />
     );
 

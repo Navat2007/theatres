@@ -95,6 +95,19 @@ function PublicTheatrePage() {
     if (loading || schoolStore.loading || teachersStore.loading) {
         return (
             <div className="content__section">
+                <BannerSlider
+                    transitionTime={1000}
+                    autoPlay={true}
+                    swipe={false}
+                    showArrows={false}
+                    items={[
+                        {
+                            url: "",
+                            title: "",
+                            text: "",
+                        },
+                    ]}
+                />
                 <p>Загрузка...</p>
             </div>
         );
