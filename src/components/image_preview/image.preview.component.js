@@ -35,6 +35,8 @@ const ImagePreview = ({children, items, open = false, index = 0, onClose}) => {
                 <ImageSlider
                     autoPlay={false}
                     swipe={true}
+                    showIndicators={false}
+                    showThumbs={true}
                     showArrows={true}
                     items={items}
                     index={index}
