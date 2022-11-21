@@ -33,6 +33,7 @@ if (mysqli_num_rows($result) > 0) {
             'update_time' => $row->update_time,
             'title' => $row->title,
             'address' => $row->address,
+            'coordinates' => $row->coordinates,
             'foundation_date' => $row->foundation_date,
             'theatre_url_school' => $row->theatre_url_school,
             'short_description' => html_entity_decode($row->short_description),

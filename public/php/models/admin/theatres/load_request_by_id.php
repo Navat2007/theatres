@@ -42,6 +42,7 @@ if (mysqli_num_rows($result) > 0) {
             'update_time' => $row->update_time,
             'title' => $row->title,
             'address' => $row->address,
+            'coordinates' => $row->coordinates,
             'status' => getStatusText($row->status),
             'decline_text' => html_entity_decode($row->decline_text),
             'foundation_date' => $row->foundation_date,

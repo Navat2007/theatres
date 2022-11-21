@@ -10,6 +10,7 @@ import useSchoolStore from "../../../store/admin/schoolsStore";
 import {SocialIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
+import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 
 function PublicTheatrePage() {
 
@@ -28,6 +29,24 @@ function PublicTheatrePage() {
     const teachersStore = useTeachersStore();
 
     const [showDescription, setShowDescription] = React.useState(false);
+
+    const photo = [
+        {url: "https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1"},
+        {url: "https://avatars.mds.yandex.net/i?id=884fb757352a3a5e8fca312b496ba69b-5179886-images-thumbs&n=13&exp=1"},
+        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maCrwjXtVQOIXI3nY06E82o6Nu9wiGO1B9NGYKKC11POJCFTbQbrZtFvyPCpIAs4eQb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
+        {url: "https://avatars.mds.yandex.net/i?id=2fbaa1348893089467299b3b18e33a5d8528cb02-5121678-images-thumbs&n=13&exp=1"},
+        {url: "https://avatars.mds.yandex.net/i?id=407d8e2f059f4edabbb33e8eda68913492ab92c8-4077743-images-thumbs&n=13&exp=1"},
+        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maWeggUNEDMYLAiyo16ENko6c59QGGNQR2ZDNbLnklPrNLFj_XOeQ9QfyNAZMGsIybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
+    ];
+
+    const photoVisit = [
+        {url: "https://avatars.mds.yandex.net/i?id=c74aab2dff3321263371312c509551ac-4857366-images-thumbs&n=13&exp=1"},
+        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maC71wDddSPIfCi3c14hRm9vM88wjSPAZ-MWFXfXoia-AeQzjXOLFpQ_yIBZQBtoieb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
+        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maX-sqUYJXPdfJ3npj7k838fI08AHVNAF6MDQKK3ola-YYRjrQO-RoFPyOAJEBuYybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
+        {url: "https://avatars.mds.yandex.net/i?id=324e2759928ba0407e4c8aadca3500e4838b6b47-5541108-images-thumbs&n=13&exp=1"},
+        {url: "https://avatars.mds.yandex.net/i?id=5afe3b2a027705b4946eade5f77c75f6-4012866-images-thumbs&n=13&exp=1"},
+        {url: "https://avatars.mds.yandex.net/i?id=f648145c743319b555b3129764c250f4-5348469-images-thumbs&n=13&exp=1"},
+    ];
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -241,102 +260,16 @@ function PublicTheatrePage() {
                     </article>
                 </section>
                 <section className="public-content__section">
-                    <article className="public-content__wrap gallery">
-                        <h2 className="section-title">Фото театра</h2>
-                        <ul className="gallery__card-deck">
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=884fb757352a3a5e8fca312b496ba69b-5179886-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maCrwjXtVQOIXI3nY06E82o6Nu9wiGO1B9NGYKKC11POJCFTbQbrZtFvyPCpIAs4eQb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=2fbaa1348893089467299b3b18e33a5d8528cb02-5121678-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=407d8e2f059f4edabbb33e8eda68913492ab92c8-4077743-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maWeggUNEDMYLAiyo16ENko6c59QGGNQR2ZDNbLnklPrNLFj_XOeQ9QfyNAZMGsIybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                        </ul>
-                    </article>
+                    <ImageGallery
+                        title="Фото театра"
+                        items={photo}
+                    />
                 </section>
                 <section className="public-content__section">
-                    <article className="public-content__wrap gallery">
-                        <h2 className="section-title">Фото посещения театра</h2>
-                        <ul className="gallery__card-deck">
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=c74aab2dff3321263371312c509551ac-4857366-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maC71wDddSPIfCi3c14hRm9vM88wjSPAZ-MWFXfXoia-AeQzjXOLFpQ_yIBZQBtoieb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maX-sqUYJXPdfJ3npj7k838fI08AHVNAF6MDQKK3ola-YYRjrQO-RoFPyOAJEBuYybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=324e2759928ba0407e4c8aadca3500e4838b6b47-5541108-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=5afe3b2a027705b4946eade5f77c75f6-4012866-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                            <li className="gallery__card">
-                                <img
-                                    className="gallery__img"
-                                    src="https://avatars.mds.yandex.net/i?id=f648145c743319b555b3129764c250f4-5348469-images-thumbs&n=13&exp=1"
-                                    alt="Иванова Любовь Валерьевна"
-                                />
-                            </li>
-                        </ul>
-                    </article>
+                    <ImageGallery
+                        title="Фото посещения театра"
+                        items={photoVisit}
+                    />
                 </section>
                 <section className="public-content__section">
                     <article className="public-content__wrap video">
