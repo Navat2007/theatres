@@ -244,16 +244,23 @@ html {
     }
 
     &__level-item {
-        font-size: min(1.5vmax, 1.25em);
-        min-height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: min(2.5vmax, 1.25em);
+        background-color: rgba(map-get($colors, "public-primary"), 0.1);
         font-weight: 600;
-        text-transform: uppercase;
-        padding: 0.675rem 2rem;
+        padding: 0.25rem 0.5rem 0.25rem 1rem;
+        margin-bottom: 0.5rem;
         box-sizing: border-box;
-        border-radius: 15px;
-        color: var(--public-accent);
-        border: 2px solid var(--public-accent);
-        width: max-content;
+        line-height: 1.5;
+        border-radius: 5px;
+        width: min(30vmax, 10em);
+
+        svg {
+            @include box(2.5em);
+            margin: -1em 0 -1.5em 0;
+        }
     }
 
     &__list {
