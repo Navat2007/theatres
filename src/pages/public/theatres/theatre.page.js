@@ -1,20 +1,18 @@
 import React from "react";
-import {useParams} from "react-router-dom";
-import {YMaps, Map, Placemark} from "react-yandex-maps";
+import { useParams } from "react-router-dom";
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-
-import {SocialIcons} from "../../../components/svgs.js";
+import { SocialIcons } from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 
 function PublicTheatrePage() {
-
-    let {id} = useParams();
+    let { id } = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -31,30 +29,54 @@ function PublicTheatrePage() {
     const [showDescription, setShowDescription] = React.useState(false);
 
     const photo = [
-        {url: "https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1"},
-        {url: "https://avatars.mds.yandex.net/i?id=884fb757352a3a5e8fca312b496ba69b-5179886-images-thumbs&n=13&exp=1"},
-        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maCrwjXtVQOIXI3nY06E82o6Nu9wiGO1B9NGYKKC11POJCFTbQbrZtFvyPCpIAs4eQb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
-        {url: "https://avatars.mds.yandex.net/i?id=2fbaa1348893089467299b3b18e33a5d8528cb02-5121678-images-thumbs&n=13&exp=1"},
-        {url: "https://avatars.mds.yandex.net/i?id=407d8e2f059f4edabbb33e8eda68913492ab92c8-4077743-images-thumbs&n=13&exp=1"},
-        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maWeggUNEDMYLAiyo16ENko6c59QGGNQR2ZDNbLnklPrNLFj_XOeQ9QfyNAZMGsIybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
+        {
+            url: "https://avatars.mds.yandex.net/i?id=188a8b0f655670854b3fff1d74b386aa5b8683c8-4809743-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=884fb757352a3a5e8fca312b496ba69b-5179886-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maCrwjXtVQOIXI3nY06E82o6Nu9wiGO1B9NGYKKC11POJCFTbQbrZtFvyPCpIAs4eQb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=2fbaa1348893089467299b3b18e33a5d8528cb02-5121678-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=407d8e2f059f4edabbb33e8eda68913492ab92c8-4077743-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maWeggUNEDMYLAiyo16ENko6c59QGGNQR2ZDNbLnklPrNLFj_XOeQ9QfyNAZMGsIybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY",
+        },
     ];
 
     const photoVisit = [
-        {url: "https://avatars.mds.yandex.net/i?id=c74aab2dff3321263371312c509551ac-4857366-images-thumbs&n=13&exp=1"},
-        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maC71wDddSPIfCi3c14hRm9vM88wjSPAZ-MWFXfXoia-AeQzjXOLFpQ_yIBZQBtoieb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
-        {url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maX-sqUYJXPdfJ3npj7k838fI08AHVNAF6MDQKK3ola-YYRjrQO-RoFPyOAJEBuYybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY"},
-        {url: "https://avatars.mds.yandex.net/i?id=324e2759928ba0407e4c8aadca3500e4838b6b47-5541108-images-thumbs&n=13&exp=1"},
-        {url: "https://avatars.mds.yandex.net/i?id=5afe3b2a027705b4946eade5f77c75f6-4012866-images-thumbs&n=13&exp=1"},
-        {url: "https://avatars.mds.yandex.net/i?id=f648145c743319b555b3129764c250f4-5348469-images-thumbs&n=13&exp=1"},
+        {
+            url: "https://avatars.mds.yandex.net/i?id=c74aab2dff3321263371312c509551ac-4857366-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maC71wDddSPIfCi3c14hRm9vM88wjSPAZ-MWFXfXoia-AeQzjXOLFpQ_yIBZQBtoieb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY",
+        },
+        {
+            url: "https://yandex-images.clstorage.net/F47L2He34/043242IJxs9z/5WsMlAjVnlzYc7hL7UFANbtkUwp_WFK-maX-sqUYJXPdfJ3npj7k838fI08AHVNAF6MDQKK3ola-YYRjrQO-RoFPyOAJEBuYybb4y90RYeBvVULP3x2DGrxlf9KAbdUzqTkdI_Pr4PIqinUp948E5pAQdJKVYFOW-8HhF3nX_0AH3x3nvvcsPY3AejoP0AKgeZSiXq3fEqw_9p-1U5rwpu8oDTLUeMAiHy4FyDe-FoYCcXTyhnDBB-nQM6Y_pH-CdEgMxA70D40_EUo5n0KRIBmksO7-bCK-HwechlGYEvYO-S_RdSrxU-x_xLhVHJaX06InUbTCUTfZYsE2XKS8cacoTTWNpN6PvLDqCfyikqM4F1DdDy2CHXzmzrURuoFk_6iM4JUb0QOtPvT7lj22plPgxXCX4HFES7ND1fw2P0NUSh3F7WRdTkxi29p_w_PQSbWg_fzsMM9-5p4VEhogV5_YXxFWaJGyH493-pYdZVUAYaaCBKACtnhCgtaNBo2SV7pu5l4HbX9O8orZXHGRAatUM88uvQCsvBfNtHJYgLQcSE0ylTgRgz5_hHk1X1aXcLNGM_VgYmQ7sADX3HRtIaZ77pRNFw1ebjBpO9-yM4BKhDEOfV7Dj581ncYCyEK3_TlsYHSbU2KsDGWY5d3n1GJRZCGFUYF1emEB9Z1FnENEOAw3nUZOrOyiGrkvs0LAScYTDN5e8p7vRgxHI-sC9Qx4bFF1WwNgfw_2KVbv9ldx8sSSBKGAJrlRQFedJ61ghMlOJ-7k7W1uMtk5XSHyoMl3od5cb1FfnLW8BxPrgLe8GX8yVUiQYY7dNZtWz4YFksM0EbdjEoQ5cWI0rbY8IKc4bsX_VF-ezINa242z0JBa10Ltrx_Dj-0XzMYDm5J2jBvsYWZLQOEOb6RZZX1mVMGj5HN2kPOHy6Lg5Y4FfgFE-G3GradvPE2hucmNgIFzOhSAHk880v5clc3EY",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=324e2759928ba0407e4c8aadca3500e4838b6b47-5541108-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=5afe3b2a027705b4946eade5f77c75f6-4012866-images-thumbs&n=13&exp=1",
+        },
+        {
+            url: "https://avatars.mds.yandex.net/i?id=f648145c743319b555b3129764c250f4-5348469-images-thumbs&n=13&exp=1",
+        },
     ];
 
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({id});
+                let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
+                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -88,27 +110,27 @@ function PublicTheatrePage() {
                         {
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Таланты-и-поклонники-1280x854.jpg",
                             title: "Таланты и поклонники",
-                            text: "В жизни людей, принимающих на себя различные роли на сцене, постоянно случаются заботы, быт и привычки, от которых просто та избавиться не удается. А тот, кто восхищается талантом, в глубине души только посягает на него и стремиться овладеть теми же навыками."
+                            text: "В жизни людей, принимающих на себя различные роли на сцене, постоянно случаются заботы, быт и привычки, от которых просто та избавиться не удается. А тот, кто восхищается талантом, в глубине души только посягает на него и стремиться овладеть теми же навыками.",
                         },
                         {
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Тартюф.jpg",
                             title: "Тартюф",
-                            text: "Целью самозванца является завоевание сердца жены хозяина, но вот добиться цели не так просто, как может показаться на первый взгляд. Трудности, с которыми персонажу предстоит столкнуться, сопровождаются настоящими эмоциями и не дают зрителям расслабиться до самого конца."
+                            text: "Целью самозванца является завоевание сердца жены хозяина, но вот добиться цели не так просто, как может показаться на первый взгляд. Трудности, с которыми персонажу предстоит столкнуться, сопровождаются настоящими эмоциями и не дают зрителям расслабиться до самого конца.",
                         },
                         {
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Ревизор-1280x854.jpg",
                             title: "Ревизор",
-                            text: "Знаменитая комедия Гоголя уже не раз была успешной постановкой в различных театрах, но в 2020 году зрителей ожидает настоящий шедевр. В Ермоловском театре для посетителей будет представлена история без слов."
+                            text: "Знаменитая комедия Гоголя уже не раз была успешной постановкой в различных театрах, но в 2020 году зрителей ожидает настоящий шедевр. В Ермоловском театре для посетителей будет представлена история без слов.",
                         },
                         {
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Там-же-тогда-же.jpg",
                             title: "Там же, тогда же",
-                            text: "Спектакль доносит до зрителей общепризнанные факты: в жизни все меняется, все уходит и исчезает незадолго после появления. Но есть и нечто вечное – персонажи встречаются каждый год в то же время и в том же месте."
+                            text: "Спектакль доносит до зрителей общепризнанные факты: в жизни все меняется, все уходит и исчезает незадолго после появления. Но есть и нечто вечное – персонажи встречаются каждый год в то же время и в том же месте.",
                         },
                         {
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Бестолочь-1280x853.jpg",
                             title: "Бестолочь",
-                            text: "Она – настоящая недотепа, недалекая деревенская дама без особенностей во внешности и сложного характера. Но супружеская чета даже не считает недостатками проблемы в работе Анны, ведь эта девушка теперь является бесконечным поводом для веселья и семейных шуток."
+                            text: "Она – настоящая недотепа, недалекая деревенская дама без особенностей во внешности и сложного характера. Но супружеская чета даже не считает недостатками проблемы в работе Анны, ведь эта девушка теперь является бесконечным поводом для веселья и семейных шуток.",
                         },
                     ]}
                 />
@@ -120,7 +142,7 @@ function PublicTheatrePage() {
                             <ul className="about__list">
                                 <li>
                                     <p className="about__text">
-                                        Год основания:
+                                        Год основания:{" "}
                                         <span className="about__span-accent">
                                             2020г.
                                         </span>
@@ -128,76 +150,87 @@ function PublicTheatrePage() {
                                 </li>
                                 <li>
                                     <p className="about__text">
-                                        Форма осуществления деятельности:
+                                        Форма осуществления деятельности:{" "}
                                         <span className="about__span-accent">
-                                        Объединение дополнительного образования
-                                    </span>
+                                            Объединение дополнительного
+                                            образования
+                                        </span>
                                     </p>
                                 </li>
                                 <li>
                                     <p className="about__text">
                                         Возрастной состав участников школьного
-                                        театра:
+                                        театра:{" "}
                                         <span className="about__span-accent">
-                                        1-4 класс
-                                    </span>
+                                            1-4 класс
+                                        </span>
                                     </p>
                                 </li>
                             </ul>
                             <div className="about__description-block">
                                 <p>
-                                    Теа́тр (греч. θέατρον — основное значение — место для зрелищ, затем — зрелище, от
-                                    θεάομαι — смотреть, видеть) — зрелищный вид искусства, представляющий собой синтез
-                                    различных искусств: литературы, музыки, хореографии, вокала, изобразительного
-                                    искусства и других[1][2][3][4] — и обладающий собственной спецификой: отражение
-                                    действительности, конфликтов, характеров, а также их трактовка и оценка, утверждение
-                                    тех или иных идей здесь происходит посредством драматического действия, главным
-                                    носителем которого является актёр
+                                    Теа́тр (греч. θέατρον — основное значение —
+                                    место для зрелищ, затем — зрелище, от
+                                    θεάομαι — смотреть, видеть) — зрелищный вид
+                                    искусства, представляющий собой синтез
+                                    различных искусств: литературы, музыки,
+                                    хореографии, вокала, изобразительного
+                                    искусства и других[1][2][3][4] — и
+                                    обладающий собственной спецификой: отражение
+                                    действительности, конфликтов, характеров, а
+                                    также их трактовка и оценка, утверждение тех
+                                    или иных идей здесь происходит посредством
+                                    драматического действия, главным носителем
+                                    которого является актёр
                                 </p>
                                 <p>
-                                    Родовое понятие «театр» включает в себя различные его виды и формы: драматический
-                                    театр, оперный, балетный, кукольный, театр пантомимы и др.
+                                    Родовое понятие «театр» включает в себя
+                                    различные его виды и формы: драматический
+                                    театр, оперный, балетный, кукольный, театр
+                                    пантомимы и др.
                                 </p>
                                 <p>
                                     На прошлой неделе в школе прошел школьный
-                                    конкурс «Театральные подмостки». В нем приняли
-                                    участие все классы. Было представлено 6
-                                    постановок. Жюри под председательством директора
-                                    школы Суханкиной О.А., проанализировав
+                                    конкурс «Театральные подмостки». В нем
+                                    приняли участие все классы. Было
+                                    представлено 6 постановок. Жюри под
+                                    председательством директора школы Суханкиной
+                                    О.А., проанализировав
                                 </p>
-                                {
-                                    showDescription
-                                    &&
+                                {showDescription && (
                                     <>
                                         <p>
-                                            Уважаемые зрители!
-
-                                            Убедительная просьба соблюдать меры безопасности, оставаться в масках и
-                                            сохранять социальную дистанцию во время спектакля, а также всего времени
-                                            пребывания в театре. После третьего звонка любые перемещения по залу
-                                            категорически запрещены. Своими действиями Вы мешаете артистам, а также
-                                            другим зрителям. В случае нарушений мы будем вынуждены остановить спектакль.
-
-                                            Дорогие зрители! Надеемся на ваше понимание и самодисциплину. Берегите себя
-                                            и своих близких.
+                                            Уважаемые зрители! Убедительная
+                                            просьба соблюдать меры безопасности,
+                                            оставаться в масках и сохранять
+                                            социальную дистанцию во время
+                                            спектакля, а также всего времени
+                                            пребывания в театре. После третьего
+                                            звонка любые перемещения по залу
+                                            категорически запрещены. Своими
+                                            действиями Вы мешаете артистам, а
+                                            также другим зрителям. В случае
+                                            нарушений мы будем вынуждены
+                                            остановить спектакль. Дорогие
+                                            зрители! Надеемся на ваше понимание
+                                            и самодисциплину. Берегите себя и
+                                            своих близких.
                                         </p>
                                     </>
-                                }
+                                )}
                             </div>
-                            {
-                                !showDescription
-                                &&
-                                <button
-                                    type="button"
-                                    className="about__more-btn"
-                                    onClick={() => {
-                                        setShowDescription(true)
-                                    }}
-                                >
-                                    Читать полностью
-                                </button>
-                            }
                         </div>
+                        {!showDescription && (
+                            <button
+                                type="button"
+                                className="about__more-btn"
+                                onClick={() => {
+                                    setShowDescription(true);
+                                }}
+                            >
+                                Читать полностью
+                            </button>
+                        )}
                     </article>
                 </section>
                 <section className="public-content__section public-content__section_bg_light-grey">
@@ -211,9 +244,9 @@ function PublicTheatrePage() {
                                     alt="Иванова Любовь Валерьевна"
                                 />
                                 <h3 className="teachers__title">
-                                <span className="teachers__span-accent">
-                                    Иванова
-                                </span>
+                                    <span className="teachers__span-accent">
+                                        Иванова
+                                    </span>
                                     Любовь Валерьевна
                                 </h3>
                             </li>
@@ -224,9 +257,9 @@ function PublicTheatrePage() {
                                     alt="Иванова Любовь Валерьевна"
                                 />
                                 <h3 className="teachers__title">
-                                <span className="teachers__span-accent">
-                                    Загогулькина
-                                </span>
+                                    <span className="teachers__span-accent">
+                                        Загогулькина
+                                    </span>
                                     Анастасия Дрыздовна
                                 </h3>
                             </li>
@@ -237,9 +270,9 @@ function PublicTheatrePage() {
                                     alt="Иванова Любовь Валерьевна"
                                 />
                                 <h3 className="teachers__title">
-                                <span className="teachers__span-accent">
-                                    Крюк
-                                </span>
+                                    <span className="teachers__span-accent">
+                                        Крюк
+                                    </span>
                                     Кутиля Бутковна
                                 </h3>
                             </li>
@@ -250,9 +283,9 @@ function PublicTheatrePage() {
                                     alt="Иванова Любовь Валерьевна"
                                 />
                                 <h3 className="teachers__title">
-                                <span className="teachers__span-accent">
-                                    Куница
-                                </span>
+                                    <span className="teachers__span-accent">
+                                        Куница
+                                    </span>
                                     Хвостатая Валерьевна
                                 </h3>
                             </li>
@@ -276,8 +309,12 @@ function PublicTheatrePage() {
                         <h2 className="section-title">Видео</h2>
                         <VideoSlider
                             items={[
-                                {url: "https://www.youtube.com/watch?v=FihWD9OKn-g"},
-                                {url: "https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP"},
+                                {
+                                    url: "https://www.youtube.com/watch?v=FihWD9OKn-g",
+                                },
+                                {
+                                    url: "https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP",
+                                },
                             ]}
                         />
                     </article>
@@ -288,7 +325,10 @@ function PublicTheatrePage() {
                         <div className="contact__map">
                             <YMaps>
                                 <Map
-                                    state={{center: [55.760178, 37.618574], zoom: 14}}
+                                    state={{
+                                        center: [55.760178, 37.618574],
+                                        zoom: 14,
+                                    }}
                                     width="100%"
                                     height="100%"
                                 >
@@ -347,7 +387,9 @@ function PublicTheatrePage() {
                             </div>
                         </div>
                         <div className="school-info">
-                            <h3 className="section-subtitle">Информация о школе</h3>
+                            <h3 className="section-subtitle">
+                                Информация о школе
+                            </h3>
                             <div className="school-info__detail">
                                 <img
                                     className="school-info__logo"
@@ -359,10 +401,10 @@ function PublicTheatrePage() {
                                         ГКОУ КШИ № 1
                                     </h4>
                                     <p className="school-info__description">
-                                        Государственное казенное общеобразовательное
-                                        учреждение города Москвы "Кадетская
-                                        школа-интернат № 1 "Первый Московский
-                                        кадетский корпус"
+                                        Государственное казенное
+                                        общеобразовательное учреждение города
+                                        Москвы "Кадетская школа-интернат № 1
+                                        "Первый Московский кадетский корпус"
                                     </p>
                                     <p className="school-info__subtitle">
                                         Крымский Владимир Яковлевич
@@ -383,11 +425,7 @@ function PublicTheatrePage() {
         return <p>Театр не найден</p>;
     }
 
-    return (
-        <>
-            {id}
-        </>
-    );
+    return <>{id}</>;
 }
 
 export default PublicTheatrePage;

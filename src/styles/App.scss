@@ -165,6 +165,7 @@ html {
     text-transform: uppercase;
     color: var(--public-primary);
 }
+
 .section-subtitle {
     margin: 0;
     margin-bottom: min(5vmax, 2.5rem);
@@ -237,6 +238,9 @@ html {
 
 .about {
     &__main-text {
+        max-height: 10em;
+        overflow: hidden;
+        margin-bottom: 0.675em;
     }
 
     &__level-item {
@@ -255,20 +259,19 @@ html {
     &__list {
         @extend %reset-list;
     }
-    &__text {
-    }
+    // &__text {}
+
     &__span-accent {
         font-weight: 600;
     }
-    &__description-block {
-        max-height: 10em;
-        overflow: hidden;
-    }
+    // &__description-block {}
+
     &__more-btn {
         appearance: none;
         outline: none;
-        background-color: transparent;
         font-family: inherit;
+        background-color: var(--public-primary);
+        color: var(--white);
         vertical-align: middle;
         box-sizing: border-box;
         cursor: pointer;
@@ -278,14 +281,12 @@ html {
         padding: 0.25em 1.5em;
         min-height: 3.125em;
         text-align: center;
-        color: var(--public-accent);
-        border-radius: 15px;
+        border-radius: 5px;
         border: 1px solid transparent;
-        transition: 0.25s ease-out;
-        transition-property: box-shadow, background-color;
+        transition: opacity 0.25s ease-out;
 
         &:hover {
-            background-color: rgba(map-get($colors, "public-accent"), 0.1);
+            opacity: 0.84;
         }
     }
 }
