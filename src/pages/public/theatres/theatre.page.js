@@ -7,7 +7,7 @@ import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import { SocialIcons, medalIcons } from "../../../components/svgs.js";
+import { SocialIcons, MedalIcons } from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
@@ -141,7 +141,7 @@ function PublicTheatrePage() {
                         <h1 className="section-title">Театр Чайковского</h1>
                         <div className="about__level-item">
                             Дебютант
-                            {medalIcons.debutant}
+                            {MedalIcons.debutant}
                         </div>
                         <motion.div className="about__main-text">
                             <ul className="about__list">
