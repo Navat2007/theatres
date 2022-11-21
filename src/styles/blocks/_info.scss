@@ -1,0 +1,38 @@
+.info {
+    &__list {
+        @extend %reset-list;
+
+        display: flex;
+        gap: 1.25em;
+        flex-direction: column;
+        margin: 0 0 min(3.5vmax, 1.875em);
+    }
+    &__item {
+        display: grid;
+        gap: 0 1.25em;
+        align-items: baseline;
+        grid-template-columns: min(35%, 20em) 1fr;
+    }
+    &__label {
+        flex: 0 0 15em;
+        margin: 0;
+        font-size: 1em;
+        font-weight: normal;
+        color: var(--darkLow);
+    }
+    &__description {
+        margin: 0;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin: 0.5rem 0;
+        padding-bottom: 0.5rem;
+        font-size: 1.25em;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(map-get($colors, "primary"), 0.54);
+    }
+}

@@ -32,6 +32,10 @@
       display: grid;
       gap: 0 1.25em;
 
+      .form__section {
+        max-width: unset;
+      }
+
       @include media(lg) {
         grid-template-columns: .55fr .45fr;
       }

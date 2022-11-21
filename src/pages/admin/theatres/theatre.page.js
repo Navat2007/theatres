@@ -69,39 +69,80 @@ const TheatrePage = () => {
                             isIconBtn="true"
                             aria-label="Назад"
                         />
-                        <h1 className="content__title">{theatre.title}</h1>
+                        <h1 className="content__title --mb-small">
+                            {theatre.title}
+                        </h1>
                     </div>
                     <Tabs>
                         <Tab title={"Основная информация"}>
-                            <p>Краткое описание</p>
-                            <div>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur,
-                                    adipisicing elit. Veritatis, aspernatur.
-                                    Saepe, veritatis id. Cupiditate inventore
-                                    placeat veritatis eaque illo aspernatur
-                                    voluptatem porro repellat. Ex fugit
-                                    reiciendis tempore voluptatum totam dolorum.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur,
-                                    adipisicing elit. Veritatis, aspernatur.
-                                    Saepe, veritatis id. Cupiditate inventore
-                                    placeat veritatis eaque illo aspernatur
-                                    voluptatem porro repellat. Ex fugit
-                                    reiciendis tempore voluptatum totam dolorum.
-                                </p>
+                            <div className="info">
+                                <ul className="info__list">
+                                    <li className="info__item">
+                                        <h3 className="info__label">
+                                            Название театра
+                                        </h3>
+                                        <p className="info__description">
+                                            Test2
+                                            <NavLink
+                                                className="link"
+                                                to={"/theatre/" + id}
+                                                target={"_blank"}
+                                                rel="noopener nofollow noreferer"
+                                            >
+                                                Страница театра{" "}
+                                                <span className="mdi mdi-open-in-new" />
+                                            </NavLink>
+                                        </p>
+                                    </li>
+                                    <li className="info__item">
+                                        <h3 className="info__label">Адрес</h3>
+                                        <p className="info__description">
+                                            127206, город Москва, улица
+                                            Вучетича, дом 30, стр. 5
+                                            <NavLink
+                                                className="link"
+                                                to={"/theatre/" + id}
+                                                target={"_blank"}
+                                                rel="noopener nofollow noreferer"
+                                            >
+                                                Показать на карте{" "}
+                                                <span className="mdi mdi-open-in-new" />
+                                            </NavLink>
+                                        </p>
+                                    </li>
+                                    <li className="info__item">
+                                        <h3 className="info__label">
+                                            Форма осуществления деятельности
+                                        </h3>
+                                        <p className="info__description">
+                                            Объединение дополнительного
+                                            образования
+                                        </p>
+                                    </li>
+                                    <li className="info__item">
+                                        <h3 className="info__label">
+                                            Возрастной состав участников
+                                            школьного театра
+                                        </h3>
+                                        <p className="info__description">
+                                            5-9 класс
+                                        </p>
+                                    </li>
+                                    <li className="info__item">
+                                        <h3 className="info__label">
+                                            Дата основания
+                                        </h3>
+                                        <p className="info__description">
+                                            04.11.2022
+                                        </p>
+                                    </li>
+                                </ul>
+                                <h2 className="info__title">Педагоги</h2>
                             </div>
                         </Tab>
+                        <Tab title={"Фотографии"}></Tab>
+                        <Tab title={"Видео"}></Tab>
                     </Tabs>
-                    <NavLink
-                        className="link"
-                        to={"/theatre/" + id}
-                        target={"_blank"}
-                        rel="noopener nofollow noreferer"
-                    >
-                        Страница театра <span className="mdi mdi-open-in-new" />
-                    </NavLink>
                 </>
             )}
         </div>
