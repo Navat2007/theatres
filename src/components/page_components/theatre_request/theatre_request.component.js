@@ -141,6 +141,14 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                             placeholder={"Введите адрес"}
                             {...register("address", {value: schoolStore?.school?.address})}
                         />
+                        <FieldInput
+                            label={"Координаты театра"}
+                            type='text'
+                            layout='flex'
+                            required={true}
+                            placeholder={"Координаты через запятую: 55.760178, 37.618574"}
+                            {...register("coordinates")}
+                        />
                         <div className="form__multy-block">
                             <p className="form__label">Форма осуществления деятельности</p>
                             <MultiSelect

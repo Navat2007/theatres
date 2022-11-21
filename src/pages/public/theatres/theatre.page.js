@@ -355,7 +355,7 @@ function PublicTheatrePage() {
                         <div className="contact__map">
                             <YMaps>
                                 <Map
-                                    state={{center: [55.76, 37.64], zoom: 14}}
+                                    state={{center: [55.760178, 37.618574], zoom: 14}}
                                     width="100%"
                                     height="100%"
                                 >
