@@ -95,7 +95,7 @@
     }
 
     & .icon {
-      background-color: var(--dark);
+      color: var(--dark);
     }
   }
 
@@ -106,8 +106,8 @@
 
 .icon {
   @include box(1.875em);
-  background-color: var(--white);
-  transition: background-color .25s ease-in-out;
+  color: var(--white);
+  transition: color .25s ease-in-out;
 }
 
 .text {

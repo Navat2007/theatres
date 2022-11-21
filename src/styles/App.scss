@@ -24,13 +24,11 @@ html {
 
 @import "blocks/popup-login";
 @import "blocks/form";
-@import "blocks/icon";
 @import "blocks/link";
 
 @import "blocks/content";
 @import "blocks/logo";
 
-// @import "blocks/search";
 @import "blocks/profile";
 @import "blocks/profile-card";
 
@@ -353,6 +351,7 @@ html {
         object-fit: cover;
         vertical-align: middle;
         transition: transform 0.25s ease-in;
+        cursor: pointer;
     }
 }
 
