@@ -86,6 +86,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
             schoolID: user.schoolID,
             title: data.title,
             address: data.address,
+            coordinates: data.coordinates,
             foundationDate: data.foundationDate,
             theatreUrlSchool: data.theatreUrlSchool,
             videoBusinessCard: data.videoBusinessCard,

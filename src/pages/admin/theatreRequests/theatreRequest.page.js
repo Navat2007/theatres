@@ -202,7 +202,7 @@ const TheatreRequestPage = () => {
                                 aria-label='Назад'
                                 onClick={back}
                             />
-                            <h1 className='content__title'>Заявка №{id}</h1>
+                            <h1 className='content__title'>Заявка ID: {id}</h1>
                         </div>
                         <div className="request-card">
                             <div className="request-card__section --content-main-info">
