@@ -59,7 +59,7 @@ const ShowMore = ({children}) => {
                                 }}
                                 transition={{
                                     delay: 0.3 * index,
-                                    duration: 1
+                                    duration: 0.5
                                 }}
                             >
                                 {child}

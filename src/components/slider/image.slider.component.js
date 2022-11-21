@@ -4,17 +4,20 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ImageSlider = ({
                          items,
+                         index = 0,
                          infiniteLoop = true,
                          showArrows = true,
                          showStatus = false,
                          showThumbs = false,
                          autoPlay = false,
                          interval = 10000,
+                         transitionTime = 0,
                          swipe = true,
                      }) => {
     return (
         <>
             <Carousel
+                selectedItem={index}
                 infiniteLoop={infiniteLoop}
                 // showIndicators={false}
                 showArrows={showArrows}
@@ -22,7 +25,7 @@ const ImageSlider = ({
                 autoPlay={autoPlay}
                 animationHandler={"fade"}
                 interval={interval}
-                transitionTime={1000}
+                transitionTime={transitionTime}
                 stopOnHover
                 swipeable={swipe}
                 emulateTouch={swipe}
@@ -30,11 +33,11 @@ const ImageSlider = ({
                 showThumbs={showThumbs}
             >
                 {
-                    items.map(item => (
-                        <div className="banner">
+                    items.map((item, index) => (
+                        <div key={index} className="banner">
                             <div className="banner__wrap">
                                 <img
-                                    className="banner__img"
+                                    className={item.className}
                                     src={item.url}
                                     alt=""
                                 />
