@@ -10,7 +10,6 @@ import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
-import Button from "../../../components/simple/button/button.component";
 import ShowMore from "../../../components/simple/show_more/show.more.component";
 
 function PublicTheatrePage() {
@@ -105,31 +104,37 @@ function PublicTheatrePage() {
         return (
             <>
                 <ImageSlider
+                    transitionTime={1000}
                     autoPlay={true}
                     swipe={false}
                     showArrows={false}
                     items={[
                         {
+                            className: "banner__img",
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Таланты-и-поклонники-1280x854.jpg",
                             title: "Таланты и поклонники",
                             text: "В жизни людей, принимающих на себя различные роли на сцене, постоянно случаются заботы, быт и привычки, от которых просто та избавиться не удается. А тот, кто восхищается талантом, в глубине души только посягает на него и стремиться овладеть теми же навыками.",
                         },
                         {
+                            className: "banner__img",
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Тартюф.jpg",
                             title: "Тартюф",
                             text: "Целью самозванца является завоевание сердца жены хозяина, но вот добиться цели не так просто, как может показаться на первый взгляд. Трудности, с которыми персонажу предстоит столкнуться, сопровождаются настоящими эмоциями и не дают зрителям расслабиться до самого конца.",
                         },
                         {
+                            className: "banner__img",
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Ревизор-1280x854.jpg",
                             title: "Ревизор",
                             text: "Знаменитая комедия Гоголя уже не раз была успешной постановкой в различных театрах, но в 2020 году зрителей ожидает настоящий шедевр. В Ермоловском театре для посетителей будет представлена история без слов.",
                         },
                         {
+                            className: "banner__img",
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Там-же-тогда-же.jpg",
                             title: "Там же, тогда же",
                             text: "Спектакль доносит до зрителей общепризнанные факты: в жизни все меняется, все уходит и исчезает незадолго после появления. Но есть и нечто вечное – персонажи встречаются каждый год в то же время и в том же месте.",
                         },
                         {
+                            className: "banner__img",
                             url: "https://цены-и-отзывы.рф/wp-content/uploads/2019/11/Бестолочь-1280x853.jpg",
                             title: "Бестолочь",
                             text: "Она – настоящая недотепа, недалекая деревенская дама без особенностей во внешности и сложного характера. Но супружеская чета даже не считает недостатками проблемы в работе Анны, ведь эта девушка теперь является бесконечным поводом для веселья и семейных шуток.",
