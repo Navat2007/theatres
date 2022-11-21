@@ -244,16 +244,22 @@ html {
     }
 
     &__level-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-size: min(1.5vmax, 1.25em);
+        background-color: rgba(map-get($colors, "public-primary"), .15);
         min-height: 2.5rem;
         font-weight: 600;
-        text-transform: uppercase;
         padding: 0.675rem 2rem;
         box-sizing: border-box;
-        border-radius: 15px;
+        border-radius: 5px;
         color: var(--public-accent);
-        border: 2px solid var(--public-accent);
         width: max-content;
+
+        svg {
+            @include box(1.5em);
+        }
     }
 
     &__list {
