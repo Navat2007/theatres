@@ -94,7 +94,7 @@ function PublicTheatrePage() {
 
     if (loading || schoolStore.loading || teachersStore.loading) {
         return (
-            <div className="content__section">
+            <>
                 <BannerSlider
                     transitionTime={1000}
                     autoPlay={true}
@@ -108,8 +108,12 @@ function PublicTheatrePage() {
                         },
                     ]}
                 />
-                <p>Загрузка...</p>
-            </div>
+                <section className="public-content__section">
+                    <article className="public-content__wrap about">
+                        <h1 className="section-title">Загрузка...</h1>
+                    </article>
+                </section>
+            </>
         );
     }
 
