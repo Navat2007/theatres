@@ -51,7 +51,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         О содружестве
                                     </a>
@@ -59,7 +58,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Участники
                                     </a>
@@ -67,7 +65,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Проекты
                                     </a>
@@ -75,7 +72,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Фестиваль
                                     </a>
@@ -83,7 +79,6 @@ const PublicLayout = () => {
                                 <li>
                                     <a
                                         className="menu__link"
-                                        href=""
                                     >
                                         Театральная премия
                                     </a>

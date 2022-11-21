@@ -326,7 +326,7 @@ function PublicTheatrePage() {
                                     <li>
                                         <a
                                             className="social__link"
-                                            href=""
+                                            href="https://t.me/bolshoi_theatre"
                                             target={"_blank"}
                                             rel="noopener nofollow noreferer"
                                         >
@@ -336,21 +336,11 @@ function PublicTheatrePage() {
                                     <li>
                                         <a
                                             className="social__link"
-                                            href=""
+                                            href="https://vk.com/bolshoitheatre"
                                             target={"_blank"}
                                             rel="noopener nofollow noreferer"
                                         >
                                             {SocialIcons.vk}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="social__link"
-                                            href=""
-                                            target={"_blank"}
-                                            rel="noopener nofollow noreferer"
-                                        >
-                                            {SocialIcons.ok}
                                         </a>
                                     </li>
                                 </ul>
