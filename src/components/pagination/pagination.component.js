@@ -26,7 +26,6 @@ const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {
                 isIconBtn={true}
                 iconClass="mdi mdi-menu-left"
                 theme="text"
-                size={"smaller"}
                 extraClass={styles.thumb}
                 onClick={() => handlePageSelect(page - 1)}
                 aria-label="Назад"
@@ -87,7 +86,6 @@ const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {
                 isIconBtn={true}
                 iconClass="mdi mdi-menu-right"
                 theme="text"
-                size={"smaller"}
                 extraClass={styles.thumb}
                 onClick={() => handlePageSelect(page + 1)}
                 aria-label="Вперед"

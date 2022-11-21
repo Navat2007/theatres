@@ -1,0 +1,63 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.search {
+    display: flex;
+    flex-direction: column;
+    // gap: 1.25em;
+    margin-bottom: 0.5em;
+    background-color: var(--g100);
+    border: 1px solid var(--g200);
+    padding: 0.5em;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.row {
+    display: flex;
+    gap: 0.5em;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.field {
+    flex: 1 0 15em;
+}
+
+.button {
+    flex: none;
+}
+
+.controls {
+    flex: none;
+    margin-left: auto;
+
+    button {
+        margin-left: 0.5em;
+        min-width: 7rem;
+    }
+}
+
+@include media(md) {
+    .row_main_search .field {
+        flex: auto;
+    }
+
+    .field {
+        flex: 0 0 calc((100% / 2) - 0.5em);
+    }
+}
+
+@include media(lg) {
+    .field {
+        flex: 0 0 calc((100% / 4) - 0.375em);
+    }
+}
+
+@include media(xl) {
+    .field {
+        flex: 0 0 calc((100% / 6) - 0.425em);
+    }
+}
