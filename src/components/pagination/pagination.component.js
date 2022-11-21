@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import _ from "lodash";
 import Button from '../simple/button/button.component';
+import styles from './pagination.module.scss';
 
 const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {
 
@@ -23,13 +24,13 @@ const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {
     const pages = _.range(1, pageCount + 1);
 
     return (
-        <div className="pagin">
+        <div className={styles.pagin}>
             <Button
                 type='button'
                 isIconBtn={true}
                 iconClass='mdi mdi-menu-left'
                 theme='text'
-                extraClass='pagin__thumb --type-prev'
+                extraClass={styles.thumb}
                 onClick={() => handlePageSelect(page - 1)}
                 aria-label="Назад"
                 disabled={page === 1}
@@ -79,7 +80,7 @@ const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {
                 isIconBtn={true}
                 iconClass='mdi mdi-menu-right'
                 theme='text'
-                extraClass='pagin__thumb --type-next'
+                extraClass={styles.thumb}
                 onClick={() => handlePageSelect(page + 1)}
                 aria-label="Вперед"
                 disabled={page === pageCount}

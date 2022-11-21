@@ -1,0 +1,58 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.pagin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125em;
+    margin: 0.5em 0;
+}
+
+.thumb {
+    flex: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 1.5em;
+    width: 1.5em;
+    min-width: 1.5em;
+    max-width: 1.5em;
+    padding: 0;
+}
+
+.list {
+    @extend %reset-list;
+    display: flex;
+    gap: 0.125em;
+
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.item {
+    flex: none;
+    min-width: 2em;
+    max-width: 2em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    box-sizing: border-box;
+    @include box(2em, 1.5em);
+    color: var(--g300);
+    cursor: pointer;
+
+    &:not(.item_actived):hover {
+        color: var(--primary);
+    }
+
+    &_actived {
+        color: var(--dark);
+        font-weight: 500;
+    }
+}
