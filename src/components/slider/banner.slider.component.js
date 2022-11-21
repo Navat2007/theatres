@@ -2,12 +2,11 @@ import React from 'react';
 import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const ImageSlider = ({
+const BannerSlider = ({
                          items,
                          index = 0,
                          infiniteLoop = true,
                          showArrows = true,
-                         showIndicators = true,
                          showStatus = false,
                          showThumbs = false,
                          autoPlay = false,
@@ -20,7 +19,7 @@ const ImageSlider = ({
             <Carousel
                 selectedItem={index}
                 infiniteLoop={infiniteLoop}
-                showIndicators={showIndicators}
+                // showIndicators={false}
                 showArrows={showArrows}
                 showStatus={showStatus}
                 autoPlay={autoPlay}
@@ -35,11 +34,21 @@ const ImageSlider = ({
             >
                 {
                     items.map((item, index) => (
-                        <img
-                            key={index}
-                            src={item.url}
-                            alt=""
-                        />
+                        <div key={index} className="banner">
+                            <div className="banner__wrap">
+                                <img
+                                    className="banner__img"
+                                    src={item.url}
+                                    alt=""
+                                />
+                                <h2 className="banner__title">
+                                    {item.title}
+                                </h2>
+                                <p className="banner__subtitle">
+                                    {item.text}
+                                </p>
+                            </div>
+                        </div>
                     ))
                 }
             </Carousel>
@@ -47,4 +56,4 @@ const ImageSlider = ({
     );
 };
 
-export default ImageSlider;
+export default BannerSlider;

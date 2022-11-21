@@ -34,7 +34,9 @@ const ImagePreview = ({children, items, open = false, index = 0, onClose}) => {
             <div className="img-preview__wrap">
                 <ImageSlider
                     autoPlay={false}
-                    swipe={true}
+                    swipe={false}
+                    showIndicators={false}
+                    showThumbs={true}
                     showArrows={true}
                     items={items}
                     index={index}
