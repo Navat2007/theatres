@@ -7,7 +7,7 @@ import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import { SocialIcons } from "../../../components/svgs.js";
+import { SocialIcons, medalIcons } from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageSlider from "../../../components/slider/image.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
