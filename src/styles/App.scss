@@ -247,18 +247,19 @@ html {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: min(1.5vmax, 1.25em);
-        background-color: rgba(map-get($colors, "public-primary"), .15);
-        min-height: 2.5rem;
+        font-size: min(2.5vmax, 1.25em);
+        background-color: rgba(map-get($colors, "public-primary"), 0.1);
         font-weight: 600;
-        padding: 0.675rem 2rem;
+        padding: 0.25rem 0.5rem 0.25rem 1rem;
+        margin-bottom: 0.5rem;
         box-sizing: border-box;
+        line-height: 1.5;
         border-radius: 5px;
-        color: var(--public-accent);
-        width: max-content;
+        width: min(30vmax, 10em);
 
         svg {
-            @include box(1.5em);
+            @include box(2.5em);
+            margin: -1em 0 -1.5em 0;
         }
     }
 
