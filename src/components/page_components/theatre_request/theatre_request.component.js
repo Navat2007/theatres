@@ -98,12 +98,9 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     };
 
-    console.log(photo);
-
     const performData = () => {
 
         const data = getValues();
-        console.log("GetValues: ", data);
 
         let sendObject = {
             schoolID: user.schoolID,
