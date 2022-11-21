@@ -57,9 +57,9 @@ const App = () => {
         return <Preloader />;
 
     return (
-        <HashRouter>
+        <BrowserRouter>
             <RoutesList />
-        </HashRouter>
+        </BrowserRouter>
     )
 }
 

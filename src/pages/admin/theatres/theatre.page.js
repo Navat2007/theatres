@@ -99,15 +99,6 @@ const TheatrePage = () => {
                                         <p className="info__description">
                                             127206, город Москва, улица
                                             Вучетича, дом 30, стр. 5
-                                            <NavLink
-                                                className="link"
-                                                to={"/theatre/" + id}
-                                                target={"_blank"}
-                                                rel="noopener nofollow noreferer"
-                                            >
-                                                Показать на карте{" "}
-                                                <span className="mdi mdi-open-in-new" />
-                                            </NavLink>
                                         </p>
                                     </li>
                                     <li className="info__item">
