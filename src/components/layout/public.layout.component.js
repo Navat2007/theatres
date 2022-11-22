@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import logo from "../../images/public_logo.png";
+import logo from "../../images/logo.png";
 
 const PublicLayout = () => {
     return (

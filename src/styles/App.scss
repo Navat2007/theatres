@@ -22,12 +22,10 @@ html {
     font-family: var(--ff-base);
 }
 
-@import "blocks/popup-login";
 @import "blocks/form";
 @import "blocks/link";
 
 @import "blocks/content";
-@import "blocks/logo";
 
 @import "blocks/profile";
 @import "blocks/profile-card";

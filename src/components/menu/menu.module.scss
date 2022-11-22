@@ -3,256 +3,240 @@
 @import "../../styles/_assets/extends";
 
 .menu {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 
-  display: flex;
-  overflow: hidden;
+    display: flex;
+    overflow: hidden;
 }
 
 .container {
-  width: 15em;
+    width: 15em;
 
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 
-  color: var(--white);
-  background-image: var(--primary-gradient);
-  background-color: var(--primary);
+    color: var(--white);
+    background-image: var(--primary-gradient);
+    background-color: var(--primary);
 }
 
 .logo_block {
-  display: flex;
-  gap: .75em;
-  align-items: center;
-  justify-content: center;
-  padding: .5em .875em;
-  box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+    box-sizing: border-box;
+    background-color: var(--white);
 }
 
-.title {
-  margin: 0;
-  font-size: 1.25em;
-  font-weight: 500;
-  color: var(--white);
+.logo {
+    max-width: 90%;
+    object-fit: contain;
 }
 
 .list {
-  @extend %reset-list;
-  flex: auto;
-  overflow-y: auto;
+    @extend %reset-list;
+    flex: auto;
+    overflow-y: auto;
 
-  padding-top: min(5vmax, 3.125em);
-  padding-left: 1em;
+    padding-top: min(5vmax, 3.125em);
+    padding-left: 1em;
 
-  display: flex;
-  flex-direction: column;
-  gap: .75em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
 
-  @include scroll-bar();
+    @include scroll-bar();
 }
 
 .link {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 
-  display: flex;
-  gap: .5em;
-  align-items: center;
-  padding: .5em .875em;
-  cursor: pointer;
-  border-radius: 25px 0 0 25px;
-  transition: color .25s ease-in-out;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    padding: 0.5em 0.875em;
+    cursor: pointer;
+    border-radius: 25px 0 0 25px;
+    transition: color 0.25s ease-in-out;
 
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 
-  &_actived {
-    cursor: default;
-    color: var(--dark);
-    background-color: var(--g100);
+    &_actived {
+        cursor: default;
+        color: var(--dark);
+        background-color: var(--g100);
 
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      display: block;
-      top: -50px;
-      right: 0;
-      width: 20px;
-      height: 50px;
-      border-radius: 0 0 25px 0;
-      box-shadow: 0 25px 0 0 var(--g100);
-      z-index: -1;
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            top: -50px;
+            right: 0;
+            width: 20px;
+            height: 50px;
+            border-radius: 0 0 25px 0;
+            box-shadow: 0 25px 0 0 var(--g100);
+            z-index: -1;
+        }
+
+        &::after {
+            top: auto;
+            bottom: -50px;
+            border-radius: 0 25px 0 0;
+            box-shadow: 0 -25px 0 0 var(--g100);
+        }
+
+        & .icon {
+            color: var(--dark);
+        }
     }
 
-    &::after {
-      top: auto;
-      bottom: -50px;
-      border-radius: 0 25px 0 0;
-      box-shadow: 0 -25px 0 0 var(--g100);
+    &:not(.link_actived):hover {
+        background-color: rgba($color: white, $alpha: 0.15);
     }
-
-    & .icon {
-      color: var(--dark);
-    }
-  }
-
-  &:not(.link_actived):hover {
-    background-color: rgba($color: white, $alpha: .15);
-  }
 }
 
 .icon {
-  @include box(1.875em);
-  color: var(--white);
-  transition: color .25s ease-in-out;
+    @include box(1.875em);
+    color: var(--white);
+    transition: color 0.25s ease-in-out;
 }
 
 .text {
-  margin: 0;
-  flex: auto;
+    margin: 0;
+    flex: auto;
 }
 
 .button {
-  flex: none;
-  margin: .5em;
-  width: unset;
-  max-width: unset;
-  border-radius: 15px;
+    flex: none;
+    margin: 0.5em;
+    width: unset;
+    max-width: unset;
+    border-radius: 15px;
 
-  display: flex;
-  background: rgba($color: white, $alpha: .15);
+    display: flex;
+    background: rgba($color: white, $alpha: 0.15);
 
-  &:hover {
-    background: rgba($color: white, $alpha: .26);
-  }
+    &:hover {
+        background: rgba($color: white, $alpha: 0.26);
+    }
 
-  &>span:first-child {
-    margin-left: auto;
-    font-size: 200%;
-  }
+    & > span:first-child {
+        margin-left: auto;
+        font-size: 200%;
+    }
 }
 
 // подложка по которой кликать, чтобы окно закрыть.
 .back {
-  display: none;
+    display: none;
 }
 
 @include media(sm, max) {
-  .menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    @include box(100%);
-    z-index: 101;
-    background-color: transparent;
-    transition: background-color .35s ease-in-out;
-    pointer-events: none;
-    user-select: none;
+    .menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        @include box(100%);
+        z-index: 101;
+        background-color: transparent;
+        transition: background-color 0.35s ease-in-out;
+        pointer-events: none;
+        user-select: none;
 
-    &_opened {
-      background-color: rgba($color: black, $alpha: .54);
-      pointer-events: unset;
-      user-select: unset;
+        &_opened {
+            background-color: rgba($color: black, $alpha: 0.54);
+            pointer-events: unset;
+            user-select: unset;
 
-      .container {
-        transform: translateX(0);
-      }
-    }
-  }
-
-  .container {
-    box-shadow: 0 0 15px rgba($color: black, $alpha: .15);
-    transition: transform .35s ease-in-out;
-    transform: translateX(-120%);
-  }
-
-  .list {
-    padding-right: 1em;
-  }
-
-  .link {
-    border-radius: 25px;
-
-    &_actived::before,
-    &_actived::after {
-      content: unset;
+            .container {
+                transform: translateX(0);
+            }
+        }
     }
 
-  }
+    .container {
+        box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
+        transition: transform 0.35s ease-in-out;
+        transform: translateX(-120%);
+    }
 
-  .back {
-    display: block;
+    .list {
+        padding-right: 1em;
+    }
 
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    @include box(100%);
-  }
+    .link {
+        border-radius: 25px;
 
-  .button {
-    display: none;
-  }
+        &_actived::before,
+        &_actived::after {
+            content: unset;
+        }
+    }
+
+    .back {
+        display: block;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        @include box(100%);
+    }
+
+    .button {
+        display: none;
+    }
 }
 
 @include media(sm) {
-  .menu {
-    grid-row: 1/-1;
-    border-radius: 0 25px 25px 0;
+    .menu {
+        grid-row: 1/-1;
+        border-radius: 0 25px 25px 0;
 
-    &_size_sm {
-      .container {
-        width: 4.25em;
-      }
+        &_size_sm {
+            .container {
+                width: 4.25em;
+            }
 
-      .logo_block {
-        padding: .5em;
-      }
+            .list {
+                padding-left: 0.5em;
+            }
 
-      .title {
-        display: none;
-      }
+            .text {
+                display: none;
+            }
 
-      .list {
-        padding-left: .5em;
-      }
+            .button span:first-child {
+                transform: scale(-1, 1);
+            }
+        }
 
-      .text {
-        display: none;
-      }
+        &_size_md {
+            .container {
+                width: 7.5em;
+            }
 
-      .button span:first-child {
-        transform: scale(-1, 1);
-      }
+            .list {
+                padding-left: 0.5em;
+            }
+
+            .link {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.5em;
+            }
+
+            .text {
+                max-width: 6rem;
+                font-size: 0.75em;
+            }
+        }
     }
-
-    &_size_md {
-
-      .container {
-        width: 7.5em;
-      }
-
-      .title {
-        display: none;
-      }
-
-      .list {
-        padding-left: .5em;
-      }
-
-      .link {
-        flex-direction: column;
-        text-align: center;
-        padding: .5em;
-      }
-
-      .text {
-        max-width: 6rem;
-        font-size: .75em;
-      }
-    }
-  }
 }
