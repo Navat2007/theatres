@@ -12,8 +12,7 @@ import Button from '../../simple/button/button.component';
 import FieldInput from '../../simple/field/field.input.component';
 import Tab from '../../tabs/tab.component';
 import Tabs from '../../tabs/tabs.component';
-import Popup from "../../../components/popup/popup.component";
-import axios from "axios";
+import ImageSelector from "../../image_selector/image.selector.component";
 
 function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecline = () => null, request, isAdmin}) {
 
@@ -24,8 +23,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
     const [photo, setPhoto] = React.useState([]);
     const [photoVisit, setPhotoVisit] = React.useState([]);
     const [reviews, setReviews] = React.useState([]);
-
-    const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
 
     const theatreUrlSchoolWatch = watch('theatreUrlSchool');
     const videoBusinessCardWatch = watch('videoBusinessCard');
@@ -64,78 +61,13 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     };
 
-    const handleAddPhoto = async (place) => {
-
-        //https://source.unsplash.com/random/200x200?sig=1
-
-        function getOrderIndex(array) {
-
-            let index = 0;
-
-            array.map(item => {
-
-                if(item.order > index)
-                    index = item.order;
-
-            });
-
-            return ++index;
-
-        }
-
-        setPhotoAddBtnDisabled(true);
-
-        const value = place === "theatre" ? getValues("theatrePhotoAdd") : getValues("theatrePhotoVisitAdd");
-        const link = value.includes('http') ? value : 'http://' + value;
-
-        await axios.get(link)
-            .then(res => {
-                if(res.status === 200)
-                {
-                    if(place === "theatre"){
-                        setPhoto([...photo, {
-                            main: photo.length === 0 ? 1 : 0,
-                            url: link,
-                            order: getOrderIndex(photo)
-                        }]);
-                    }
-                    else {
-                        setPhotoVisit([...photoVisit, {
-                            main: photoVisit.length === 0 ? 1 : 0,
-                            url: link,
-                            order: getOrderIndex(photoVisit)
-                        }]);
-                    }
-
-                    setPhotoAddBtnDisabled(false);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                setPhotoAddBtnDisabled(false);
-            });
-
-    };
-
-    const handleDeletePhoto = (place) => {
-
-
-
-    }
-
     const performData = () => {
 
         const data = getValues();
 
-        let sendObject = {
-            schoolID: user.schoolID,
-            title: data.title,
-            address: data.address,
-            coordinates: data.coordinates,
-            foundationDate: data.foundationDate,
-            theatreUrlSchool: data.theatreUrlSchool,
-            videoBusinessCard: data.videoBusinessCard,
-        };
+        let sendObject = {...data};
+
+        sendObject['schoolID'] = user.schoolID;
 
         if (data.form_activity_select && data.form_activity_select.length > 0)
             sendObject['formActivity'] = Array.from(data.form_activity_select.map(item => item.value));
@@ -154,6 +86,12 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
         if (data.editorDirectorMessage)
             sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
+
+        if (photo.length > 0)
+            sendObject['photo'] = photo;
+
+        if (photoVisit.length > 0)
+            sendObject['photoVisit'] = photoVisit;
 
         console.log("Подготовленные данные: ", sendObject);
 
@@ -394,218 +332,18 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                 </Tab>
                 <Tab title={"Фотографии"} extraClass='form__tab'>
                     <fieldset className='form__section'>
-                        <h2 className="form__title">Фотографии театра</h2>
-                        <ul className="gallery-form">
-                            {
-                                photo.map((item, index) =>
-                                    item.main
-                                        ?
-                                        (<li key={index} className='gallery-form__item'>
-                                            <img className='gallery-form__img'
-                                                 src={item.url}
-                                                 alt={"Изображение " + item.url}
-                                            />
-                                            <div className="gallery-form__item-panel">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-close'}
-                                                    aria-label='Удалить'
-                                                />
-                                            </div>
-                                            <div className="gallery-form__title">1. Главная</div>
-                                        </li>)
-                                        :
-                                        (<li key={index} className='gallery-form__item'>
-                                            <img className='gallery-form__img'
-                                                 src={item.url}
-                                                 alt={"Изображение " + item.url}
-                                            />
-                                            <span className="gallery-form__current-position">{item.order}</span>
-                                            {/* Панель при наведении показывается, можно удалить фото или сделать Главной */}
-                                            <div className="gallery-form__item-panel">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    text={'Сделать главной'}
-                                                    aria-label='Сделать главной'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-close'}
-                                                    aria-label='Удалить'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                            </div>
-                                            {/* Панель при наведении показывается, для смены позиции фото, путем нажатия стрелочек влево/вправо */}
-                                            <div className="gallery-form__thumbs">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-chevron-left'}
-                                                    aria-label='Назад'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-chevron-right'}
-                                                    aria-label='Вперед'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                            </div>
-                                        </li>)
-                                )
-                            }
-                        </ul>
-                        <div className="form__group-block">
-                            <FieldInput
-                                label={"Ссылка на фото"}
-                                type='url'
-                                extraClass='form__field'
-                                placeholder='Введите url-адрес...'
-                                layout='flex'
-                                {...register("theatrePhotoAdd")}
-                            />
-                            <a
-                                className='form__social-link --hide'
-                                href=""
-                                aria-label='Открыть в новой вкладке'
-                                title='Открыть в новой вкладке'
-                                target={'_blank'}
-                                rel='nofollow noreferer noopener'>
-                                <span className='mdi mdi-open-in-new'/>
-                            </a>
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                extraClass="form__icon-btn"
-                                iconClass={'mdi mdi-plus'}
-                                isIconBtn='true'
-                                aria-label='Добавить поле'
-                                disabled={photoAddBtnDisabled}
-                                onClick={() => handleAddPhoto("theatre")}
-                            />
-                        </div>
+                        <ImageSelector
+                            title="Фотографии театра"
+                            items={photo}
+                            onChange={(items) => setPhoto(items)}
+                        />
                     </fieldset>
                     <fieldset className='form__section'>
-                        <h2 className="form__title">Фотографии посещения театра</h2>
-                        <ul className="gallery-form">
-                            {
-                                photoVisit.map((item, index) =>
-                                    item.main
-                                        ?
-                                        (<li key={index} className='gallery-form__item'>
-                                            <img className='gallery-form__img'
-                                                 src={item.url}
-                                                 alt={"Изображение " + item.url}
-                                            />
-                                            <div className="gallery-form__item-panel">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-close'}
-                                                    aria-label='Удалить'
-                                                />
-                                            </div>
-                                            <div className="gallery-form__title">1. Главная</div>
-                                        </li>)
-                                        :
-                                        (<li key={index} className='gallery-form__item'>
-                                            <img className='gallery-form__img'
-                                                 src={item.url}
-                                                 alt={"Изображение " + item.url}
-                                            />
-                                            <span className="gallery-form__current-position">{item.order}</span>
-                                            {/* Панель при наведении показывается, можно удалить фото или сделать Главной */}
-                                            <div className="gallery-form__item-panel">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    text={'Сделать главной'}
-                                                    aria-label='Сделать главной'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-close'}
-                                                    aria-label='Удалить'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                            </div>
-                                            {/* Панель при наведении показывается, для смены позиции фото, путем нажатия стрелочек влево/вправо */}
-                                            <div className="gallery-form__thumbs">
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-chevron-left'}
-                                                    aria-label='Назад'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                                <Button
-                                                    type='button'
-                                                    theme='white'
-                                                    size='smaller'
-                                                    isIconBtn='true'
-                                                    iconClass={'mdi mdi-chevron-right'}
-                                                    aria-label='Вперед'
-                                                    disabled={photoAddBtnDisabled}
-                                                />
-                                            </div>
-                                        </li>)
-                                )
-                            }
-                        </ul>
-                        <div className="form__group-block">
-                            <FieldInput
-                                label={"Ссылка на фото"}
-                                type='url'
-                                extraClass='form__field'
-                                placeholder='Введите url-адрес...'
-                                layout='flex'
-                                {...register("theatrePhotoVisitAdd")}
-                            />
-                            <a
-                                className='form__social-link --hide'
-                                href=""
-                                aria-label='Открыть в новой вкладке'
-                                title='Открыть в новой вкладке'
-                                target={'_blank'}
-                                rel='nofollow noreferer noopener'>
-                                <span className='mdi mdi-open-in-new'/>
-                            </a>
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                extraClass="form__icon-btn"
-                                iconClass={'mdi mdi-plus'}
-                                isIconBtn='true'
-                                aria-label='Добавить поле'
-                                disabled={photoAddBtnDisabled}
-                                onClick={() => handleAddPhoto("theatreVisit")}
-                            />
-                        </div>
+                        <ImageSelector
+                            title="Фотографии посещения театра"
+                            items={photoVisit}
+                            onChange={(items) => setPhotoVisit(items)}
+                        />
                     </fieldset>
                 </Tab>
                 <Tab title={"Видео"} extraClass='form__tab'>
