@@ -66,6 +66,8 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     const handleAddPhoto = async (place) => {
 
+        //https://source.unsplash.com/random/200x200?sig=1
+
         function getOrderIndex(array) {
 
             let index = 0;
