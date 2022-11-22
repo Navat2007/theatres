@@ -22,24 +22,24 @@ const ImageSelector = ({title, items, onChange}) => {
 
     }, [photo]);
 
+    function getOrderIndex(array) {
+
+        let index = 0;
+
+        array.map(item => {
+
+            if(item.order > index)
+                index = item.order;
+
+        });
+
+        return ++index;
+
+    }
+
     const handleAddPhoto = async () => {
 
         //https://source.unsplash.com/random/200x200?sig=1
-
-        function getOrderIndex(array) {
-
-            let index = 0;
-
-            array.map(item => {
-
-                if(item.order > index)
-                    index = item.order;
-
-            });
-
-            return ++index;
-
-        }
 
         setPhotoAddBtnDisabled(true);
 
@@ -74,7 +74,7 @@ const ImageSelector = ({title, items, onChange}) => {
 
     return (
         <>
-            <h2 className="form__title">Фотографии театра</h2>
+            <h2 className="form__title">{title}</h2>
             <ul className="gallery-form">
                 {
                     photo.map((item, index) =>
