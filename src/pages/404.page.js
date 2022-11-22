@@ -1,4 +1,5 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 const Page404 = () => {
     React.useEffect(() => {
@@ -26,12 +27,12 @@ const Page404 = () => {
                 <br />
                 <br />
                 Вернуться{" "}
-                <a
+                <NavLink
                     className="link"
-                    href="./"
+                    to={"/"}
                 >
                     на главную
-                </a>
+                </NavLink>
             </p>
         </div>
     );
