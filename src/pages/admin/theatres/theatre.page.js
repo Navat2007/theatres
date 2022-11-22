@@ -1,5 +1,7 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
+import createDOMPurify from 'dompurify'
+import moment from "moment";
 
 import useSchoolStore from "../../../store/admin/schoolsStore";
 import useTheatresStore from "../../../store/admin/theatresStore";
@@ -8,12 +10,13 @@ import useTeachersStore from "../../../store/admin/teachersStore";
 import Button from "../../../components/simple/button/button.component";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
-import moment from "moment";
 
-import { SocialIcons } from "../../../components/svgs.js";
+import no_photo_man from '../../../images/no_photo_man.png';
 
 const TheatrePage = () => {
-    let { id } = useParams();
+
+    let {id} = useParams();
+    const DOMPurify = createDOMPurify(window)
 
     const schoolStore = useSchoolStore();
     const {
@@ -30,10 +33,10 @@ const TheatrePage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -91,8 +94,8 @@ const TheatrePage = () => {
                                                 target={"_blank"}
                                                 rel="noopener nofollow noreferer"
                                             >
-                                                Страница театра{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                На страницу{" "}
+                                                <span className="mdi mdi-open-in-new"/>
                                             </NavLink>
                                         </p>
                                     </li>
@@ -109,15 +112,12 @@ const TheatrePage = () => {
                                         <p className="info__description">
                                             <a
                                                 className="link"
-                                                href={
-                                                    "http://maps.yandex.ru/?text=" +
-                                                    theatre.coordinates
-                                                }
+                                                href={"http://maps.yandex.ru/?text=" + theatre.coordinates}
                                                 target={"_blank"}
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 {theatre.coordinates}{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </a>
                                         </p>
                                     </li>
@@ -155,30 +155,20 @@ const TheatrePage = () => {
                                     <li className="info__item">
                                         <h3 className="info__label">Соцсети</h3>
                                         <ul className="info__social">
-                                            <li>
-                                                <a
-                                                    className="info__social-link"
-                                                    href=""
-                                                >
-                                                    {SocialIcons.vk}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className="info__social-link"
-                                                    href=""
-                                                >
-                                                    {SocialIcons.ok}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className="info__social-link"
-                                                    href=""
-                                                >
-                                                    {SocialIcons.google}
-                                                </a>
-                                            </li>
+                                            {
+                                                theatre.social_links.map(link => (
+                                                    <li key={link}>
+                                                        <a
+                                                            className="info__social-link"
+                                                            href={link}
+                                                            target={"_blank"}
+                                                            rel="noopener nofollow noreferer"
+                                                        >
+                                                            {window.global.getSocialIcon(link)}
+                                                        </a>
+                                                    </li>
+                                                ))
+                                            }
                                         </ul>
                                     </li>
                                     <li className="info__item">
@@ -189,154 +179,58 @@ const TheatrePage = () => {
                                         <p className="info__description">
                                             <a
                                                 className="link"
-                                                href=""
+                                                href={theatre.theatre_url_school}
                                                 target={"_blank"}
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </a>
                                         </p>
                                     </li>
                                 </ul>
                                 <h2 className="info__title">Педагоги</h2>
                                 <ul className="teacher-list">
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src="https://get.wallhere.com/photo/Asian-women-long-hair-1237565.jpg"
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    Иванова{" "}
-                                                </span>
-                                                Любовь Сергеевна
-                                            </h3>
-                                            <p className="teacher-list__text">
-                                                3 года
-                                            </p>
-                                            <p className="teacher-list__description">
-                                                Педагогический стаж
-                                            </p>
-                                        </div>
-                                    </li>
+                                    {
+                                        theatre.teachers.map(item => {
+                                                let teacher = teachersStore.teachers.find(teacherInStore => item.ID === teacherInStore.ID);
+
+                                                return (
+                                                    <li key={item.ID} className="teacher-list__item">
+                                                        <img
+                                                            className="teacher-list__img"
+                                                            src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
+                                                            alt=""
+                                                        />
+                                                        <div className="teacher-list__info">
+                                                            <h3 className="teacher-list__title">
+                                                            <span className="teacher-list__span-accent">
+                                                                {teacher?.f}{" "}
+                                                            </span>
+                                                                {teacher?.i} {teacher?.o}
+                                                            </h3>
+                                                            <p className="teacher-list__text">
+
+                                                            </p>
+                                                            <p className="teacher-list__description">
+                                                                {teacher?.position}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                )
+                                            }
+                                        )
+                                    }
                                 </ul>
                             </div>
                         </Tab>
                         <Tab title={"Краткое описание"}>
                             {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
-                            <div></div>
+                            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(theatre.short_description)}}/>
                         </Tab>
                         <Tab title={"Обращение режиссёра"}>
                             {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
-                            <div></div>
+                            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(theatre.director_message)}}/>
                         </Tab>
                         <Tab title={"Фотографии"}>
                             <ul className="gallery-form">
