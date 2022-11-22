@@ -35,4 +35,26 @@
         text-transform: uppercase;
         border-bottom: 2px solid rgba(map-get($colors, "primary"), 0.54);
     }
+
+    &__social {
+        @extend %reset-list;
+        display: flex;
+        gap: .675em;
+    }
+    &__social-link {
+        text-decoration: unset;
+        border-radius: 50%;
+        @include box(2.5em);
+        display: flex;
+        background-color: var(--g200);
+        transition: all 0.15s ease-in;
+
+        &:hover {
+            transform: translateZ(0) scale(1.1);
+        }
+        & svg {
+            margin: auto;
+            @include box(1.5em);
+        }
+    }
 }
