@@ -117,6 +117,12 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     };
 
+    const handleDeletePhoto = (place) => {
+
+
+
+    }
+
     const performData = () => {
 
         const data = getValues();
@@ -426,6 +432,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     size='smaller'
                                                     text={'Сделать главной'}
                                                     aria-label='Сделать главной'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                                 <Button
                                                     type='button'
@@ -434,6 +441,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-close'}
                                                     aria-label='Удалить'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                             </div>
                                             {/* Панель при наведении показывается, для смены позиции фото, путем нажатия стрелочек влево/вправо */}
@@ -445,6 +453,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-chevron-left'}
                                                     aria-label='Назад'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                                 <Button
                                                     type='button'
@@ -453,6 +462,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-chevron-right'}
                                                     aria-label='Вперед'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                             </div>
                                         </li>)
@@ -529,6 +539,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     size='smaller'
                                                     text={'Сделать главной'}
                                                     aria-label='Сделать главной'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                                 <Button
                                                     type='button'
@@ -537,6 +548,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-close'}
                                                     aria-label='Удалить'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                             </div>
                                             {/* Панель при наведении показывается, для смены позиции фото, путем нажатия стрелочек влево/вправо */}
@@ -548,6 +560,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-chevron-left'}
                                                     aria-label='Назад'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                                 <Button
                                                     type='button'
@@ -556,6 +569,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                                     isIconBtn='true'
                                                     iconClass={'mdi mdi-chevron-right'}
                                                     aria-label='Вперед'
+                                                    disabled={photoAddBtnDisabled}
                                                 />
                                             </div>
                                         </li>)
