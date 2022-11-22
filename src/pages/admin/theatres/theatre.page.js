@@ -196,27 +196,33 @@ const TheatrePage = () => {
                                                 let teacher = teachersStore.teachers.find(teacherInStore => item.ID === teacherInStore.ID);
 
                                                 return (
-                                                    <li key={item.ID} className="teacher-list__item">
-                                                        <img
-                                                            className="teacher-list__img"
-                                                            src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
-                                                            alt=""
-                                                        />
-                                                        <div className="teacher-list__info">
-                                                            <h3 className="teacher-list__title">
+                                                    <NavLink
+                                                        key={item.ID}
+                                                        className="link"
+                                                        to={"/admin/teachers/" + item.ID}
+                                                    >
+                                                        <li className="teacher-list__item">
+                                                            <img
+                                                                className="teacher-list__img"
+                                                                src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
+                                                                alt=""
+                                                            />
+                                                            <div className="teacher-list__info">
+                                                                <h3 className="teacher-list__title">
                                                             <span className="teacher-list__span-accent">
                                                                 {teacher?.f}{" "}
                                                             </span>
-                                                                {teacher?.i} {teacher?.o}
-                                                            </h3>
-                                                            <p className="teacher-list__text">
+                                                                    {teacher?.i} {teacher?.o}
+                                                                </h3>
+                                                                <p className="teacher-list__text">
 
-                                                            </p>
-                                                            <p className="teacher-list__description">
-                                                                {teacher?.position}
-                                                            </p>
-                                                        </div>
-                                                    </li>
+                                                                </p>
+                                                                <p className="teacher-list__description">
+                                                                    {teacher?.position}
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                    </NavLink>
                                                 )
                                             }
                                         )
