@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import createDOMPurify from 'dompurify'
 import moment from "moment";
 
@@ -16,6 +16,7 @@ import no_photo_man from '../../../images/no_photo_man.png';
 const TheatrePage = () => {
 
     let {id} = useParams();
+    const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window)
 
     const schoolStore = useSchoolStore();
@@ -51,6 +52,8 @@ const TheatrePage = () => {
         fetchData();
     }, [id]);
 
+    const back = () => navigate("/admin/theatres/");
+
     if (loading || schoolStore.loading || teachersStore.loading)
         return (
             <div className="content__section">
@@ -74,6 +77,7 @@ const TheatrePage = () => {
                             iconClass={"mdi mdi-arrow-left"}
                             isIconBtn="true"
                             aria-label="Назад"
+                            onClick={back}
                         />
                         <h1 className="content__title --mb-small">
                             {theatre.title}
