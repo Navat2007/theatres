@@ -26,7 +26,8 @@ import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 
 // USER PAGES
 import MyTheatresPage from "../pages/user/theatres/my.theatres.page";
-import MyTheatrePage from "../pages/user/theatres/my.theatre.page";
+import MyTheatreEditPage from "../pages/user/theatres/my.theatre.page";
+import MyTheatrePage from "../pages/user/theatres/theatre.page";
 import MyTheatreRequestsPage from "../pages/user/theatreRequests/my.theatreRequests.page";
 import MyTheatreRequestPage from "../pages/user/theatreRequests/my.theatreRequest.page";
 import UserTeachersPage from "../pages/user/teachers/teachers.page";
@@ -98,7 +99,8 @@ const RoutesList = () => {
                     <Route path="theatres">
                         <Route index element={<MyTheatresPage />} />
                         <Route path=":id" element={<MyTheatrePage />} />
-                        <Route path="new" element={<MyTheatrePage />} />
+                        <Route path="edit/:id" element={<MyTheatreEditPage />} />
+                        <Route path="new" element={<MyTheatreEditPage />} />
                     </Route>
                     <Route path="theatreRequests">
                         <Route index element={<MyTheatreRequestsPage />} />

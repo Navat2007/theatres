@@ -56,8 +56,6 @@ const MyTheatrePage = () => {
 
     }, []);
 
-    const back = () => navigate("/user/theatreRequests");
-
     const onAddSubmit = async (params) => {
 
         params.theatreID = 0;
@@ -66,7 +64,7 @@ const MyTheatrePage = () => {
         const result = await addTheatre(params);
 
         if (!result.error) {
-            back();
+            navigate("/user/theatreRequests");
         }
 
     };
@@ -79,7 +77,7 @@ const MyTheatrePage = () => {
         const result = await addTheatre(params);
 
         if (!result.error) {
-            back();
+            navigate("/user/theatreRequests");
         }
 
     };
@@ -111,7 +109,7 @@ const MyTheatrePage = () => {
 
                             if (!result.error) {
                                 setPopup(<></>);
-                                back();
+
                             }
                         }}
                     />
@@ -140,11 +138,11 @@ const MyTheatrePage = () => {
                             iconClass={'mdi mdi-arrow-left'}
                             isIconBtn='true'
                             aria-label='Назад'
-                            onClick={() => setEdit(false)}
+                            onClick={() => navigate("/user/theatres/" + id)}
                         />
                         <h1 className='content__title --mb-small'>Редактирование театра ID: {id} </h1>
                     </div>
-                    <TheatreRequest request={theatre} onSubmitDone={onEditSubmit} onBack={() => setEdit(false)}/>
+                    <TheatreRequest request={theatre} onSubmitDone={onEditSubmit} onBack={() => navigate("/user/theatres/" + id)}/>
                 </>
                 :
                 <>
@@ -156,11 +154,11 @@ const MyTheatrePage = () => {
                             iconClass={'mdi mdi-arrow-left'}
                             isIconBtn='true'
                             aria-label='Назад'
-                            onClick={() => setEdit(false)}
+                            onClick={() => navigate("/user/theatres")}
                         />
                         <h1 className='content__title --mb-small'>Новая заявка на театр </h1>
                     </div>
-                    <TheatreRequest onSubmitDone={onAddSubmit} onBack={() => setEdit(false)}/>
+                    <TheatreRequest onSubmitDone={onAddSubmit} onBack={() => navigate("/user/theatres")}/>
                 </>
         }
         {popup}
