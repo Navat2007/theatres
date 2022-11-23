@@ -20,6 +20,8 @@ $teachers = $_POST["teachers"];
 $socialLinks = $_POST["socialLinks"];
 $formActivity = $_POST["formActivity"];
 $ageMembers = $_POST["ageMembers"];
+$photo = $_POST["photo"];
+$photoVisit = $_POST["photoVisit"];
 $editorShortDescription = htmlspecialchars($_POST["editorShortDescription"]);
 $editorDirectorMessage = htmlspecialchars($_POST["editorDirectorMessage"]);
 
@@ -155,6 +157,42 @@ if ($error === 0) {
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
         }
+
+        $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        foreach ($photo as $p) {
+
+            $url = $p['url'];
+            $main = $p['main'];
+            $order = $p['order'];
+
+            $sql = "
+            INSERT INTO theatre_request_photo (requestID, url, main, photo_order) 
+            VALUES ('$id', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        foreach ($photoVisit as $pv) {
+
+            $url = $pv['url'];
+            $main = $pv['main'];
+            $order = $pv['order'];
+
+            $sql = "
+            INSERT INTO theatre_request_visit_photo (requestID, url, main, photo_order) 
+            VALUES ('$id', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
     }
 
     if ((int)$status === 5) {
@@ -172,6 +210,14 @@ if ($error === 0) {
         mysqli_query($conn, $sql);
 
         $sql = "DELETE FROM theatre_requests_social_links WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
