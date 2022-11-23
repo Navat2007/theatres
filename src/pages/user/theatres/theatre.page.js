@@ -1,6 +1,6 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import createDOMPurify from 'dompurify'
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import createDOMPurify from "dompurify";
 import moment from "moment";
 
 import useSchoolStore from "../../../store/admin/schoolsStore";
@@ -11,13 +11,12 @@ import Button from "../../../components/simple/button/button.component";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 
-import no_photo_man from '../../../images/no_photo_man.png';
+import no_photo_man from "../../../images/no_photo_man.png";
 
 const TheatrePage = () => {
-
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
-    const DOMPurify = createDOMPurify(window)
+    const DOMPurify = createDOMPurify(window);
 
     const schoolStore = useSchoolStore();
     const {
@@ -34,10 +33,10 @@ const TheatrePage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({id});
+                let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
+                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -83,11 +82,15 @@ const TheatrePage = () => {
                             {theatre.title}
                         </h1>
                         <Button
-                            size="small"
+                            size="smaller"
                             type="submit"
-                            theme="primary"
-                            text="Редактировать театр"
-                            onClick={() => navigate("/user/theatres/edit/" + id)}
+                            isIconBtn="true"
+                            iconClass={'mdi mdi-pencil'}
+                            theme="outline"
+                            aria-label="Редактировать театр"
+                            onClick={() =>
+                                navigate("/user/theatres/edit/" + id)
+                            }
                         />
                     </div>
                     <Tabs>
@@ -106,7 +109,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </NavLink>
                                         </p>
                                     </li>
@@ -123,12 +126,15 @@ const TheatrePage = () => {
                                         <p className="info__description">
                                             <a
                                                 className="link"
-                                                href={"http://maps.yandex.ru/?text=" + theatre.coordinates}
+                                                href={
+                                                    "http://maps.yandex.ru/?text=" +
+                                                    theatre.coordinates
+                                                }
                                                 target={"_blank"}
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 {theatre.coordinates}{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </a>
                                         </p>
                                     </li>
@@ -166,8 +172,8 @@ const TheatrePage = () => {
                                     <li className="info__item">
                                         <h3 className="info__label">Соцсети</h3>
                                         <ul className="info__social">
-                                            {
-                                                theatre.social_links.map(link => (
+                                            {theatre.social_links.map(
+                                                (link) => (
                                                     <li key={link}>
                                                         <a
                                                             className="info__social-link"
@@ -175,11 +181,13 @@ const TheatrePage = () => {
                                                             target={"_blank"}
                                                             rel="noopener nofollow noreferer"
                                                         >
-                                                            {window.global.getSocialIcon(link)}
+                                                            {window.global.getSocialIcon(
+                                                                link
+                                                            )}
                                                         </a>
                                                     </li>
-                                                ))
-                                            }
+                                                )
+                                            )}
                                         </ul>
                                     </li>
                                     <li className="info__item">
@@ -190,64 +198,87 @@ const TheatrePage = () => {
                                         <p className="info__description">
                                             <a
                                                 className="link"
-                                                href={theatre.theatre_url_school}
+                                                href={
+                                                    theatre.theatre_url_school
+                                                }
                                                 target={"_blank"}
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </a>
                                         </p>
                                     </li>
                                 </ul>
                                 <h2 className="info__title">Педагоги</h2>
                                 <ul className="teacher-list">
-                                    {
-                                        theatre.teachers.map(item => {
-                                                let teacher = teachersStore.teachers.find(teacherInStore => item.ID === teacherInStore.ID);
+                                    {theatre.teachers.map((item) => {
+                                        let teacher =
+                                            teachersStore.teachers.find(
+                                                (teacherInStore) =>
+                                                    item.ID ===
+                                                    teacherInStore.ID
+                                            );
 
-                                                return (
-                                                    <NavLink
-                                                        key={item.ID}
-                                                        className="link"
-                                                        to={"/admin/teachers/" + item.ID}
-                                                    >
-                                                        <li className="teacher-list__item">
-                                                            <img
-                                                                className="teacher-list__img"
-                                                                src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
-                                                                alt=""
-                                                            />
-                                                            <div className="teacher-list__info">
-                                                                <h3 className="teacher-list__title">
+                                        return (
+                                            <NavLink
+                                                key={item.ID}
+                                                className="link"
+                                                to={
+                                                    "/admin/teachers/" + item.ID
+                                                }
+                                            >
+                                                <li className="teacher-list__item">
+                                                    <img
+                                                        className="teacher-list__img"
+                                                        src={
+                                                            teacher?.photo
+                                                                ? window.global
+                                                                      .baseUrl +
+                                                                  teacher.photo
+                                                                : no_photo_man
+                                                        }
+                                                        alt=""
+                                                    />
+                                                    <div className="teacher-list__info">
+                                                        <h3 className="teacher-list__title">
                                                             <span className="teacher-list__span-accent">
                                                                 {teacher?.f}{" "}
                                                             </span>
-                                                                    {teacher?.i} {teacher?.o}
-                                                                </h3>
-                                                                <p className="teacher-list__text">
-
-                                                                </p>
-                                                                <p className="teacher-list__description">
-                                                                    {teacher?.position}
-                                                                </p>
-                                                            </div>
-                                                        </li>
-                                                    </NavLink>
-                                                )
-                                            }
-                                        )
-                                    }
+                                                            {teacher?.i}{" "}
+                                                            {teacher?.o}
+                                                        </h3>
+                                                        <p className="teacher-list__text"></p>
+                                                        <p className="teacher-list__description">
+                                                            {teacher?.position}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </NavLink>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         </Tab>
                         <Tab title={"Краткое описание"}>
                             {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
-                            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(theatre.short_description)}}/>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(
+                                        theatre.short_description
+                                    ),
+                                }}
+                            />
                         </Tab>
                         <Tab title={"Обращение режиссёра"}>
                             {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
-                            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(theatre.director_message)}}/>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(
+                                        theatre.director_message
+                                    ),
+                                }}
+                            />
                         </Tab>
                         <Tab title={"Фотографии"}>
                             <ul className="gallery-form">
@@ -339,9 +370,7 @@ const TheatrePage = () => {
                         <Tab title={"Описания (рецензии)"}>
                             <div className="info">
                                 <h2 className="info__title">Название театра</h2>
-                                <div>
-                                    Описание из редактора
-                                </div>
+                                <div>Описание из редактора</div>
                             </div>
                         </Tab>
                     </Tabs>

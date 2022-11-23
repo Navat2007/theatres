@@ -13,25 +13,44 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
 
     const handleResize = () => {
         switch (menuSize) {
-            case "":
-                setMenuSize("--size-md");
-                setMenuSizeClass(styles.menu_size_md);
-                localStorage.setItem("menuSize", "--size-md");
+            case "normal":
+                setMenuSize("medium");
+                localStorage.setItem("menuSize", "medium");
                 break;
-            case "--size-md":
-                setMenuSize("--size-sm");
-                setMenuSizeClass(styles.menu_size_sm);
-                localStorage.setItem("menuSize", "--size-sm");
-                break;
-            case "--size-sm":
-                setMenuSize("");
-                setMenuSizeClass("");
-                localStorage.setItem("menuSize", "");
+            case "medium":
+                setMenuSize("small");
+                localStorage.setItem("menuSize", "small");
                 break;
             default:
-                break;
+                setMenuSize("normal");
+                localStorage.setItem("menuSize", "normal");
         }
     };
+
+    React.useEffect(() => {
+        switch (menuSize) {
+            case "medium":
+                setMenuSizeClass(styles.menu_size_md);
+                document.documentElement.style.setProperty(
+                    "--menu-width",
+                    "7.5em"
+                );
+                break;
+            case "small":
+                setMenuSizeClass(styles.menu_size_sm);
+                document.documentElement.style.setProperty(
+                    "--menu-width",
+                    "4.25em"
+                );
+                break;
+            default:
+                setMenuSizeClass("");
+                document.documentElement.style.setProperty(
+                    "--menu-width",
+                    "15em"
+                );
+        }
+    }, [menuSize]);
 
     React.useEffect(() => {
         const menuSizeStorage = localStorage.getItem("menuSize");
@@ -47,13 +66,11 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
             }
         >
             <div className={styles.container}>
-                <div className={styles.logo_block}>
-                    <img
-                        className={styles.logo}
-                        src={logo}
-                        alt="Маски"
-                    />
-                </div>
+                <img
+                    className={styles.logo}
+                    src={logo}
+                    alt="Маски"
+                />
                 <ul className={styles.list}>
                     {menu.map((item) => (
                         <li key={item.title}>

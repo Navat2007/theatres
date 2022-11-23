@@ -3,41 +3,41 @@
 @import "../../styles/_assets/extends";
 
 .header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 .75em;
-  box-sizing: border-box;
-  gap: .875em;
-  background-color: var(--white);
-  box-shadow: 0 0 15px rgba(black, .15);
-  position: relative;
-}
-
-.item {
-  align-self: center;
-  margin-right: auto;
-}
-
-@include media(sm, max) {
-  .header {
     position: fixed;
-    top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
-  }
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    padding: 0 0.75em;
+    box-sizing: border-box;
+    gap: 0.875em;
+    background-color: var(--white);
+    box-shadow: 0 0 15px rgba(black, 0.15);
+}
+
+.logo {
+    display: none;
+    margin-right: auto;
+    height: var(--header-height);
+    padding: .25em 0;
+    box-sizing: border-box;
+    object-fit: contain;
+    width: calc(var(--menu-width) - 1.5em);
+    min-width: 8em;
+}
+
+.burger {
+    margin-right: auto;
 }
 
 @include media(sm) {
-  .header {
-    grid-column: 2/3;
-
-    margin-left: .5em;
-    margin-right: .5em;
-    border-radius: 25px;
-  }
-
-  .item {
-    display: none;
-  }
+    .logo {
+        display: unset;
+    }
+    .burger {
+        display: none;
+    }
 }

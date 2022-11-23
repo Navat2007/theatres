@@ -4,35 +4,37 @@
 
 .menu {
     margin: 0;
-    padding: 0;
+    padding: var(--header-height) 0 0;
+    box-sizing: border-box;
 
     display: flex;
-    overflow: hidden;
+
+    overflow-y: hidden;
+
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    z-index: 999;
 }
 
 .container {
-    width: 15em;
+    width: var(--menu-width);
 
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: hidden;
 
     color: var(--white);
     background-image: var(--primary-gradient);
     background-color: var(--primary);
 }
 
-.logo_block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5em;
-    box-sizing: border-box;
-    background-color: var(--white);
-}
-
 .logo {
-    max-width: 90%;
+    display: none;
+    background-color: var(--white);
+    padding: 0.5em 1.25em;
+    box-sizing: border-box;
     object-fit: contain;
 }
 
@@ -41,8 +43,7 @@
     flex: auto;
     overflow-y: auto;
 
-    padding-top: min(5vmax, 3.125em);
-    padding-left: 1em;
+    padding: 1.25em 0.5em 0.5em;
 
     display: flex;
     flex-direction: column;
@@ -60,7 +61,7 @@
     align-items: center;
     padding: 0.5em 0.875em;
     cursor: pointer;
-    border-radius: 25px 0 0 25px;
+    border-radius: 25px;
     transition: color 0.25s ease-in-out;
 
     position: relative;
@@ -69,28 +70,28 @@
     &_actived {
         cursor: default;
         color: var(--dark);
-        background-color: var(--g100);
+        background-color: var(--white);
 
-        &::before,
-        &::after {
-            content: "";
-            position: absolute;
-            display: block;
-            top: -50px;
-            right: 0;
-            width: 20px;
-            height: 50px;
-            border-radius: 0 0 25px 0;
-            box-shadow: 0 25px 0 0 var(--g100);
-            z-index: -1;
-        }
+        // &::before,
+        // &::after {
+        //     content: "";
+        //     position: absolute;
+        //     display: block;
+        //     top: -50px;
+        //     right: 0;
+        //     width: 20px;
+        //     height: 50px;
+        //     border-radius: 0 0 25px 0;
+        //     box-shadow: 0 25px 0 0 var(--g100);
+        //     z-index: -1;
+        // }
 
-        &::after {
-            top: auto;
-            bottom: -50px;
-            border-radius: 0 25px 0 0;
-            box-shadow: 0 -25px 0 0 var(--g100);
-        }
+        // &::after {
+        //     top: auto;
+        //     bottom: -50px;
+        //     border-radius: 0 25px 0 0;
+        //     box-shadow: 0 -25px 0 0 var(--g100);
+        // }
 
         & .icon {
             color: var(--dark);
@@ -118,7 +119,7 @@
     margin: 0.5em;
     width: unset;
     max-width: unset;
-    border-radius: 15px;
+    border-radius: 25px;
 
     display: flex;
     background: rgba($color: white, $alpha: 0.15);
@@ -140,11 +141,9 @@
 
 @include media(sm, max) {
     .menu {
-        position: fixed;
-        top: 0;
-        left: 0;
+        padding: 0;
         @include box(100%);
-        z-index: 101;
+        z-index: 1001;
         background-color: transparent;
         transition: background-color 0.35s ease-in-out;
         pointer-events: none;
@@ -159,25 +158,18 @@
                 transform: translateX(0);
             }
         }
+
+        .logo {
+            display: unset;
+        }
     }
 
     .container {
+        width: 17em;
+
         box-shadow: 0 0 15px rgba($color: black, $alpha: 0.15);
         transition: transform 0.35s ease-in-out;
         transform: translateX(-120%);
-    }
-
-    .list {
-        padding-right: 1em;
-    }
-
-    .link {
-        border-radius: 25px;
-
-        &_actived::before,
-        &_actived::after {
-            content: unset;
-        }
     }
 
     .back {
@@ -197,16 +189,12 @@
 
 @include media(sm) {
     .menu {
-        grid-row: 1/-1;
-        border-radius: 0 25px 25px 0;
-
         &_size_sm {
-            .container {
-                width: 4.25em;
-            }
-
             .list {
-                padding-left: 0.5em;
+                align-items: center;
+            }
+            .link {
+                padding: 0.5em;
             }
 
             .text {
@@ -219,18 +207,11 @@
         }
 
         &_size_md {
-            .container {
-                width: 7.5em;
-            }
-
-            .list {
-                padding-left: 0.5em;
-            }
-
             .link {
                 flex-direction: column;
                 text-align: center;
                 padding: 0.5em;
+                gap: 0.25em;
             }
 
             .text {

@@ -1,3 +1,23 @@
 @import "../styles/_assets/variables";
 @import "../styles/_assets/mixins";
 @import "../styles/_assets/extends";
+
+.title_block {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    margin: 0 0 min(5vmax, 3.125rem);
+}
+
+.title {
+    margin: 0 0 0.375rem;
+    font-family: var(--ff-firm);
+    font-size: min(3.25vmax, 1.875em);
+    font-weight: 600;
+    // margin: 0 0 min(5vmax, 3.125rem);
+
+    &.--mb-small {
+        // margin: 0 0 min(2vmax, 1rem);
+    }
+}
