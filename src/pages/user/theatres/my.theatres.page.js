@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../../store/authStore";
@@ -10,26 +10,21 @@ import Tab from "../../../components/tabs/tab.component";
 import Tabs from "../../../components/tabs/tabs.component";
 
 const MyTheatresPage = () => {
-
     const navigate = useNavigate();
 
     const { user } = useAuthStore();
-    const {theatres, loadTheatres, loading} = useTheatresStore();
+    const { theatres, loadTheatres, loading } = useTheatresStore();
 
     const onItemClick = (props) => {
         navigate(`/user/theatres/${props}`);
     };
 
     const fetchData = async () => {
-
-        await loadTheatres({schoolID: user.schoolID});
-
+        await loadTheatres({ schoolID: user.schoolID });
     };
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const itemConfig = [
@@ -70,8 +65,8 @@ const MyTheatresPage = () => {
                     >
                         <Button
                             type="button"
-                            iconClass={'mdi mdi-plus'}
-                            size='small'
+                            iconClass={"mdi mdi-plus"}
+                            size="small"
                             text="Создать"
                             aria-label="Добавить театр"
                             onClick={() => navigate("/user/theatres/new")}

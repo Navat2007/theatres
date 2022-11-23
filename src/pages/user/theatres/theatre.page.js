@@ -12,6 +12,7 @@ import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
+import commonStyles from "../../common.module.scss";
 
 const TheatrePage = () => {
     let { id } = useParams();
@@ -50,28 +51,17 @@ const TheatrePage = () => {
     const back = () => navigate("/user/theatres/");
 
     if (loading || schoolStore.loading || teachersStore.loading)
-        return (
-            <div className="content__section">
-                <p>Загрузка...</p>
-            </div>
-        );
-
-    console.log(id);
-    console.log(theatre);
+        return <p>Загрузка...</p>;
 
     if (id && theatre === null) {
-        return (
-            <div className="content__section">
-                <p>Театр не найден</p>
-            </div>
-        );
+        return <p>Театр не найден</p>;
     }
 
     return (
-        <div className="content__section">
+        <>
             {id && theatre && (
                 <>
-                    <div className="content__title-block">
+                    <div className={commonStyles.title_block}>
                         <Button
                             type="button"
                             theme="text"
@@ -81,14 +71,12 @@ const TheatrePage = () => {
                             aria-label="Назад"
                             onClick={back}
                         />
-                        <h1 className="content__title --mb-small">
-                            {theatre.title}
-                        </h1>
+                        <h1 className={commonStyles.title}>{theatre.title}</h1>
                         <Button
                             size="smaller"
                             type="submit"
                             isIconBtn="true"
-                            iconClass={'mdi mdi-pencil'}
+                            iconClass={"mdi mdi-pencil"}
                             theme="outline"
                             aria-label="Редактировать театр"
                             onClick={() =>
@@ -379,7 +367,7 @@ const TheatrePage = () => {
                     </Tabs>
                 </>
             )}
-        </div>
+        </>
     );
 };
 
