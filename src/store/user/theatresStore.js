@@ -147,7 +147,8 @@ const useTheatresStore = create(
 
                 if (response?.data) {
 
-                    console.log(response.data);
+                    console.log(urlEditTheatre);
+                    console.log("Edit user request: ", response.data);
 
                     if (response.data.error === 1) {
 

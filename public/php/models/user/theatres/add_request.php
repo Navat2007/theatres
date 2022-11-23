@@ -18,6 +18,8 @@ $teachers = $_POST["teachers"];
 $socialLinks = $_POST["socialLinks"];
 $formActivity = $_POST["formActivity"];
 $ageMembers = $_POST["ageMembers"];
+$photo = $_POST["photo"];
+$photoVisit = $_POST["photoVisit"];
 $editorShortDescription = htmlspecialchars($_POST["editorShortDescription"]);
 $editorDirectorMessage = htmlspecialchars($_POST["editorDirectorMessage"]);
 
@@ -113,6 +115,34 @@ if ($error === 0) {
         $sql = "
         INSERT INTO theatre_requests_social_links (requestID, url) 
         VALUES ('$lastID', '$link')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
+
+    foreach ($photo as $p) {
+
+        $url = $p['url'];
+        $main = $p['main'];
+        $order = $p['order'];
+
+        $sql = "
+        INSERT INTO theatre_request_photo (requestID, url, main, photo_order) 
+        VALUES ('$lastID', '$url', '$main', '$order')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
+
+    foreach ($photoVisit as $pv) {
+
+        $url = $pv['url'];
+        $main = $pv['main'];
+        $order = $pv['order'];
+
+        $sql = "
+        INSERT INTO theatre_request_visit_photo (requestID, url, main, photo_order) 
+        VALUES ('$lastID', '$url', '$main', '$order')";
 
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
