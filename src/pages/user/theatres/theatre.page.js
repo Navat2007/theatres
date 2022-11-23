@@ -252,7 +252,6 @@ const TheatrePage = () => {
                             </div>
                         </Tab>
                         <Tab title={"Краткое описание"}>
-                            {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
@@ -262,7 +261,6 @@ const TheatrePage = () => {
                             />
                         </Tab>
                         <Tab title={"Обращение режиссёра"}>
-                            {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
@@ -273,6 +271,7 @@ const TheatrePage = () => {
                         </Tab>
                         <Tab title={"Фотографии"}>
                             <ul className="gallery-form">
+                                <h2 className="info__title">Фото театра</h2>
                                 <li className="gallery-form__item">
                                     <img
                                         className="gallery-form__img"
@@ -293,70 +292,9 @@ const TheatrePage = () => {
                                         2
                                     </span>
                                 </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
                             </ul>
                         </Tab>
                         <Tab title={"Видео"}>
-                            {/* Тут возможно вставить через слайдер видео со списком, как на странице теарта, например. */}
                         </Tab>
                         <Tab title={"Описания (рецензии)"}>
                             <div className="info">

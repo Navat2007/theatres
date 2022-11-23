@@ -63,6 +63,13 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
             setVideo(videoLinksArray ? videoLinksArray : []);
 
+            setReviews(request.reviews ? request.reviews.map(item => {
+                return {id: window.global.makeid(12), title: item.title, text: item.text};
+            }) : []);
+            setReviewsVisit(request.reviewsVisit ? request.reviewsVisit.map(item => {
+                return {id: window.global.makeid(12), title: item.title, text: item.text};
+            }) : []);
+
         }
 
     }, []);
@@ -109,7 +116,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
             sendObject['teachers'] = Array.from(data.teachers_select.map(item => item.value));
 
         if (socialLinks.length > 0)
-            sendObject['socialLinks'] = Array.from(socialLinks.map(link => link.url));
+            sendObject['socialLinks'] = Array.from(socialLinks.filter(link => link.url !== "").map(link => link.url));
 
         if (data.editorShortDescription)
             sendObject['editorShortDescription'] = data.editorShortDescription;
@@ -121,7 +128,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         sendObject['photoVisit'] = photoVisit;
 
         if (video.length > 0)
-            sendObject['video'] = Array.from(video.map(link => link.url));
+            sendObject['video'] = Array.from(video.filter(link => link.url !== "").map(link => link.url));
 
         if (reviews.length > 0) {
             let tmpArray = Array.from(reviews
@@ -154,8 +161,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         onSubmitDone(performData());
 
     });
-
-    performData();
 
     return (
         <>
@@ -546,6 +551,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                             <Editor
                                                 control={control}
                                                 name={"editor_review_" + item.id}
+                                                value={item.text}
                                             />
                                         </div>
                                     </div>
@@ -596,6 +602,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                             <Editor
                                                 control={control}
                                                 name={"editor_review_visit_" + item.id}
+                                                value={item.text}
                                             />
                                         </div>
                                     </div>

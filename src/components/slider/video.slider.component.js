@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactPlayer from "react-player";
-import styles from "../image_preview/image.preview.module.scss";
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 
 const VideoSlider = ({items}) => {

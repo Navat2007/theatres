@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import moment from "moment";
+import ReactPlayer from "react-player";
 
 import useSchoolStore from "../../../store/admin/schoolsStore";
 import useTheatresStore from "../../../store/admin/theatresStore";
@@ -41,10 +42,6 @@ const TheatrePage = () => {
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
-
-                    console.log(theatre);
-                    console.log(schoolStore.school);
-                    console.log(teachersStore.teachers);
                 }
             }
         };
@@ -60,6 +57,8 @@ const TheatrePage = () => {
     if (id && !theatre) {
         return <p>Театр не найден</p>;
     }
+
+    console.log(theatre);
 
     return (
         <>
@@ -245,7 +244,6 @@ const TheatrePage = () => {
                             </div>
                         </Tab>
                         <Tab title={"Краткое описание"}>
-                            {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
@@ -255,7 +253,6 @@ const TheatrePage = () => {
                             />
                         </Tab>
                         <Tab title={"Обращение режиссёра"}>
-                            {/* Тут стилизация, наверное, не нужна, просто все, что написали в редакторе в див выводим. */}
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
@@ -265,96 +262,126 @@ const TheatrePage = () => {
                             />
                         </Tab>
                         <Tab title={"Фотографии"}>
-                            <ul className="gallery-form">
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://cherepah.ru/wp-content/uploads/2/c/4/2c4e5a55cc03551fe456a92c1b66d280.jpe"
-                                        alt="Изображение "
-                                    />
-                                    <div className="gallery-form__title">
-                                        1. Главная
-                                    </div>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                                <li className="gallery-form__item">
-                                    <img
-                                        className="gallery-form__img"
-                                        src="https://art-vip.com.ua/wa-data/public/shop/products/44/06/644/images/575/575.750x0.jpg"
-                                        alt="Изображение "
-                                    />
-                                    <span className="gallery-form__current-position">
-                                        2
-                                    </span>
-                                </li>
-                            </ul>
+                            <h2 className="info__title">Фото театра</h2>
+                            {
+                                theatre.photo &&  theatre.photo.length > 0
+                                ?
+                                    <>
+                                        <ul className="gallery-form">
+                                        {
+                                            theatre.photo.map(item => (
+                                                item.order === 1
+                                                    ?
+                                                    <li className="gallery-form__item">
+                                                        <img
+                                                            className="gallery-form__img"
+                                                            src={item.url}
+                                                            alt="Изображение "
+                                                        />
+                                                        <div className="gallery-form__title">
+                                                            1. Главная
+                                                        </div>
+                                                    </li>
+                                                    :
+                                                    <li className="gallery-form__item">
+                                                        <img
+                                                            className="gallery-form__img"
+                                                            src={item.url}
+                                                            alt="Изображение "
+                                                        />
+                                                        <span className="gallery-form__current-position">{item.order}</span>
+                                                    </li>
+                                            ))
+                                        }
+                                        </ul>
+                                    </>
+                                    :
+                                    <>
+                                        <p>Нет фото</p>
+                                    </>
+                            }
+                            <h2 className="info__title">Фото посещения театра</h2>
+                            {
+                                theatre.photoVisit &&  theatre.photoVisit.length > 0
+                                    ?
+                                    <>
+                                        <ul className="gallery-form">
+                                            {
+                                                theatre.photoVisit.map(item => (
+                                                    item.order === 1
+                                                        ?
+                                                        <li className="gallery-form__item">
+                                                            <img
+                                                                className="gallery-form__img"
+                                                                src={item.url}
+                                                                alt="Изображение "
+                                                            />
+                                                            <div className="gallery-form__title">
+                                                                1. Главная
+                                                            </div>
+                                                        </li>
+                                                        :
+                                                        <li className="gallery-form__item">
+                                                            <img
+                                                                className="gallery-form__img"
+                                                                src={item.url}
+                                                                alt="Изображение "
+                                                            />
+                                                            <span className="gallery-form__current-position">{item.order}</span>
+                                                        </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </>
+                                    :
+                                    <>
+                                        <p>Нет фото</p>
+                                    </>
+                            }
                         </Tab>
                         <Tab title={"Видео"}>
-                            {/* Тут возможно вставить через слайдер видео со списком, как на странице теарта, например. */}
+                            <h2 className="info__title">ВИДЕО ВИЗИТКА ШКОЛЬНОГО ТЕАТРА</h2>
+                            <ReactPlayer
+                                width="100%"
+                                height={"auto"}
+                                className="video__react-player"
+                                url={theatre.video_business_card}
+                                playing={false}
+                                controls={true}
+                            />
+                            <h2 className="info__title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
+                            {
+                                theatre.video &&  theatre.video.length > 0
+                                    ?
+                                    <>
+                                        <ul className="gallery-form">
+                                            {
+                                                theatre.video.map(item => (
+                                                    <li className="gallery-form__item">
+                                                        <ReactPlayer
+                                                            width="100%"
+                                                            height={"auto"}
+                                                            className="video__react-player"
+                                                            url={item}
+                                                            playing={false}
+                                                            controls={true}
+                                                        />
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </>
+                                    :
+                                    <>
+                                        <p>Нет видео</p>
+                                    </>
+                            }
                         </Tab>
                         <Tab title={"Описания (рецензии)"}>
                             <div className="info">
-                                <h2 className="info__title">Название театра</h2>
+                                <h2 className="info__title">РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ</h2>
                                 <div>Описание из редактора</div>
+                                <h2 className="info__title">РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ ТЕАТРОВ</h2>
                             </div>
                         </Tab>
                     </Tabs>
