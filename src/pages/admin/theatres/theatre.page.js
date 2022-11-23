@@ -14,6 +14,7 @@ import Tab from "../../../components/tabs/tab.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 import commonStyles from "../../common.module.scss";
+import ImagePreview from "../../../components/image_preview/image.preview.component";
 
 const TheatrePage = () => {
     let {id} = useParams();
@@ -31,6 +32,8 @@ const TheatrePage = () => {
         clearErrorText,
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
+
+    const [preview, setPreview] = React.useState(<></>);
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -51,14 +54,23 @@ const TheatrePage = () => {
 
     const back = () => navigate("/admin/theatres/");
 
+    const handleOpenPreview = (slideIndex, items) => {
+
+        setPreview(<ImagePreview
+            open={true}
+            index={slideIndex}
+            items={items}
+            onClose={() => setPreview(<></>)}
+        />)
+
+    };
+
     if (loading || schoolStore.loading || teachersStore.loading)
         return <p>Загрузка...</p>;
 
     if (id && !theatre) {
         return <p>Театр не найден</p>;
     }
-
-    console.log(theatre);
 
     return (
         <>
@@ -272,7 +284,10 @@ const TheatrePage = () => {
                                                 theatre.photo.map(item => (
                                                     item.order === 1
                                                         ?
-                                                        <li className="gallery-form__item">
+                                                        <li
+                                                            className="gallery-form__item"
+                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photo)}
+                                                        >
                                                             <img
                                                                 className="gallery-form__img"
                                                                 src={item.url}
@@ -283,7 +298,10 @@ const TheatrePage = () => {
                                                             </div>
                                                         </li>
                                                         :
-                                                        <li className="gallery-form__item">
+                                                        <li
+                                                            className="gallery-form__item"
+                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photo)}
+                                                        >
                                                             <img
                                                                 className="gallery-form__img"
                                                                 src={item.url}
@@ -311,7 +329,10 @@ const TheatrePage = () => {
                                                 theatre.photoVisit.map(item => (
                                                     item.order === 1
                                                         ?
-                                                        <li className="gallery-form__item">
+                                                        <li
+                                                            className="gallery-form__item"
+                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photoVisit)}
+                                                        >
                                                             <img
                                                                 className="gallery-form__img"
                                                                 src={item.url}
@@ -322,7 +343,10 @@ const TheatrePage = () => {
                                                             </div>
                                                         </li>
                                                         :
-                                                        <li className="gallery-form__item">
+                                                        <li
+                                                            className="gallery-form__item"
+                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photoVisit)}
+                                                        >
                                                             <img
                                                                 className="gallery-form__img"
                                                                 src={item.url}
@@ -340,6 +364,7 @@ const TheatrePage = () => {
                                         <p>Нет фото</p>
                                     </>
                             }
+                            {preview}
                         </Tab>
                         <Tab title={"Видео"}>
                             <h2 className="info__title">ВИДЕО ВИЗИТКА ШКОЛЬНОГО ТЕАТРА</h2>
