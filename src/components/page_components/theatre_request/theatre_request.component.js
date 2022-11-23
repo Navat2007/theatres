@@ -23,7 +23,9 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
     const [socialLinks, setSocialLinks] = React.useState([]);
     const [photo, setPhoto] = React.useState([]);
     const [photoVisit, setPhotoVisit] = React.useState([]);
+    const [video, setVideo] = React.useState([]);
     const [reviews, setReviews] = React.useState([]);
+    const [reviewsVisit, setReviewsVisit] = React.useState([]);
 
     const theatreUrlSchoolWatch = watch('theatreUrlSchool');
     const videoBusinessCardWatch = watch('videoBusinessCard');
@@ -46,14 +48,20 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
             setValue("editorShortDescription", request.short_description);
             setValue("editorDirectorMessage", request.director_message);
 
-            let socialLinksArray = request.social_links.map((link) => {
+            let socialLinksArray = request?.social_links?.map((link) => {
                 return {id: window.global.makeid(12), url: link, img: window.global.getSocialIcon(link)};
             });
 
-            setPhoto(request.photo);
-            setPhotoVisit(request.photoVisit);
+            setSocialLinks(socialLinksArray ? socialLinksArray : []);
 
-            setSocialLinks(socialLinksArray);
+            setPhoto(request.photo ? request.photo : []);
+            setPhotoVisit(request.photoVisit ? request.photoVisit : []);
+
+            let videoLinksArray = request?.video?.map((link) => {
+                return {id: window.global.makeid(12), url: link};
+            });
+
+            setVideo(videoLinksArray ? videoLinksArray : []);
 
         }
 
@@ -62,6 +70,24 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
     const handleSocialLink = () => {
 
         setSocialLinks([...socialLinks, {id: window.global.makeid(12), url: ""}]);
+
+    };
+
+    const handleVideoLink = () => {
+
+        setVideo([...video, {id: window.global.makeid(12), url: ""}]);
+
+    };
+
+    const handleReview = () => {
+
+        setReviews([...reviews, {id: window.global.makeid(12), title: "", text: ""}]);
+
+    };
+
+    const handleReviewVisit = () => {
+
+        setReviewsVisit([...reviewsVisit, {id: window.global.makeid(12), title: "", text: ""}]);
 
     };
 
@@ -94,6 +120,29 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         sendObject['photo'] = photo;
         sendObject['photoVisit'] = photoVisit;
 
+        if (video.length > 0)
+            sendObject['video'] = Array.from(video.map(link => link.url));
+
+        if (reviews.length > 0) {
+            let tmpArray = Array.from(reviews
+                .filter(review => getValues("review_" + review.id) && getValues("editor_review_" + review.id) !== "<p><br></p>")
+                .map(review => {
+                    return {title: getValues("review_" + review.id), text: getValues("editor_review_" + review.id)};
+                }));
+
+            sendObject['reviews'] = tmpArray.length > 0 ? tmpArray : [];
+        }
+
+        if (reviewsVisit.length > 0) {
+            let tmpArray = Array.from(reviewsVisit
+                .filter(review => getValues("review_visit_" + review.id) && getValues("editor_review_visit_" + review.id) !== "<p><br></p>")
+                .map(review => {
+                    return {title: getValues("review_visit_" + review.id), text: getValues("editor_review_visit_" + review.id)};
+                }));
+
+            sendObject['reviewsVisit'] = tmpArray.length > 0 ? tmpArray : [];
+        }
+
         console.log("Подготовленные данные: ", sendObject);
 
         return sendObject;
@@ -105,6 +154,8 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         onSubmitDone(performData());
 
     });
+
+    performData();
 
     return (
         <>
@@ -393,57 +444,62 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                         <span className='mdi mdi-open-in-new'/>
                                     </a>
                                 }
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
                             </div>
-                            {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
-                            <Button
-                                type='button'
-                                theme='text'
-                                size='small'
-                                extraClass="form__icon-btn"
-                                iconClass={'mdi mdi-plus'}
-                                isIconBtn='true'
-                                aria-label='Добавить поле'
-                            />
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Видео лучших фрагментов</h2>
-                            <div className="form__group-block">
-                                <FieldInput
-                                    label={"Ссылка на видео"}
-                                    type='url'
-                                    extraClass='form__field'
-                                    placeholder='Введите url-адрес...'
-                                    layout='flex'
-                                />
-                                <a
-                                    className='form__social-link'
-                                    href=""
-                                    aria-label='Открыть в новой вкладке'
-                                    title='Открыть в новой вкладке'
-                                    target={'_blank'}
-                                    rel='nofollow noreferer noopener'>
-                                    <span className='mdi mdi-open-in-new'/>
-                                </a>
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
-                            </div>
-                            {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            {
+                                video.map(item => (
+                                    <div
+                                        className="form__group-block"
+                                        key={item.id}
+                                    >
+                                        <FieldInput
+                                            type='text'
+                                            extraClass='form__field'
+                                            placeholder='Введите url-адрес...'
+                                            {...register("video_" + item.id, {value: item.url})}
+                                            onBlur={(event) => {
+                                                setVideo(video.map(link => {
+
+                                                    if (link.id === item.id) {
+                                                        link.url = event.target.value;
+                                                    }
+
+                                                    return link;
+
+                                                }));
+                                                setValue("video_" + item.id, event.target.value);
+                                            }}
+                                            required={true}
+                                        />
+                                        {
+                                            item.url &&
+                                            <a
+                                                className='form__social-link'
+                                                href={item.url.includes('http') ? item.url : 'http://' + item.url}
+                                                aria-label='Открыть в новой вкладке'
+                                                title='Открыть в новой вкладке'
+                                                target={'_blank'}
+                                                rel='nofollow noreferer noopener'>
+                                                <span className='mdi mdi-open-in-new'/>
+                                            </a>
+                                        }
+                                        <Button
+                                            type='button'
+                                            theme='text'
+                                            size='smaller'
+                                            extraClass="form__icon-btn"
+                                            iconClass={'mdi mdi-close'}
+                                            isIconBtn='true'
+                                            aria-label='Удалить поле'
+                                            onClick={() => {
+                                                setVideo(video.filter(link => link.id !== item.id));
+                                            }}
+                                        />
+                                    </div>
+                                ))
+                            }
                             <Button
                                 type='button'
                                 theme='text'
@@ -452,38 +508,49 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 iconClass={'mdi mdi-plus'}
                                 isIconBtn='true'
                                 aria-label='Добавить поле'
+                                onClick={handleVideoLink}
                             />
                         </fieldset>
                     </Tab>
                     <Tab title={"Описания (рецензии)"} extraClass='form__tab'>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Рассказ о других школьных театрах</h2>
-                            <div className="form__group-block">
-                                <FieldInput
-                                    label={"Название театра"}
-                                    type='text'
-                                    extraClass='form__field'
-                                    placeholder='Введите название...'
-                                    layout='flex'
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
-                                <div className="form__editor-block">
-                                    <p className="form__label">Описание театра</p>
-                                    <Editor
-                                        control={control}
-                                        name="editorTheatreDescription"
-                                    />
-                                </div>
-                            </div>
-                            {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            {
+                                reviews.map(item => (
+                                    <div
+                                        className="form__group-block"
+                                        key={item.id}
+                                    >
+                                        <FieldInput
+                                            label={"Название театра"}
+                                            type='text'
+                                            extraClass='form__field'
+                                            placeholder='Введите название...'
+                                            layout='flex'
+                                            {...register("review_" + item.id, {value: item.title})}
+                                        />
+                                        <Button
+                                            type='button'
+                                            theme='text'
+                                            size='small'
+                                            extraClass="form__icon-btn"
+                                            iconClass={'mdi mdi-close'}
+                                            isIconBtn='true'
+                                            aria-label='Удалить поле'
+                                            onClick={() => {
+                                                setReviews(reviews.filter(link => link.id !== item.id));
+                                            }}
+                                        />
+                                        <div className="form__editor-block">
+                                            <p className="form__label">Описание посещения театра</p>
+                                            <Editor
+                                                control={control}
+                                                name={"editor_review_" + item.id}
+                                            />
+                                        </div>
+                                    </div>
+                                ))
+                            }
                             <Button
                                 type='button'
                                 theme='text'
@@ -492,37 +559,48 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 iconClass={'mdi mdi-plus'}
                                 isIconBtn='true'
                                 aria-label='Добавить поле'
+                                onClick={handleReview}
                             />
                         </fieldset>
                         <fieldset className='form__section'>
                             <h2 className="form__title">Рассказы (рецензии) о посещении других московских
                                 театров</h2>
-                            <div className="form__group-block">
-                                <FieldInput
-                                    label={"Название театра"}
-                                    type='text'
-                                    extraClass='form__field'
-                                    placeholder='Введите название...'
-                                    layout='flex'
-                                />
-                                <Button
-                                    type='button'
-                                    theme='text'
-                                    size='small'
-                                    extraClass="form__icon-btn"
-                                    iconClass={'mdi mdi-close'}
-                                    isIconBtn='true'
-                                    aria-label='Удалить поле'
-                                />
-                                <div className="form__editor-block">
-                                    <p className="form__label">Описание посещения театра</p>
-                                    <Editor
-                                        control={control}
-                                        name="editorTheatreVisit"
-                                    />
-                                </div>
-                            </div>
-                            {/* Если нужно добавить еще поле тыкаем на плюс, появляется поле как выше */}
+                            {
+                                reviewsVisit.map(item => (
+                                    <div
+                                        className="form__group-block"
+                                        key={item.id}
+                                    >
+                                        <FieldInput
+                                            label={"Название театра"}
+                                            type='text'
+                                            extraClass='form__field'
+                                            placeholder='Введите название...'
+                                            layout='flex'
+                                            {...register("review_visit_" + item.id, {value: item.title})}
+                                        />
+                                        <Button
+                                            type='button'
+                                            theme='text'
+                                            size='small'
+                                            extraClass="form__icon-btn"
+                                            iconClass={'mdi mdi-close'}
+                                            isIconBtn='true'
+                                            aria-label='Удалить поле'
+                                            onClick={() => {
+                                                setReviewsVisit(reviewsVisit.filter(link => link.id !== item.id));
+                                            }}
+                                        />
+                                        <div className="form__editor-block">
+                                            <p className="form__label">Описание посещения театра</p>
+                                            <Editor
+                                                control={control}
+                                                name={"editor_review_visit_" + item.id}
+                                            />
+                                        </div>
+                                    </div>
+                                ))
+                            }
                             <Button
                                 type='button'
                                 theme='text'
@@ -531,6 +609,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                                 iconClass={'mdi mdi-plus'}
                                 isIconBtn='true'
                                 aria-label='Добавить поле'
+                                onClick={handleReviewVisit}
                             />
                         </fieldset>
                     </Tab>

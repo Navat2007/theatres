@@ -21,6 +21,11 @@ $teachers = $_POST["teachers"];
 $socialLinks = $_POST["socialLinks"];
 $formActivity = $_POST["formActivity"];
 $ageMembers = $_POST["ageMembers"];
+$photo = $_POST["photo"];
+$photoVisit = $_POST["photoVisit"];
+$video = $_POST["video"];
+$reviews = $_POST["reviews"];
+$reviewsVisit = $_POST["reviewsVisit"];
 $editorShortDescription = htmlspecialchars($_POST["editorShortDescription"]);
 $editorDirectorMessage = htmlspecialchars($_POST["editorDirectorMessage"]);
 
@@ -90,6 +95,26 @@ if ($error === 0) {
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
 
+    $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM theatre_requests_video WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM theatre_requests_review WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM theatre_requests_review_visit WHERE requestID = '$id'";
+    $sqls[] = $sql;
+    mysqli_query($conn, $sql);
+
     if ((int)$status === 3) {
 
         $sql = "DELETE FROM theatre_requests WHERE ID = '$id'";
@@ -130,6 +155,26 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM theatres_social_links WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_photo WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_visit_photo WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_video WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_review WHERE theatreID = '$updateID'";
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM theatres_review_visit WHERE theatreID = '$updateID'";
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
 
@@ -183,6 +228,89 @@ if ($error === 0) {
 
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
+        }
+
+        foreach ($photo as $p) {
+
+            $url = $p['url'];
+            $main = $p['main'];
+            $order = $p['order'];
+
+            $sql = "
+            INSERT INTO theatres_photo (theatreID, url, main, photo_order) 
+            VALUES ('$updateID', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($url);
+            unset($main);
+            unset($order);
+
+        }
+
+        foreach ($photoVisit as $pv) {
+
+            $url = $pv['url'];
+            $main = $pv['main'];
+            $order = $pv['order'];
+
+            $sql = "
+            INSERT INTO theatres_visit_photo (theatreID, url, main, photo_order) 
+            VALUES ('$updateID', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($url);
+            unset($main);
+            unset($order);
+
+        }
+
+        foreach ($video as $v) {
+
+            $sql = "
+            INSERT INTO theatres_video (theatreID, url) 
+            VALUES ('$updateID', '$v')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+        }
+
+        foreach ($reviews as $r) {
+
+            $title = $r['title'];
+            $text = $r['text'];
+
+            $sql = "
+            INSERT INTO theatres_review (theatreID, title, text) 
+            VALUES ('$updateID', '$title', '$text')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($title);
+            unset($text);
+
+        }
+
+        foreach ($reviewsVisit as $rv) {
+
+            $title = $rv['title'];
+            $text = $rv['text'];
+
+            $sql = "
+            INSERT INTO theatres_review_visit (theatreID, title, text) 
+            VALUES ('$updateID', '$title', '$text')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($title);
+            unset($text);
+
         }
 
         if (!$result) {
@@ -252,6 +380,88 @@ if ($error === 0) {
 
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
+        }
+
+        foreach ($photo as $p) {
+
+            $url = $p['url'];
+            $main = $p['main'];
+            $order = $p['order'];
+
+            $sql = "
+            INSERT INTO theatre_request_photo (requestID, url, main, photo_order) 
+            VALUES ('$id', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($url);
+            unset($main);
+            unset($order);
+
+        }
+
+        foreach ($photoVisit as $pv) {
+
+            $url = $pv['url'];
+            $main = $pv['main'];
+            $order = $pv['order'];
+
+            $sql = "
+            INSERT INTO theatre_request_visit_photo (requestID, url, main, photo_order) 
+            VALUES ('$id', '$url', '$main', '$order')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($url);
+            unset($main);
+            unset($order);
+
+        }
+
+        foreach ($video as $v) {
+
+            $sql = "
+            INSERT INTO theatre_requests_video (requestID, url) 
+            VALUES ('$id', '$v')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+        }
+
+        foreach ($reviews as $r) {
+
+            $title = $r['title'];
+            $text = $r['text'];
+
+            $sql = "
+            INSERT INTO theatre_requests_review (requestID, title, text) 
+            VALUES ('$id', '$title', '$text')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($title);
+            unset($text);
+
+        }
+
+        foreach ($reviewsVisit as $rv) {
+
+            $title = $rv['title'];
+            $text = $rv['text'];
+
+            $sql = "
+            INSERT INTO theatre_requests_review_visit (requestID, title, text) 
+            VALUES ('$id', '$title', '$text')";
+
+            $sqls[] = $sql;
+            mysqli_query($conn, $sql);
+
+            unset($title);
+            unset($text);
+
         }
 
         if (!$result) {
