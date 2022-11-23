@@ -1,19 +1,19 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { YMaps, Map, Placemark } from "react-yandex-maps";
+import {useParams} from "react-router-dom";
+import {YMaps, Map, Placemark} from "react-yandex-maps";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import { SocialIcons, MedalIcons } from "../../../components/svgs.js";
+import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 import ShowMore from "../../../components/simple/show_more/show.more.component";
 import BannerSlider from "../../../components/slider/banner.slider.component";
 
 function PublicTheatrePage() {
-    let { id } = useParams();
+    let {id} = useParams();
 
     const schoolStore = useSchoolStore();
     const {
@@ -80,17 +80,13 @@ function PublicTheatrePage() {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
-
-                    console.log(theatre);
-                    console.log(schoolStore.school);
-                    console.log(teachersStore.teachers);
                 }
             }
         };
@@ -101,19 +97,6 @@ function PublicTheatrePage() {
     if (loading || schoolStore.loading || teachersStore.loading) {
         return (
             <>
-                <BannerSlider
-                    transitionTime={1000}
-                    autoPlay={true}
-                    swipe={false}
-                    showArrows={false}
-                    items={[
-                        {
-                            url: "",
-                            title: "",
-                            text: "",
-                        },
-                    ]}
-                />
                 <section className="public-content__section">
                     <article className="public-content__wrap about">
                         <h1 className="section-title">Загрузка...</h1>
@@ -440,7 +423,285 @@ function PublicTheatrePage() {
         return <p>Театр не найден</p>;
     }
 
-    return <>{id}</>;
+    console.log(theatre);
+
+    return (
+        <>
+            <section className="public-content__section">
+                <article className="public-content__wrap about">
+                    <h1 className="section-title">Театр Чайковского</h1>
+                    <div className="about__level-item">
+                        Дебютант
+                        {MedalIcons.debutant}
+                    </div>
+                    <div className="about__main-text">
+                        <ul className="about__list">
+                            <li>
+                                <p className="about__text">
+                                    Год основания:{" "}
+                                    <span className="about__span-accent">
+                                            2020г.
+                                        </span>
+                                </p>
+                            </li>
+                            <li>
+                                <p className="about__text">
+                                    Форма осуществления деятельности:{" "}
+                                    <span className="about__span-accent">
+                                            Объединение дополнительного
+                                            образования
+                                        </span>
+                                </p>
+                            </li>
+                            <li>
+                                <p className="about__text">
+                                    Возрастной состав участников школьного
+                                    театра:{" "}
+                                    <span className="about__span-accent">
+                                            1-4 класс
+                                        </span>
+                                </p>
+                            </li>
+                        </ul>
+                        <div className="about__description-block">
+                            <ShowMore>
+                                <p>
+                                    Теа́тр (греч. θέατρον — основное значение
+                                    — место для зрелищ, затем — зрелище, от
+                                    θεάομαι — смотреть, видеть) — зрелищный
+                                    вид искусства, представляющий собой
+                                    синтез различных искусств: литературы,
+                                    музыки, хореографии, вокала,
+                                    изобразительного искусства и обладающий
+                                    собственной спецификой: отражение
+                                    действительности, конфликтов,
+                                    характеров, а также их трактовка и
+                                    оценка, утверждение тех или иных идей
+                                    здесь происходит посредством
+                                    драматического действия, главным
+                                    носителем которого является актёр
+                                </p>
+                                <p>
+                                    Родовое понятие «театр» включает в себя
+                                    различные его виды и формы:
+                                    драматический театр, оперный, балетный,
+                                    кукольный, театр пантомимы и др.
+                                </p>
+                                <p>
+                                    На прошлой неделе в школе прошел
+                                    школьный конкурс «Театральные
+                                    подмостки». В нем приняли участие все
+                                    классы. Было представлено 6 постановок.
+                                    Жюри под председательством директора
+                                    школы Суханкиной О.А., проанализировав
+                                </p>
+                                <h3>Обращение режиссера:</h3>
+                                <p>
+                                    Уважаемые зрители! Убедительная просьба
+                                    соблюдать меры безопасности, оставаться
+                                    в масках и сохранять социальную
+                                    дистанцию во время спектакля, а также
+                                    всего времени пребывания в театре. После
+                                    третьего звонка любые перемещения по
+                                    залу категорически запрещены. Своими
+                                    действиями Вы мешаете артистам, а также
+                                    другим зрителям. В случае нарушений мы
+                                    будем вынуждены остановить спектакль.
+                                    Дорогие зрители! Надеемся на ваше
+                                    понимание и самодисциплину. Берегите
+                                    себя и своих близких.
+                                </p>
+                            </ShowMore>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <section className="public-content__section public-content__section_bg_light-grey">
+                <article className="public-content__wrap teachers">
+                    <h2 className="section-title">Педагоги</h2>
+                    <ul className="teachers__card-deck">
+                        <li className="teachers__card">
+                            <img
+                                className="teachers__img"
+                                src="https://i.pinimg.com/originals/4a/79/19/4a791974c79323c38c7db00bdd985df5.jpg"
+                                alt="Иванова Любовь Валерьевна"
+                            />
+                            <h3 className="teachers__title">
+                                    <span className="teachers__span-accent">
+                                        Иванова
+                                    </span>
+                                Любовь Валерьевна
+                            </h3>
+                        </li>
+                        <li className="teachers__card">
+                            <img
+                                className="teachers__img"
+                                src="https://coolsen.ru/wp-content/uploads/2022/02/63-20220220_141754.jpg"
+                                alt="Иванова Любовь Валерьевна"
+                            />
+                            <h3 className="teachers__title">
+                                    <span className="teachers__span-accent">
+                                        Загогулькина
+                                    </span>
+                                Анастасия Дрыздовна
+                            </h3>
+                        </li>
+                        <li className="teachers__card">
+                            <img
+                                className="teachers__img"
+                                src="https://img.alicdn.com/imgextra/i4/1968041872/O1CN01ylonbB1PhPuW19t7S_!!0-item_pic.jpg"
+                                alt="Иванова Любовь Валерьевна"
+                            />
+                            <h3 className="teachers__title">
+                                    <span className="teachers__span-accent">
+                                        Крюк
+                                    </span>
+                                Кутиля Бутковна
+                            </h3>
+                        </li>
+                        <li className="teachers__card">
+                            <img
+                                className="teachers__img"
+                                src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
+                                alt="Иванова Любовь Валерьевна"
+                            />
+                            <h3 className="teachers__title">
+                                    <span className="teachers__span-accent">
+                                        Куница
+                                    </span>
+                                Хвостатая Валерьевна
+                            </h3>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section className="public-content__section">
+                <ImageGallery
+                    title="Фото театра"
+                    items={photo}
+                />
+            </section>
+            <section className="public-content__section">
+                <ImageGallery
+                    title="Фото посещения театра"
+                    items={photoVisit}
+                />
+            </section>
+            <section className="public-content__section">
+                <article className="public-content__wrap video">
+                    <h2 className="section-title">Видео</h2>
+                    <VideoSlider
+                        items={[
+                            {
+                                url: "https://www.youtube.com/watch?v=FihWD9OKn-g",
+                            },
+                            {
+                                url: "https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP",
+                            },
+                        ]}
+                    />
+                </article>
+            </section>
+            <section className="public-content__section public-content__section_bg_light-grey contact">
+                <article className="public-content__wrap contact">
+                    <h2 className="section-title">Контакты</h2>
+                    <div className="contact__map">
+                        <YMaps>
+                            <Map
+                                state={{
+                                    center: [55.760178, 37.618574],
+                                    zoom: 14,
+                                }}
+                                width="100%"
+                                height="100%"
+                            >
+                                <Placemark
+                                    geometry={[55.760178, 37.618574]}
+                                    properties={{
+                                        iconCaption: "Название театра",
+                                    }}
+                                    options={{
+                                        preset: "islands#redDotIconWithCaption",
+                                    }}
+                                />
+                            </Map>
+                        </YMaps>
+                    </div>
+                    <div className="contact__columns">
+                        <div className="contact__column">
+                            <h3 className="section-subtitle contact__title">
+                                КЛВ “Современник”
+                            </h3>
+                            <address className="contact__address">
+                                Москва г., пр-кт Современника, д.3А.
+                            </address>
+                            <a
+                                className="contact__link"
+                                href="tel:84956926572"
+                                rel="noopener nofollow noreferer"
+                            >
+                                +7 (495) 692-65-72
+                            </a>
+                        </div>
+                        <div className="social">
+                            <p className="social__label">Наши соцсети:</p>
+                            <ul className="social__list">
+                                <li>
+                                    <a
+                                        className="social__link"
+                                        href="https://t.me/bolshoi_theatre"
+                                        target={"_blank"}
+                                        rel="noopener nofollow noreferer"
+                                    >
+                                        {SocialIcons.t}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className="social__link"
+                                        href="https://vk.com/bolshoitheatre"
+                                        target={"_blank"}
+                                        rel="noopener nofollow noreferer"
+                                    >
+                                        {SocialIcons.vk}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="school-info">
+                        <h3 className="section-subtitle">
+                            Информация о школе
+                        </h3>
+                        <div className="school-info__detail">
+                            <img
+                                className="school-info__logo"
+                                src="https://lookw.ru/8/896/1476182475-switzerland-houses-467737.jpg"
+                                alt=""
+                            />
+                            <div className="school-info__text-block">
+                                <h4 className="school-info__title">
+                                    ГКОУ КШИ № 1
+                                </h4>
+                                <p className="school-info__description">
+                                    Государственное казенное
+                                    общеобразовательное учреждение города
+                                    Москвы "Кадетская школа-интернат № 1
+                                    "Первый Московский кадетский корпус"
+                                </p>
+                                <p className="school-info__subtitle">
+                                    Крымский Владимир Яковлевич
+                                </p>
+                                <p className="school-info__description">
+                                    ФИО директора/руководителя
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </>
+    );
 }
 
 export default PublicTheatrePage;

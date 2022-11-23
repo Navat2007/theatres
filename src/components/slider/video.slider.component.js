@@ -20,7 +20,6 @@ const VideoSlider = ({items}) => {
     React.useEffect(() => {
 
         mainRef.current.sync( thumbsRef.current.splide );
-        console.log(videoRefs);
 
     }, []);
 
