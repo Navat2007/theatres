@@ -40,10 +40,6 @@ const TheatrePage = () => {
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
-
-                    console.log(theatre);
-                    console.log(schoolStore.school);
-                    console.log(teachersStore.teachers);
                 }
             }
         };
@@ -60,8 +56,15 @@ const TheatrePage = () => {
             </div>
         );
 
-    if (id && !theatre) {
-        return <p>Театр не найден</p>;
+    console.log(id);
+    console.log(theatre);
+
+    if (id && theatre === null) {
+        return (
+            <div className="content__section">
+                <p>Театр не найден</p>
+            </div>
+        );
     }
 
     return (
