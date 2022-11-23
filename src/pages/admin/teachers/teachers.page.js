@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -7,24 +7,19 @@ import Table from "../../../components/table/table.component";
 import Button from "../../../components/simple/button/button.component";
 
 const TeachersPage = () => {
-
     const navigate = useNavigate();
-    const {teachers, loadTeachers, loading} = useTeachersStore();
+    const { teachers, loadTeachers, loading } = useTeachersStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/teachers/${props}`);
     };
 
     const fetchData = async () => {
-
         await loadTeachers({});
-
-    }
+    };
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const itemConfig = [
@@ -38,7 +33,7 @@ const TeachersPage = () => {
         {
             header: "Фото",
             key: "photo",
-            type: "image"
+            type: "image",
         },
         {
             header: "Фамилия",
@@ -78,28 +73,25 @@ const TeachersPage = () => {
     ];
 
     return (
-        <div className='content__section'>
-            <Table
-                title={"Таблица педагогов"}
-                loading={loading}
-                items={teachers}
-                itemsConfig={itemConfig}
-                onItemClick={onItemClick}
-                withFilter={true}
-            >
-                <Button
-                    type='button'
-                    text="Создать"
-                    theme="primary"
-                    size="small"
-                    iconClass={'mdi mdi-plus'}
-                    aria-label="Добавить педагога"
-                    onClick={() => navigate("/admin/teachers/new")}
-                />
-            </Table>
-        </div>
+        <Table
+            title={"Таблица педагогов"}
+            loading={loading}
+            items={teachers}
+            itemsConfig={itemConfig}
+            onItemClick={onItemClick}
+            withFilter={true}
+        >
+            <Button
+                type="button"
+                text="Создать"
+                theme="primary"
+                size="small"
+                iconClass={"mdi mdi-plus"}
+                aria-label="Добавить педагога"
+                onClick={() => navigate("/admin/teachers/new")}
+            />
+        </Table>
     );
-
 };
 
 export default TeachersPage;

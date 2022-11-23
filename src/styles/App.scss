@@ -15,6 +15,12 @@
     --ff-firm: "Oswald", sans-serif;
     --ff-base: "Montserrat", sans-serif;
     --ff-public: "Open Sans", sans-serif;
+
+    --header-height: 4.125em;
+
+    @include media(sm) {
+        --menu-width: 15em;
+    }
 }
 
 html {
@@ -24,8 +30,6 @@ html {
 
 @import "blocks/form";
 @import "blocks/link";
-
-@import "blocks/content";
 
 @import "blocks/profile";
 @import "blocks/profile-card";

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useSchoolsStore from "../../../store/admin/schoolsStore";
@@ -7,25 +7,20 @@ import Button from "../../../components/simple/button/button.component";
 import Table from "../../../components/table/table.component";
 
 const SchoolsPage = () => {
-
     const navigate = useNavigate();
 
-    const {schools, loadSchools, loading} = useSchoolsStore();
+    const { schools, loadSchools, loading } = useSchoolsStore();
 
     const onItemClick = (props) => {
         navigate(`/admin/schools/${props}`);
     };
 
     const fetchData = async () => {
-
         await loadSchools();
-
     };
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const itemConfig = [
@@ -39,7 +34,7 @@ const SchoolsPage = () => {
         {
             header: "Лого",
             key: "photo",
-            type: "image"
+            type: "image",
         },
         {
             header: "Сокращенное название",
@@ -79,25 +74,23 @@ const SchoolsPage = () => {
     ];
 
     return (
-        <div className='content__section'>
-            <Table
-                title={"Таблица школ"}
-                loading={loading}
-                items={schools}
-                itemsConfig={itemConfig}
-                onItemClick={onItemClick}
-                withFilter={true}
-            >
-                <Button
-                    type='button'
-                    iconClass='mdi mdi-plus'
-                    text="Создать"
-                    size="small"
-                    aria-label="Добавить школу"
-                    onClick={() => navigate("/admin/schools/new")}
-                />
-            </Table>
-        </div>
+        <Table
+            title={"Таблица школ"}
+            loading={loading}
+            items={schools}
+            itemsConfig={itemConfig}
+            onItemClick={onItemClick}
+            withFilter={true}
+        >
+            <Button
+                type="button"
+                iconClass="mdi mdi-plus"
+                text="Создать"
+                size="small"
+                aria-label="Добавить школу"
+                onClick={() => navigate("/admin/schools/new")}
+            />
+        </Table>
     );
 };
 

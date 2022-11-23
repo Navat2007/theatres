@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Tabs from "../../../components/tabs/tabs.component";
@@ -9,10 +9,9 @@ import Button from "../../../components/simple/button/button.component";
 import useUsersStore from "../../../store/admin/usersStore";
 
 const UsersPage = () => {
-
     const navigate = useNavigate();
 
-    const {admins, users, loadAdmins, loadUsers, loading} = useUsersStore();
+    const { admins, users, loadAdmins, loadUsers, loading } = useUsersStore();
 
     const onAdminItemClick = (props) => {
         navigate(`/admin/users/admin/${props}`);
@@ -23,16 +22,12 @@ const UsersPage = () => {
     };
 
     const fetchData = async () => {
-
         await loadAdmins();
         await loadUsers();
-
     };
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const adminItemsConfig = [
@@ -71,7 +66,7 @@ const UsersPage = () => {
             filter: "select",
             sorting: true,
         },
-    ]
+    ];
     const userItemsConfig = [
         {
             header: "ID",
@@ -122,12 +117,15 @@ const UsersPage = () => {
             filter: "select",
             sorting: true,
         },
-    ]
+    ];
 
     return (
         <>
             <Tabs>
-                <Tab index={1} title={"Администраторы"}>
+                <Tab
+                    index={1}
+                    title={"Администраторы"}
+                >
                     <Table
                         title={"Таблица администраторов"}
                         loading={loading.admins}
@@ -138,7 +136,7 @@ const UsersPage = () => {
                     >
                         <Button
                             type="button"
-                            iconClass={'mdi mdi-plus'}
+                            iconClass={"mdi mdi-plus"}
                             text="Создать"
                             size="small"
                             aria-label="Создать администратора"
@@ -146,7 +144,10 @@ const UsersPage = () => {
                         />
                     </Table>
                 </Tab>
-                <Tab index={2} title={"Пользователи"}>
+                <Tab
+                    index={2}
+                    title={"Пользователи"}
+                >
                     <Table
                         title={"Таблица пользователей"}
                         loading={loading.users}
@@ -158,7 +159,7 @@ const UsersPage = () => {
                     >
                         <Button
                             type="button"
-                            iconClass={'mdi mdi-plus'}
+                            iconClass={"mdi mdi-plus"}
                             text="Создать"
                             size="small"
                             aria-label="Создать пользователя"
