@@ -1,23 +1,31 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import useTheatresStore from '../../../store/user/theatresStore';
-import useAuthStore from '../../../store/authStore';
-import useTeachersStore from '../../../store/admin/teachersStore';
+import useTheatresStore from "../../../store/user/theatresStore";
+import useAuthStore from "../../../store/authStore";
+import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/user/schoolStore";
 
-import Notif from '../../../components/notif/notif.component';
-import Button from '../../../components/simple/button/button.component';
-import TheatreRequest from '../../../components/page_components/theatre_request/theatre_request.component';
-
+import Notif from "../../../components/notif/notif.component";
+import Button from "../../../components/simple/button/button.component";
+import TheatreRequest from "../../../components/page_components/theatre_request/theatre_request.component";
+import commonStyles from "../../common.module.scss";
 
 const MyTheatrePage = () => {
-
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
 
-    const {user} = useAuthStore();
-    const {theatre, loadTheatre, addTheatre, editTheatre, loading, error, errorText, clearErrorText} = useTheatresStore();
+    const { user } = useAuthStore();
+    const {
+        theatre,
+        loadTheatre,
+        addTheatre,
+        editTheatre,
+        loading,
+        error,
+        errorText,
+        clearErrorText,
+    } = useTheatresStore();
     const teachersStore = useTeachersStore();
     const schoolStore = useSchoolStore();
 
@@ -25,15 +33,12 @@ const MyTheatrePage = () => {
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-
-        await loadTheatre({id});
-        await schoolStore.loadSchool({id: user.schoolID});
-        await teachersStore.loadTeachers({schoolID: user.schoolID});
-
+        await loadTheatre({ id });
+        await schoolStore.loadSchool({ id: user.schoolID });
+        await teachersStore.loadTeachers({ schoolID: user.schoolID });
     };
 
     React.useEffect(() => {
-
         if (error) {
             setPopup(
                 <Notif
@@ -47,17 +52,13 @@ const MyTheatrePage = () => {
                 />
             );
         }
-
     }, [error]);
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const onAddSubmit = async (params) => {
-
         params.theatreID = 0;
         params.schoolID = user.schoolID;
 
@@ -66,11 +67,9 @@ const MyTheatrePage = () => {
         if (!result.error) {
             navigate("/user/theatreRequests");
         }
-
     };
 
     const onEditSubmit = async (params) => {
-
         params.theatreID = id;
         params.schoolID = user.schoolID;
 
@@ -79,11 +78,9 @@ const MyTheatrePage = () => {
         if (!result.error) {
             navigate("/user/theatreRequests");
         }
-
     };
 
     const onRevokeSubmit = async () => {
-
         setPopup(
             <Notif
                 text={"Вы действительно хотите отозвать заявку?"}
@@ -91,79 +88,90 @@ const MyTheatrePage = () => {
                 onClose={() => {
                     setPopup(<></>);
                 }}
-                buttons={<>
-                    <Button
-                        type='button'
-                        text="Нет"
-                        size={'small'}
-                        theme="text"
-                        onClick={() => setPopup(<></>)}
-                    />
-                    <Button
-                        type='button'
-                        text="Да"
-                        theme='info'
-                        size={'small'}
-                        onClick={async () => {
-                            const result = await editTheatre({id, status: 5});
+                buttons={
+                    <>
+                        <Button
+                            type="button"
+                            text="Нет"
+                            size={"small"}
+                            theme="text"
+                            onClick={() => setPopup(<></>)}
+                        />
+                        <Button
+                            type="button"
+                            text="Да"
+                            theme="info"
+                            size={"small"}
+                            onClick={async () => {
+                                const result = await editTheatre({
+                                    id,
+                                    status: 5,
+                                });
 
-                            if (!result.error) {
-                                setPopup(<></>);
-
-                            }
-                        }}
-                    />
-                </>}
+                                if (!result.error) {
+                                    setPopup(<></>);
+                                }
+                            }}
+                        />
+                    </>
+                }
             />
         );
-
     };
 
-    if (loading || teachersStore.loading)
-        return <div className='content__section'><p>Загрузка...</p></div>;
+    if (loading || teachersStore.loading) return <p>Загрузка...</p>;
 
-    if (id && theatre === null)
-        return <div className='content__section'><p>Театр не найден</p></div>;
+    if (id && theatre === null) return <p>Театр не найден</p>;
 
-    return (<div className='content__section'>
-        {
-            (id && theatre)
-                ?
+    return (
+        <>
+            {id && theatre ? (
                 <>
-                    <div className="content__title-block">
+                    <div className={commonStyles.title_block}>
                         <Button
-                            type='button'
-                            theme='text'
-                            size='small'
-                            iconClass={'mdi mdi-arrow-left'}
-                            isIconBtn='true'
-                            aria-label='Назад'
+                            type="button"
+                            theme="text"
+                            size="small"
+                            iconClass={"mdi mdi-arrow-left"}
+                            isIconBtn="true"
+                            aria-label="Назад"
                             onClick={() => navigate("/user/theatres/" + id)}
                         />
-                        <h1 className='content__title --mb-small'>Редактирование театра ID: {id} </h1>
+                        <h1 className={commonStyles.title}>
+                            Редактирование театра ID: {id}{" "}
+                        </h1>
                     </div>
-                    <TheatreRequest request={theatre} onSubmitDone={onEditSubmit} onBack={() => navigate("/user/theatres/" + id)}/>
+                    <TheatreRequest
+                        request={theatre}
+                        onSubmitDone={onEditSubmit}
+                        onBack={() => navigate("/user/theatres/" + id)}
+                    />
                 </>
-                :
+            ) : (
                 <>
-                    <div className="content__title-block">
+                    <div className={commonStyles.title_block}>
                         <Button
-                            type='button'
-                            theme='text'
-                            size='small'
-                            iconClass={'mdi mdi-arrow-left'}
-                            isIconBtn='true'
-                            aria-label='Назад'
+                            type="button"
+                            theme="text"
+                            size="small"
+                            iconClass={"mdi mdi-arrow-left"}
+                            isIconBtn="true"
+                            aria-label="Назад"
                             onClick={() => navigate("/user/theatres")}
                         />
-                        <h1 className='content__title --mb-small'>Новая заявка на театр </h1>
+                        <h1 className={commonStyles.title}>
+                            Новая заявка на театр{" "}
+                        </h1>
                     </div>
-                    <TheatreRequest onSubmitDone={onAddSubmit} onBack={() => navigate("/user/theatres")}/>
+                    <TheatreRequest
+                        onSubmitDone={onAddSubmit}
+                        onBack={() => navigate("/user/theatres")}
+                    />
                 </>
-        }
-        {popup}
-    </div>);
-
+            )}
+            {popup}
+        </>
+    );
 };
 
 export default MyTheatrePage;

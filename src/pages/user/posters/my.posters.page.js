@@ -1,29 +1,24 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../../store/authStore";
 
-import Button from '../../../components/simple/button/button.component';
-import Table from '../../../components/table/table.component';
+import Button from "../../../components/simple/button/button.component";
+import Table from "../../../components/table/table.component";
 
 const MyPostersPage = () => {
-
     const navigate = useNavigate();
 
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
 
     const onItemClick = (props) => {
         navigate(`/user/teachers/${props}`);
     };
 
-    const fetchData = async () => {
-
-    };
+    const fetchData = async () => {};
 
     React.useEffect(() => {
-
         fetchData();
-
     }, []);
 
     const itemConfig = [
@@ -37,7 +32,7 @@ const MyPostersPage = () => {
         {
             header: "Фото",
             key: "photo",
-            type: "image"
+            type: "image",
         },
         {
             header: "Фамилия",
@@ -69,8 +64,9 @@ const MyPostersPage = () => {
         },
     ];
 
-    return (<>
-        <Table
+    return (
+        <>
+            <Table
                 title={"Таблица афиш"}
                 loading={false}
                 items={[]}
@@ -80,14 +76,15 @@ const MyPostersPage = () => {
             >
                 <Button
                     type="button"
-                    iconClass={'mdi mdi-plus'}
+                    iconClass={"mdi mdi-plus"}
                     text="Создать"
                     size="small"
                     aria-label="Добавить Афишу"
                     onClick={() => navigate("/user/posters/new")}
                 />
             </Table>
-    </>);
+        </>
+    );
 };
 
 export default MyPostersPage;
