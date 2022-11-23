@@ -56,6 +56,9 @@ if (mysqli_num_rows($result) > 0) {
             'form_activity' => getFormActivity($row->ID),
             'photo' => getPhoto($row->ID),
             'photoVisit' => getPhotoVisit($row->ID),
+            'video' => getVideo($row->ID),
+            'reviews' => getReviews($row->ID),
+            'reviewsVisit' => getReviewsVisit($row->ID),
             'last_user_changed' => (int)$row->last_user_changed,
             'school' => (object)[
 
@@ -282,6 +285,96 @@ function getPhotoVisit($ID)
                 'url' => $row->url,
                 'main' => (int)$row->main,
                 'order' => (int)$row->photo_order,
+
+            ];
+
+        }
+    }
+
+    return $data;
+}
+
+function getVideo($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            sl.url
+        FROM 
+            theatre_requests_video as sl 
+        WHERE 
+            sl.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = $row->url;
+        }
+    }
+
+    return $data;
+}
+
+function getReviews($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatre_requests_review as p 
+        WHERE 
+            p.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'title' => $row->title,
+                'text' => $row->text,
+
+            ];
+
+        }
+    }
+
+    return $data;
+}
+
+function getReviewsVisit($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatre_requests_review_visit as p 
+        WHERE 
+            p.requestID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'title' => $row->title,
+                'text' => $row->text,
 
             ];
 
