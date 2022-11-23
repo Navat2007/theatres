@@ -93,6 +93,7 @@ const UserUsersPage = () => {
                         theme="text"
                         iconClass={"mdi mdi-arrow-left"}
                         size="small"
+                        isIconBtn={true}
                         aria-label="Назад"
                         onClick={() => back()}
                     />
