@@ -50,6 +50,9 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
                 return {id: window.global.makeid(12), url: link, img: window.global.getSocialIcon(link)};
             });
 
+            setPhoto(request.photo);
+            setPhotoVisit(request.photoVisit);
+
             setSocialLinks(socialLinksArray);
 
         }

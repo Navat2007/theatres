@@ -220,10 +220,10 @@ function getPhoto($ID)
 
             $data[] = (object)[
 
-                'ID' => $row->ID,
+                'ID' => (int)$row->ID,
                 'url' => $row->url,
-                'main' => $row->main,
-                'photo_order' => $row->photo_order,
+                'main' => (int)$row->main,
+                'order' => (int)$row->photo_order,
             ];
 
         }
@@ -253,10 +253,10 @@ function getPhotoVisit($ID)
 
             $data[] = (object)[
 
-                'ID' => $row->ID,
+                'ID' => (int)$row->ID,
                 'url' => $row->url,
-                'main' => $row->main,
-                'photo_order' => $row->photo_order,
+                'main' => (int)$row->main,
+                'order' => (int)$row->photo_order,
 
             ];
 
