@@ -1,6 +1,8 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {YMaps, Map, Placemark} from "react-yandex-maps";
+import moment from "moment";
+import createDOMPurify from "dompurify";
 
 import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
@@ -11,9 +13,13 @@ import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 import ShowMore from "../../../components/simple/show_more/show.more.component";
 import BannerSlider from "../../../components/slider/banner.slider.component";
+import no_photo_man from "../../../images/no_photo_man.png";
+
 
 function PublicTheatrePage() {
+
     let {id} = useParams();
+    const DOMPurify = createDOMPurify(window);
 
     const schoolStore = useSchoolStore();
     const {
@@ -26,8 +32,6 @@ function PublicTheatrePage() {
         clearErrorText,
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
-
-    const [showDescription, setShowDescription] = React.useState(false);
 
     const photo = [
         {
@@ -78,6 +82,7 @@ function PublicTheatrePage() {
     ];
 
     React.useEffect(() => {
+
         const fetchData = async () => {
             if (id) {
                 let tempTheatre = await loadTheatre({id});
@@ -92,6 +97,7 @@ function PublicTheatrePage() {
         };
 
         fetchData();
+
     }, [id]);
 
     if (loading || schoolStore.loading || teachersStore.loading) {
@@ -429,28 +435,29 @@ function PublicTheatrePage() {
         <>
             <section className="public-content__section">
                 <article className="public-content__wrap about">
-                    <h1 className="section-title">Театр Чайковского</h1>
-                    <div className="about__level-item">
-                        Дебютант
-                        {MedalIcons.debutant}
-                    </div>
+                    <h1 className="section-title">{theatre.title}</h1>
+                    {/*<div className="about__level-item">*/}
+                    {/*    Дебютант*/}
+                    {/*    {MedalIcons.debutant}*/}
+                    {/*</div>*/}
                     <div className="about__main-text">
                         <ul className="about__list">
                             <li>
                                 <p className="about__text">
                                     Год основания:{" "}
                                     <span className="about__span-accent">
-                                            2020г.
-                                        </span>
+                                        {moment(theatre.foundation_date).format('YYYY')} г.
+                                    </span>
                                 </p>
                             </li>
                             <li>
                                 <p className="about__text">
                                     Форма осуществления деятельности:{" "}
                                     <span className="about__span-accent">
-                                            Объединение дополнительного
-                                            образования
-                                        </span>
+                                        {
+                                            theatre.form_activity.map(item => item.activity).join(", ")
+                                        }
+                                    </span>
                                 </p>
                             </li>
                             <li>
@@ -458,150 +465,140 @@ function PublicTheatrePage() {
                                     Возрастной состав участников школьного
                                     театра:{" "}
                                     <span className="about__span-accent">
-                                            1-4 класс
-                                        </span>
+                                        {
+                                            theatre.age_members.map(item => item.age).join(", ")
+                                        }
+                                    </span>
                                 </p>
                             </li>
                         </ul>
                         <div className="about__description-block">
-                            <ShowMore>
-                                <p>
-                                    Теа́тр (греч. θέατρον — основное значение
-                                    — место для зрелищ, затем — зрелище, от
-                                    θεάομαι — смотреть, видеть) — зрелищный
-                                    вид искусства, представляющий собой
-                                    синтез различных искусств: литературы,
-                                    музыки, хореографии, вокала,
-                                    изобразительного искусства и обладающий
-                                    собственной спецификой: отражение
-                                    действительности, конфликтов,
-                                    характеров, а также их трактовка и
-                                    оценка, утверждение тех или иных идей
-                                    здесь происходит посредством
-                                    драматического действия, главным
-                                    носителем которого является актёр
-                                </p>
-                                <p>
-                                    Родовое понятие «театр» включает в себя
-                                    различные его виды и формы:
-                                    драматический театр, оперный, балетный,
-                                    кукольный, театр пантомимы и др.
-                                </p>
-                                <p>
-                                    На прошлой неделе в школе прошел
-                                    школьный конкурс «Театральные
-                                    подмостки». В нем приняли участие все
-                                    классы. Было представлено 6 постановок.
-                                    Жюри под председательством директора
-                                    школы Суханкиной О.А., проанализировав
-                                </p>
-                                <h3>Обращение режиссера:</h3>
-                                <p>
-                                    Уважаемые зрители! Убедительная просьба
-                                    соблюдать меры безопасности, оставаться
-                                    в масках и сохранять социальную
-                                    дистанцию во время спектакля, а также
-                                    всего времени пребывания в театре. После
-                                    третьего звонка любые перемещения по
-                                    залу категорически запрещены. Своими
-                                    действиями Вы мешаете артистам, а также
-                                    другим зрителям. В случае нарушений мы
-                                    будем вынуждены остановить спектакль.
-                                    Дорогие зрители! Надеемся на ваше
-                                    понимание и самодисциплину. Берегите
-                                    себя и своих близких.
-                                </p>
-                            </ShowMore>
+                            {
+                                (theatre.short_description || theatre.director_message)
+                                &&
+                                <ShowMore>
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(
+                                                theatre.short_description
+                                            ),
+                                        }}
+                                    />
+                                    {
+                                        theatre.director_message
+                                        &&
+                                        <>
+                                            <h4>Обращение режиссера</h4>
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html: DOMPurify.sanitize(
+                                                        theatre.director_message
+                                                    ),
+                                                }}
+                                            />
+                                        </>
+                                    }
+                                </ShowMore>
+                            }
                         </div>
                     </div>
                 </article>
             </section>
-            <section className="public-content__section public-content__section_bg_light-grey">
-                <article className="public-content__wrap teachers">
-                    <h2 className="section-title">Педагоги</h2>
-                    <ul className="teachers__card-deck">
-                        <li className="teachers__card">
-                            <img
-                                className="teachers__img"
-                                src="https://i.pinimg.com/originals/4a/79/19/4a791974c79323c38c7db00bdd985df5.jpg"
-                                alt="Иванова Любовь Валерьевна"
-                            />
-                            <h3 className="teachers__title">
-                                    <span className="teachers__span-accent">
-                                        Иванова
-                                    </span>
-                                Любовь Валерьевна
-                            </h3>
-                        </li>
-                        <li className="teachers__card">
-                            <img
-                                className="teachers__img"
-                                src="https://coolsen.ru/wp-content/uploads/2022/02/63-20220220_141754.jpg"
-                                alt="Иванова Любовь Валерьевна"
-                            />
-                            <h3 className="teachers__title">
-                                    <span className="teachers__span-accent">
-                                        Загогулькина
-                                    </span>
-                                Анастасия Дрыздовна
-                            </h3>
-                        </li>
-                        <li className="teachers__card">
-                            <img
-                                className="teachers__img"
-                                src="https://img.alicdn.com/imgextra/i4/1968041872/O1CN01ylonbB1PhPuW19t7S_!!0-item_pic.jpg"
-                                alt="Иванова Любовь Валерьевна"
-                            />
-                            <h3 className="teachers__title">
-                                    <span className="teachers__span-accent">
-                                        Крюк
-                                    </span>
-                                Кутиля Бутковна
-                            </h3>
-                        </li>
-                        <li className="teachers__card">
-                            <img
-                                className="teachers__img"
-                                src="https://gas-kvas.com/uploads/posts/2022-09/1663342133_2-gas-kvas-com-p-kunitsa-ptitsa-foto-2.jpg"
-                                alt="Иванова Любовь Валерьевна"
-                            />
-                            <h3 className="teachers__title">
-                                    <span className="teachers__span-accent">
-                                        Куница
-                                    </span>
-                                Хвостатая Валерьевна
-                            </h3>
-                        </li>
-                    </ul>
-                </article>
-            </section>
-            <section className="public-content__section">
-                <ImageGallery
-                    title="Фото театра"
-                    items={photo}
-                />
-            </section>
-            <section className="public-content__section">
-                <ImageGallery
-                    title="Фото посещения театра"
-                    items={photoVisit}
-                />
-            </section>
-            <section className="public-content__section">
-                <article className="public-content__wrap video">
-                    <h2 className="section-title">Видео</h2>
-                    <VideoSlider
-                        items={[
+            {
+                theatre.teachers && theatre.teachers.length > 0
+                &&
+                <section className="public-content__section public-content__section_bg_light-grey">
+                    <article className="public-content__wrap teachers">
+                        <h2 className="section-title">Педагоги</h2>
+                        <ul className="teachers__card-deck">
                             {
-                                url: "https://www.youtube.com/watch?v=FihWD9OKn-g",
-                            },
-                            {
-                                url: "https://www.youtube.com/watch?v=CMfF_2LkvI0&list=PLgFdtTm2TM3OsAJ2FdE_B87-y-G6tYoQP",
-                            },
-                        ]}
+                                theatre.teachers.map(item => {
+
+                                    let teacher =
+                                        teachersStore.teachers.find(
+                                            (teacherInStore) =>
+                                                item.ID ===
+                                                teacherInStore.ID
+                                        );
+
+                                    return (
+                                        <li
+                                            key={item.fio}
+                                            className="teachers__card"
+                                        >
+                                            <img
+                                                className="teachers__img"
+                                                src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
+                                                alt={item.fio}
+                                            />
+                                            <h3 className="teachers__title">
+                                                <span className="teachers__span-accent">
+                                                    {teacher?.f}
+                                                </span>
+                                                {teacher?.i}{" "}
+                                                {teacher?.o}
+                                            </h3>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </article>
+                </section>
+            }
+            {
+                theatre.photo && theatre.photo.length > 0
+                &&
+                <section className="public-content__section">
+                    <ImageGallery
+                        title="Фото театра"
+                        items={theatre.photo}
                     />
-                </article>
-            </section>
+                </section>
+            }
+            {
+                theatre.photoVisit && theatre.photoVisit.length > 0
+                &&
+                <section className="public-content__section">
+                    <ImageGallery
+                        title="Фото посещения театра"
+                        items={theatre.photoVisit}
+                    />
+                </section>
+            }
+            {
+                theatre.video_business_card && theatre.video_business_card !== ""
+                &&
+                <section className="public-content__section">
+                    <article className="public-content__wrap video">
+                        <h2 className="section-title">ВИДЕО ВИЗИТКА</h2>
+                        <VideoSlider
+                            items={[
+                                {
+                                    url: theatre.video_business_card,
+                                },
+                            ]}
+                        />
+                    </article>
+                </section>
+            }
+            {
+                theatre.video && theatre.video.length > 0
+                &&
+                <section className="public-content__section">
+                    <article className="public-content__wrap video">
+                        <h2 className="section-title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
+                        <VideoSlider
+                            thumbs={true}
+                            items={[
+                                {
+                                    url: theatre.video_business_card,
+                                },
+                            ]}
+                        />
+                    </article>
+                </section>
+            }
             <section className="public-content__section public-content__section_bg_light-grey contact">
                 <article className="public-content__wrap contact">
                     <h2 className="section-title">Контакты</h2>

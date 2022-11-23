@@ -162,6 +162,8 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
 
     });
 
+    console.log(performData());
+
     return (
         <>
             <form onSubmit={onSubmit} className='form'>

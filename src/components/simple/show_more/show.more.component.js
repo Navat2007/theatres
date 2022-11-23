@@ -2,8 +2,11 @@ import React from 'react';
 import Button from "../button/button.component";
 import {AnimatePresence, motion} from "framer-motion";
 import {isArray} from "lodash";
+import createDOMPurify from "dompurify";
 
 const ShowMore = ({children}) => {
+
+    const DOMPurify = createDOMPurify(window);
 
     const [showMore, setShowMore] = React.useState(false);
 
@@ -96,6 +99,7 @@ const ShowMore = ({children}) => {
             </>
         );
     }
+
     return (
         <div>
             <motion.div
@@ -105,7 +109,18 @@ const ShowMore = ({children}) => {
                     isArray(children)
                         ?
                         <>
-                            {children[0].props.children} ...
+                            {children[0].props.children
+                                ?
+                                <>{children[0].props.children} ...</>
+                                :
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: DOMPurify.sanitize(
+                                            children[0].props.dangerouslySetInnerHTML.__html
+                                        ),
+                                    }}
+                                />
+                            }
                         </>
                         : children
                 }

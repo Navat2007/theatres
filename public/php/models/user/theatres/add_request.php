@@ -20,6 +20,9 @@ $formActivity = $_POST["formActivity"];
 $ageMembers = $_POST["ageMembers"];
 $photo = $_POST["photo"];
 $photoVisit = $_POST["photoVisit"];
+$video = $_POST["video"];
+$reviews = $_POST["reviews"];
+$reviewsVisit = $_POST["reviewsVisit"];
 $editorShortDescription = htmlspecialchars($_POST["editorShortDescription"]);
 $editorDirectorMessage = htmlspecialchars($_POST["editorDirectorMessage"]);
 
@@ -146,6 +149,50 @@ if ($error === 0) {
 
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
+    }
+
+    foreach ($video as $v) {
+
+        $sql = "
+            INSERT INTO theatre_requests_video (requestID, url) 
+            VALUES ('$lastID', '$v')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+    }
+
+    foreach ($reviews as $r) {
+
+        $title = $r['title'];
+        $text = $r['text'];
+
+        $sql = "
+            INSERT INTO theatre_requests_review (requestID, title, text) 
+            VALUES ('$lastID', '$title', '$text')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        unset($title);
+        unset($text);
+
+    }
+
+    foreach ($reviewsVisit as $rv) {
+
+        $title = $rv['title'];
+        $text = $rv['text'];
+
+        $sql = "
+            INSERT INTO theatre_requests_review_visit (requestID, title, text) 
+            VALUES ('$lastID', '$title', '$text')";
+
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        unset($title);
+        unset($text);
+
     }
 
     if (!$result) {

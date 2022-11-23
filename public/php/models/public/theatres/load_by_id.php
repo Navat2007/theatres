@@ -42,6 +42,11 @@ if (mysqli_num_rows($result) > 0) {
             'teachers' => getTeachers($row->ID),
             'age_members' => getAgeMembers($row->ID),
             'form_activity' => getFormActivity($row->ID),
+            'photo' => getPhoto($row->ID),
+            'photoVisit' => getPhotoVisit($row->ID),
+            'video' => getVideo($row->ID),
+            'reviews' => getReviews($row->ID),
+            'reviewsVisit' => getReviewsVisit($row->ID),
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'last_user_changed' => (int)$row->last_user_changed,
 
@@ -171,6 +176,163 @@ function getSocialLinks($ID)
         while ($row = mysqli_fetch_object($result)) {
 
             $data[] = $row->url;
+        }
+    }
+
+    return $data;
+}
+
+function getPhoto($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatres_photo as p 
+        WHERE 
+            p.theatreID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'ID' => (int)$row->ID,
+                'url' => $row->url,
+                'main' => (int)$row->main,
+                'order' => (int)$row->photo_order,
+
+            ];
+        }
+    }
+
+    return $data;
+}
+
+function getPhotoVisit($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatres_visit_photo as p 
+        WHERE 
+            p.theatreID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'ID' => (int)$row->ID,
+                'url' => $row->url,
+                'main' => (int)$row->main,
+                'order' => (int)$row->photo_order,
+
+            ];
+
+        }
+    }
+
+    return $data;
+}
+
+function getVideo($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            sl.url
+        FROM 
+            theatres_video as sl 
+        WHERE 
+            sl.theatreID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = $row->url;
+        }
+    }
+
+    return $data;
+}
+
+function getReviews($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatres_review as p 
+        WHERE 
+            p.theatreID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'title' => $row->title,
+                'text' => $row->text,
+
+            ];
+
+        }
+    }
+
+    return $data;
+}
+
+function getReviewsVisit($ID)
+{
+    global $conn;
+
+    $data = array();
+
+    $sql = "SELECT 
+            *
+        FROM 
+            theatres_review_visit as p 
+        WHERE 
+            p.theatreID = '$ID'";
+
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_object($result)) {
+
+            $data[] = (object)[
+
+                'title' => $row->title,
+                'text' => $row->text,
+
+            ];
+
         }
     }
 
