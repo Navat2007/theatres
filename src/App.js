@@ -15,6 +15,7 @@ const App = () => {
     const {setUser, logout} = useAuthStore();
 
     const [timer, setTimer] = React.useState(1500);
+    const [app, setApp] = React.useState(<></>);
 
     React.useEffect(() => {
 
@@ -40,24 +41,23 @@ const App = () => {
             return Promise.reject(error.message);
         });
 
-        if(user){
+        if (user) {
             let expireDate = moment(JSON.parse(user).tokenDate, 'DD.MM.YYYY').add(1, 'months');
 
-            if(expireDate.isAfter(moment())) {
+            if (expireDate.isAfter(moment())) {
                 setUser(JSON.parse(user));
                 axios.defaults.headers.post['Authorization'] = `${JSON.parse(user).token}&${JSON.parse(user).ID}`;
-            }
-            else
+            } else
                 logout();
         }
+
+        setApp(<HashRouter hashType="noslash"><RoutesList/></HashRouter>);
 
     }, []);
 
     return (
         <Preloader loading={timer > 0}>
-            <HashRouter hashType="noslash">
-                <RoutesList />
-            </HashRouter>
+            {app}
         </Preloader>
     )
 }
