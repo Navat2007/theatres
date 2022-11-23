@@ -88,11 +88,8 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         if (data.editorDirectorMessage)
             sendObject['editorDirectorMessage'] = data.editorDirectorMessage;
 
-        if (photo.length > 0)
-            sendObject['photo'] = photo;
-
-        if (photoVisit.length > 0)
-            sendObject['photoVisit'] = photoVisit;
+        sendObject['photo'] = photo;
+        sendObject['photoVisit'] = photoVisit;
 
         console.log("Подготовленные данные: ", sendObject);
 

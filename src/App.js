@@ -53,13 +53,12 @@ const App = () => {
 
     }, []);
 
-    if(timer > 0)
-        return <Preloader />;
-
     return (
-        <HashRouter hashType="noslash">
-            <RoutesList />
-        </HashRouter>
+        <Preloader loading={timer > 0}>
+            <HashRouter hashType="noslash">
+                <RoutesList />
+            </HashRouter>
+        </Preloader>
     )
 }
 
