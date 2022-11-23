@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import createDOMPurify from "dompurify";
 import moment from "moment";
 import ReactPlayer from "react-player";
@@ -16,7 +16,7 @@ import no_photo_man from "../../../images/no_photo_man.png";
 import commonStyles from "../../common.module.scss";
 
 const TheatrePage = () => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
 
@@ -35,10 +35,10 @@ const TheatrePage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({ id });
+                let tempTheatre = await loadTheatre({id});
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
+                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -92,7 +92,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </NavLink>
                                         </p>
                                     </li>
@@ -117,7 +117,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 {theatre.coordinates}{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </a>
                                         </p>
                                     </li>
@@ -188,7 +188,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new" />
+                                                <span className="mdi mdi-open-in-new"/>
                                             </a>
                                         </p>
                                     </li>
@@ -217,8 +217,8 @@ const TheatrePage = () => {
                                                         src={
                                                             teacher?.photo
                                                                 ? window.global
-                                                                      .baseUrl +
-                                                                  teacher.photo
+                                                                    .baseUrl +
+                                                                teacher.photo
                                                                 : no_photo_man
                                                         }
                                                         alt=""
@@ -264,35 +264,36 @@ const TheatrePage = () => {
                         <Tab title={"Фотографии"}>
                             <h2 className="info__title">Фото театра</h2>
                             {
-                                theatre.photo &&  theatre.photo.length > 0
-                                ?
+                                theatre.photo && theatre.photo.length > 0
+                                    ?
                                     <>
                                         <ul className="gallery-form">
-                                        {
-                                            theatre.photo.map(item => (
-                                                item.order === 1
-                                                    ?
-                                                    <li className="gallery-form__item">
-                                                        <img
-                                                            className="gallery-form__img"
-                                                            src={item.url}
-                                                            alt="Изображение "
-                                                        />
-                                                        <div className="gallery-form__title">
-                                                            1. Главная
-                                                        </div>
-                                                    </li>
-                                                    :
-                                                    <li className="gallery-form__item">
-                                                        <img
-                                                            className="gallery-form__img"
-                                                            src={item.url}
-                                                            alt="Изображение "
-                                                        />
-                                                        <span className="gallery-form__current-position">{item.order}</span>
-                                                    </li>
-                                            ))
-                                        }
+                                            {
+                                                theatre.photo.map(item => (
+                                                    item.order === 1
+                                                        ?
+                                                        <li className="gallery-form__item">
+                                                            <img
+                                                                className="gallery-form__img"
+                                                                src={item.url}
+                                                                alt="Изображение "
+                                                            />
+                                                            <div className="gallery-form__title">
+                                                                1. Главная
+                                                            </div>
+                                                        </li>
+                                                        :
+                                                        <li className="gallery-form__item">
+                                                            <img
+                                                                className="gallery-form__img"
+                                                                src={item.url}
+                                                                alt="Изображение "
+                                                            />
+                                                            <span
+                                                                className="gallery-form__current-position">{item.order}</span>
+                                                        </li>
+                                                ))
+                                            }
                                         </ul>
                                     </>
                                     :
@@ -302,7 +303,7 @@ const TheatrePage = () => {
                             }
                             <h2 className="info__title">Фото посещения театра</h2>
                             {
-                                theatre.photoVisit &&  theatre.photoVisit.length > 0
+                                theatre.photoVisit && theatre.photoVisit.length > 0
                                     ?
                                     <>
                                         <ul className="gallery-form">
@@ -327,7 +328,8 @@ const TheatrePage = () => {
                                                                 src={item.url}
                                                                 alt="Изображение "
                                                             />
-                                                            <span className="gallery-form__current-position">{item.order}</span>
+                                                            <span
+                                                                className="gallery-form__current-position">{item.order}</span>
                                                         </li>
                                                 ))
                                             }
@@ -341,17 +343,26 @@ const TheatrePage = () => {
                         </Tab>
                         <Tab title={"Видео"}>
                             <h2 className="info__title">ВИДЕО ВИЗИТКА ШКОЛЬНОГО ТЕАТРА</h2>
-                            <ReactPlayer
-                                width="100%"
-                                height={"auto"}
-                                className="video__react-player"
-                                url={theatre.video_business_card}
-                                playing={false}
-                                controls={true}
-                            />
+                            {
+                                theatre.video_business_card
+                                    ?
+                                    <ReactPlayer
+                                        width="100%"
+                                        height={"auto"}
+                                        className="video__react-player"
+                                        url={theatre.video_business_card}
+                                        playing={false}
+                                        controls={true}
+                                    />
+                                    :
+                                    <>
+                                        <p>Нет видео</p>
+                                    </>
+                            }
+
                             <h2 className="info__title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
                             {
-                                theatre.video &&  theatre.video.length > 0
+                                theatre.video && theatre.video.length > 0
                                     ?
                                     <>
                                         <ul className="gallery-form">
@@ -380,8 +391,60 @@ const TheatrePage = () => {
                         <Tab title={"Описания (рецензии)"}>
                             <div className="info">
                                 <h2 className="info__title">РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ</h2>
-                                <div>Описание из редактора</div>
-                                <h2 className="info__title">РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ ТЕАТРОВ</h2>
+                                {
+                                    theatre.reviews && theatre.reviews.length > 0
+                                        ?
+                                        <>
+                                            <ul className="gallery-form">
+                                                {
+                                                    theatre.reviews.map(item => (
+                                                        <>
+                                                            <h4>{item.title}</h4>
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: DOMPurify.sanitize(
+                                                                        item.text
+                                                                    ),
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </>
+                                        :
+                                        <>
+                                            <p>Нет рассказов</p>
+                                        </>
+                                }
+                                <h2 className="info__title">РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ
+                                    ТЕАТРОВ</h2>
+                                {
+                                    theatre.reviewsVisit && theatre.reviewsVisit.length > 0
+                                        ?
+                                        <>
+                                            <ul className="gallery-form">
+                                                {
+                                                    theatre.reviewsVisit.map(item => (
+                                                        <>
+                                                            <h4>{item.title}</h4>
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: DOMPurify.sanitize(
+                                                                        item.text
+                                                                    ),
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </>
+                                        :
+                                        <>
+                                            <p>Нет рассказов</p>
+                                        </>
+                                }
                             </div>
                         </Tab>
                     </Tabs>
