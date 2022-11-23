@@ -19,7 +19,7 @@ const VideoSlider = ({items = [], thumbs}) => {
 
     React.useEffect(() => {
 
-        if(thumbs)
+        if(thumbs && items.length > 1)
             mainRef.current.sync( thumbsRef.current.splide );
 
     }, []);

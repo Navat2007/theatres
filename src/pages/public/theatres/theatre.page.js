@@ -8,13 +8,13 @@ import useTheatresStore from "../../../store/public/theatresStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/admin/schoolsStore";
 
-import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
 import ShowMore from "../../../components/simple/show_more/show.more.component";
 import BannerSlider from "../../../components/slider/banner.slider.component";
-import no_photo_man from "../../../images/no_photo_man.png";
 
+import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
+import no_photo_man from "../../../images/no_photo_man.png";
 
 function PublicTheatrePage() {
 
@@ -430,6 +430,7 @@ function PublicTheatrePage() {
     }
 
     console.log(theatre);
+    console.log(schoolStore.school);
 
     return (
         <>
@@ -488,7 +489,7 @@ function PublicTheatrePage() {
                                         theatre.director_message
                                         &&
                                         <>
-                                            <h4>Обращение режиссера</h4>
+                                            <h4>Обращение режиссера:</h4>
                                             <div
                                                 dangerouslySetInnerHTML={{
                                                     __html: DOMPurify.sanitize(
@@ -590,11 +591,7 @@ function PublicTheatrePage() {
                         <h2 className="section-title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
                         <VideoSlider
                             thumbs={true}
-                            items={[
-                                {
-                                    url: theatre.video_business_card,
-                                },
-                            ]}
+                            items={theatre.video.map(item => { return {url: item} })}
                         />
                     </article>
                 </section>
@@ -606,16 +603,16 @@ function PublicTheatrePage() {
                         <YMaps>
                             <Map
                                 state={{
-                                    center: [55.760178, 37.618574],
+                                    center: [theatre.coordinates.split(',')[0].trim(), theatre.coordinates.split(',')[1].trim()],
                                     zoom: 14,
                                 }}
                                 width="100%"
                                 height="100%"
                             >
                                 <Placemark
-                                    geometry={[55.760178, 37.618574]}
+                                    geometry={[theatre.coordinates.split(',')[0].trim(), theatre.coordinates.split(',')[1].trim()]}
                                     properties={{
-                                        iconCaption: "Название театра",
+                                        iconCaption: theatre.title,
                                     }}
                                     options={{
                                         preset: "islands#redDotIconWithCaption",
@@ -627,44 +624,42 @@ function PublicTheatrePage() {
                     <div className="contact__columns">
                         <div className="contact__column">
                             <h3 className="section-subtitle contact__title">
-                                КЛВ “Современник”
+                                {theatre.title}
                             </h3>
                             <address className="contact__address">
-                                Москва г., пр-кт Современника, д.3А.
+                                {theatre.address}
                             </address>
                             <a
                                 className="contact__link"
-                                href="tel:84956926572"
+                                href={"tel:" + schoolStore.school.dir_phone}
                                 rel="noopener nofollow noreferer"
                             >
-                                +7 (495) 692-65-72
+                                {schoolStore.school.dir_phone}
                             </a>
                         </div>
-                        <div className="social">
-                            <p className="social__label">Наши соцсети:</p>
-                            <ul className="social__list">
-                                <li>
-                                    <a
-                                        className="social__link"
-                                        href="https://t.me/bolshoi_theatre"
-                                        target={"_blank"}
-                                        rel="noopener nofollow noreferer"
-                                    >
-                                        {SocialIcons.t}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="social__link"
-                                        href="https://vk.com/bolshoitheatre"
-                                        target={"_blank"}
-                                        rel="noopener nofollow noreferer"
-                                    >
-                                        {SocialIcons.vk}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        {
+                            theatre.social_links && theatre.social_links.length > 0
+                            &&
+                            <div className="social">
+                                <p className="social__label">Наши соцсети:</p>
+                                <ul className="social__list">
+                                    {
+                                        theatre.social_links.map(item => (
+                                            <li>
+                                                <a
+                                                    className="social__link"
+                                                    href={item}
+                                                    target={"_blank"}
+                                                    rel="noopener nofollow noreferer"
+                                                >
+                                                    {window.global.getSocialIcon(item)}
+                                                </a>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        }
                     </div>
                     <div className="school-info">
                         <h3 className="section-subtitle">
@@ -678,16 +673,13 @@ function PublicTheatrePage() {
                             />
                             <div className="school-info__text-block">
                                 <h4 className="school-info__title">
-                                    ГКОУ КШИ № 1
+                                    {schoolStore.school.org_short_name}
                                 </h4>
                                 <p className="school-info__description">
-                                    Государственное казенное
-                                    общеобразовательное учреждение города
-                                    Москвы "Кадетская школа-интернат № 1
-                                    "Первый Московский кадетский корпус"
+                                    {schoolStore.school.org_short}
                                 </p>
                                 <p className="school-info__subtitle">
-                                    Крымский Владимир Яковлевич
+                                    {schoolStore.school.dir_fio}
                                 </p>
                                 <p className="school-info__description">
                                     ФИО директора/руководителя
