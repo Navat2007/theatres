@@ -1,6 +1,5 @@
 import React from "react";
 
-import ProfileHeader from "./profile.header.component";
 import Button from "../simple/button/button.component";
 import logo from "../../images/logo.png";
 import styles from "./header.module.scss";

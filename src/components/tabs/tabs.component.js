@@ -1,15 +1,11 @@
-import React from 'react';
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import styles from './tabs.module.scss';
+import styles from "./tabs.module.scss";
 
-const Tabs = ({
-    extraClass,
-    children
-}) => {
-
+const Tabs = ({ extraClass, children }) => {
     const [activeTab, setActiveTab] = React.useState(0);
 
-    if(!children.length)
+    if (!children.length)
         return (
             <section
                 key={children.props.title}
@@ -22,17 +18,20 @@ const Tabs = ({
     return (
         <div className={styles.tabs}>
             <ul className={styles.list}>
-                {
-                    children.map((child, index) => (
-                        <li
-                            key={child.props.title}
-                            onClick={() => setActiveTab(index)}
-                            className={styles.item + (index === activeTab ? ` ` + styles.item_actived : "")}
-                        >
-                            {child.props.title}
-                        </li>
-                    ))
-                }
+                {children.map((child, index) => (
+                    <li
+                        key={child.props.title}
+                        onClick={() => setActiveTab(index)}
+                        className={
+                            styles.item +
+                            (index === activeTab
+                                ? ` ` + styles.item_actived
+                                : "")
+                        }
+                    >
+                        {child.props.title}
+                    </li>
+                ))}
             </ul>
             <AnimatePresence exitBeforeEnter>
                 <motion.div
@@ -42,20 +41,19 @@ const Tabs = ({
                     exit={{ y: 10, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                 >
-                    {
-                        children.filter((child, index) => activeTab === index).map(child => (
+                    {children
+                        .filter((child, index) => activeTab === index)
+                        .map((child) => (
                             <section
                                 key={child.props.title}
                                 className={child.props.extraClass}
                             >
                                 {child.props.children}
                             </section>
-                        ))
-                    }
+                        ))}
                 </motion.div>
             </AnimatePresence>
         </div>
-
     );
 };
 

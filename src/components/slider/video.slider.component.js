@@ -1,41 +1,38 @@
-import React from 'react';
+import React from "react";
 import ReactPlayer from "react-player";
-import {Splide, SplideSlide} from "@splidejs/react-splide";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
-const VideoSlider = ({items = [], thumbs}) => {
-
+const VideoSlider = ({ items = [], thumbs }) => {
     const mainRef = React.createRef();
     const thumbsRef = React.createRef();
     const videoRefs = React.useRef([]);
 
     function youtube_parser(url) {
-        let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        let regExp =
+            /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         let match = url.match(regExp);
-        return (match && match[7].length == 11) ? match[7] : false;
+        return match && match[7].length == 11 ? match[7] : false;
     }
 
     const getVideoThumb = (videoId) =>
         `https://img.youtube.com/vi/${videoId}/default.jpg`;
 
     React.useEffect(() => {
-
-        if(thumbs && items.length > 1)
-            mainRef.current.sync( thumbsRef.current.splide );
-
+        if (thumbs && items.length > 1)
+            mainRef.current.sync(thumbsRef.current.splide);
     }, []);
 
-    if(items.length === 0)
-        return null;
+    if (items.length === 0) return null;
 
     return (
         <>
             <Splide
                 options={{
-                    type: 'loop',
+                    type: "loop",
                     arrows: true,
                     perPage: 1,
                     perMove: 1,
-                    gap: '1rem',
+                    gap: "1rem",
                     pagination: false,
                 }}
                 ref={mainRef}
@@ -43,7 +40,7 @@ const VideoSlider = ({items = [], thumbs}) => {
                 {items.map((item, index) => (
                     <SplideSlide key={index}>
                         <ReactPlayer
-                            ref={el => videoRefs.current[index] = el}
+                            ref={(el) => (videoRefs.current[index] = el)}
                             width="100%"
                             height={"auto"}
                             className="video__react-player"
@@ -54,23 +51,19 @@ const VideoSlider = ({items = [], thumbs}) => {
                     </SplideSlide>
                 ))}
             </Splide>
-            {
-                thumbs
-                &&
-                items.length > 1
-                &&
+            {thumbs && items.length > 1 && (
                 <>
-                    <br/>
+                    <br />
                     <Splide
                         options={{
-                            type: 'slide',
+                            type: "slide",
                             rewind: true,
-                            gap: '1rem',
+                            gap: "1rem",
                             pagination: false,
                             fixedWidth: 110,
                             fixedHeight: 70,
                             cover: true,
-                            focus: 'center',
+                            focus: "center",
                             isNavigation: true,
                             arrows: false,
                         }}
@@ -79,12 +72,17 @@ const VideoSlider = ({items = [], thumbs}) => {
                     >
                         {items.map((item, index) => (
                             <SplideSlide key={index}>
-                                <img src={getVideoThumb(youtube_parser(item.url))} alt={"Видео"}/>
+                                <img
+                                    src={getVideoThumb(
+                                        youtube_parser(item.url)
+                                    )}
+                                    alt={"Видео"}
+                                />
                             </SplideSlide>
                         ))}
                     </Splide>
                 </>
-            }
+            )}
         </>
     );
 };

@@ -69,7 +69,7 @@ const Menu = ({ menu, burgerOpened, setBurgerOpened }) => {
                 <img
                     className={styles.logo}
                     src={logo}
-                    alt="Маски"
+                    alt="Содружество Школьных театров города Москвы"
                 />
                 <ul className={styles.list}>
                     {menu.map((item) => (

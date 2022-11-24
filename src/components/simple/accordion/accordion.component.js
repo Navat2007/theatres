@@ -1,38 +1,16 @@
-import React from 'react';
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import styles from './accordion.module.scss';
-
-const More = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        width='24'
-        height='24'
-    >
-        <path fill='currentColor' d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-    </svg>
-);
-
-const Less = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        width='24'
-        height='24'
-    >
-        <path fill='currentColor' d="M19,13H5V11H19V13Z" />
-    </svg>
-);
+import styles from "./accordion.module.scss";
+import { AdminIcons } from "../../svgs.js";
 
 const Accordion = ({
-    theme = 'text',
-    icon = 'plus',
+    theme = "text",
+    icon = "plus",
     extraClass,
     children,
     title,
     ...rest
 }) => {
-
     const [isOpen, setIsOpen] = React.useState(false);
 
     const config = [
@@ -42,7 +20,7 @@ const Accordion = ({
         extraClass,
     ];
 
-    const finalClassName = config.filter(Boolean).join(' ');
+    const finalClassName = config.filter(Boolean).join(" ");
 
     return (
         <div className={finalClassName}>
@@ -53,7 +31,10 @@ const Accordion = ({
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <div>{title}</div>
-                <AnimatePresence initial={false} mode="wait">
+                <AnimatePresence
+                    initial={false}
+                    mode="wait"
+                >
                     <motion.div
                         className={styles.icon}
                         key={isOpen ? "minus" : "plus"}
@@ -77,7 +58,7 @@ const Accordion = ({
                             },
                         }}
                     >
-                        {isOpen ? <Less /> : <More />}
+                        {isOpen ? AdminIcons.minus : AdminIcons.plus}
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -87,34 +68,34 @@ const Accordion = ({
                 animate={
                     isOpen
                         ? {
-                            height: "auto",
-                            opacity: 1,
-                            display: "block",
-                            transition: {
-                                height: {
-                                    duration: 0.4,
-                                },
-                                opacity: {
-                                    duration: 0.25,
-                                    delay: 0.15,
-                                },
-                            },
-                        }
+                              height: "auto",
+                              opacity: 1,
+                              display: "block",
+                              transition: {
+                                  height: {
+                                      duration: 0.4,
+                                  },
+                                  opacity: {
+                                      duration: 0.25,
+                                      delay: 0.15,
+                                  },
+                              },
+                          }
                         : {
-                            height: 0,
-                            opacity: 0,
-                            transition: {
-                                height: {
-                                    duration: 0.4,
-                                },
-                                opacity: {
-                                    duration: 0.25,
-                                },
-                            },
-                            transitionEnd: {
-                                display: "none",
-                            },
-                        }
+                              height: 0,
+                              opacity: 0,
+                              transition: {
+                                  height: {
+                                      duration: 0.4,
+                                  },
+                                  opacity: {
+                                      duration: 0.25,
+                                  },
+                              },
+                              transitionEnd: {
+                                  display: "none",
+                              },
+                          }
                 }
             >
                 {children}

@@ -1,5 +1,6 @@
-import React from 'react';
-import styles from './popup.module.scss';
+import React from "react";
+import styles from "./popup.module.scss";
+import { AdminIcons } from "../svgs.js";
 
 const Popup = ({
     opened = false,
@@ -9,13 +10,10 @@ const Popup = ({
     buttons,
     onClose,
 }) => {
-
     const handleBackgroundClick = (event) => {
-
         if (event.target === event.currentTarget && onClose) {
             onClose();
         }
-
     };
 
     const config = [
@@ -24,7 +22,7 @@ const Popup = ({
         extraClass,
     ];
 
-    const finalClassName = config.filter(Boolean).join(' ');
+    const finalClassName = config.filter(Boolean).join(" ");
 
     return (
         <div
@@ -39,14 +37,10 @@ const Popup = ({
                     aria-label="Закрыть окно"
                     onClick={onClose}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+                    {AdminIcons.close}
                 </button>
-                <div className={styles.body}>
-                    {children}
-                </div>
-                {
-                    buttons && <div className={styles.controls}>{buttons}</div>
-                }
+                <div className={styles.body}>{children}</div>
+                {buttons && <div className={styles.controls}>{buttons}</div>}
             </div>
         </div>
     );
