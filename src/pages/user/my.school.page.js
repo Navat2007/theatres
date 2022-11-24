@@ -113,9 +113,9 @@ const MySchoolPage = () => {
                 <h1 className={commonStyles.title}>Информация о школе</h1>
             </div>
             <div className={commonStyles.profile}>
-                <div className="profile-card__img-block">
+                <div className={commonStyles.profile_img_block}>
                     <img
-                        className="profile-card__img"
+                        className={commonStyles.profile_img}
                         src={
                             school?.photo !== ""
                                 ? window.global.baseUrl + school?.photo
@@ -123,7 +123,7 @@ const MySchoolPage = () => {
                         }
                         alt={"Логотип школы"}
                     />
-                    <div className="profile-card__img-panel">
+                    <div className={commonStyles.profile_img_panel}>
                         {school?.photo !== "" && (
                             <>
                                 <Button
@@ -169,27 +169,27 @@ const MySchoolPage = () => {
                         )}
                     </div>
                     <input
-                        className="profile-card__img-input"
+                        className={commonStyles.profile_img_input}
                         id="img-profile"
                         type="file"
                         onChange={handlePhotoChange}
                     />
                 </div>
-                <div className="profile-card__info-block">
-                    <ul className="profile-card__table">
+                <div className={commonStyles.profile_info}>
+                    <ul className={commonStyles.profile_table}>
                         <li>
-                            <h3 className="profile-card__text">
+                            <h3 className={commonStyles.profile_text}>
                                 {school.org_name}
                             </h3>
-                            <p className="profile-card__description">
+                            <p className={commonStyles.profile_description}>
                                 Полное наименование организации
                             </p>
                         </li>
                         <li>
-                            <h3 className="profile-card__text">
+                            <h3 className={commonStyles.profile_text}>
                                 {school.org_short_name}
                             </h3>
-                            <p className="profile-card__description">
+                            <p className={commonStyles.profile_description}>
                                 Краткое наименование организации
                             </p>
                         </li>
@@ -200,18 +200,31 @@ const MySchoolPage = () => {
                         size="small"
                         type="button"
                         text="Редактировать"
-                        extraClass="profile-card__edit-btn"
+                        extraClass={commonStyles.profile_edit_btn}
                         onClick={() => {
                             setPopupSchoolEditOpened(true);
                         }}
                     />
                 </div>
-                <ul className="profile-card__row profile-card__table">
+                <ul
+                    className={
+                        commonStyles.profile_row +
+                        ` ` +
+                        commonStyles.profile_table
+                    }
+                >
                     {school.dir_fio && school.dir_fio !== "" && (
                         <li>
-                            <p className="profile-card__item link --type-icon --icon-company">
+                            <p
+                                className={
+                                    commonStyles.profile_item +
+                                    " link --type-icon --icon-company"
+                                }
+                            >
                                 {school.dir_fio}
-                                <span className="profile-card__description">
+                                <span
+                                    className={commonStyles.profile_description}
+                                >
                                     ФИО директора/руководителя
                                 </span>
                             </p>
@@ -221,12 +234,17 @@ const MySchoolPage = () => {
                         <li>
                             <a
                                 href={`tel:${phone}`}
-                                className="profile-card__item link --type-icon --icon-phone"
+                                className={
+                                    commonStyles.profile_item +
+                                    " link --type-icon --icon-phone"
+                                }
                                 rel="noreferrer nofollow noopener"
                                 target="_blank"
                             >
                                 {phone}
-                                <span className="profile-card__description">
+                                <span
+                                    className={commonStyles.profile_description}
+                                >
                                     Телефон директора/руководителя школы
                                 </span>
                             </a>
@@ -234,9 +252,16 @@ const MySchoolPage = () => {
                     )}
                     {school.dir_email && school.dir_email !== "" && (
                         <li>
-                            <p className="profile-card__item link --type-icon --icon-email">
+                            <p
+                                className={
+                                    commonStyles.profile_item +
+                                    " link --type-icon --icon-email"
+                                }
+                            >
                                 {school.dir_email}
-                                <span className="profile-card__description">
+                                <span
+                                    className={commonStyles.profile_description}
+                                >
                                     Email директора/руководителя школы
                                 </span>
                             </p>
@@ -244,9 +269,16 @@ const MySchoolPage = () => {
                     )}
                     {school.address && school.address !== "" && (
                         <li>
-                            <p className="profile-card__item link --type-icon --icon-district">
+                            <p
+                                className={
+                                    commonStyles.profile_item +
+                                    " link --type-icon --icon-district"
+                                }
+                            >
                                 {school.address}
-                                <span className="profile-card__description">
+                                <span
+                                    className={commonStyles.profile_description}
+                                >
                                     Адрес
                                 </span>
                             </p>
