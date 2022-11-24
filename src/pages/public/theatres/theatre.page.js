@@ -430,7 +430,6 @@ function PublicTheatrePage() {
     }
 
     console.log(theatre);
-    console.log(schoolStore.school);
 
     return (
         <>

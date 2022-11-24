@@ -283,6 +283,7 @@ const TheatrePage = () => {
                                         {theatre.photo.map((item) =>
                                             item.order === 1 ? (
                                                 <li
+                                                    key={item.url}
                                                     className="gallery-form__item"
                                                     onClick={() =>
                                                         handleOpenPreview(
@@ -302,6 +303,7 @@ const TheatrePage = () => {
                                                 </li>
                                             ) : (
                                                 <li
+                                                    key={item.url}
                                                     className="gallery-form__item"
                                                     onClick={() =>
                                                         handleOpenPreview(
@@ -338,6 +340,7 @@ const TheatrePage = () => {
                                         {theatre.photoVisit.map((item) =>
                                             item.order === 1 ? (
                                                 <li
+                                                    key={item.url}
                                                     className="gallery-form__item"
                                                     onClick={() =>
                                                         handleOpenPreview(
@@ -357,6 +360,7 @@ const TheatrePage = () => {
                                                 </li>
                                             ) : (
                                                 <li
+                                                    key={item.url}
                                                     className="gallery-form__item"
                                                     onClick={() =>
                                                         handleOpenPreview(
@@ -414,7 +418,7 @@ const TheatrePage = () => {
                                 <>
                                     <ul className="gallery-form --content-video">
                                         {theatre.video.map((item) => (
-                                            <li className="gallery-form__item">
+                                            <li key={item} className="gallery-form__item">
                                                 <ReactPlayer
                                                     width="100%"
                                                     height={"auto"}
@@ -442,7 +446,7 @@ const TheatrePage = () => {
                                 theatre.reviews.length > 0 ? (
                                     <>
                                         {theatre.reviews.map((item) => (
-                                            <>
+                                            <div key={item.title}>
                                                 <h3>{item.title}</h3>
                                                 <div
                                                     className="info__editor"
@@ -452,7 +456,7 @@ const TheatrePage = () => {
                                                         ),
                                                     }}
                                                 />
-                                            </>
+                                            </div>
                                         ))}
                                     </>
                                 ) : (
@@ -468,7 +472,7 @@ const TheatrePage = () => {
                                 theatre.reviewsVisit.length > 0 ? (
                                     <>
                                         {theatre.reviewsVisit.map((item) => (
-                                            <>
+                                            <div key={item.title}>
                                                 <h3>{item.title}</h3>
                                                 <div
                                                     className="info__editor"
@@ -478,7 +482,7 @@ const TheatrePage = () => {
                                                         ),
                                                     }}
                                                 />
-                                            </>
+                                            </div>
                                         ))}
                                     </>
                                 ) : (
