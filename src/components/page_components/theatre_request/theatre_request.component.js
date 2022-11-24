@@ -150,7 +150,7 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
             sendObject['reviewsVisit'] = tmpArray.length > 0 ? tmpArray : [];
         }
 
-        console.log("Подготовленные данные: ", sendObject);
+        //console.log("Подготовленные данные: ", sendObject);
 
         return sendObject;
 
@@ -161,8 +161,6 @@ function TheatreRequest({onSubmitDone = () => null, onBack = () => null, onDecli
         onSubmitDone(performData());
 
     });
-
-    console.log(performData());
 
     return (
         <>
