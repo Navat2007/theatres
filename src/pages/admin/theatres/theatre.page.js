@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import moment from "moment";
 import ReactPlayer from "react-player";
@@ -17,7 +17,7 @@ import commonStyles from "../../common.module.scss";
 import ImagePreview from "../../../components/image_preview/image.preview.component";
 
 const TheatrePage = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     const navigate = useNavigate();
     const DOMPurify = createDOMPurify(window);
 
@@ -38,10 +38,10 @@ const TheatrePage = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({id});
+                let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
+                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -55,14 +55,14 @@ const TheatrePage = () => {
     const back = () => navigate("/admin/theatres/");
 
     const handleOpenPreview = (slideIndex, items) => {
-
-        setPreview(<ImagePreview
-            open={true}
-            index={slideIndex}
-            items={items}
-            onClose={() => setPreview(<></>)}
-        />)
-
+        setPreview(
+            <ImagePreview
+                open={true}
+                index={slideIndex}
+                items={items}
+                onClose={() => setPreview(<></>)}
+            />
+        );
     };
 
     if (loading || schoolStore.loading || teachersStore.loading)
@@ -104,7 +104,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </NavLink>
                                         </p>
                                     </li>
@@ -129,7 +129,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 {theatre.coordinates}{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </a>
                                         </p>
                                     </li>
@@ -200,7 +200,7 @@ const TheatrePage = () => {
                                                 rel="noopener nofollow noreferer"
                                             >
                                                 На страницу{" "}
-                                                <span className="mdi mdi-open-in-new"/>
+                                                <span className="mdi mdi-open-in-new" />
                                             </a>
                                         </p>
                                     </li>
@@ -229,8 +229,8 @@ const TheatrePage = () => {
                                                         src={
                                                             teacher?.photo
                                                                 ? window.global
-                                                                    .baseUrl +
-                                                                teacher.photo
+                                                                      .baseUrl +
+                                                                  teacher.photo
                                                                 : no_photo_man
                                                         }
                                                         alt=""
@@ -257,6 +257,7 @@ const TheatrePage = () => {
                         </Tab>
                         <Tab title={"Краткое описание"}>
                             <div
+                                className="info__editor"
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
                                         theatre.short_description
@@ -266,6 +267,7 @@ const TheatrePage = () => {
                         </Tab>
                         <Tab title={"Обращение режиссёра"}>
                             <div
+                                className="info__editor"
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(
                                         theatre.director_message
@@ -275,201 +277,215 @@ const TheatrePage = () => {
                         </Tab>
                         <Tab title={"Фотографии"}>
                             <h2 className="info__title">Фото театра</h2>
-                            {
-                                theatre.photo && theatre.photo.length > 0
-                                    ?
-                                    <>
-                                        <ul className="gallery-form">
-                                            {
-                                                theatre.photo.map(item => (
-                                                    item.order === 1
-                                                        ?
-                                                        <li
-                                                            className="gallery-form__item"
-                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photo)}
-                                                        >
-                                                            <img
-                                                                className="gallery-form__img"
-                                                                src={item.url}
-                                                                alt="Изображение "
-                                                            />
-                                                            <div className="gallery-form__title">
-                                                                1. Главная
-                                                            </div>
-                                                        </li>
-                                                        :
-                                                        <li
-                                                            className="gallery-form__item"
-                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photo)}
-                                                        >
-                                                            <img
-                                                                className="gallery-form__img"
-                                                                src={item.url}
-                                                                alt="Изображение "
-                                                            />
-                                                            <span
-                                                                className="gallery-form__current-position">{item.order}</span>
-                                                        </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </>
-                                    :
-                                    <>
-                                        <p>Нет фото</p>
-                                    </>
-                            }
-                            <h2 className="info__title">Фото посещения театра</h2>
-                            {
-                                theatre.photoVisit && theatre.photoVisit.length > 0
-                                    ?
-                                    <>
-                                        <ul className="gallery-form">
-                                            {
-                                                theatre.photoVisit.map(item => (
-                                                    item.order === 1
-                                                        ?
-                                                        <li
-                                                            className="gallery-form__item"
-                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photoVisit)}
-                                                        >
-                                                            <img
-                                                                className="gallery-form__img"
-                                                                src={item.url}
-                                                                alt="Изображение "
-                                                            />
-                                                            <div className="gallery-form__title">
-                                                                1. Главная
-                                                            </div>
-                                                        </li>
-                                                        :
-                                                        <li
-                                                            className="gallery-form__item"
-                                                            onClick={() => handleOpenPreview(item.order - 1, theatre.photoVisit)}
-                                                        >
-                                                            <img
-                                                                className="gallery-form__img"
-                                                                src={item.url}
-                                                                alt="Изображение "
-                                                            />
-                                                            <span
-                                                                className="gallery-form__current-position">{item.order}</span>
-                                                        </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </>
-                                    :
-                                    <>
-                                        <p>Нет фото</p>
-                                    </>
-                            }
+                            {theatre.photo && theatre.photo.length > 0 ? (
+                                <>
+                                    <ul className="gallery-form">
+                                        {theatre.photo.map((item) =>
+                                            item.order === 1 ? (
+                                                <li
+                                                    className="gallery-form__item"
+                                                    onClick={() =>
+                                                        handleOpenPreview(
+                                                            item.order - 1,
+                                                            theatre.photo
+                                                        )
+                                                    }
+                                                >
+                                                    <img
+                                                        className="gallery-form__img"
+                                                        src={item.url}
+                                                        alt="Изображение "
+                                                    />
+                                                    <div className="gallery-form__title">
+                                                        1. Главная
+                                                    </div>
+                                                </li>
+                                            ) : (
+                                                <li
+                                                    className="gallery-form__item"
+                                                    onClick={() =>
+                                                        handleOpenPreview(
+                                                            item.order - 1,
+                                                            theatre.photo
+                                                        )
+                                                    }
+                                                >
+                                                    <img
+                                                        className="gallery-form__img"
+                                                        src={item.url}
+                                                        alt="Изображение "
+                                                    />
+                                                    <span className="gallery-form__current-position">
+                                                        {item.order}
+                                                    </span>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </>
+                            ) : (
+                                <>
+                                    <p>Нет фото</p>
+                                </>
+                            )}
+                            <h2 className="info__title">
+                                Фото посещения театра
+                            </h2>
+                            {theatre.photoVisit &&
+                            theatre.photoVisit.length > 0 ? (
+                                <>
+                                    <ul className="gallery-form">
+                                        {theatre.photoVisit.map((item) =>
+                                            item.order === 1 ? (
+                                                <li
+                                                    className="gallery-form__item"
+                                                    onClick={() =>
+                                                        handleOpenPreview(
+                                                            item.order - 1,
+                                                            theatre.photoVisit
+                                                        )
+                                                    }
+                                                >
+                                                    <img
+                                                        className="gallery-form__img"
+                                                        src={item.url}
+                                                        alt="Изображение "
+                                                    />
+                                                    <div className="gallery-form__title">
+                                                        1. Главная
+                                                    </div>
+                                                </li>
+                                            ) : (
+                                                <li
+                                                    className="gallery-form__item"
+                                                    onClick={() =>
+                                                        handleOpenPreview(
+                                                            item.order - 1,
+                                                            theatre.photoVisit
+                                                        )
+                                                    }
+                                                >
+                                                    <img
+                                                        className="gallery-form__img"
+                                                        src={item.url}
+                                                        alt="Изображение "
+                                                    />
+                                                    <span className="gallery-form__current-position">
+                                                        {item.order}
+                                                    </span>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </>
+                            ) : (
+                                <>
+                                    <p>Нет фото</p>
+                                </>
+                            )}
                             {preview}
                         </Tab>
                         <Tab title={"Видео"}>
-                            <h2 className="info__title">ВИДЕО ВИЗИТКА ШКОЛЬНОГО ТЕАТРА</h2>
-                            {
-                                theatre.video_business_card
-                                    ?
-                                    <ReactPlayer
-                                        width="100%"
-                                        height={"auto"}
-                                        className="video__react-player"
-                                        url={theatre.video_business_card}
-                                        playing={false}
-                                        controls={true}
-                                    />
-                                    :
-                                    <>
-                                        <p>Нет видео</p>
-                                    </>
-                            }
+                            <h2 className="info__title">
+                                Видео визитка школьного театра
+                            </h2>
+                            {theatre.video_business_card ? (
+                                <ReactPlayer
+                                    width="100%"
+                                    height={"auto"}
+                                    style={{
+                                        maxWidth: "60em",
+                                        aspectRatio: "16/9",
+                                    }}
+                                    url={theatre.video_business_card}
+                                    playing={false}
+                                    controls={true}
+                                />
+                            ) : (
+                                <>
+                                    <p>Нет видео</p>
+                                </>
+                            )}
 
-                            <h2 className="info__title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
-                            {
-                                theatre.video && theatre.video.length > 0
-                                    ?
-                                    <>
-                                        <ul className="gallery-form">
-                                            {
-                                                theatre.video.map(item => (
-                                                    <li className="gallery-form__item">
-                                                        <ReactPlayer
-                                                            width="100%"
-                                                            height={"auto"}
-                                                            className="video__react-player"
-                                                            url={item}
-                                                            playing={false}
-                                                            controls={true}
-                                                        />
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </>
-                                    :
-                                    <>
-                                        <p>Нет видео</p>
-                                    </>
-                            }
+                            <h2 className="info__title">
+                                ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ
+                            </h2>
+                            {theatre.video && theatre.video.length > 0 ? (
+                                <>
+                                    <ul className="gallery-form --content-video">
+                                        {theatre.video.map((item) => (
+                                            <li className="gallery-form__item">
+                                                <ReactPlayer
+                                                    width="100%"
+                                                    height={"auto"}
+                                                    className="video__react-player"
+                                                    url={item}
+                                                    playing={false}
+                                                    controls={true}
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <>
+                                    <p>Нет видео</p>
+                                </>
+                            )}
                         </Tab>
                         <Tab title={"Описания (рецензии)"}>
                             <div className="info">
-                                <h2 className="info__title">РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ</h2>
-                                {
-                                    theatre.reviews && theatre.reviews.length > 0
-                                        ?
-                                        <>
-                                            <ul className="gallery-form">
-                                                {
-                                                    theatre.reviews.map(item => (
-                                                        <>
-                                                            <h4>{item.title}</h4>
-                                                            <div
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: DOMPurify.sanitize(
-                                                                        item.text
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        </>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </>
-                                        :
-                                        <>
-                                            <p>Нет рассказов</p>
-                                        </>
-                                }
-                                <h2 className="info__title">РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ
-                                    ТЕАТРОВ</h2>
-                                {
-                                    theatre.reviewsVisit && theatre.reviewsVisit.length > 0
-                                        ?
-                                        <>
-                                            <ul className="gallery-form">
-                                                {
-                                                    theatre.reviewsVisit.map(item => (
-                                                        <>
-                                                            <h4>{item.title}</h4>
-                                                            <div
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: DOMPurify.sanitize(
-                                                                        item.text
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        </>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </>
-                                        :
-                                        <>
-                                            <p>Нет рассказов</p>
-                                        </>
-                                }
+                                <h2 className="info__title">
+                                    РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
+                                </h2>
+                                {theatre.reviews &&
+                                theatre.reviews.length > 0 ? (
+                                    <>
+                                        {theatre.reviews.map((item) => (
+                                            <>
+                                                <h3>{item.title}</h3>
+                                                <div
+                                                    className="info__editor"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: DOMPurify.sanitize(
+                                                            item.text
+                                                        ),
+                                                    }}
+                                                />
+                                            </>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Нет рассказов</p>
+                                    </>
+                                )}
+                                <h2 className="info__title">
+                                    РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ
+                                    МОСКОВСКИХ ТЕАТРОВ
+                                </h2>
+                                {theatre.reviewsVisit &&
+                                theatre.reviewsVisit.length > 0 ? (
+                                    <>
+                                        {theatre.reviewsVisit.map((item) => (
+                                            <>
+                                                <h3>{item.title}</h3>
+                                                <div
+                                                    className="info__editor"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: DOMPurify.sanitize(
+                                                            item.text
+                                                        ),
+                                                    }}
+                                                />
+                                            </>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Нет рассказов</p>
+                                    </>
+                                )}
                             </div>
                         </Tab>
                     </Tabs>

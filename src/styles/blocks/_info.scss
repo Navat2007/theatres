@@ -28,18 +28,19 @@
     }
 
     &__title {
-        margin: 0.5rem 0;
-        padding-bottom: 0.5rem;
+        margin: min(2.5vmax, 1.25em) 0;
+        // padding-bottom: 0.5rem;
         font-size: 1.25em;
         font-weight: 600;
+        color: var(--public-accent);
         text-transform: uppercase;
-        border-bottom: 2px solid rgba(map-get($colors, "primary"), 0.54);
+        // border-bottom: 2px solid rgba(map-get($colors, "primary"), 0.54);
     }
 
     &__social {
         @extend %reset-list;
         display: flex;
-        gap: .675em;
+        gap: 0.675em;
     }
     &__social-link {
         text-decoration: unset;
@@ -56,5 +57,9 @@
             margin: auto;
             @include box(1.5em);
         }
+    }
+
+    &__editor {
+        max-width: 50em;
     }
 }

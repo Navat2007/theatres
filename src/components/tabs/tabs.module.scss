@@ -10,8 +10,8 @@
   gap: .5em;
   box-sizing: border-box;
   overflow-x: auto;
-  @include scroll-bar(4px, 4px);
-  
+  @include scroll-bar(8px);
+
   margin-bottom: min(2.5vmax, 1.25em);
   border-bottom: 2px solid rgba(map-get($colors, "primary"), .54);
   padding: .5em;
