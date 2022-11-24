@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import moment from "moment";
+import {motion, useAnimation, useInView} from "framer-motion";
 import createDOMPurify from "dompurify";
 
 import useTheatresStore from "../../../store/public/theatresStore";
@@ -32,6 +33,10 @@ function PublicTheatrePage() {
         clearErrorText,
     } = useTheatresStore();
     const teachersStore = useTeachersStore();
+
+    const ref = React.useRef(null)
+    const isInView = useInView(ref);
+    const animation = useAnimation();
 
     const photo = [
         {
@@ -97,6 +102,27 @@ function PublicTheatrePage() {
 
         fetchData();
     }, [id]);
+
+    React.useEffect(() => {
+
+        console.log(isInView);
+        console.log(ref);
+
+        if(isInView){
+
+            animation.start({
+                x: 0,
+                transition: {
+                    type: 'spring', duration: 1, bounce: 0.3
+                }
+            });
+
+        }
+
+        if(!isInView)
+            animation.start({x: '-100vw'});
+
+    }, [isInView]);
 
     if (loading || schoolStore.loading || teachersStore.loading) {
         return (
@@ -452,6 +478,20 @@ function PublicTheatrePage() {
         );
     }
 
+    if(id === "test2"){
+        return (<>
+
+            <motion.div
+                initial={{x: '-100vw'}}
+                whileInView={{x: 0}}
+                viewport={{ once: true, amount: 0.8 }}
+            >
+                asdasdsad
+            </motion.div>
+
+        </>);
+    }
+
     if (id && !theatre) return <p>Театр не найден</p>;
 
     return (
@@ -701,7 +741,7 @@ function PublicTheatrePage() {
                                     </p>
                                     <ul className="social__list">
                                         {theatre.social_links.map((item) => (
-                                            <li>
+                                            <li key={item}>
                                                 <a
                                                     className="social__link"
                                                     href={item}

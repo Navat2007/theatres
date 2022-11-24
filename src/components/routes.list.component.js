@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
 import AdminLayout from "./layout/admin.layout.component";
@@ -24,6 +24,8 @@ import TheatreRequestPage from "../pages/admin/theatreRequests/theatreRequest.pa
 import AdminTeachersPage from "../pages/admin/teachers/teachers.page";
 import AdminTeacherPage from "../pages/admin/teachers/teacher.page";
 
+import TestPage from "../pages/test.page";
+
 // USER PAGES
 import MyTheatresPage from "../pages/user/theatres/my.theatres.page";
 import MyTheatreEditPage from "../pages/user/theatres/my.theatre.page";
@@ -39,128 +41,133 @@ import MyPosterPage from "../pages/user/posters/my.poster.page";
 import PublicTheatrePage from "../pages/public/theatres/theatre.page";
 
 const RoutesList = () => {
-    const { user } = useAuthStore();
+    const {user} = useAuthStore();
 
     if (user && (user.role === "admin" || user.role === "superadmin")) {
         return (
             <Routes>
                 <Route
                     path="/admin"
-                    element={<AdminLayout />}
+                    element={<AdminLayout/>}
                 >
                     <Route path="users">
                         <Route
                             index
-                            element={<UsersPage />}
+                            element={<UsersPage/>}
                         />
                         <Route
                             path="admin/:id"
-                            element={<AdminUsersPage />}
+                            element={<AdminUsersPage/>}
                         />
                         <Route
                             path="admin/new"
-                            element={<AdminUsersPage />}
+                            element={<AdminUsersPage/>}
                         />
                         <Route
                             path="user/:id"
-                            element={<UserUsersPage />}
+                            element={<UserUsersPage/>}
                         />
                         <Route
                             path="user/new"
-                            element={<UserUsersPage />}
+                            element={<UserUsersPage/>}
                         />
                     </Route>
                     <Route path="schools">
                         <Route
                             index
-                            element={<SchoolsPage />}
+                            element={<SchoolsPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<SchoolPage />}
+                            element={<SchoolPage/>}
                         />
                         <Route
                             path="new"
-                            element={<SchoolPage />}
+                            element={<SchoolPage/>}
                         />
                     </Route>
                     <Route path="theatres">
                         <Route
                             index
-                            element={<TheatresPage />}
+                            element={<TheatresPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<TheatrePage />}
+                            element={<TheatrePage/>}
                         />
                         <Route
                             path="new"
-                            element={<TheatrePage />}
+                            element={<TheatrePage/>}
                         />
                     </Route>
                     <Route path="theatreRequests">
                         <Route
                             index
-                            element={<TheatreRequestsPage />}
+                            element={<TheatreRequestsPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<TheatreRequestPage />}
+                            element={<TheatreRequestPage/>}
                         />
                         <Route
                             path="new"
-                            element={<TheatreRequestPage />}
+                            element={<TheatreRequestPage/>}
                         />
                     </Route>
                     <Route path="teachers">
                         <Route
                             index
-                            element={<AdminTeachersPage />}
+                            element={<AdminTeachersPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<AdminTeacherPage />}
+                            element={<AdminTeacherPage/>}
                         />
                         <Route
                             path="new"
-                            element={<AdminTeacherPage />}
+                            element={<AdminTeacherPage/>}
                         />
                     </Route>
                 </Route>
                 <Route
                     path="/profile"
                     exact={true}
-                    element={<AdminLayout />}
+                    element={<AdminLayout/>}
                 >
                     <Route
                         index
-                        element={<ProfilePage />}
+                        element={<ProfilePage/>}
                     />
                 </Route>
 
                 <Route
                     path="/theatre/:id"
                     exact={true}
-                    element={<PublicLayout />}
+                    element={<PublicLayout/>}
                 >
                     <Route
                         index
-                        element={<PublicTheatrePage />}
+                        element={<PublicTheatrePage/>}
                     />
                 </Route>
                 <Route
+                    path="/test"
+                    exact={true}
+                    element={<TestPage />}
+                />
+                <Route
                     path="/login"
                     exact={true}
-                    element={<Navigate to="/admin/users" />}
+                    element={<Navigate to="/admin/users"/>}
                 />
                 <Route
                     path="/"
                     exact={true}
-                    element={<Navigate to="/admin/users" />}
+                    element={<Navigate to="/admin/users"/>}
                 />
                 <Route
                     path="*"
-                    element={<Page404 />}
+                    element={<Page404/>}
                 />
             </Routes>
         );
@@ -171,108 +178,108 @@ const RoutesList = () => {
             <Routes>
                 <Route
                     path="/user"
-                    element={<UserLayout />}
+                    element={<UserLayout/>}
                 >
                     <Route
                         path="my_school"
                         index
-                        element={<MySchoolPage />}
+                        element={<MySchoolPage/>}
                     />
                     <Route path="theatres">
                         <Route
                             index
-                            element={<MyTheatresPage />}
+                            element={<MyTheatresPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<MyTheatrePage />}
+                            element={<MyTheatrePage/>}
                         />
                         <Route
                             path="edit/:id"
-                            element={<MyTheatreEditPage />}
+                            element={<MyTheatreEditPage/>}
                         />
                         <Route
                             path="new"
-                            element={<MyTheatreEditPage />}
+                            element={<MyTheatreEditPage/>}
                         />
                     </Route>
                     <Route path="theatreRequests">
                         <Route
                             index
-                            element={<MyTheatreRequestsPage />}
+                            element={<MyTheatreRequestsPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<MyTheatreRequestPage />}
+                            element={<MyTheatreRequestPage/>}
                         />
                         <Route
                             path="new"
-                            element={<MyTheatreRequestPage />}
+                            element={<MyTheatreRequestPage/>}
                         />
                     </Route>
                     <Route path="teachers">
                         <Route
                             index
-                            element={<UserTeachersPage />}
+                            element={<UserTeachersPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<UserTeacherPage />}
+                            element={<UserTeacherPage/>}
                         />
                         <Route
                             path="new"
-                            element={<UserTeacherPage />}
+                            element={<UserTeacherPage/>}
                         />
                     </Route>
                     <Route path="posters">
                         <Route
                             index
-                            element={<MyPostersPage />}
+                            element={<MyPostersPage/>}
                         />
                         <Route
                             path=":id"
-                            element={<MyPosterPage />}
+                            element={<MyPosterPage/>}
                         />
                         <Route
                             path="new"
-                            element={<MyPosterPage />}
+                            element={<MyPosterPage/>}
                         />
                     </Route>
                 </Route>
                 <Route
                     path="/profile"
                     exact={true}
-                    element={<UserLayout />}
+                    element={<UserLayout/>}
                 >
                     <Route
                         index
-                        element={<ProfilePage />}
+                        element={<ProfilePage/>}
                     />
                 </Route>
 
                 <Route
                     path="/theatre/:id"
                     exact={true}
-                    element={<PublicLayout />}
+                    element={<PublicLayout/>}
                 >
                     <Route
                         index
-                        element={<PublicTheatrePage />}
+                        element={<PublicTheatrePage/>}
                     />
                 </Route>
                 <Route
                     path="/login"
                     exact={true}
-                    element={<Navigate to="/user/my_school" />}
+                    element={<Navigate to="/user/my_school"/>}
                 />
                 <Route
                     path="/"
                     exact={true}
-                    element={<Navigate to="/user/my_school" />}
+                    element={<Navigate to="/user/my_school"/>}
                 />
                 <Route
                     path="*"
-                    element={<Page404 />}
+                    element={<Page404/>}
                 />
             </Routes>
         );
@@ -283,26 +290,26 @@ const RoutesList = () => {
             <Route
                 path="/theatre/:id"
                 exact={true}
-                element={<PublicLayout />}
+                element={<PublicLayout/>}
             >
                 <Route
                     index
-                    element={<PublicTheatrePage />}
+                    element={<PublicTheatrePage/>}
                 />
             </Route>
             <Route
                 path="/login"
                 exact={true}
-                element={<LoginPage />}
+                element={<LoginPage/>}
             />
             <Route
                 path="/"
                 exact={true}
-                element={<Navigate to="/login" />}
+                element={<Navigate to="/login"/>}
             />
             <Route
                 path="*"
-                element={<Navigate to="/login" />}
+                element={<Navigate to="/login"/>}
             />
         </Routes>
     );
