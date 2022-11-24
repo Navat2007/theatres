@@ -429,9 +429,6 @@ function PublicTheatrePage() {
         return <p>Театр не найден</p>;
     }
 
-    console.log(theatre);
-    console.log(schoolStore.school);
-
     return (
         <>
             <section className="public-content__section">
