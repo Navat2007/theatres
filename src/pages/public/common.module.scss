@@ -1,0 +1,34 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.section {
+    &_bg_g100 {
+        background-color: var(--g100);
+    }
+}
+
+.wrap {
+    @extend %main-width;
+    @extend %padding-section;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: min(6.25vmax, 3.125rem);
+  font-family: var(--ff-firm);
+  font-weight: 500;
+  font-size: min(5.5vmax, 2.75em);
+  text-transform: uppercase;
+  color: var(--public-primary);
+}
+
+.subtitle {
+  margin: 0;
+  margin-bottom: min(5vmax, 2.5rem);
+  font-family: var(--ff-firm);
+  font-weight: 500;
+  font-size: min(4vmax, 2em);
+  text-transform: uppercase;
+  color: var(--public-accent);
+}

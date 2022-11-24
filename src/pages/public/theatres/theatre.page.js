@@ -1,6 +1,6 @@
 import React from "react";
-import {useParams} from "react-router-dom";
-import {YMaps, Map, Placemark} from "react-yandex-maps";
+import { useParams } from "react-router-dom";
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 import moment from "moment";
 import createDOMPurify from "dompurify";
 
@@ -13,12 +13,12 @@ import ImageGallery from "../../../components/image_gallery/image.gallery.compon
 import ShowMore from "../../../components/simple/show_more/show.more.component";
 import BannerSlider from "../../../components/slider/banner.slider.component";
 
-import {SocialIcons, MedalIcons} from "../../../components/svgs.js";
+import { SocialIcons, MedalIcons } from "../../../components/svgs.js";
 import no_photo_man from "../../../images/no_photo_man.png";
+import commonStyles from "../common.module.scss";
 
 function PublicTheatrePage() {
-
-    let {id} = useParams();
+    let { id } = useParams();
     const DOMPurify = createDOMPurify(window);
 
     const schoolStore = useSchoolStore();
@@ -82,13 +82,12 @@ function PublicTheatrePage() {
     ];
 
     React.useEffect(() => {
-
         const fetchData = async () => {
             if (id) {
-                let tempTheatre = await loadTheatre({id});
+                let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
-                    await schoolStore.loadSchool({id: tempTheatre.schoolID});
+                    await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
                     });
@@ -97,15 +96,14 @@ function PublicTheatrePage() {
         };
 
         fetchData();
-
     }, [id]);
 
     if (loading || schoolStore.loading || teachersStore.loading) {
         return (
             <>
-                <section className="public-content__section">
-                    <article className="public-content__wrap about">
-                        <h1 className="section-title">Загрузка...</h1>
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <p className={commonStyles.title}>Загрузка...</p>
                     </article>
                 </section>
             </>
@@ -148,9 +146,11 @@ function PublicTheatrePage() {
                         },
                     ]}
                 />
-                <section className="public-content__section">
-                    <article className="public-content__wrap about">
-                        <h1 className="section-title">Театр Чайковского</h1>
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <h1 className={commonStyles.title}>
+                            Театр Чайковского
+                        </h1>
                         <div className="about__level-item">
                             Дебютант
                             {MedalIcons.debutant}
@@ -237,9 +237,15 @@ function PublicTheatrePage() {
                         </div>
                     </article>
                 </section>
-                <section className="public-content__section public-content__section_bg_light-grey">
-                    <article className="public-content__wrap teachers">
-                        <h2 className="section-title">Педагоги</h2>
+                <section
+                    className={
+                        commonStyles.section +
+                        ` ` +
+                        commonStyles.section_bg_g100
+                    }
+                >
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>Педагоги</h2>
                         <ul className="teachers__card-deck">
                             <li className="teachers__card">
                                 <img
@@ -296,21 +302,31 @@ function PublicTheatrePage() {
                         </ul>
                     </article>
                 </section>
-                <section className="public-content__section">
-                    <ImageGallery
-                        title="Фото театра"
-                        items={photo}
-                    />
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <ImageGallery
+                            title="Фото театра"
+                            items={photo}
+                        />
+                    </article>
                 </section>
-                <section className="public-content__section">
-                    <ImageGallery
-                        title="Фото посещения театра"
-                        items={photoVisit}
-                    />
+                <section
+                    className={
+                        commonStyles.section +
+                        ` ` +
+                        commonStyles.section_bg_g100
+                    }
+                >
+                    <article className={commonStyles.wrap}>
+                        <ImageGallery
+                            title="Фото посещения театра"
+                            items={photoVisit}
+                        />
+                    </article>
                 </section>
-                <section className="public-content__section">
-                    <article className="public-content__wrap video">
-                        <h2 className="section-title">Видео</h2>
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>Видео</h2>
                         <VideoSlider
                             items={[
                                 {
@@ -323,9 +339,15 @@ function PublicTheatrePage() {
                         />
                     </article>
                 </section>
-                <section className="public-content__section public-content__section_bg_light-grey contact">
-                    <article className="public-content__wrap contact">
-                        <h2 className="section-title">Контакты</h2>
+                <section
+                    className={
+                        commonStyles.section +
+                        ` ` +
+                        commonStyles.section_bg_g100
+                    }
+                >
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>Контакты</h2>
                         <div className="contact__map">
                             <YMaps>
                                 <Map
@@ -350,7 +372,12 @@ function PublicTheatrePage() {
                         </div>
                         <div className="contact__columns">
                             <div className="contact__column">
-                                <h3 className="section-subtitle contact__title">
+                                <h3
+                                    className={
+                                        commonStyles.subtitle +
+                                        " contact__title"
+                                    }
+                                >
                                     КЛВ “Современник”
                                 </h3>
                                 <address className="contact__address">
@@ -391,7 +418,7 @@ function PublicTheatrePage() {
                             </div>
                         </div>
                         <div className="school-info">
-                            <h3 className="section-subtitle">
+                            <h3 className={commonStyles.subtitle}>
                                 Информация о школе
                             </h3>
                             <div className="school-info__detail">
@@ -425,15 +452,13 @@ function PublicTheatrePage() {
         );
     }
 
-    if (id && !theatre) {
-        return <p>Театр не найден</p>;
-    }
+    if (id && !theatre) return <p>Театр не найден</p>;
 
     return (
         <>
-            <section className="public-content__section">
-                <article className="public-content__wrap about">
-                    <h1 className="section-title">{theatre.title}</h1>
+            <section className={commonStyles.section}>
+                <article className={commonStyles.wrap}>
+                    <h1 className={commonStyles.title}>{theatre.title}</h1>
                     {/*<div className="about__level-item">*/}
                     {/*    Дебютант*/}
                     {/*    {MedalIcons.debutant}*/}
@@ -444,7 +469,10 @@ function PublicTheatrePage() {
                                 <p className="about__text">
                                     Год основания:{" "}
                                     <span className="about__span-accent">
-                                        {moment(theatre.foundation_date).format('YYYY')} г.
+                                        {moment(theatre.foundation_date).format(
+                                            "YYYY"
+                                        )}{" "}
+                                        г.
                                     </span>
                                 </p>
                             </li>
@@ -452,9 +480,9 @@ function PublicTheatrePage() {
                                 <p className="about__text">
                                     Форма осуществления деятельности:{" "}
                                     <span className="about__span-accent">
-                                        {
-                                            theatre.form_activity.map(item => item.activity).join(", ")
-                                        }
+                                        {theatre.form_activity
+                                            .map((item) => item.activity)
+                                            .join(", ")}
                                     </span>
                                 </p>
                             </li>
@@ -463,17 +491,16 @@ function PublicTheatrePage() {
                                     Возрастной состав участников школьного
                                     театра:{" "}
                                     <span className="about__span-accent">
-                                        {
-                                            theatre.age_members.map(item => item.age).join(", ")
-                                        }
+                                        {theatre.age_members
+                                            .map((item) => item.age)
+                                            .join(", ")}
                                     </span>
                                 </p>
                             </li>
                         </ul>
                         <div className="about__description-block">
-                            {
-                                (theatre.short_description || theatre.director_message)
-                                &&
+                            {(theatre.short_description ||
+                                theatre.director_message) && (
                                 <ShowMore>
                                     <div
                                         dangerouslySetInnerHTML={{
@@ -482,9 +509,7 @@ function PublicTheatrePage() {
                                             ),
                                         }}
                                     />
-                                    {
-                                        theatre.director_message
-                                        &&
+                                    {theatre.director_message && (
                                         <>
                                             <h4>Обращение режиссера:</h4>
                                             <div
@@ -495,81 +520,88 @@ function PublicTheatrePage() {
                                                 }}
                                             />
                                         </>
-                                    }
+                                    )}
                                 </ShowMore>
-                            }
+                            )}
                         </div>
                     </div>
                 </article>
             </section>
-            {
-                theatre.teachers && theatre.teachers.length > 0
-                &&
-                <section className="public-content__section public-content__section_bg_light-grey">
-                    <article className="public-content__wrap teachers">
-                        <h2 className="section-title">Педагоги</h2>
+            {theatre.teachers && theatre.teachers.length > 0 && (
+                <section
+                    className={
+                        commonStyles.section +
+                        ` ` +
+                        commonStyles.section_bg_g100
+                    }
+                >
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>Педагоги</h2>
                         <ul className="teachers__card-deck">
-                            {
-                                theatre.teachers.map(item => {
+                            {theatre.teachers.map((item) => {
+                                let teacher = teachersStore.teachers.find(
+                                    (teacherInStore) =>
+                                        item.ID === teacherInStore.ID
+                                );
 
-                                    let teacher =
-                                        teachersStore.teachers.find(
-                                            (teacherInStore) =>
-                                                item.ID ===
-                                                teacherInStore.ID
-                                        );
-
-                                    return (
-                                        <li
-                                            key={item.fio}
-                                            className="teachers__card"
-                                        >
-                                            <img
-                                                className="teachers__img"
-                                                src={teacher?.photo ? window.global.baseUrl + teacher.photo : no_photo_man}
-                                                alt={item.fio}
-                                            />
-                                            <h3 className="teachers__title">
-                                                <span className="teachers__span-accent">
-                                                    {teacher?.f}
-                                                </span>
-                                                {teacher?.i}{" "}
-                                                {teacher?.o}
-                                            </h3>
-                                        </li>
-                                    )
-                                })
-                            }
+                                return (
+                                    <li
+                                        key={item.fio}
+                                        className="teachers__card"
+                                    >
+                                        <img
+                                            className="teachers__img"
+                                            src={
+                                                teacher?.photo
+                                                    ? window.global.baseUrl +
+                                                      teacher.photo
+                                                    : no_photo_man
+                                            }
+                                            alt={item.fio}
+                                        />
+                                        <h3 className="teachers__title">
+                                            <span className="teachers__span-accent">
+                                                {teacher?.f}
+                                            </span>
+                                            {teacher?.i} {teacher?.o}
+                                        </h3>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </article>
                 </section>
-            }
-            {
-                theatre.photo && theatre.photo.length > 0
-                &&
-                <section className="public-content__section">
-                    <ImageGallery
-                        title="Фото театра"
-                        items={theatre.photo}
-                    />
+            )}
+            {theatre.photo && theatre.photo.length > 0 && (
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <ImageGallery
+                            title="Фото театра"
+                            items={theatre.photo}
+                        />
+                    </article>
                 </section>
-            }
-            {
-                theatre.photoVisit && theatre.photoVisit.length > 0
-                &&
-                <section className="public-content__section">
-                    <ImageGallery
-                        title="Фото посещения театра"
-                        items={theatre.photoVisit}
-                    />
+            )}
+            {theatre.photoVisit && theatre.photoVisit.length > 0 && (
+                <section
+                    className={
+                        commonStyles.section +
+                        ` ` +
+                        commonStyles.section_bg_g100
+                    }
+                >
+                    <article className={commonStyles.wrap}>
+                        <ImageGallery
+                            title="Фото посещения театра"
+                            items={theatre.photoVisit}
+                        />
+                    </article>
                 </section>
-            }
-            {
-                theatre.video_business_card && theatre.video_business_card !== ""
-                &&
-                <section className="public-content__section">
-                    <article className="public-content__wrap video">
-                        <h2 className="section-title">ВИДЕО ВИЗИТКА</h2>
+            )}
+            {theatre.video_business_card && theatre.video_business_card !== "" && (
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>ВИДЕО ВИЗИТКА</h2>
                         <VideoSlider
                             items={[
                                 {
@@ -579,35 +611,58 @@ function PublicTheatrePage() {
                         />
                     </article>
                 </section>
-            }
-            {
-                theatre.video && theatre.video.length > 0
-                &&
-                <section className="public-content__section">
-                    <article className="public-content__wrap video">
-                        <h2 className="section-title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
+            )}
+            {theatre.video && theatre.video.length > 0 && (
+                <section className={commonStyles.section}>
+                    <article className={commonStyles.wrap}>
+                        <h2 className={commonStyles.title}>
+                            ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ
+                        </h2>
                         <VideoSlider
                             thumbs={true}
-                            items={theatre.video.map(item => { return {url: item} })}
+                            items={theatre.video.map((item) => {
+                                return { url: item };
+                            })}
                         />
                     </article>
                 </section>
-            }
-            <section className="public-content__section public-content__section_bg_light-grey contact">
-                <article className="public-content__wrap contact">
-                    <h2 className="section-title">Контакты</h2>
+            )}
+            <section
+                className={
+                    commonStyles.section +
+                    ` ` +
+                    commonStyles.section_bg_g100 +
+                    ` contact`
+                }
+            >
+                <article className={commonStyles.wrap + " contact"}>
+                    <h2 className={commonStyles.title}>Контакты</h2>
                     <div className="contact__map">
                         <YMaps>
                             <Map
                                 state={{
-                                    center: [theatre.coordinates.split(',')[0].trim(), theatre.coordinates.split(',')[1].trim()],
+                                    center: [
+                                        theatre.coordinates
+                                            .split(",")[0]
+                                            .trim(),
+                                        theatre.coordinates
+                                            .split(",")[1]
+                                            .trim(),
+                                    ],
                                     zoom: 14,
                                 }}
                                 width="100%"
                                 height="100%"
                             >
                                 <Placemark
-                                    geometry={[theatre.coordinates.split(',')[0].trim(), theatre.coordinates.split(',')[1].trim()]}
+                                    geometry={[
+                                        theatre.coordinates
+                                            .split(",")[0]
+                                            .trim(),
+                                        theatre.coordinates
+                                            .split(",")[1]
+                                            .trim(),
+                                    ]}
                                     properties={{
                                         iconCaption: theatre.title,
                                     }}
@@ -620,7 +675,11 @@ function PublicTheatrePage() {
                     </div>
                     <div className="contact__columns">
                         <div className="contact__column">
-                            <h3 className="section-subtitle contact__title">
+                            <h3
+                                className={
+                                    commonStyles.subtitle + " contact__title"
+                                }
+                            >
                                 {theatre.title}
                             </h3>
                             <address className="contact__address">
@@ -634,14 +693,14 @@ function PublicTheatrePage() {
                                 {schoolStore.school.dir_phone}
                             </a>
                         </div>
-                        {
-                            theatre.social_links && theatre.social_links.length > 0
-                            &&
-                            <div className="social">
-                                <p className="social__label">Наши соцсети:</p>
-                                <ul className="social__list">
-                                    {
-                                        theatre.social_links.map(item => (
+                        {theatre.social_links &&
+                            theatre.social_links.length > 0 && (
+                                <div className="social">
+                                    <p className="social__label">
+                                        Наши соцсети:
+                                    </p>
+                                    <ul className="social__list">
+                                        {theatre.social_links.map((item) => (
                                             <li>
                                                 <a
                                                     className="social__link"
@@ -649,17 +708,18 @@ function PublicTheatrePage() {
                                                     target={"_blank"}
                                                     rel="noopener nofollow noreferer"
                                                 >
-                                                    {window.global.getSocialIcon(item)}
+                                                    {window.global.getSocialIcon(
+                                                        item
+                                                    )}
                                                 </a>
                                             </li>
-                                        ))
-                                    }
-                                </ul>
-                            </div>
-                        }
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                     </div>
                     <div className="school-info">
-                        <h3 className="section-subtitle">
+                        <h3 className={commonStyles.subtitle}>
                             Информация о школе
                         </h3>
                         <div className="school-info__detail">

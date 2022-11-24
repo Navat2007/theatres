@@ -29,12 +29,9 @@
 
     &__title {
         margin: min(2.5vmax, 1.25em) 0;
-        // padding-bottom: 0.5rem;
         font-size: 1.25em;
         font-weight: 600;
-        color: var(--public-accent);
         text-transform: uppercase;
-        // border-bottom: 2px solid rgba(map-get($colors, "primary"), 0.54);
     }
 
     &__social {

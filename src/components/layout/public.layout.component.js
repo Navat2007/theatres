@@ -1,16 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-
+import styles from "./public.module.scss";
 import logo from "../../images/logo.png";
 
 const PublicLayout = () => {
     return (
         <>
-            <div className="public-content">
-                <header className="header">
-                    <div className="header__wrap">
+            <div className={styles.content}>
+                <header className={styles.header}>
+                    <div className={styles.header_wrap}>
                         <a
-                            className="header__logo"
+                            className={styles.header_logo}
                             rel="noopener nofolloe noreferer"
                         >
                             <img
@@ -18,22 +18,28 @@ const PublicLayout = () => {
                                 alt="Логотип Содружества"
                             />
                         </a>
-                        <menu className="menu">
-                            <ul className="menu__list">
+                        <menu className={styles.menu}>
+                            <ul className={styles.menu_list}>
                                 <li>
-                                    <a className="menu__link">О содружестве</a>
+                                    <a className={styles.menu_link}>
+                                        О содружестве
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Участники</a>
+                                    <a className={styles.menu_link}>
+                                        Участники
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Проекты</a>
+                                    <a className={styles.menu_link}>Проекты</a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Фестиваль</a>
+                                    <a className={styles.menu_link}>
+                                        Фестиваль
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">
+                                    <a className={styles.menu_link}>
                                         Театральная премия
                                     </a>
                                 </li>
@@ -41,27 +47,33 @@ const PublicLayout = () => {
                         </menu>
                     </div>
                 </header>
-                <main className="public-content__main">
+                <main>
                     <Outlet />
                 </main>
-                <footer className="footer">
-                    <div className="footer__wrap">
-                        <nav className="menu">
-                            <ul className="menu__list">
+                <footer className={styles.footer}>
+                    <div className={styles.footer_wrap}>
+                        <nav className={styles.menu}>
+                            <ul className={styles.menu_list}>
                                 <li>
-                                    <a className="menu__link">О содружестве</a>
+                                    <a className={styles.menu_link}>
+                                        О содружестве
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Участники</a>
+                                    <a className={styles.menu_link}>
+                                        Участники
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Проекты</a>
+                                    <a className={styles.menu_link}>Проекты</a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">Фестиваль</a>
+                                    <a className={styles.menu_link}>
+                                        Фестиваль
+                                    </a>
                                 </li>
                                 <li>
-                                    <a className="menu__link">
+                                    <a className={styles.menu_link}>
                                         Театральная премия
                                     </a>
                                 </li>

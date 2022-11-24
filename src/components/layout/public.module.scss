@@ -1,0 +1,70 @@
+@import "../../styles/_assets/variables";
+@import "../../styles/_assets/mixins";
+@import "../../styles/_assets/extends";
+
+.content {
+    font-family: var(--ff-public);
+}
+
+.header {
+    background-color: var(--g600);
+}
+
+.header_wrap {
+    @extend %main-width;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+}
+
+.header_logo {
+    flex: none;
+    align-self: stretch;
+    background-color: var(--white);
+    padding: 0.675em min(3vmax, 3em);
+    box-sizing: border-box;
+    width: min(20vmax, 18.75em);
+    img {
+        object-fit: contain;
+        width: 100%;
+    }
+}
+
+.menu {
+    flex: auto;
+    margin: 0;
+    padding-left: 0;
+}
+
+.menu_list {
+    @extend %reset-list;
+    display: flex;
+    justify-content: center;
+}
+.menu_link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: unset;
+    font-size: min(1.5vmax, 1.25em);
+    font-weight: 600;
+    padding: min(1.5vmax, 1.25em);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: color 0.25s ease-in;
+
+    &:hover {
+        color: var(--public-primary);
+    }
+}
+
+.footer {
+    background-color: var(--g600);
+}
+.footer_wrap {
+    @extend %main-width;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+}
