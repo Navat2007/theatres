@@ -259,17 +259,17 @@ const TheatreRequestPage = () => {
                                 onClick={() => setEdit(true)}
                             />
                         </div>
-                        <div class="request-card__section --content-contact-person profile --place-request">
-                            <p class="profile__subtitle">Контактное лицо</p>
-                            <p class="profile__title">
+                        <div class="request-card__section --content-contact-person">
+                            <p class="request-card__description">Контактное лицо</p>
+                            <p class="request-card__title">
                                 {theatreRequest.user.fio}
                             </p>
-                            <ul className="profile__list">
+                            <ul className="request-card__list">
                                 {theatreRequest.user.email && (
                                     <li>
                                         <a
                                             href={`email:${theatreRequest.user.email}`}
-                                            className="profile__link link --type-icon --icon-email"
+                                            className="request-card__link link --type-icon --icon-email"
                                             rel="noreferrer nofollow noopener"
                                             target="_blank"
                                         >
@@ -281,7 +281,7 @@ const TheatreRequestPage = () => {
                                     <li>
                                         <a
                                             href={`tel:${theatreRequest.user.phone}`}
-                                            className="profile__link link --type-icon --icon-phone"
+                                            className="request-card__link link --type-icon --icon-phone"
                                             rel="noreferrer nofollow noopener"
                                             target="_blank"
                                         >

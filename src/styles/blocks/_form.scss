@@ -154,4 +154,12 @@
       font-size: 1.25em;
     }
   }
+
+  &__profile-img {
+    margin-left: auto;
+    @include box(8em);
+    min-width: 8em;
+    max-width: 8em;
+    border-radius: 15px;
+  }
 }

@@ -108,10 +108,10 @@ const UserUsersPage = () => {
                     <div className="form__container --view-two-columns">
                         <fieldset className="form__section">
                             <h2 className="form__title">Основная информация</h2>
-                            <div className="profile --place-edit-profile">
-                                <p className="profile__text">Фото</p>
+                            <div className="form__multy-block">
+                                <p className="form__label">Фото</p>
                                 <img
-                                    className="profile__img"
+                                    className="form__profile-img"
                                     src={
                                         user.photo !== ""
                                             ? window.global.baseUrl + user.photo
