@@ -71,10 +71,10 @@ const ProfilePage = () => {
             <div className={commonStyles.title_block}>
                 <h1 className={commonStyles.title}>Информация о профиле</h1>
             </div>
-            <div className="profile-card">
-                <div className="profile-card__img-block">
+            <div className={commonStyles.profile}>
+                <div className={commonStyles.profile_img_block}>
                     <img
-                        className="profile-card__img"
+                        className={commonStyles.profile_img}
                         src={
                             user?.photo !== ""
                                 ? window.global.baseUrl + user.photo
@@ -82,7 +82,7 @@ const ProfilePage = () => {
                         }
                         alt={user?.fio}
                     />
-                    <div className="profile-card__img-panel">
+                    <div className={commonStyles.profile_img_panel}>
                         {user?.photo !== "" && (
                             <>
                                 <Button
@@ -128,39 +128,48 @@ const ProfilePage = () => {
                         )}
                     </div>
                     <input
-                        className="profile-card__img-input"
+                        className={commonStyles.profile_img_input}
                         id="img-profile"
                         type="file"
                         onChange={handlePhotoChange}
                     />
                 </div>
-                <div className="profile-card__info-block">
-                    <h2 className="profile-card__title">{user?.fio}</h2>
-                    <ul className="profile-card__table">
+                <div className={commonStyles.profile_info}>
+                    <h2 className={commonStyles.profile_title}>{user?.fio}</h2>
+                    <ul className={commonStyles.profile_table}>
                         <li>
-                            <h3 className="profile-card__text">
+                            <h3 className={commonStyles.profile_text}>
                                 {user.email ? user.email : user.login}
                             </h3>
-                            <p className="profile-card__description">
+                            <p className={commonStyles.profile_description}>
                                 E-mail (логин)
                             </p>
                         </li>
                         <li>
-                            <h3 className="profile-card__text">
+                            <h3 className={commonStyles.profile_text}>
                                 {user?.role_title}
                             </h3>
-                            <p className="profile-card__description">
+                            <p className={commonStyles.profile_description}>
                                 Должность
                             </p>
                         </li>
                     </ul>
                 </div>
-                <ul className="profile-card__row profile-card__table">
+                <ul
+                    className={
+                        commonStyles.profile_row +
+                        ` ` +
+                        commonStyles.profile_table
+                    }
+                >
                     {phone && (
                         <li>
                             <a
                                 href={`tel:${phone}`}
-                                className="profile-card__item link --type-icon --icon-phone"
+                                className={
+                                    commonStyles.profile_item +
+                                    " link --type-icon --icon-phone"
+                                }
                                 rel="noreferrer nofollow noopener"
                                 target="_blank"
                             >
@@ -173,9 +182,18 @@ const ProfilePage = () => {
                         user?.org_name !== "" &&
                         user?.org_short_name !== "" && (
                             <li>
-                                <p className="profile-card__item link --type-icon --icon-company">
+                                <p
+                                    className={
+                                        commonStyles.profile_item +
+                                        " link --type-icon --icon-company"
+                                    }
+                                >
                                     {user?.org_name}
-                                    <span className="profile-card__description">
+                                    <span
+                                        className={
+                                            commonStyles.profile_description
+                                        }
+                                    >
                                         {user?.org_short_name}
                                     </span>
                                 </p>
@@ -186,11 +204,20 @@ const ProfilePage = () => {
                         user?.mrsd[0] !== "" &&
                         user?.mrsd[0] !== 0 && (
                             <li>
-                                <p className="profile-card__item link --type-icon --icon-district">
+                                <p
+                                    className={
+                                        commonStyles.profile_item +
+                                        " link --type-icon --icon-district"
+                                    }
+                                >
                                     {user.mrsd.map((mrsd) => (
                                         <>№ {mrsd} </>
                                     ))}
-                                    <span className="profile-card__description">
+                                    <span
+                                        className={
+                                            commonStyles.profile_description
+                                        }
+                                    >
                                         (Межрайон)
                                     </span>
                                 </p>

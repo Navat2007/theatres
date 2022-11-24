@@ -112,7 +112,7 @@ const MySchoolPage = () => {
             <div className={commonStyles.title_block}>
                 <h1 className={commonStyles.title}>Информация о школе</h1>
             </div>
-            <div className="profile-card">
+            <div className={commonStyles.profile}>
                 <div className="profile-card__img-block">
                     <img
                         className="profile-card__img"

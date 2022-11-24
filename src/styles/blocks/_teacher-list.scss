@@ -1,7 +1,7 @@
 .teacher-list {
     @extend %reset-list;
     display: flex;
-    gap: .675em;
+    gap: 0.675em;
     flex-wrap: wrap;
 
     &__item {
@@ -9,10 +9,15 @@
         padding: 0.5em;
         box-sizing: border-box;
         border-radius: 15px;
-        box-shadow: 0 0 6px rgba(black, .15);
+        box-shadow: 0 0 6px rgba(black, 0.15);
         display: flex;
         gap: 0 0.875em;
         align-items: center;
+        transition: box-shadow 0.15s ease-in;
+
+        &:hover {
+            box-shadow: 0 0 15px rgba(black, 0.15);
+        }
     }
 
     &__img {
