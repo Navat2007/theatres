@@ -40,12 +40,9 @@ const useSchoolsStore = create(
             set({loading: true});
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadSchool, form);
+            const response = await axios.postForm(urlLoadSchool, form);
 
             set({loading: false});
 
@@ -61,12 +58,9 @@ const useSchoolsStore = create(
             set({sending: true});
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlEditSchool, form);
+            const response = await axios.postForm(urlEditSchool, form);
 
             set({sending: false});
 

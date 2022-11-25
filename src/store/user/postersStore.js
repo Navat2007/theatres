@@ -32,7 +32,7 @@ const usePostersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlLoadPosters, form);
+            const response = await axios.postForm(urlLoadPosters, form);
 
             set({loading: false});
 
@@ -53,7 +53,7 @@ const usePostersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlLoadPoster, form);
+            const response = await axios.postForm(urlLoadPoster, form);
 
             set({loading: false});
 
@@ -81,7 +81,7 @@ const usePostersStore = create(
 
             }
 
-            const response = await axios.post(urlAddPoster, form);
+            const response = await axios.postForm(urlAddPoster, form);
 
             set({sending: false});
 
@@ -120,7 +120,7 @@ const usePostersStore = create(
 
             }
 
-            const response = await axios.post(urlEditPoster, form);
+            const response = await axios.postForm(urlEditPoster, form);
 
             set({sending: false});
 
@@ -159,7 +159,7 @@ const usePostersStore = create(
 
             }
 
-            const response = await axios.post(urlRemovePoster, form);
+            const response = await axios.postForm(urlRemovePoster, form);
 
             set({sending: false});
 

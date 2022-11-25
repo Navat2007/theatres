@@ -54,12 +54,12 @@ const useAuthStore = create(
                 set({ loading: true });
 
                 let form = new FormData();
+                window.global.buildFormData(form, params);
 
-                for (let key in params) {
-                    form.append(key, params[key]);
-                }
+                const response = await axios.postForm(urlCheck, form);
 
-                const response = await axios.post(urlCheck, form);
+                console.log(params);
+                console.log(response);
 
                 if (response.data.params && 'token' in response.data.params) {
 

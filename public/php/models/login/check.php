@@ -68,7 +68,9 @@ if (isset($login) && isset($password)) {
 $content = (object)[
 
     'input_params' => (object)[
-        'login' => $login,
+        'GET' => $_GET,
+        'POST' => $_POST,
+        'FILES' => $_FILES,
     ],
     'error' => $error,
     'error_text' => $error_text,

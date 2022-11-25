@@ -478,20 +478,6 @@ function PublicTheatrePage() {
         );
     }
 
-    if(id === "test2"){
-        return (<>
-
-            <motion.div
-                initial={{x: '-100vw'}}
-                whileInView={{x: 0}}
-                viewport={{ once: true, amount: 0.8 }}
-            >
-                asdasdsad
-            </motion.div>
-
-        </>);
-    }
-
     if (id && !theatre) return <p>Театр не найден</p>;
 
     return (

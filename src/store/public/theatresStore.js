@@ -32,7 +32,7 @@ const useTheatresStore = create(
                 let form = new FormData();
                 window.global.buildFormData(form, params);
 
-                const response = await axios.post(urlLoadTheatres, form).catch(error => {
+                const response = await axios.postForm(urlLoadTheatres, form).catch(error => {
                     set({ loading: false, sending: false, error: true, errorText: error });
                     return { error: true };
                 });
@@ -53,7 +53,7 @@ const useTheatresStore = create(
                 let form = new FormData();
                 window.global.buildFormData(form, params);
 
-                const response = await axios.post(urlLoadTheatre, form).catch(error => {
+                const response = await axios.postForm(urlLoadTheatre, form).catch(error => {
                     set({ loading: false, sending: false, error: true, errorText: error });
                     return { error: true };
                 });

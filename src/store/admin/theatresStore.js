@@ -37,7 +37,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlLoadTheatres, form).catch(error => {
+            const response = await axios.postForm(urlLoadTheatres, form).catch(error => {
                 set({ sending: false, error: true, errorText: error });
                 return { error: true };
             });
@@ -58,7 +58,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlLoadTheatre, form).catch(error => {
+            const response = await axios.postForm(urlLoadTheatre, form).catch(error => {
                 set({ sending: false, error: true, errorText: error });
                 return { error: true };
             });
@@ -90,7 +90,7 @@ const useTheatresStore = create(
 
             }
 
-            const response = await axios.post(urlAddTheatre, form);
+            const response = await axios.postForm(urlAddTheatre, form);
 
             set({ sending: false });
 
@@ -119,7 +119,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlEditTheatre, form);
+            const response = await axios.postForm(urlEditTheatre, form);
 
             set({ sending: false });
 
@@ -160,7 +160,7 @@ const useTheatresStore = create(
 
             }
 
-            const response = await axios.post(urlRemoveTheatre, form);
+            const response = await axios.postForm(urlRemoveTheatre, form);
 
             set({ sending: false });
 
@@ -190,7 +190,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlLoadTheatreRequests, form).catch(error => {
+            const response = await axios.postForm(urlLoadTheatreRequests, form).catch(error => {
                 set({ loading: false, sending: false, error: true, errorText: error });
                 return { error: true };
             });
@@ -211,7 +211,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlLoadTheatreRequest, form).catch(error => {
+            const response = await axios.postForm(urlLoadTheatreRequest, form).catch(error => {
                 set({ loading: false, sending: false, error: true, errorText: error });
                 return { error: true };
             });
@@ -233,7 +233,7 @@ const useTheatresStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlRequestChangeNew, form).catch(error => {
+            const response = await axios.postForm(urlRequestChangeNew, form).catch(error => {
                 set({ sending: false, error: true, errorText: error });
                 return { error: true };
             });

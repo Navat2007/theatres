@@ -27,12 +27,9 @@ const useTeachersStore = create(
             set({loading: true});
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTeachers, form);
+            const response = await axios.postForm(urlLoadTeachers, form);
 
             set({loading: false});
 
@@ -48,12 +45,9 @@ const useTeachersStore = create(
             set({loading: true});
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadTeacher, form);
+            const response = await axios.postForm(urlLoadTeacher, form);
 
             set({loading: false});
 
@@ -81,7 +75,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlAddTeacher, form);
+            const response = await axios.postForm(urlAddTeacher, form);
 
             set({sending: false});
 
@@ -120,7 +114,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlEditTeacher, form);
+            const response = await axios.postForm(urlEditTeacher, form);
 
             set({sending: false});
 
@@ -159,7 +153,7 @@ const useTeachersStore = create(
 
             }
 
-            const response = await axios.post(urlRemoveTeacher, form);
+            const response = await axios.postForm(urlRemoveTeacher, form);
 
             set({sending: false});
 

@@ -72,12 +72,9 @@ const useUsersStore = create(
             set((state) => ({loading: {...state.loading, admins: true}}));
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlLoadAdmin, form);
+            const response = await axios.postForm(urlLoadAdmin, form);
 
             set((state) => ({loading: {...state.loading, admins: false}}));
 
@@ -93,12 +90,9 @@ const useUsersStore = create(
             set((state) => ({sending: {...state.sending, admins: true}}));
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlAddAdmin, form);
+            const response = await axios.postForm(urlAddAdmin, form);
 
             set((state) => ({sending: {...state.sending, admins: false}}));
 
@@ -125,12 +119,9 @@ const useUsersStore = create(
             set((state) => ({sending: {...state.sending, admins: true}}));
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlEditAdmin, form);
+            const response = await axios.postForm(urlEditAdmin, form);
 
             set((state) => ({sending: {...state.sending, admins: false}}));
 
@@ -157,12 +148,9 @@ const useUsersStore = create(
             set((state) => ({sending: {...state.sending, admins: true}}));
 
             let form = new FormData();
+            window.global.buildFormData(form, params);
 
-            for (let key in params) {
-                form.append(key, params[key]);
-            }
-
-            const response = await axios.post(urlRemoveAdmin, form);
+            const response = await axios.postForm(urlRemoveAdmin, form);
 
             set((state) => ({sending: {...state.sending, admins: false}}));
 
@@ -210,7 +198,7 @@ const useUsersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlLoadUser, form);
+            const response = await axios.postForm(urlLoadUser, form);
 
             set((state) => ({loading: {...state.loading, users: false}}));
 
@@ -231,7 +219,7 @@ const useUsersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlAddUser, form);
+            const response = await axios.postForm(urlAddUser, form);
 
             set((state) => ({sending: {...state.sending, users: false}}));
 
@@ -263,7 +251,7 @@ const useUsersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlEditUser, form);
+            const response = await axios.postForm(urlEditUser, form);
 
             set((state) => ({sending: {...state.sending, users: false}}));
 
@@ -295,7 +283,7 @@ const useUsersStore = create(
                 form.append(key, params[key]);
             }
 
-            const response = await axios.post(urlRemoveUser, form);
+            const response = await axios.postForm(urlRemoveUser, form);
 
             set((state) => ({sending: {...state.sending, users: false}}));
 

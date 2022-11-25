@@ -26,7 +26,7 @@ const useSchoolStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlLoadSchool, form);
+            const response = await axios.postForm(urlLoadSchool, form);
 
             set({loading: false});
 
@@ -44,7 +44,7 @@ const useSchoolStore = create(
             let form = new FormData();
             window.global.buildFormData(form, params);
 
-            const response = await axios.post(urlEditSchool, form);
+            const response = await axios.postForm(urlEditSchool, form);
             console.log(response.data);
 
             set({sending: false});
@@ -67,7 +67,7 @@ const useSchoolStore = create(
 
             }
 
-            const response = await axios.post(urlEditPhoto, form);
+            const response = await axios.postForm(urlEditPhoto, form);
 
             set({sending: false});
 
