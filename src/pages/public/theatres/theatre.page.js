@@ -5,8 +5,8 @@ import moment from "moment";
 import createDOMPurify from "dompurify";
 
 import useTheatresStore from "../../../store/public/theatresStore";
-import useTeachersStore from "../../../store/admin/teachersStore";
-import useSchoolStore from "../../../store/admin/schoolsStore";
+import useTeachersStore from "../../../store/public/teachersStore";
+import useSchoolStore from "../../../store/public/schoolsStore";
 
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
@@ -35,6 +35,7 @@ function PublicTheatrePage() {
                 let tempTheatre = await loadTheatre({ id });
 
                 if (tempTheatre) {
+                    console.log(tempTheatre);
                     await schoolStore.loadSchool({ id: tempTheatre.schoolID });
                     await teachersStore.loadTeachers({
                         schoolID: tempTheatre.schoolID,
@@ -59,6 +60,8 @@ function PublicTheatrePage() {
     }
 
     if (id && !theatre) return <p>Театр не найден</p>;
+
+    console.log(teachersStore);
 
     return (
         <>
