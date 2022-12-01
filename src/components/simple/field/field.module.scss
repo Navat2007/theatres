@@ -79,9 +79,25 @@
             margin-right: 0.5em;
         }
     }
+
+    &_has_tooltip {
+        display: flex;
+        gap: 0.75em;
+        align-items: center;
+
+        .tooltip {
+            flex: none;
+            font-size: 1.5em;
+        }
+        .container {
+            flex: auto;
+        }
+    }
 }
 
 .label {
+    position: relative;
+
     display: inline-block;
     box-sizing: border-box;
     line-height: 150%;
@@ -270,4 +286,14 @@
 
     font-style: italic;
     font-size: 0.75em;
+}
+
+.tooltip {
+    vertical-align: top;
+    padding-left: 0.25em;
+    color: var(--darkLow);
+    cursor: pointer;
+    &:hover {
+        color: var(--dark);
+    }
 }

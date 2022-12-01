@@ -3,12 +3,14 @@ import React, { forwardRef } from "react";
 import styles from "./field.module.scss";
 import { AdminIcons } from "../../svgs.js";
 
+// Добавлен параметр hasTooltip - добавляет иконку для отображения подсказки
 const FieldInput = (
     {
         id = "id_0",
         type = "text",
         size,
         layout,
+        hasTooltip = false,
         extraClass = "",
         placeholder = "",
         label = null,
@@ -48,6 +50,7 @@ const FieldInput = (
 
     const getElementByType = (type) => {
         // Для поля добавить два события 1: Когда чекбокс нажат, добавляем класс {styles.field_checked} 2: Когда он дизайблед {styles.field_disabled}
+        // Добавить выбор мультиселекта, чтобы отображалась подсказка через компонент поля.
         switch (type) {
             case "textarea":
                 return (
@@ -150,25 +153,40 @@ const FieldInput = (
 
     const config = [
         styles.field,
-        layout ? styles["field_layout_" + layout] : "",
-        size ? styles["field_size_" + size] : "",
+        layout ? styles["field_layout_" + layout] : null,
+        size ? styles["field_size_" + size] : null,
         type === "checkbox_variant" || type === "checkbox"
             ? styles["field_type_" + type]
-            : "",
-        errorText !== "" ? styles.field_state_error : "",
+            : null,
+        hasTooltip && !label ? styles.field_has_tooltip : null,
+        errorText !== "" ? styles.field_state_error : null,
         extraClass,
     ];
 
-    const finalClassName = config.join(" ");
+    const finalClassName = config.filter(Boolean).join(" ");
 
     return (
         <div className={finalClassName}>
+            {/* Есть подсказка, но нет лэйбла (отображается перед полем) */}
+            {hasTooltip && !label && (
+                <span
+                    className={styles.tooltip + " mdi mdi-information-outline"}
+                />
+            )}
             {label && (
                 <label
                     className={styles.label}
                     htmlFor={id}
                 >
                     {label}
+                    {/* Есть лейбл, отображается в конце. */}
+                    {hasTooltip && (
+                        <span
+                            className={
+                                styles.tooltip + " mdi mdi-information-outline"
+                            }
+                        />
+                    )}
                 </label>
             )}
             {type !== "checkbox_variant" && type !== "checkbox" ? (
