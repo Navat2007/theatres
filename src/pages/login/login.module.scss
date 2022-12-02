@@ -35,7 +35,10 @@
     max-width: 100%;
 }
 
-.info_text {
+.info {
+    font-size: 0.875em;
+    font-style: italic;
+    text-align: center;
     margin: 0;
     color: var(--error);
     opacity: 0;
@@ -50,15 +53,11 @@
 }
 
 .navigation {
-    text-align: center;
-}
-
-.navigation {
     display: flex;
     justify-content: space-between;
 }
 
-.info_link {
+.link {
     font-size: 0.875em;
     color: inherit;
     text-decoration: unset;

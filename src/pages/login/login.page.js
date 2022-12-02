@@ -68,8 +68,8 @@ const LoginPage = () => {
                     defaultChecked={window.localStorage.getItem("remember")}
                 />
                 <p
-                    className={`${styles.info_text} ${
-                        error ? styles.info_text_actived : ""
+                    className={`${styles.info} ${
+                        error ? styles.info_actived : ""
                     }`}
                 >
                     {errorText}
@@ -81,8 +81,8 @@ const LoginPage = () => {
                     spinnerActive={loading === "loading"}
                 />
                 <div className={styles.navigation}>
-                    <Link className={styles.info_link}>Забыли пароль?</Link>
-                    <Link className={styles.info_link}>Помощь</Link>
+                    <Link className={styles.link}>Забыли пароль?</Link>
+                    <Link className={styles.link}>Помощь</Link>
                 </div>
             </form>
         </Popup>
