@@ -48,3 +48,22 @@
         height: auto;
     }
 }
+
+.navigation {
+    text-align: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info_link {
+    font-size: 0.875em;
+    color: inherit;
+    text-decoration: unset;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

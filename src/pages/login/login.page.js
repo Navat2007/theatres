@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
@@ -80,6 +80,10 @@ const LoginPage = () => {
                     disabled={loading === "loading"}
                     spinnerActive={loading === "loading"}
                 />
+                <div className={styles.navigation}>
+                    <Link className={styles.info_link}>Забыли пароль?</Link>
+                    <Link className={styles.info_link}>Помощь</Link>
+                </div>
             </form>
         </Popup>
     );
