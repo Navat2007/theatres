@@ -18,7 +18,7 @@ const UserLayout = () => {
             link: "/user/my_school",
         },
         {
-            title: "Театры",
+            title: "Мои театры",
             icon: MenuIcons.theatres,
             link: "/user/theatres",
         },
