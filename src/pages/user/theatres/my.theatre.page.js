@@ -159,9 +159,7 @@ const MyTheatrePage = () => {
                             aria-label="Назад"
                             onClick={() => navigate("/user/theatres")}
                         />
-                        <h1 className={commonStyles.title}>
-                            Новая заявка на театр{" "}
-                        </h1>
+                        <h1 className={commonStyles.title}>Новый театр</h1>
                     </div>
                     <TheatreRequest
                         onSubmitDone={onAddSubmit}
