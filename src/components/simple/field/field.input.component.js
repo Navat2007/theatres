@@ -10,7 +10,8 @@ const FieldInput = (
         type = "text",
         size,
         layout,
-        hasTooltip = false,
+        hasTooltip = true,
+        hasProgress = "5",
         extraClass = "",
         placeholder = "",
         label = null,
@@ -158,28 +159,103 @@ const FieldInput = (
         type === "checkbox_variant" || type === "checkbox"
             ? styles["field_type_" + type]
             : null,
-        hasTooltip && !label ? styles.field_has_tooltip : null,
         errorText !== "" ? styles.field_state_error : null,
-        extraClass,
+        (hasTooltip && !label) || hasProgress ? null : extraClass,
     ];
 
     const finalClassName = config.filter(Boolean).join(" ");
 
+    // Добавила переменную для заполненности поля
+    let isFilled = false;
+
+    if ((hasTooltip && !label) || hasProgress)
+        return (
+            <div className={styles.wrap + ` ` + extraClass}>
+                {hasTooltip && !label && (
+                    <span
+                        className={
+                            styles.tooltip + " mdi mdi-information-outline"
+                        }
+                    />
+                )}
+                <div className={finalClassName}>
+                    {label && (
+                        <label
+                            className={styles.label}
+                            htmlFor={id}
+                        >
+                            {label}
+                            {hasTooltip && (
+                                <span
+                                    className={
+                                        styles.tooltip +
+                                        " mdi mdi-information-outline"
+                                    }
+                                />
+                            )}
+                        </label>
+                    )}
+                    {type !== "checkbox_variant" && type !== "checkbox" ? (
+                        type === "select" ? (
+                            getElementByType(type)
+                        ) : (
+                            <div
+                                className={styles.container}
+                                onClick={() => {
+                                    inputRef.current.focus();
+                                }}
+                            >
+                                <div className={styles.input_container}>
+                                    {getElementByType(type)}
+                                </div>
+                                {errorText !== "" ? (
+                                    <span className={styles.icon}>
+                                        {AdminIcons.error}
+                                    </span>
+                                ) : type === "password" ? (
+                                    <span
+                                        className={styles.icon}
+                                        aria-label={`${
+                                            eyeActive
+                                                ? "Скрыть пароль"
+                                                : "Показать пароль"
+                                        }`}
+                                        onClick={toggleEye}
+                                    >
+                                        {eyeActive
+                                            ? AdminIcons.eye_off
+                                            : AdminIcons.eye}
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        )
+                    ) : (
+                        getElementByType(type)
+                    )}
+                </div>
+                {hasProgress && (
+                    <span
+                        className={
+                            styles.progressItem +
+                            (isFilled ? " " + styles.progressItem_isFilled : "")
+                        }
+                    >
+                        {hasProgress}
+                    </span>
+                )}
+            </div>
+        );
+
     return (
         <div className={finalClassName}>
-            {/* Есть подсказка, но нет лэйбла (отображается перед полем) */}
-            {hasTooltip && !label && (
-                <span
-                    className={styles.tooltip + " mdi mdi-information-outline"}
-                />
-            )}
             {label && (
                 <label
                     className={styles.label}
                     htmlFor={id}
                 >
                     {label}
-                    {/* Есть лейбл, отображается в конце. */}
                     {hasTooltip && (
                         <span
                             className={

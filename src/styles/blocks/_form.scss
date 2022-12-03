@@ -43,7 +43,7 @@
       display: grid;
       gap: 0 1.25em;
       align-items: start;
-      grid-template-columns: min(35%, 20em) 1fr;
+      grid-template-columns: min(18vmax, 15em) 1fr;
 
       .form__label {
         padding-top: var(--field-v-paddings);
