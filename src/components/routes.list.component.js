@@ -39,6 +39,9 @@ import MyPosterPage from "../pages/user/posters/my.poster.page";
 
 // PUBLIC PAGES
 import PublicTheatrePage from "../pages/public/theatres/theatre.page";
+import MainPage from "../pages/public/main.page";
+import ConcordPage from "../pages/public/concord.page";
+
 
 const RoutesList = () => {
     const {user} = useAuthStore();
@@ -153,7 +156,7 @@ const RoutesList = () => {
                 <Route
                     path="/test"
                     exact={true}
-                    element={<TestPage />}
+                    element={<TestPage/>}
                 />
                 <Route
                     path="/login"
@@ -288,15 +291,25 @@ const RoutesList = () => {
     return (
         <Routes>
             <Route
-                path="/theatre/:id"
-                exact={true}
+                path="/"
                 element={<PublicLayout/>}
             >
                 <Route
                     index
+                    element={<MainPage/>}
+                />
+                <Route
+                    path="/concord"
+                    exact={true}
+                    element={<ConcordPage/>}
+                />
+                <Route
+                    path="/theatre/:id"
+                    exact={true}
                     element={<PublicTheatrePage/>}
                 />
             </Route>
+
             <Route
                 path="/login"
                 exact={true}
