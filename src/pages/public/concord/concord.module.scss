@@ -2,12 +2,150 @@
 @import "../../../styles/_assets/mixins";
 @import "../../../styles/_assets/extends";
 
+.item {
+    max-width: 62em;
+}
+
+.img {
+    max-width: 100%;
+    mix-blend-mode: multiply;
+    shape-margin: 1.25em;
+
+    & ~ .pharagraph {
+        text-align: justify;
+    }
+
+    &_people_1 {
+        object-fit: scale-down;
+        object-position: 5% top;
+        width: 100%;
+
+        @include media(sm) {
+            height: min(18.5vmax, 18.5em);
+            shape-outside: polygon(
+                100% 0,
+                100% 60%,
+                30% 60%,
+                30% 100%,
+                0 100%,
+                0 0
+            );
+        }
+    }
+
+    &_people_2 {
+        object-fit: scale-down;
+        object-position: 95% top;
+        width: 100%;
+        @include media(sm) {
+            height: min(21.5vmax, 21.5em);
+            shape-outside: polygon(
+                100% 0,
+                100% 100%,
+                70% 100%,
+                70% 50%,
+                0 50%,
+                0 0
+            );
+        }
+    }
+
+    &_people_3 {
+        object-fit: scale-down;
+        object-position: 5% top;
+        width: 100%;
+        @include media(sm) {
+            height: min(30.75vmax, 30.75em);
+            shape-outside: polygon(
+                100% 0,
+                100% 60%,
+                30% 60%,
+                30% 100%,
+                0 100%,
+                0 0
+            );
+
+            & ~ .listText {
+              overflow: hidden;
+              padding-top: 1.25em;
+          }
+        }
+    }
+
+    &_people_4 {
+        object-fit: scale-down;
+        object-position: 95% top;
+        width: 100%;
+        @include media(sm) {
+            height: min(28.85vmax, 28.85em);
+            shape-outside: polygon(
+                100% 0,
+                100% 100%,
+                70% 100%,
+                70% 40%,
+                0 40%,
+                0 0
+            );
+        }
+    }
+
+    &_people_5 {
+        object-fit: scale-down;
+        object-position: 5% top;
+        width: 100%;
+        @include media(sm) {
+            height: min(27.2vmax, 27.2em);
+            shape-outside: polygon(
+                100% 0,
+                100% 70%,
+                30% 70%,
+                30% 100%,
+                0 100%,
+                0 0
+            );
+
+            & ~ .listText {
+                overflow: hidden;
+                padding-top: 1.25em;
+            }
+        }
+    }
+
+    &_people_6 {
+        object-fit: scale-down;
+        object-position: 5% top;
+        width: 100%;
+        @include media(sm) {
+            height: min(28vmax, 28em);
+            shape-outside: polygon(
+                100% 0,
+                100% 60%,
+                40% 60%,
+                40% 100%,
+                0 100%,
+                0 0
+            );
+        }
+    }
+
+    @include media(sm) {
+        &_left {
+            float: left;
+        }
+
+        &_right {
+            float: right;
+        }
+    }
+}
+
 .list {
     @extend %reset-list;
     display: flex;
     flex-direction: column;
     gap: 1.875em;
 }
+
 .caption {
     margin: 0 0 1.25rem;
     font-size: 1.5em;
@@ -21,7 +159,11 @@
 }
 
 .listText {
-  font-size: 1.25em;
-  line-height: 1.5;
-  margin: 0;
+    font-size: 1.25em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.spanAccent {
+    font-weight: bold;
 }
