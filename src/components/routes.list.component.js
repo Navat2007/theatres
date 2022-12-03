@@ -142,17 +142,6 @@ const RoutesList = () => {
                         element={<ProfilePage/>}
                     />
                 </Route>
-
-                <Route
-                    path="/theatre/:id"
-                    exact={true}
-                    element={<PublicLayout/>}
-                >
-                    <Route
-                        index
-                        element={<PublicTheatrePage/>}
-                    />
-                </Route>
                 <Route
                     path="/test"
                     exact={true}
@@ -165,9 +154,23 @@ const RoutesList = () => {
                 />
                 <Route
                     path="/"
-                    exact={true}
-                    element={<Navigate to="/admin/users"/>}
-                />
+                    element={<PublicLayout/>}
+                >
+                    <Route
+                        index
+                        element={<MainPage/>}
+                    />
+                    <Route
+                        path="/concord"
+                        exact={true}
+                        element={<ConcordPage/>}
+                    />
+                    <Route
+                        path="/theatre/:id"
+                        exact={true}
+                        element={<PublicTheatrePage/>}
+                    />
+                </Route>
                 <Route
                     path="*"
                     element={<Page404/>}
@@ -259,17 +262,6 @@ const RoutesList = () => {
                         element={<ProfilePage/>}
                     />
                 </Route>
-
-                <Route
-                    path="/theatre/:id"
-                    exact={true}
-                    element={<PublicLayout/>}
-                >
-                    <Route
-                        index
-                        element={<PublicTheatrePage/>}
-                    />
-                </Route>
                 <Route
                     path="/login"
                     exact={true}
@@ -277,9 +269,23 @@ const RoutesList = () => {
                 />
                 <Route
                     path="/"
-                    exact={true}
-                    element={<Navigate to="/user/my_school"/>}
-                />
+                    element={<PublicLayout/>}
+                >
+                    <Route
+                        index
+                        element={<MainPage/>}
+                    />
+                    <Route
+                        path="/concord"
+                        exact={true}
+                        element={<ConcordPage/>}
+                    />
+                    <Route
+                        path="/theatre/:id"
+                        exact={true}
+                        element={<PublicTheatrePage/>}
+                    />
+                </Route>
                 <Route
                     path="*"
                     element={<Page404/>}
@@ -309,16 +315,10 @@ const RoutesList = () => {
                     element={<PublicTheatrePage/>}
                 />
             </Route>
-
             <Route
                 path="/login"
                 exact={true}
                 element={<LoginPage/>}
-            />
-            <Route
-                path="/"
-                exact={true}
-                element={<Navigate to="/login"/>}
             />
             <Route
                 path="*"
