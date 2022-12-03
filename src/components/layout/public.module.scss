@@ -23,12 +23,9 @@
     align-self: stretch;
     background-color: var(--white);
     padding: 0.675em min(3vmax, 3em);
-    box-sizing: border-box;
     width: min(20vmax, 18.75em);
-    img {
-        object-fit: contain;
-        width: 100%;
-    }
+    object-fit: contain;
+    box-sizing: border-box;
 }
 
 .menu {

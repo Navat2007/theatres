@@ -22,11 +22,7 @@ function PublicTheatrePage() {
     const DOMPurify = createDOMPurify(window);
 
     const schoolStore = useSchoolStore();
-    const {
-        theatre,
-        loadTheatre,
-        loading,
-    } = useTheatresStore();
+    const { theatre, loadTheatre, loading } = useTheatresStore();
     const teachersStore = useTeachersStore();
 
     React.useEffect(() => {
@@ -61,7 +57,7 @@ function PublicTheatrePage() {
 
     if (id && !theatre) return <p>Театр не найден</p>;
 
-    console.log(teachersStore);
+    // console.log(teachersStore);
 
     return (
         <>

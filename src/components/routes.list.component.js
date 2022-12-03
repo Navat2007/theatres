@@ -40,8 +40,8 @@ import MyPosterPage from "../pages/user/posters/my.poster.page";
 // PUBLIC PAGES
 import PublicTheatrePage from "../pages/public/theatres/theatre.page";
 import PublicTheatresPage from "../pages/public/theatres/theatres.page";
-import MainPage from "../pages/public/main.page";
-import ConcordPage from "../pages/public/concord.page";
+import MainPage from "../pages/public/index.page";
+import ConcordPage from "../pages/public/concord/concord.page";
 
 
 const RoutesList = () => {
