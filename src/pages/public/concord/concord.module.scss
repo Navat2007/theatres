@@ -1,0 +1,27 @@
+@import "../../../styles/_assets/variables";
+@import "../../../styles/_assets/mixins";
+@import "../../../styles/_assets/extends";
+
+.list {
+    @extend %reset-list;
+    display: flex;
+    flex-direction: column;
+    gap: 1.875em;
+}
+.caption {
+    margin: 0 0 1.25rem;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pharagraph {
+    margin: 0;
+    font-size: 1.25em;
+}
+
+.listText {
+  font-size: 1.25em;
+  line-height: 1.5;
+  margin: 0;
+}
