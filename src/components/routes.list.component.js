@@ -39,6 +39,7 @@ import MyPosterPage from "../pages/user/posters/my.poster.page";
 
 // PUBLIC PAGES
 import PublicTheatrePage from "../pages/public/theatres/theatre.page";
+import PublicTheatresPage from "../pages/public/theatres/theatres.page";
 import MainPage from "../pages/public/main.page";
 import ConcordPage from "../pages/public/concord.page";
 
@@ -166,6 +167,11 @@ const RoutesList = () => {
                         element={<ConcordPage/>}
                     />
                     <Route
+                        path="/theatre"
+                        exact={true}
+                        element={<PublicTheatresPage/>}
+                    />
+                    <Route
                         path="/theatre/:id"
                         exact={true}
                         element={<PublicTheatrePage/>}
@@ -281,6 +287,11 @@ const RoutesList = () => {
                         element={<ConcordPage/>}
                     />
                     <Route
+                        path="/theatre"
+                        exact={true}
+                        element={<PublicTheatresPage/>}
+                    />
+                    <Route
                         path="/theatre/:id"
                         exact={true}
                         element={<PublicTheatrePage/>}
@@ -308,6 +319,11 @@ const RoutesList = () => {
                     path="/concord"
                     exact={true}
                     element={<ConcordPage/>}
+                />
+                <Route
+                    path="/theatre"
+                    exact={true}
+                    element={<PublicTheatresPage/>}
                 />
                 <Route
                     path="/theatre/:id"
