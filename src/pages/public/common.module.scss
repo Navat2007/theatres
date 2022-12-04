@@ -14,21 +14,120 @@
 }
 
 .title {
-  margin: 0;
-  margin-bottom: min(6.25vmax, 3.125rem);
-  font-family: var(--ff-firm);
-  font-weight: 500;
-  font-size: min(5.5vmax, 2.75em);
-  text-transform: uppercase;
-  color: var(--public-primary);
+    margin: 0;
+    margin-bottom: min(6.25vmax, 3.125rem);
+    font-family: var(--ff-firm);
+    font-weight: 500;
+    font-size: min(4vmax, 2.75em);
+    text-transform: uppercase;
+    color: var(--public-primary);
 }
 
 .subtitle {
-  margin: 0;
-  margin-bottom: min(5vmax, 2.5rem);
-  font-family: var(--ff-firm);
-  font-weight: 500;
-  font-size: min(4vmax, 2em);
-  text-transform: uppercase;
-  color: var(--public-accent);
+    margin: 0;
+    margin-bottom: min(5vmax, 2.5rem);
+    font-family: var(--ff-firm);
+    font-weight: 500;
+    font-size: min(3vmax, 2em);
+    text-transform: uppercase;
+    color: var(--public-accent);
+}
+
+.twoColumns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+
+    @include media(lg) {
+        flex-direction: row;
+    }
+}
+
+.linkButton {
+    color: var(--public-primary);
+    text-decoration: none;
+    font-size: 1.25em;
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 1em;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease-in;
+
+    &:hover {
+        background-color: rgba(map-get($colors, "public-primary"), 0.15);
+    }
+}
+
+.concord {
+    flex: auto;
+
+    .linkButton {
+        display: block;
+        width: max-content;
+        margin-left: auto;
+    }
+}
+
+.concordImg {
+    float: left;
+    margin-right: 1.25em;
+    margin-bottom: 1.25em;
+    width: min(27.25vmax, 27.25em);
+    object-fit: contain;
+}
+
+.concordMainText {
+    font-size: 1.25em;
+    line-height: 1.4;
+}
+
+.news {
+    flex: 0 0 min(29.5vmax, 29.5em);
+
+    @include media(lg) {
+        padding: 0 1.25em;
+        box-sizing: border-box;
+    }
+
+    .linkButton {
+        display: block;
+        width: max-content;
+        margin: 0 auto;
+    }
+}
+
+.newsList {
+    @extend %reset-list;
+    border-bottom: 1px solid var(--g200);
+    padding-bottom: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+.newImg {
+    width: 100%;
+    max-width: min(29.5vmax, 29.5em);
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    margin-bottom: 1.25em;
+}
+
+.newDate {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.newTitle {
+    margin: 0;
+    font-size: 1.375em;
+    font-weight: 600;
+}
+
+.newPharagraph {
+    margin: 0;
+    font-size: 1.125em;
+    color: var(--darkLow);
+
+    @include clamp(3, 1.35);
 }
