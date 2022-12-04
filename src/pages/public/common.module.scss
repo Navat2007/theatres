@@ -55,7 +55,7 @@
     transition: background-color 0.15s ease-in;
 
     &:hover {
-        background-color: rgba(map-get($colors, "public-primary"), 0.15);
+        background-color: rgba(map-get($colors, "public-primary"), 0.1);
     }
 }
 
@@ -130,4 +130,113 @@
     color: var(--darkLow);
 
     @include clamp(3, 1.35);
+}
+
+.performances {
+    .linkButton {
+        display: block;
+        width: max-content;
+        margin: 2.5em auto 0;
+    }
+}
+.performancesList {
+    @extend %reset-list;
+    display: grid;
+    gap: 0.675em;
+
+    @include media(md) {
+        grid-template-columns: repeat(auto-fit, minmax(30em, 1fr));
+    }
+}
+
+.performance {
+    text-decoration: none;
+    color: inherit;
+
+    display: block;
+
+    box-shadow: 0 0 15px rgba(black, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease-in;
+
+    &:hover {
+        box-shadow: 0 0 15px rgba(black, 0.26);
+
+        & .performanceImg {
+            transform: scale(1.1);
+        }
+    }
+
+    @include media(sm) {
+        display: flex;
+    }
+}
+
+.performanceImgBlock {
+    flex-basis: max(40%, 17em);
+    overflow: hidden;
+}
+
+.performanceImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease-in;
+}
+.performanceInfo {
+    padding: 1.25em;
+}
+.performanceTitle {
+    font-size: 1.25em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+}
+.performanceList {
+    @extend %reset-list;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+.performancePharagraph {
+    margin: 0;
+    color: var(--darkLow);
+}
+.performanceSpanAccent {
+    font-weight: bold;
+    color: var(--dark);
+}
+.qoute {
+    display: inline-grid;
+    align-items: center;
+    padding: 1.875em;
+    gap: 0.675em 1.25em;
+    grid-template-columns: auto 1fr;
+
+    box-shadow: 0 0 15px rgba(black, 0.15);
+    border-radius: 5px;
+    transition: box-shadow 0.25s ease-in;
+
+    &:hover {
+        box-shadow: 0 0 15px rgba(black, 0.26);
+    }
+}
+.qouteImg {
+    width: 10em;
+    grid-row: span 2;
+    display: block;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+.qouteTitle {
+    margin: 0;
+}
+.qouteText {
+    margin: 0;
+    font-style: italic;
+    max-width: 17em;
 }
