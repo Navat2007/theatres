@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import styles from "./public.module.scss";
 import logo from "../../images/logo.png";
+import { SocialIcons, AdminIcons } from "../svgs.js";
 
 const PublicLayout = () => {
     return (
@@ -61,10 +62,38 @@ const PublicLayout = () => {
                 <footer className={styles.footer}>
                     <div className={styles.footerWrap}>
                         <div className={styles.footerColumns}>
-                            <div className={styles.footerColumn}>
+                            <div
+                                className={[
+                                    styles.footerColumn,
+                                    styles.footerColumnContentContact,
+                                ].join(" ")}
+                            >
                                 <h2 className={styles.footerColumnHeading}>
                                     Контакты
                                 </h2>
+                                <a
+                                    className={styles.link}
+                                    href="tel:84956926572"
+                                    rel="nofollow noopener noreferer"
+                                >
+                                    <span className={styles.linkIcon}>
+                                        {AdminIcons.phone}
+                                    </span>{" "}
+                                    +7 (495) 692-65-72
+                                </a>
+                                <a
+                                    className={styles.link}
+                                    href="mailto:test@mail.ru"
+                                    rel="nofollow noopener noreferer"
+                                >
+                                    <span className={styles.linkIcon}>
+                                        {AdminIcons.email}
+                                    </span>{" "}
+                                    test@mail.ru
+                                </a>
+                                <Link className={styles.loginLink}>
+                                    Войти в Личный кабинет
+                                </Link>
                             </div>
                             <div className={styles.footerColumn}>
                                 <h2 className={styles.footerColumnHeading}>
@@ -110,8 +139,31 @@ const PublicLayout = () => {
                                 <h2 className={styles.footerColumnHeading}>
                                     Соцсети
                                 </h2>
+                                <a
+                                    className={styles.link}
+                                    href="#"
+                                    rel="nofollow noopener noreferer"
+                                >
+                                    <span className={styles.linkIcon}>
+                                        {SocialIcons.vk}
+                                    </span>{" "}
+                                    ВКонтакте
+                                </a>
+                                <a
+                                    className={styles.link}
+                                    href="#"
+                                    rel="nofollow noopener noreferer"
+                                >
+                                    <span className={styles.linkIcon}>
+                                        {SocialIcons.t}
+                                    </span>{" "}
+                                    Телеграм
+                                </a>
                             </div>
                         </div>
+                        <p className={styles.footerCopy}>
+                            © 2022г. «Московский центр «Патриот.Спорт»
+                        </p>
                     </div>
                 </footer>
             </div>
