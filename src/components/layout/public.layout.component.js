@@ -8,12 +8,14 @@ const PublicLayout = () => {
         <>
             <div className={styles.content}>
                 <header className={styles.header}>
-                    <div className={styles.headerWrap}>
-                        <img
-                            className={styles.headerLogo}
-                            src={logo}
-                            alt="Логотип Содружества"
-                        />
+                    <div className={styles.header_wrap}>
+                        <NavLink to={"/"} >
+                            <img
+                                className={styles.header_logo}
+                                src={logo}
+                                alt="Логотип Содружества"
+                            />
+                        </NavLink>
                         <nav className={styles.menu}>
                             <ul className={styles.menuList}>
                                 <li>
@@ -43,9 +45,9 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={styles.menuLink}>
+                                    <Link className={styles.menu_link}>
                                         Новости
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </nav>
