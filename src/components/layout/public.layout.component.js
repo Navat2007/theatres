@@ -47,7 +47,7 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <NavLink className={styles.menu_link}>
+                                    <NavLink className={styles.menuLink}>
                                         Новости
                                     </NavLink>
                                 </li>
