@@ -38,11 +38,12 @@ import MyPostersPage from "../pages/user/posters/my.posters.page";
 import MyPosterPage from "../pages/user/posters/my.poster.page";
 
 // PUBLIC PAGES
-import PublicTheatrePage from "../pages/public/theatres/theatre.page";
-import PublicTheatresPage from "../pages/public/theatres/theatres.page";
 import MainPage from "../pages/public/index.page";
 import ConcordPage from "../pages/public/concord/concord.page";
-
+import AllNewsPage from "../pages/public/news/all.news.page";
+import NewsPage from "../pages/public/news/news.page";
+import PublicTheatrePage from "../pages/public/theatres/theatre.page";
+import PublicTheatresPage from "../pages/public/theatres/theatres.page";
 
 const RoutesList = () => {
 
@@ -336,6 +337,16 @@ const RoutesList = () => {
                     path="/theatre/:id"
                     exact={true}
                     element={<PublicTheatrePage/>}
+                />
+                <Route
+                    path="/news"
+                    exact={true}
+                    element={<AllNewsPage/>}
+                />
+                <Route
+                    path="/news/:id"
+                    exact={true}
+                    element={<NewsPage/>}
                 />
             </Route>
             <Route
