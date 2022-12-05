@@ -47,7 +47,7 @@ const PublicLayout = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to={"/theatre/"}
+                                        to={"/"}
                                         className={styles.menuLink}
                                     >
                                         Театры
@@ -59,7 +59,7 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <NavLink to={"/news/"} className={styles.menuLink}>
+                                    <NavLink to={"/"} className={styles.menuLink}>
                                         Новости
                                     </NavLink>
                                 </li>
@@ -118,9 +118,9 @@ const PublicLayout = () => {
                                 >
                                     <ul className={styles.menuList}>
                                         <li>
-                                            <Link className={styles.menuLink}>
+                                            <NavLink to={"/concord/"} className={styles.menuLink}>
                                                 О Содружестве
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <li>
                                             <Link className={styles.menuLink}>
