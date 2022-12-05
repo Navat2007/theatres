@@ -1,4 +1,7 @@
 import React from "react";
+
+import useAuthStore from "../../../store/authStore";
+
 import commonStyles from "../common.module.scss";
 import styles from "./concord.module.scss";
 
@@ -8,8 +11,11 @@ import quote_3 from "../../../images/concord/quote_3.png";
 import quote_4 from "../../../images/concord/quote_4.png";
 import quote_5 from "../../../images/concord/quote_5.png";
 import quote_6 from "../../../images/concord/quote_6.png";
+import Button from "../../../components/simple/button/button.component";
 
 const ConcordPage = () => {
+    const { user } = useAuthStore();
+
     return (
         <>
             <section className={commonStyles.section}>
@@ -497,17 +503,16 @@ const ConcordPage = () => {
                             </ul>
                         </li>
                         <p className={styles.pharagraph}>
-                            (ДЛЯ ТЕХ, КТО ВОШЕЛ ПОД ЛОГИНОМ И ПАРОЛЕМ ДАЛЕЕ
-                            ДОСТУП НА ЗАПИТЬ. ОНА У НАС ЕСТЬ НА{" "}
-                            <a
-                                className={styles.link}
-                                rel="noopener noopener"
-                                href="https://patriotsport.moscow/shkolnyj-teatr/"
-                                target="_blank"
-                            >
-                                СТРАНИЦЕ МЦПС
-                            </a>
-                            )
+                            {user && user.role === "user" && (
+                                <a
+                                    className={styles.link}
+                                    rel="noopener noopener"
+                                    href="https://patriotsport.moscow/shkolnyj-teatr/"
+                                    target="_blank"
+                                >
+                                    <Button text="ЗАПИСАТЬСЯ" />
+                                </a>
+                            )}
                         </p>
                     </ul>
                 </article>
