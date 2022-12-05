@@ -331,7 +331,7 @@ const ConcordPage = () => {
                             прямо сейчас. Пишите свои вопросы и предложения на
                             нашу почту{" "}
                             <a
-                                className="link"
+                                className={styles.link}
                                 rel="nofollow noopener"
                                 href="mailto:sodruzhestvo@edu.mos.ru"
                             >
@@ -480,7 +480,7 @@ const ConcordPage = () => {
                                     Семеновичем. Для этого отправьте письмо на
                                     нашу почту:{" "}
                                     <a
-                                        className="link"
+                                        className={styles.link}
                                         rel="nofollow noopener"
                                         href="mailto:sodruzhestvo@edu.mos.ru"
                                     >
@@ -500,7 +500,7 @@ const ConcordPage = () => {
                             (ДЛЯ ТЕХ, КТО ВОШЕЛ ПОД ЛОГИНОМ И ПАРОЛЕМ ДАЛЕЕ
                             ДОСТУП НА ЗАПИТЬ. ОНА У НАС ЕСТЬ НА{" "}
                             <a
-                                className="link"
+                                className={styles.link}
                                 rel="noopener noopener"
                                 href="https://patriotsport.moscow/shkolnyj-teatr/"
                                 target="_blank"

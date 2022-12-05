@@ -17,6 +17,46 @@
     font-weight: 600;
 }
 
+.link {
+    margin: 0;
+    text-decoration: none;
+    color: var(--dark);
+    transition: color 0.25s ease-in;
+
+    .profile_description {
+        text-indent: 2.5em;
+    }
+
+    &:hover {
+        color: var(--primary);
+
+        .svgIcon svg path {
+            fill: var(--primary);
+        }
+    }
+}
+
+.svgIcon {
+    & ~ .profile_description {
+        text-indent: 2.5em;
+    }
+    svg {
+        @include box(1.2em);
+        margin-right: 0.75rem;
+        vertical-align: middle;
+        path {
+            fill: var(--dark);
+            transition: fill 0.25s ease-in;
+        }
+    }
+}
+
+.fontFace {
+    font-size: 120%;
+    vertical-align: middle;
+    margin-right: 0.75rem;
+}
+
 // PROFILE
 .profile {
     display: grid;

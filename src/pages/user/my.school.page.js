@@ -9,6 +9,7 @@ import useAuthStore from "../../store/authStore";
 import useSchoolStore from "../../store/user/schoolStore";
 import Notif from "../../components/notif/notif.component";
 import commonStyles from "../common.module.scss";
+import { AdminIcons } from "../../components/svgs.js";
 
 const MySchoolPage = () => {
     const { user } = useAuthStore();
@@ -215,12 +216,10 @@ const MySchoolPage = () => {
                 >
                     {school.dir_fio && school.dir_fio !== "" && (
                         <li>
-                            <p
-                                className={
-                                    commonStyles.profile_item +
-                                    " link --type-icon --icon-company"
-                                }
-                            >
+                            <p className={commonStyles.profile_item}>
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.toolbox}
+                                </span>
                                 {school.dir_fio}
                                 <span
                                     className={commonStyles.profile_description}
@@ -234,13 +233,16 @@ const MySchoolPage = () => {
                         <li>
                             <a
                                 href={`tel:${phone}`}
-                                className={
-                                    commonStyles.profile_item +
-                                    " link --type-icon --icon-phone"
-                                }
+                                className={[
+                                    commonStyles.profile_item,
+                                    commonStyles.link,
+                                ].join(" ")}
                                 rel="noreferrer nofollow noopener"
                                 target="_blank"
                             >
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.phone}
+                                </span>
                                 {phone}
                                 <span
                                     className={commonStyles.profile_description}
@@ -252,29 +254,31 @@ const MySchoolPage = () => {
                     )}
                     {school.dir_email && school.dir_email !== "" && (
                         <li>
-                            <p
-                                className={
-                                    commonStyles.profile_item +
-                                    " link --type-icon --icon-email"
-                                }
+                            <a
+                                href={`mailto:${phone}`}
+                                className={[
+                                    commonStyles.profile_item,
+                                    commonStyles.link,
+                                ].join(" ")}
                             >
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.email}
+                                </span>
                                 {school.dir_email}
                                 <span
                                     className={commonStyles.profile_description}
                                 >
                                     Email директора/руководителя школы
                                 </span>
-                            </p>
+                            </a>
                         </li>
                     )}
                     {school.address && school.address !== "" && (
                         <li>
-                            <p
-                                className={
-                                    commonStyles.profile_item +
-                                    " link --type-icon --icon-district"
-                                }
-                            >
+                            <p className={commonStyles.profile_item}>
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.crosshairs}
+                                </span>
                                 {school.address}
                                 <span
                                     className={commonStyles.profile_description}

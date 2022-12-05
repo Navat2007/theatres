@@ -6,6 +6,15 @@
     max-width: 62em;
 }
 
+.link {
+    text-decoration: none;
+    color: var(--public-primary);
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .img {
     max-width: 100%;
     mix-blend-mode: multiply;
@@ -66,9 +75,9 @@
             );
 
             & ~ .listText {
-              overflow: hidden;
-              padding-top: 1.25em;
-          }
+                overflow: hidden;
+                padding-top: 1.25em;
+            }
         }
     }
 
@@ -156,6 +165,7 @@
 .pharagraph {
     margin: 0;
     font-size: 1.25em;
+    position: relative;
 }
 
 .listText {

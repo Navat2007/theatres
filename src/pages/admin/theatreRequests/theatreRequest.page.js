@@ -15,6 +15,7 @@ import Editor from "../../../components/reach_editor/editor.component";
 import Accordion from "../../../components/simple/accordion/accordion.component";
 import JoditEditor from "jodit-react";
 import commonStyles from "../../common.module.scss";
+import { AdminIcons } from "../../../components/svgs.js";
 
 const TheatreRequestPage = () => {
     let { id } = useParams();
@@ -245,9 +246,15 @@ const TheatreRequestPage = () => {
                             <h1 className="request-card__title">
                                 {theatreRequest.title}
                             </h1>
-                            <p className="request-card__item link --type-icon --icon-company">
+                            <p className={"request-card__item"}>
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.toolbox}
+                                </span>
                                 {theatreRequest.school.title}
-                                <span className="request-card__description">
+                                <span
+                                    className="request-card__description"
+                                    style={{ textIndent: "2.5em" }}
+                                >
                                     Полное наименование школы
                                 </span>
                             </p>
@@ -260,7 +267,9 @@ const TheatreRequestPage = () => {
                             />
                         </div>
                         <div class="request-card__section --content-contact-person">
-                            <p class="request-card__description">Контактное лицо</p>
+                            <p class="request-card__description">
+                                Контактное лицо
+                            </p>
                             <p class="request-card__title">
                                 {theatreRequest.user.fio}
                             </p>
@@ -269,10 +278,18 @@ const TheatreRequestPage = () => {
                                     <li>
                                         <a
                                             href={`email:${theatreRequest.user.email}`}
-                                            className="request-card__link link --type-icon --icon-email"
+                                            className={[
+                                                "request-card__link",
+                                                commonStyles.link,
+                                            ].join(" ")}
                                             rel="noreferrer nofollow noopener"
                                             target="_blank"
                                         >
+                                            <span
+                                                className={commonStyles.svgIcon}
+                                            >
+                                                {AdminIcons.email}
+                                            </span>
                                             {theatreRequest.user.email}
                                         </a>
                                     </li>
@@ -281,10 +298,18 @@ const TheatreRequestPage = () => {
                                     <li>
                                         <a
                                             href={`tel:${theatreRequest.user.phone}`}
-                                            className="request-card__link link --type-icon --icon-phone"
+                                            className={[
+                                                "request-card__link",
+                                                commonStyles.link,
+                                            ].join(" ")}
                                             rel="noreferrer nofollow noopener"
                                             target="_blank"
                                         >
+                                            <span
+                                                className={commonStyles.svgIcon}
+                                            >
+                                                {AdminIcons.phone}
+                                            </span>
                                             {theatreRequest.user.phone}
                                         </a>
                                     </li>

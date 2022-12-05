@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./404.page.module.scss";
+import commonStyles from "./common.module.scss";
 
 const Page404 = () => {
     React.useEffect(() => {
@@ -28,7 +29,7 @@ const Page404 = () => {
                 <br />
                 <br />
                 <NavLink
-                    className="link"
+                    className={commonStyles.link}
                     to={"/"}
                 >
                     Вернуться на главную{" "}

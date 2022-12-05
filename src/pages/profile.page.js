@@ -7,6 +7,7 @@ import Notif from "../components/notif/notif.component";
 
 import no_photo_man from "../images/no_photo_man.png";
 import commonStyles from "./common.module.scss";
+import { AdminIcons } from "../components/svgs.js";
 
 const ProfilePage = () => {
     const { user, fetchEditPhoto } = useAuthStore();
@@ -166,13 +167,16 @@ const ProfilePage = () => {
                         <li>
                             <a
                                 href={`tel:${phone}`}
-                                className={
-                                    commonStyles.profile_item +
-                                    " link --type-icon --icon-phone"
-                                }
+                                className={[
+                                    commonStyles.profile_item,
+                                    commonStyles.link,
+                                ].join(" ")}
                                 rel="noreferrer nofollow noopener"
                                 target="_blank"
                             >
+                                <span className={commonStyles.svgIcon}>
+                                    {AdminIcons.phone}
+                                </span>
                                 {phone}
                             </a>
                         </li>
@@ -182,12 +186,10 @@ const ProfilePage = () => {
                         user?.org_name !== "" &&
                         user?.org_short_name !== "" && (
                             <li>
-                                <p
-                                    className={
-                                        commonStyles.profile_item +
-                                        " link --type-icon --icon-company"
-                                    }
-                                >
+                                <p className={commonStyles.profile_item}>
+                                    <span className={commonStyles.svgIcon}>
+                                        {AdminIcons.toolbox}
+                                    </span>
                                     {user?.org_name}
                                     <span
                                         className={
@@ -204,12 +206,10 @@ const ProfilePage = () => {
                         user?.mrsd[0] !== "" &&
                         user?.mrsd[0] !== 0 && (
                             <li>
-                                <p
-                                    className={
-                                        commonStyles.profile_item +
-                                        " link --type-icon --icon-district"
-                                    }
-                                >
+                                <p className={commonStyles.profile_item}>
+                                    <span className={commonStyles.svgIcon}>
+                                        {AdminIcons.crosshairs}
+                                    </span>
                                     {user.mrsd.map((mrsd) => (
                                         <>№ {mrsd} </>
                                     ))}
