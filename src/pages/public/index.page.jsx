@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 import BannerSlider from "../../components/slider/banner.slider.component";
 
@@ -54,9 +54,9 @@ const MainPage = () => {
                                 сцена» и узнать о проектах Содружества.
                             </p>
                         </div>
-                        <Link className={commonStyles.linkButton}>
+                        <NavLink to={"/concord/"} className={commonStyles.linkButton}>
                             Подробнее
-                        </Link>
+                        </NavLink>
                     </article>
                     <aside className={commonStyles.news}>
                         <h2 className={commonStyles.title}>Новости</h2>
@@ -81,9 +81,9 @@ const MainPage = () => {
                                 </p>
                             </li>
                         </ul>
-                        <Link className={commonStyles.linkButton}>
+                        <NavLink to={"/news/"} className={commonStyles.linkButton}>
                             Все новости
-                        </Link>
+                        </NavLink>
                     </aside>
                 </div>
             </section>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import {Link, NavLink, Outlet} from "react-router-dom";
 import styles from "./public.module.scss";
 import logo from "../../images/logo.png";
 
@@ -17,9 +17,9 @@ const PublicLayout = () => {
                         <nav className={styles.menu}>
                             <ul className={styles.menu_list}>
                                 <li>
-                                    <Link className={styles.menu_link}>
+                                    <NavLink to={"/concord/"} className={styles.menu_link}>
                                         О Содружестве
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <Link className={styles.menu_link}>
@@ -27,9 +27,9 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={styles.menu_link}>
+                                    <NavLink to={"/theatre/"} className={styles.menu_link}>
                                         Театры
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <Link className={styles.menu_link}>
