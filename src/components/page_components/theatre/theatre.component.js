@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import ReactPlayer from "react-player";
 import moment from "moment";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
 
 import Button from "../../simple/button/button.component";
@@ -13,8 +13,7 @@ import commonStyles from "../../../pages/common.module.scss";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 
-const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
-
+const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
     const [preview, setPreview] = React.useState(<></>);
@@ -43,9 +42,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     onClick={onBack}
                 />
                 <h1 className={commonStyles.title}>{theatre.title}</h1>
-                {
-                    onEdit
-                    &&
+                {onEdit && (
                     <Button
                         size="smaller"
                         type="submit"
@@ -55,7 +52,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         aria-label="Редактировать театр"
                         onClick={onEdit}
                     />
-                }
+                )}
             </div>
             <Tabs>
                 <Tab title={"Основная информация"}>
@@ -84,9 +81,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                 </p>
                             </li>
                             <li className="info__item">
-                                <h3 className="info__label">
-                                    Координаты
-                                </h3>
+                                <h3 className="info__label">Координаты</h3>
                                 <p className="info__description">
                                     <a
                                         className="link"
@@ -114,8 +109,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             </li>
                             <li className="info__item">
                                 <h3 className="info__label">
-                                    Возрастной состав участников
-                                    школьного театра
+                                    Возрастной состав участников школьного
+                                    театра
                                 </h3>
                                 <p className="info__description">
                                     {theatre.age_members
@@ -124,47 +119,41 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                 </p>
                             </li>
                             <li className="info__item">
-                                <h3 className="info__label">
-                                    Дата основания
-                                </h3>
+                                <h3 className="info__label">Дата основания</h3>
                                 <p className="info__description">
-                                    {moment(
-                                        theatre.foundation_date
-                                    ).format("DD.MM.YYYY")}
+                                    {moment(theatre.foundation_date).format(
+                                        "DD.MM.YYYY"
+                                    )}
                                 </p>
                             </li>
                             <li className="info__item">
                                 <h3 className="info__label">Соцсети</h3>
                                 <ul className="info__social">
-                                    {theatre.social_links.map(
-                                        (link) => (
-                                            <li key={link}>
-                                                <a
-                                                    className="info__social-link"
-                                                    href={link}
-                                                    target={"_blank"}
-                                                    rel="noopener nofollow noreferer"
-                                                >
-                                                    {window.global.getSocialIcon(
-                                                        link
-                                                    )}
-                                                </a>
-                                            </li>
-                                        )
-                                    )}
+                                    {theatre.social_links.map((link) => (
+                                        <li key={link}>
+                                            <a
+                                                className="info__social-link"
+                                                href={link}
+                                                target={"_blank"}
+                                                rel="noopener nofollow noreferer"
+                                            >
+                                                {window.global.getSocialIcon(
+                                                    link
+                                                )}
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </li>
                             <li className="info__item">
                                 <h3 className="info__label">
-                                    Страница театра на сайте
-                                    образовательной организации
+                                    Страница театра на сайте образовательной
+                                    организации
                                 </h3>
                                 <p className="info__description">
                                     <a
                                         className="link"
-                                        href={
-                                            theatre.theatre_url_school
-                                        }
+                                        href={theatre.theatre_url_school}
                                         target={"_blank"}
                                         rel="noopener nofollow noreferer"
                                     >
@@ -173,24 +162,32 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     </a>
                                 </p>
                             </li>
+                            <li className="info__item">
+                                <h3 className="info__label">
+                                    Фестиваль “Живая сцена”
+                                </h3>
+                                {/* Див для того, чтобы кнопка не растягивалась на весь экран, также можно если театр заявку подал, изменить состояние */}
+                                <div>
+                                    <Button
+                                        type="button"
+                                        text={"Подать заявку"}
+                                    />
+                                </div>
+                            </li>
                         </ul>
                         <h2 className="info__title">Педагоги</h2>
                         <ul className="teacher-list">
                             {theatre.teachers.map((item) => {
-                                let teacher =
-                                    teachersStore.teachers.find(
-                                        (teacherInStore) =>
-                                            item.ID ===
-                                            teacherInStore.ID
-                                    );
+                                let teacher = teachersStore.teachers.find(
+                                    (teacherInStore) =>
+                                        item.ID === teacherInStore.ID
+                                );
 
                                 return (
                                     <NavLink
                                         key={item.ID}
                                         className="link"
-                                        to={
-                                            "/admin/teachers/" + item.ID
-                                        }
+                                        to={"/admin/teachers/" + item.ID}
                                     >
                                         <li className="teacher-list__item">
                                             <img
@@ -198,19 +195,18 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                 src={
                                                     teacher?.photo
                                                         ? window.global
-                                                            .baseUrl +
-                                                        teacher.photo
+                                                              .baseUrl +
+                                                          teacher.photo
                                                         : no_photo_man
                                                 }
                                                 alt=""
                                             />
                                             <div className="teacher-list__info">
                                                 <h3 className="teacher-list__title">
-                                                            <span className="teacher-list__span-accent">
-                                                                {teacher?.f}{" "}
-                                                            </span>
-                                                    {teacher?.i}{" "}
-                                                    {teacher?.o}
+                                                    <span className="teacher-list__span-accent">
+                                                        {teacher?.f}{" "}
+                                                    </span>
+                                                    {teacher?.i} {teacher?.o}
                                                 </h3>
                                                 <p className="teacher-list__text"></p>
                                                 <p className="teacher-list__description">
@@ -287,8 +283,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">
-                                                        {item.order}
-                                                    </span>
+                                                {item.order}
+                                            </span>
                                         </li>
                                     )
                                 )}
@@ -299,11 +295,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             <p>Нет фото</p>
                         </>
                     )}
-                    <h2 className="info__title">
-                        Фото посещения театра
-                    </h2>
-                    {theatre.photoVisit &&
-                    theatre.photoVisit.length > 0 ? (
+                    <h2 className="info__title">Фото посещения театра</h2>
+                    {theatre.photoVisit && theatre.photoVisit.length > 0 ? (
                         <>
                             <ul className="gallery-form">
                                 {theatre.photoVisit.map((item) =>
@@ -344,8 +337,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">
-                                                        {item.order}
-                                                    </span>
+                                                {item.order}
+                                            </span>
                                         </li>
                                     )
                                 )}
@@ -380,14 +373,15 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         </>
                     )}
 
-                    <h2 className="info__title">
-                        ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ
-                    </h2>
+                    <h2 className="info__title">ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
                     {theatre.video && theatre.video.length > 0 ? (
                         <>
                             <ul className="gallery-form --content-video">
                                 {theatre.video.map((item) => (
-                                    <li key={item} className="gallery-form__item">
+                                    <li
+                                        key={item}
+                                        className="gallery-form__item"
+                                    >
                                         <ReactPlayer
                                             width="100%"
                                             height={"auto"}
@@ -411,8 +405,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         <h2 className="info__title">
                             РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
                         </h2>
-                        {theatre.reviews &&
-                        theatre.reviews.length > 0 ? (
+                        {theatre.reviews && theatre.reviews.length > 0 ? (
                             <>
                                 {theatre.reviews.map((item) => (
                                     <div key={item.title}>
@@ -434,8 +427,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             </>
                         )}
                         <h2 className="info__title">
-                            РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ
-                            МОСКОВСКИХ ТЕАТРОВ
+                            РАССКАЗЫ (РЕЦЕНЗИИ) О ПОСЕЩЕНИИ ДРУГИХ МОСКОВСКИХ
+                            ТЕАТРОВ
                         </h2>
                         {theatre.reviewsVisit &&
                         theatre.reviewsVisit.length > 0 ? (
