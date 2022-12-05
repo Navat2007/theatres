@@ -10,7 +10,7 @@
     background-color: var(--g600);
 }
 
-.header_wrap {
+.headerWrap {
     @extend %main-width;
     padding: 0;
     display: flex;
@@ -18,7 +18,7 @@
     color: var(--white);
 }
 
-.header_logo {
+.headerLogo {
     flex: none;
     align-self: stretch;
     background-color: var(--white);
@@ -34,12 +34,12 @@
     padding-left: 0;
 }
 
-.menu_list {
+.menuList {
     @extend %reset-list;
     display: flex;
     justify-content: center;
 }
-.menu_link {
+.menuLink {
     display: inline-block;
     color: inherit;
     text-align: center;
@@ -59,10 +59,16 @@
 .footer {
     background-color: var(--g600);
 }
-.footer_wrap {
+.footerWrap {
     @extend %main-width;
     padding: 0;
     display: flex;
     align-items: center;
     color: var(--white);
+}
+
+.footerColumns {
+    display: flex;
+}
+.footerColumn {
 }
