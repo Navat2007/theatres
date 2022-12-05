@@ -21,7 +21,7 @@ const LoginPage = () => {
 
     const onSubmit = async (data) => {
         await login(data);
-        navigate("/", { replace: true });
+        //navigate("/", { replace: true });
     };
 
     return (

@@ -55,6 +55,12 @@ const App = () => {
 
     }, []);
 
+    React.useEffect(() => {
+
+
+
+    }, [app]);
+
     return (
         <Preloader loading={timer > 0}>
             {app}

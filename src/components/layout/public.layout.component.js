@@ -1,10 +1,21 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import {Link, NavLink, Outlet, useLocation} from "react-router-dom";
+
+import useAuthStore from "../../store/authStore";
+
 import styles from "./public.module.scss";
 import logo from "../../images/logo.png";
 import { SocialIcons, AdminIcons } from "../svgs.js";
 
 const PublicLayout = () => {
+
+    const {user} = useAuthStore();
+    const location = useLocation();
+
+    React.useEffect(() => {
+        document.body.scrollTo(0, 0);
+    }, [location]);
+
     return (
         <>
             <div className={styles.content}>
@@ -48,7 +59,7 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <NavLink className={styles.menuLink}>
+                                    <NavLink to={"/news/"} className={styles.menuLink}>
                                         Новости
                                     </NavLink>
                                 </li>
@@ -91,9 +102,9 @@ const PublicLayout = () => {
                                     </span>{" "}
                                     test@mail.ru
                                 </a>
-                                <Link className={styles.loginLink}>
+                                <NavLink to={user ? (user.role === "user" ? "/user/" : "/admin/") : "/login/"} className={styles.loginLink}>
                                     Войти в Личный кабинет
-                                </Link>
+                                </NavLink>
                             </div>
                             <div className={styles.footerColumn}>
                                 <h2 className={styles.footerColumnHeading}>
