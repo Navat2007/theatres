@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import BannerSlider from "../../components/slider/banner.slider.component";
+
 import commonStyles from "./common.module.scss";
 
 const MainPage = () => {
@@ -56,7 +58,7 @@ const MainPage = () => {
                             Подробнее
                         </Link>
                     </article>
-                    <asside className={commonStyles.news}>
+                    <aside className={commonStyles.news}>
                         <h2 className={commonStyles.title}>Новости</h2>
                         <ul className={commonStyles.newsList}>
                             <li>
@@ -82,7 +84,7 @@ const MainPage = () => {
                         <Link className={commonStyles.linkButton}>
                             Все новости
                         </Link>
-                    </asside>
+                    </aside>
                 </div>
             </section>
             <section

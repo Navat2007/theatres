@@ -45,7 +45,14 @@ import ConcordPage from "../pages/public/concord/concord.page";
 
 
 const RoutesList = () => {
+
     const {user} = useAuthStore();
+
+    React.useEffect(() => {
+
+        console.log(user);
+
+    }, [user]);
 
     if (user && (user.role === "admin" || user.role === "superadmin")) {
         return (

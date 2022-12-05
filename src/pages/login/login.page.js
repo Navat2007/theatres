@@ -80,10 +80,10 @@ const LoginPage = () => {
                     disabled={loading === "loading"}
                     spinnerActive={loading === "loading"}
                 />
-                <div className={styles.navigation}>
-                    <Link className={styles.link}>Забыли пароль?</Link>
-                    <Link className={styles.link}>Помощь</Link>
-                </div>
+                {/*<div className={styles.navigation}>*/}
+                {/*    <Link className={styles.link}>Забыли пароль?</Link>*/}
+                {/*    <Link className={styles.link}>Помощь</Link>*/}
+                {/*</div>*/}
             </form>
         </Popup>
     );
