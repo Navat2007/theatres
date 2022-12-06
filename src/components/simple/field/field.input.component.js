@@ -16,6 +16,7 @@ const FieldInput = (
         placeholder = "",
         label = null,
         required = false,
+        disabled = false,
         errorText = "",
         defaultSelectItem = {
             title: "Все",
@@ -61,6 +62,7 @@ const FieldInput = (
                             className={styles.input}
                             placeholder={placeholder}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         />
                     </>
@@ -75,6 +77,7 @@ const FieldInput = (
                             className={styles.input}
                             placeholder={placeholder}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         />
                     </>
@@ -87,6 +90,7 @@ const FieldInput = (
                             ref={ref}
                             className={styles.select}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         >
                             <option
@@ -117,6 +121,7 @@ const FieldInput = (
                             type={type}
                             className={styles.checkbox}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         />
                     </>
@@ -131,6 +136,7 @@ const FieldInput = (
                             type={"checkbox"}
                             className={styles.checkbox_variant}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         />
                     </>
@@ -145,6 +151,7 @@ const FieldInput = (
                             className={styles.input}
                             placeholder={placeholder}
                             required={required}
+                            disabled={disabled}
                             {...rest}
                         />
                     </>
@@ -154,6 +161,7 @@ const FieldInput = (
 
     const config = [
         styles.field,
+        disabled ? styles.field_disabled : null,
         layout ? styles["field_layout_" + layout] : null,
         size ? styles["field_size_" + size] : null,
         type === "checkbox_variant" || type === "checkbox"

@@ -53,7 +53,11 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
         );
     };
 
-    const onFestivalRequestSubmit = (data) => {
+    const onTaliaFestivalRequestSubmit = (data) => {
+        console.log(data);
+    }
+
+    const onMelpomenaFestivalRequestSubmit = (data) => {
         console.log(data);
     }
 
@@ -67,55 +71,155 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     setFestivalRequest(<></>);
                 }}
             >
-                <form
-                    onSubmit={handleSubmit(onFestivalRequestSubmit)}
-                    className="form"
-                >
-                    <fieldset className="form__section --content-info">
-                        <FieldInput
-                            label={"Образовательная организация:"}
-                            type={"textarea"}
-                            rows={2}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            disabled={true}
-                            value={school.org_name}
-                        />
-                        <FieldInput
-                            label={"Название театра:"}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            disabled={true}
-                            value={theatre.title}
-                        />
-                        <FieldInput
-                            label={"Направление:"}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            disabled={true}
-                            value={"«Благосклонная Талия»"}
-                        />
-                        <FieldInput
-                            label={"Количество участников творческого коллектива:"}
-                            type={"number"}
-                            layout="flex"
-                            size="small"
-                            required={true}
-                            {...register("count", {value: 0})}
-                        />
-                    </fieldset>
-                    <div className="form__controls">
-                        <Button
-                            type="submit"
-                            text="Отправить"
-                            spinnerActive={false}
-                            style={{marginLeft: "auto", display: "block"}}
-                        />
-                    </div>
-                </form>
+                <Tabs>
+                    <Tab title={"Благосклонная Талия"}>
+                        <form
+                            onSubmit={handleSubmit(onTaliaFestivalRequestSubmit)}
+                            className="form"
+                        >
+                            <fieldset className="form__section --content-info">
+                                <FieldInput
+                                    label={"Образовательная организация:"}
+                                    type={"textarea"}
+                                    rows={2}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={school.org_name}
+                                />
+                                <FieldInput
+                                    label={"Название театра:"}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={theatre.title}
+                                />
+                                <FieldInput
+                                    label={"Направление:"}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={"«Благосклонная Талия»"}
+                                />
+                                <FieldInput
+                                    label={"Количество участников творческого коллектива:"}
+                                    type={"number"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("count", {value: 0})}
+                                />
+                            </fieldset>
+                            <div className="form__controls">
+                                <Button
+                                    type="submit"
+                                    text="Отправить"
+                                    spinnerActive={false}
+                                    style={{marginLeft: "auto", display: "block"}}
+                                />
+                            </div>
+                        </form>
+                    </Tab>
+                    <Tab title={"Школьная Мельпомена"}>
+                        <form
+                            onSubmit={handleSubmit(onMelpomenaFestivalRequestSubmit)}
+                            className="form"
+                        >
+                            <fieldset className="form__section --content-info">
+                                <FieldInput
+                                    label={"Образовательная организация:"}
+                                    type={"textarea"}
+                                    rows={2}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={school.org_name}
+                                />
+                                <FieldInput
+                                    label={"Название театра:"}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={theatre.title}
+                                />
+                                <FieldInput
+                                    label={"Направление:"}
+                                    placeholder={"..."}
+                                    layout="flex"
+                                    size="small"
+                                    disabled={true}
+                                    value={"«Благосклонная Талия»"}
+                                />
+                                <FieldInput
+                                    label={"Название спектакля:"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_title", {value: ""})}
+                                />
+                                <FieldInput
+                                    label={"Автор:"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_author", {value: ""})}
+                                />
+                                <FieldInput
+                                    label={"Название литературного материала:"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_book", {value: ""})}
+                                />
+                                <FieldInput
+                                    label={"ФИО режиссера-постановщика:"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_producer", {value: ""})}
+                                />
+                                <FieldInput
+                                    label={"Количество участников творческого коллектива:"}
+                                    type={"number"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_count", {value: 0})}
+                                />
+                                <FieldInput
+                                    label={"Количество участников творческого коллектива:"}
+                                    type={"select"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_age", {value: 0})}
+                                />
+                                <FieldInput
+                                    label={"Продолжительность спектакля (мин):"}
+                                    type={"number"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_length", {value: 0})}
+                                />
+                            </fieldset>
+                            <div className="form__controls">
+                                <Button
+                                    type="submit"
+                                    text="Отправить"
+                                    spinnerActive={false}
+                                    style={{marginLeft: "auto", display: "block"}}
+                                />
+                            </div>
+                        </form>
+                    </Tab>
+                </Tabs>
+
             </Popup>
         )
 
