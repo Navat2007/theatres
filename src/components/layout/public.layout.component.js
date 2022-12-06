@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, NavLink, Outlet, useLocation} from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
@@ -8,8 +8,7 @@ import logo from "../../images/logo.png";
 import { SocialIcons, AdminIcons } from "../svgs.js";
 
 const PublicLayout = () => {
-
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
     const location = useLocation();
 
     React.useEffect(() => {
@@ -59,11 +58,68 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <NavLink to={"/"} className={styles.menuLink}>
+                                    <NavLink
+                                        to={"/"}
+                                        className={styles.menuLink}
+                                    >
                                         Новости
                                     </NavLink>
                                 </li>
                             </ul>
+                            {/* Если не входит то добавляется этот список - выпадающее меню, как в школе. Туда переносятся все пункты с конца, которые не влезли по ширине */}
+                            <ul
+                                className={[
+                                    styles.menuListMobile,
+                                    // styles.menuListMobileOpened,
+                                ].join(" ")}
+                            >
+                                <li>
+                                    <NavLink
+                                        to={"/concord/"}
+                                        className={styles.menuLink}
+                                    >
+                                        О Содружестве
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <Link className={styles.menuLink}>
+                                        Деятельность
+                                    </Link>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to={"/"}
+                                        className={styles.menuLink}
+                                    >
+                                        Театры
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <Link className={styles.menuLink}>
+                                        Фестиваль - конкурс «Живая сцена»
+                                    </Link>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to={"/"}
+                                        className={styles.menuLink}
+                                    >
+                                        Новости
+                                    </NavLink>
+                                </li>
+                            </ul>
+                            {/* При нажатии добавляем еще класс styles.hamburgerOpened
+                            Если Меню входит по ширине экрана - кнопку не выводим */}
+                            <button
+                                className={[
+                                    styles.hamburger,
+                                    // styles.hamburgerOpened,
+                                ].join(" ")}
+                                type="button"
+                                aria-label="Мобильное меню"
+                            >
+                                <div></div>
+                            </button>
                         </nav>
                     </div>
                 </header>
@@ -102,7 +158,16 @@ const PublicLayout = () => {
                                     </span>{" "}
                                     test@mail.ru
                                 </a>
-                                <NavLink to={user ? (user.role === "user" ? "/user/my_school" : "/admin/users") : "/login/"} className={styles.loginLink}>
+                                <NavLink
+                                    to={
+                                        user
+                                            ? user.role === "user"
+                                                ? "/user/my_school"
+                                                : "/admin/users"
+                                            : "/login/"
+                                    }
+                                    className={styles.loginLink}
+                                >
                                     Войти в Личный кабинет
                                 </NavLink>
                             </div>
@@ -118,7 +183,10 @@ const PublicLayout = () => {
                                 >
                                     <ul className={styles.menuList}>
                                         <li>
-                                            <NavLink to={"/concord/"} className={styles.menuLink}>
+                                            <NavLink
+                                                to={"/concord/"}
+                                                className={styles.menuLink}
+                                            >
                                                 О Содружестве
                                             </NavLink>
                                         </li>
