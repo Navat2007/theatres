@@ -194,6 +194,12 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                 <FieldInput
                                     label={"Количество участников творческого коллектива:"}
                                     type={"select"}
+                                    defaultSelectItem={false}
+                                    selectItems={[
+                                        {value: 1, title: "учащиеся 1-5 классов"},
+                                        {value: 2, title: "учащиеся 6-11 классов"},
+                                        {value: 3, title: "учащиеся из разных возрастных групп"},
+                                    ]}
                                     layout="flex"
                                     size="small"
                                     required={true}
@@ -206,6 +212,28 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     size="small"
                                     required={true}
                                     {...register("performance_length", {value: 0})}
+                                />
+                                <FieldInput
+                                    label={"Ссылка на фото"}
+                                    type="file"
+                                    extraClass="form__field"
+                                    layout="flex"
+                                    {...register("performance_photo")}
+                                />
+                                <FieldInput
+                                    label={"Ссылка на видеофрагмент"}
+                                    type="url"
+                                    extraClass="form__field"
+                                    placeholder="Введите url-адрес..."
+                                    layout="flex"
+                                    {...register("performance_video")}
+                                />
+                                <FieldInput
+                                    label={"Ответы на вопросы"}
+                                    type="file"
+                                    extraClass="form__field"
+                                    layout="flex"
+                                    {...register("performance_answer")}
                                 />
                             </fieldset>
                             <div className="form__controls">

@@ -93,13 +93,17 @@ const FieldInput = (
                             disabled={disabled}
                             {...rest}
                         >
-                            <option
-                                defaultValue
-                                disabled={defaultSelectItem.disabled}
-                                value={defaultSelectItem.value}
-                            >
-                                {defaultSelectItem.title}
-                            </option>
+                            {
+                                defaultSelectItem
+                                &&
+                                <option
+                                    defaultValue
+                                    disabled={defaultSelectItem.disabled}
+                                    value={defaultSelectItem.value}
+                                >
+                                    {defaultSelectItem.title}
+                                </option>
+                            }
                             {selectItems.map((item, index) => (
                                 <option
                                     key={item.value + "_" + index}
