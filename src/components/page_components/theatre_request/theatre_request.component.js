@@ -565,7 +565,7 @@ function TheatreRequest({
                         </fieldset>
                         <fieldset className="form__section">
                             <ImageSelector
-                                title="Фотографии посещения театра"
+                                title="Фотографии театра и спектаклей"
                                 items={photoVisit}
                                 onChange={(items) => setPhotoVisit(items)}
                                 onError={(text) =>
