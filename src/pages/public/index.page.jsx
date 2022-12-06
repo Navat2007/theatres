@@ -109,8 +109,8 @@ const MainPage = () => {
                                 >
                                     <img
                                         className={commonStyles.performanceImg}
-                                        src="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
-                                        alt="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
+                                        src="https://avatars.mds.yandex.net/i?id=2a0000017a0e866a0be68b7925e87b4967e7-4580514-images-thumbs&n=13&exp=1"
+                                        alt="Грех да беда на кого не живет"
                                     />
                                 </div>
                                 <div className={commonStyles.performanceInfo}>
@@ -199,7 +199,7 @@ const MainPage = () => {
                                 >
                                     <img
                                         className={commonStyles.performanceImg}
-                                        src="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
+                                        src="https://avatars.mds.yandex.net/i?id=18ea661d3dd9b8f5503e07b955077133f5b8d442-8240493-images-thumbs&n=13&exp=1"
                                         alt="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
                                     />
                                 </div>
@@ -209,7 +209,7 @@ const MainPage = () => {
                                             commonStyles.performanceTitle
                                         }
                                     >
-                                        Грех да беда на кого не живет
+                                        Порги и Бесс
                                     </h3>
                                     <ul
                                         className={commonStyles.performanceList}
@@ -289,8 +289,8 @@ const MainPage = () => {
                                 >
                                     <img
                                         className={commonStyles.performanceImg}
-                                        src="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
-                                        alt="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
+                                        src="https://avatars.mds.yandex.net/i?id=27e4706f4df2e821437eef4bfbf83292dfeb1294-6489726-images-thumbs&n=13&exp=1"
+                                        alt=""
                                     />
                                 </div>
                                 <div className={commonStyles.performanceInfo}>
@@ -299,7 +299,7 @@ const MainPage = () => {
                                             commonStyles.performanceTitle
                                         }
                                     >
-                                        Грех да беда на кого не живет
+                                        Лебединое озеро
                                     </h3>
                                     <ul
                                         className={commonStyles.performanceList}
@@ -379,8 +379,8 @@ const MainPage = () => {
                                 >
                                     <img
                                         className={commonStyles.performanceImg}
-                                        src="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
-                                        alt="http://html.brelcg.com/wp-content/gallery/chudaki/Банщикова_1.jpeg"
+                                        src="https://avatars.mds.yandex.net/i?id=1760ce2abf9928f5b1495528d615c8387974d7d0-5406816-images-thumbs&n=13&exp=1"
+                                        alt=""
                                     />
                                 </div>
                                 <div className={commonStyles.performanceInfo}>
@@ -389,7 +389,7 @@ const MainPage = () => {
                                             commonStyles.performanceTitle
                                         }
                                     >
-                                        Грех да беда на кого не живет
+                                        Сказка о царе Салтане
                                     </h3>
                                     <ul
                                         className={commonStyles.performanceList}
@@ -474,8 +474,8 @@ const MainPage = () => {
                     <div className={commonStyles.qoute}>
                         <img
                             className={commonStyles.qouteImg}
-                            src="http://andrey-eltsov.ru/wp-content/uploads/2021/01/yhe382994bh_sh-wago-gh_a7239kkkw_3-6mjh_j-amerikanskaja-kunica-na-sn.jpg"
-                            alt="http://andrey-eltsov.ru/wp-content/uploads/2021/01/yhe382994bh_sh-wago-gh_a7239kkkw_3-6mjh_j-amerikanskaja-kunica-na-sn.jpg"
+                            src="https://avatars.mds.yandex.net/i?id=01edef1f2f04ae77a0b84935a87eb7410df4ac38-7662450-images-thumbs&n=13&exp=1"
+                            alt=""
                         />
                         <h3 className={commonStyles.qouteTitle}>Омар Хайям</h3>
                         <blockquote className={commonStyles.qouteText}>
