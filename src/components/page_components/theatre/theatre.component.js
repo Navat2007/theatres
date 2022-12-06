@@ -192,7 +192,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     {...register("performance_count", {value: 0})}
                                 />
                                 <FieldInput
-                                    label={"Количество участников творческого коллектива:"}
+                                    label={"Возрастная категория:"}
                                     type={"select"}
                                     defaultSelectItem={false}
                                     selectItems={[
@@ -219,6 +219,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     multiple="multiple"
                                     extraClass="form__field"
                                     layout="flex"
+                                    required={true}
                                     {...register("performance_photo")}
                                 />
                                 <FieldInput
@@ -227,6 +228,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     extraClass="form__field"
                                     placeholder="Введите url-адрес..."
                                     layout="flex"
+                                    required={true}
                                     {...register("performance_video")}
                                 />
                                 <FieldInput
@@ -234,6 +236,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     type="file"
                                     extraClass="form__field"
                                     layout="flex"
+                                    required={true}
                                     {...register("performance_answer")}
                                 />
                             </fieldset>
