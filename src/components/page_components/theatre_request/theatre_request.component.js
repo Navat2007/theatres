@@ -274,7 +274,7 @@ function TheatreRequest({
                                 {...register("title")}
                             />
                             <FieldInput
-                                label={"Адрес"}
+                                label={"Адрес *"}
                                 type="textarea"
                                 layout="flex"
                                 required={true}
