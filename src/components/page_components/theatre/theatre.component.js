@@ -1,23 +1,46 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import moment from "moment";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import createDOMPurify from "dompurify";
+import {useForm} from "react-hook-form";
+
+import useAuthStore from "../../../store/authStore";
+import useSchoolStore from "../../../store/user/schoolStore";
 
 import Button from "../../simple/button/button.component";
 import Tabs from "../../tabs/tabs.component";
 import Tab from "../../tabs/tab.component";
 import ImagePreview from "../../image_preview/image.preview.component";
+import FieldInput from "../../simple/field/field.input.component";
+import Popup from "../../popup/popup.component";
 
 import commonStyles from "../../../pages/common.module.scss";
 import styles from "./theatre.module.scss";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 
-const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
+const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
+
     const DOMPurify = createDOMPurify(window);
 
+    const {user} = useAuthStore();
+    const {school, loadSchool} = useSchoolStore();
+
+    const {register, handleSubmit, reset} = useForm();
+
     const [preview, setPreview] = React.useState(<></>);
+    const [festivalRequest, setFestivalRequest] = React.useState(<></>);
+
+    React.useEffect(() => {
+
+        const fetchData = async () => {
+            await loadSchool({id: user.schoolID});
+        };
+
+        fetchData();
+
+    }, []);
 
     const handleOpenPreview = (slideIndex, items) => {
         setPreview(
@@ -29,6 +52,74 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             />
         );
     };
+
+    const onFestivalRequestSubmit = (data) => {
+        console.log(data);
+    }
+
+    const handleFestivalRequestBtn = () => {
+
+        setFestivalRequest(
+            <Popup
+                title={"Подача заявки на фестиваль «Живая сцена»"}
+                opened={true}
+                onClose={() => {
+                    setFestivalRequest(<></>);
+                }}
+            >
+                <form
+                    onSubmit={handleSubmit(onFestivalRequestSubmit)}
+                    className="form"
+                >
+                    <fieldset className="form__section --content-info">
+                        <FieldInput
+                            label={"Образовательная организация:"}
+                            type={"textarea"}
+                            rows={2}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            disabled={true}
+                            value={school.org_name}
+                        />
+                        <FieldInput
+                            label={"Название театра:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            disabled={true}
+                            value={theatre.title}
+                        />
+                        <FieldInput
+                            label={"Направление:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            disabled={true}
+                            value={"«Благосклонная Талия»"}
+                        />
+                        <FieldInput
+                            label={"Количество участников творческого коллектива:"}
+                            type={"number"}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("count", {value: 0})}
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={false}
+                            style={{marginLeft: "auto", display: "block"}}
+                        />
+                    </div>
+                </form>
+            </Popup>
+        )
+
+    }
 
     return (
         <>
@@ -68,7 +159,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    <span className="mdi mdi-open-in-new"/>
                                 </NavLink>
                             </p>
                         </li>
@@ -91,7 +182,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     {theatre.coordinates}{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    <span className="mdi mdi-open-in-new"/>
                                 </a>
                             </p>
                         </li>
@@ -153,22 +244,27 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    <span className="mdi mdi-open-in-new"/>
                                 </a>
                             </p>
                         </li>
-                        <li className={styles.item}>
-                            <h3 className={styles.label}>
-                                Фестиваль “Живая сцена”
-                            </h3>
-                            {/* Див для того, чтобы кнопка не растягивалась на весь экран, также можно если театр заявку подал, изменить состояние */}
-                            <div>
-                                <Button
-                                    type="button"
-                                    text={"Подать заявку"}
-                                />
-                            </div>
-                        </li>
+                        {
+                            user && user.role === "user"
+                            &&
+                            <li className={styles.item}>
+                                <h3 className={styles.label}>
+                                    Фестиваль “Живая сцена”
+                                </h3>
+                                {/* Див для того, чтобы кнопка не растягивалась на весь экран, также можно если театр заявку подал, изменить состояние */}
+                                <div>
+                                    <Button
+                                        type="button"
+                                        text={"Подать заявку"}
+                                        onClick={handleFestivalRequestBtn}
+                                    />
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <h2 className={styles.title}>Педагоги</h2>
                     <ul className="teacher-list">
@@ -190,7 +286,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                             src={
                                                 teacher?.photo
                                                     ? window.global.baseUrl +
-                                                      teacher.photo
+                                                    teacher.photo
                                                     : no_photo_man
                                             }
                                             alt=""
@@ -445,6 +541,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     )}
                 </Tab>
             </Tabs>
+            {festivalRequest}
         </>
     );
 };
