@@ -266,7 +266,7 @@ function TheatreRequest({
                     >
                         <fieldset className="form__section">
                             <FieldInput
-                                label={"Название театра"}
+                                label={"Название театра *"}
                                 type="text"
                                 layout="flex"
                                 required={true}
@@ -278,7 +278,7 @@ function TheatreRequest({
                                 type="textarea"
                                 layout="flex"
                                 required={true}
-                                placeholder={"Введите адрес"}
+                                placeholder={"Введите адрес *"}
                                 {...register("address", {
                                     value: schoolStore?.school?.address,
                                 })}
@@ -294,7 +294,7 @@ function TheatreRequest({
                             />
                             <div className="form__multy-block">
                                 <p className="form__label">
-                                    Форма осуществления деятельности
+                                    Форма осуществления деятельности *
                                 </p>
                                 <MultiSelect
                                     required={true}
@@ -323,7 +323,7 @@ function TheatreRequest({
                             <div className="form__multy-block">
                                 <p className="form__label">
                                     Возрастной состав участников школьного
-                                    театра
+                                    театра *
                                 </p>
                                 <MultiSelect
                                     required={true}
@@ -350,7 +350,7 @@ function TheatreRequest({
                                 />
                             </div>
                             <FieldInput
-                                label={"Дата основания"}
+                                label={"Дата основания *"}
                                 type="date"
                                 layout="flex"
                                 required={true}
