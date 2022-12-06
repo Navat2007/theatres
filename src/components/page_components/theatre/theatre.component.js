@@ -214,8 +214,9 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     {...register("performance_length", {value: 0})}
                                 />
                                 <FieldInput
-                                    label={"Ссылка на фото"}
+                                    label={"Афиша спектакля"}
                                     type="file"
+                                    multiple="multiple"
                                     extraClass="form__field"
                                     layout="flex"
                                     {...register("performance_photo")}
