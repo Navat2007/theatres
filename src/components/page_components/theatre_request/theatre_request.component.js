@@ -287,7 +287,6 @@ function TheatreRequest({
                                 label={"Координаты театра"}
                                 type="text"
                                 layout="flex"
-                                required={true}
                                 placeholder={
                                     "Координаты через запятую: 55.760178, 37.618574"
                                 }
