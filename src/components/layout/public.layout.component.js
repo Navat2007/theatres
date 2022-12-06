@@ -13,7 +13,7 @@ const PublicLayout = () => {
     const location = useLocation();
 
     React.useEffect(() => {
-        document.body.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }, [location]);
 
     return (
@@ -102,7 +102,7 @@ const PublicLayout = () => {
                                     </span>{" "}
                                     test@mail.ru
                                 </a>
-                                <NavLink to={user ? (user.role === "user" ? "/user/" : "/admin/") : "/login/"} className={styles.loginLink}>
+                                <NavLink to={user ? (user.role === "user" ? "/user/my_school" : "/admin/users") : "/login/"} className={styles.loginLink}>
                                     Войти в Личный кабинет
                                 </NavLink>
                             </div>
