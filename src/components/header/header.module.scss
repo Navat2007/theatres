@@ -21,12 +21,15 @@
 .logo {
     display: none;
     margin-right: auto;
-    height: var(--header-height);
-    padding: .25em 0;
-    box-sizing: border-box;
-    object-fit: contain;
-    width: calc(var(--menu-width) - 1.5em);
-    min-width: 8em;
+
+    img {
+        min-width: 8em;
+        width: calc(var(--menu-width) - 1.5em);
+        height: var(--header-height);
+        padding: 0.25em 0;
+        box-sizing: border-box;
+        object-fit: contain;
+    }
 }
 
 .burger {

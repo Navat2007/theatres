@@ -1,17 +1,18 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Button from "../simple/button/button.component";
 import logo from "../../images/logo.png";
 import styles from "./header.module.scss";
 
-
 const HeaderComponent = ({ children, handleBurger }) => {
     return (
         <header className={styles.header}>
-            <NavLink to={"/"}>
+            <NavLink
+                to={"/"}
+                className={styles.logo}
+            >
                 <img
-                    className={styles.logo}
                     src={logo}
                     alt="Маски"
                 />
