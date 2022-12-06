@@ -8,6 +8,7 @@ const Editor = ({ control, name, readonly, placeholder, required, value, ...rest
     const config = {
         readonly: readonly,
         toolbarSticky: false,
+        toolbarAdaptive: false,
         about: false,
         addNewLine: false,
         showCharsCounter: false,
