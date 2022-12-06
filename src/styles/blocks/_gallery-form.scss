@@ -102,4 +102,35 @@
             color: var(--gark);
         }
     }
+
+    &__download-block {
+        padding: min(2.5vmax, 1.875em);
+        box-sizing: border-box;
+        display: flex;
+        gap: 0.5em;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--g100);
+        border: 1px dashed var(--g300);
+        border-radius: 25px;
+        transition: background-color 0.25s ease-in-out;
+        cursor: default;
+
+        &:hover {
+            background-color: var(--g200);
+        }
+    }
+
+    &__download-text {
+        margin: 0;
+        text-align: center;
+    }
+
+    &__download-span {
+        margin-top: 0.5rem;
+        display: block;
+        font-size: 0.75em;
+    }
 }

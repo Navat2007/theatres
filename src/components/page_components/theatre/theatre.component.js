@@ -1,9 +1,9 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import moment from "moment";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import useAuthStore from "../../../store/authStore";
 import useSchoolStore from "../../../store/user/schoolStore";
@@ -20,26 +20,23 @@ import styles from "./theatre.module.scss";
 
 import no_photo_man from "../../../images/no_photo_man.png";
 
-const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
-
+const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
-    const {user} = useAuthStore();
-    const {school, loadSchool} = useSchoolStore();
+    const { user } = useAuthStore();
+    const { school, loadSchool } = useSchoolStore();
 
-    const {register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const [preview, setPreview] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
 
     React.useEffect(() => {
-
         const fetchData = async () => {
-            await loadSchool({id: user.schoolID});
+            await loadSchool({ id: user.schoolID });
         };
 
         fetchData();
-
     }, []);
 
     const handleOpenPreview = (slideIndex, items) => {
@@ -55,14 +52,13 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
 
     const onTaliaFestivalRequestSubmit = (data) => {
         console.log(data);
-    }
+    };
 
     const onMelpomenaFestivalRequestSubmit = (data) => {
         console.log(data);
-    }
+    };
 
     const handleFestivalRequestBtn = () => {
-
         setFestivalRequest(
             <Popup
                 title={"Подача заявки на фестиваль «Живая сцена»"}
@@ -74,7 +70,9 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                 <Tabs>
                     <Tab title={"Благосклонная Талия"}>
                         <form
-                            onSubmit={handleSubmit(onTaliaFestivalRequestSubmit)}
+                            onSubmit={handleSubmit(
+                                onTaliaFestivalRequestSubmit
+                            )}
                             className="form"
                         >
                             <fieldset className="form__section --content-info">
@@ -105,12 +103,14 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     value={"«Благосклонная Талия»"}
                                 />
                                 <FieldInput
-                                    label={"Количество участников творческого коллектива:"}
+                                    label={
+                                        "Количество участников творческого коллектива:"
+                                    }
                                     type={"number"}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("count", {value: 0})}
+                                    {...register("count", { value: 0 })}
                                 />
                             </fieldset>
                             <div className="form__controls">
@@ -118,14 +118,19 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     type="submit"
                                     text="Отправить"
                                     spinnerActive={false}
-                                    style={{marginLeft: "auto", display: "block"}}
+                                    style={{
+                                        marginLeft: "auto",
+                                        display: "block",
+                                    }}
                                 />
                             </div>
                         </form>
                     </Tab>
                     <Tab title={"Школьная Мельпомена"}>
                         <form
-                            onSubmit={handleSubmit(onMelpomenaFestivalRequestSubmit)}
+                            onSubmit={handleSubmit(
+                                onMelpomenaFestivalRequestSubmit
+                            )}
                             className="form"
                         >
                             <fieldset className="form__section --content-info">
@@ -160,50 +165,73 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_title", {value: ""})}
+                                    {...register("performance_title", {
+                                        value: "",
+                                    })}
                                 />
                                 <FieldInput
                                     label={"Автор:"}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_author", {value: ""})}
+                                    {...register("performance_author", {
+                                        value: "",
+                                    })}
                                 />
                                 <FieldInput
                                     label={"Название литературного материала:"}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_book", {value: ""})}
+                                    {...register("performance_book", {
+                                        value: "",
+                                    })}
                                 />
                                 <FieldInput
                                     label={"ФИО режиссера-постановщика:"}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_producer", {value: ""})}
+                                    {...register("performance_producer", {
+                                        value: "",
+                                    })}
                                 />
                                 <FieldInput
-                                    label={"Количество участников творческого коллектива:"}
+                                    label={
+                                        "Количество участников творческого коллектива:"
+                                    }
                                     type={"number"}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_count", {value: 0})}
+                                    {...register("performance_count", {
+                                        value: 0,
+                                    })}
                                 />
                                 <FieldInput
                                     label={"Возрастная категория:"}
                                     type={"select"}
                                     defaultSelectItem={false}
                                     selectItems={[
-                                        {value: 1, title: "учащиеся 1-5 классов"},
-                                        {value: 2, title: "учащиеся 6-11 классов"},
-                                        {value: 3, title: "учащиеся из разных возрастных групп"},
+                                        {
+                                            value: 1,
+                                            title: "учащиеся 1-5 классов",
+                                        },
+                                        {
+                                            value: 2,
+                                            title: "учащиеся 6-11 классов",
+                                        },
+                                        {
+                                            value: 3,
+                                            title: "учащиеся из разных возрастных групп",
+                                        },
                                     ]}
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_age", {value: 0})}
+                                    {...register("performance_age", {
+                                        value: 0,
+                                    })}
                                 />
                                 <FieldInput
                                     label={"Продолжительность спектакля (мин):"}
@@ -211,7 +239,9 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("performance_length", {value: 0})}
+                                    {...register("performance_length", {
+                                        value: 0,
+                                    })}
                                 />
                                 <FieldInput
                                     label={"Афиша спектакля"}
@@ -245,17 +275,18 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     type="submit"
                                     text="Отправить"
                                     spinnerActive={false}
-                                    style={{marginLeft: "auto", display: "block"}}
+                                    style={{
+                                        marginLeft: "auto",
+                                        display: "block",
+                                    }}
                                 />
                             </div>
                         </form>
                     </Tab>
                 </Tabs>
-
             </Popup>
-        )
-
-    }
+        );
+    };
 
     return (
         <>
@@ -295,7 +326,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new"/>
+                                    <span className="mdi mdi-open-in-new" />
                                 </NavLink>
                             </p>
                         </li>
@@ -318,7 +349,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     {theatre.coordinates}{" "}
-                                    <span className="mdi mdi-open-in-new"/>
+                                    <span className="mdi mdi-open-in-new" />
                                 </a>
                             </p>
                         </li>
@@ -380,13 +411,11 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new"/>
+                                    <span className="mdi mdi-open-in-new" />
                                 </a>
                             </p>
                         </li>
-                        {
-                            user && user.role === "user"
-                            &&
+                        {user && user.role === "user" && (
                             <li className={styles.item}>
                                 <h3 className={styles.label}>
                                     Фестиваль “Живая сцена”
@@ -400,7 +429,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     />
                                 </div>
                             </li>
-                        }
+                        )}
                     </ul>
                     <h2 className={styles.title}>Педагоги</h2>
                     <ul className="teacher-list">
@@ -422,7 +451,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                             src={
                                                 teacher?.photo
                                                     ? window.global.baseUrl +
-                                                    teacher.photo
+                                                      teacher.photo
                                                     : no_photo_man
                                             }
                                             alt=""
@@ -469,6 +498,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     <h2 className={styles.title}>Фото театра</h2>
                     {theatre.photo && theatre.photo.length > 0 ? (
                         <>
+                            {/* Этот блок следует переместить в компонент, чтобы можно было подключить стили модулем. Возможно создать в папке image_selector, например, доп файл imageView (Кстате, а почему они имеют расширение js а не jsx? ) */}
                             <ul className="gallery-form">
                                 {theatre.photo.map((item) =>
                                     item.order === 1 ? (
@@ -523,6 +553,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     <h2 className={styles.title}>Фото посещения театра</h2>
                     {theatre.photoVisit && theatre.photoVisit.length > 0 ? (
                         <>
+                            {/* И этот тоже */}
                             <ul className="gallery-form">
                                 {theatre.photoVisit.map((item) =>
                                     item.order === 1 ? (
@@ -601,6 +632,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     <h2 className={styles.title}>ВИДЕО ЛУЧШИХ ФРАГМЕНТОВ</h2>
                     {theatre.video && theatre.video.length > 0 ? (
                         <>
+                            {/* И этот тоже */}
                             <ul className="gallery-form --content-video">
                                 {theatre.video.map((item) => (
                                     <li
