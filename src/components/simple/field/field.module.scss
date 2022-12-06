@@ -103,6 +103,26 @@
             margin-right: 0.5em;
         }
     }
+
+    &_disabled {
+        .container {
+            background-color: var(--g100);
+            &:hover {
+                border-color: var(--g200);
+
+                & .input_placeholder {
+                    color: var(--darkLow);
+                }
+            }
+        }
+        .input {
+            color: var(--g300);
+        }
+
+        .label {
+            color: var(--darkLow);
+        }
+    }
 }
 
 .label {

@@ -51,7 +51,7 @@ const FieldInput = (
     };
 
     const getElementByType = (type) => {
-        // Для поля добавить два события 1: Когда чекбокс нажат, добавляем класс {styles.field_checked} 2: Когда он дизайблед {styles.field_disabled}
+        // Когда чекбокс нажат, добавляем класс {styles.field_checked}
         // Добавить выбор мультиселекта, чтобы отображалась подсказка через компонент поля.
         switch (type) {
             case "textarea":
