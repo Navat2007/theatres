@@ -224,7 +224,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    ФИО директора/руководителя
+                                    ФИО ответственного за проект "Школьный театр"
                                 </span>
                             </p>
                         </li>
@@ -247,7 +247,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    Телефон директора/руководителя школы
+                                    Телефон ответственного за проект "Школьный театр"
                                 </span>
                             </a>
                         </li>
@@ -268,7 +268,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    Email директора/руководителя школы
+                                    Email ответственного за проект "Школьный театр"
                                 </span>
                             </a>
                         </li>
