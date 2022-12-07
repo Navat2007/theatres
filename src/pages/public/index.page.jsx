@@ -100,7 +100,12 @@ const MainPage = () => {
                     ].join(" ")}
                 >
                     <h2 className={commonStyles.title}>Спектакли</h2>
-                    <iframe width={"100%"} height={400} style={{border: 0}} src={"https://patriotsport.moscow/premery-spektaklej/"} />
+                    <iframe
+                        width={"100%"}
+                        height={400}
+                        style={{border: 0}}
+                        src={"https://patriotsport.moscow/premery-spektaklej/"}
+                    />
                     {/*<ul className={commonStyles.performancesList}>*/}
                     {/*    <li>*/}
                     {/*        <Link className={commonStyles.performance}>*/}
