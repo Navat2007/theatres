@@ -43,21 +43,49 @@ if(!empty($section)){
                             </div>
                         </td>
                     </tr>';
+
+        $message .= include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/footer.php';
+
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8 \r\n";
+        $headers .= "From: Support <sport.patriot.service@yandex.ru> \r\n";
+        //$headers .= "Reply-To: support@patriot-sport.ru";
+
+        $mail_result = mail($to, $subject, $message, $headers);
+
     }
 
     if((int)$section === 2)
     {
 
         $performance_age = htmlspecialchars($_POST['performance_age']);
-        $performance_answer = htmlspecialchars($_POST['performance_answer']);
         $performance_author = htmlspecialchars($_POST['performance_author']);
         $performance_book = htmlspecialchars($_POST['performance_book']);
         $performance_count = htmlspecialchars($_POST['performance_count']);
         $performance_length = htmlspecialchars($_POST['performance_length']);
-        $performance_photo = htmlspecialchars($_POST['performance_photo']);
         $performance_producer = htmlspecialchars($_POST['performance_producer']);
         $performance_title = htmlspecialchars($_POST['performance_title']);
         $performance_video = htmlspecialchars($_POST['performance_video']);
+
+        //Get uploaded file data using $_FILES array
+        $tmp_name = $_FILES['performance_answer']['tmp_name'][0]; // get the temporary file name of the file on the server
+        $name     = $_FILES['performance_answer']['name'][0]; // get the name of the file
+        $size     = $_FILES['performance_answer']['size'][0]; // get size of the file for size validation
+        $type     = $_FILES['performance_answer']['type'][0]; // get type of the file
+        $error     = $_FILES['performance_answer']['error'][0]; // get the error (if any)
+
+        $handle = fopen($tmp_name, "r"); // set the file handle only for reading the file
+        $content = fread($handle, $size); // reading the file
+        fclose($handle);                 // close upon completion
+
+        $encoded_content = chunk_split(base64_encode($content));
+        $boundary = md5("random");
+        $eol = "\r\n";
+
+        $headers = 'MIME-Version: 1.0' . $eol;
+        $headers .= "Content-Type: multipart/mixed;";
+        $headers .= "boundary = $boundary" . $eol;
+        $headers .= "From: Support <sport.patriot.service@yandex.ru>" . $eol;
 
         $message .= '<tr style="box-sizing: border-box;">
                         <td style="box-sizing: border-box;">
@@ -96,29 +124,56 @@ if(!empty($section)){
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Продолжительность спектакля (мин):
                                         <b style="box-sizing: border-box;">' . $performance_length . '</b>
                                     </p>
-                                    <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Афиша спектакля:
-                                        <b style="box-sizing: border-box;"></b>
-                                    </p>
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Ссылка на видеофрагмент:
                                         <b style="box-sizing: border-box;">' . $performance_video . '</b>
-                                    </p>
-                                    <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Ответы на вопросы:
-                                        <b style="box-sizing: border-box;"></b>
                                     </p>
                                 </div>
                             </div>
                         </td>
                     </tr>';
+        $message .= include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/footer.php';
+
+        //plain text
+        $body = "--$boundary\r\n";
+        $body .= "Content-Type: text/html; charset=utf-8\r\n";
+        $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $body .= chunk_split(base64_encode($message));
+
+        //attachment
+        $body .= "--$boundary\r\n";
+        $body .="Content-Type: $type; name=".$name."\r\n";
+        $body .="Content-Disposition: attachment; filename=".$name."\r\n";
+        $body .="Content-Transfer-Encoding: base64\r\n";
+        $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+        $body .= $encoded_content; // Attaching the encoded file with email
+
+        for ($i = 0; $i < count($_FILES['performance_photo']['name']); $i++){
+
+            $tmp_name = $_FILES['performance_photo']['tmp_name'][$i]; // get the temporary file name of the file on the server
+            $name     = $_FILES['performance_photo']['name'][$i]; // get the name of the file
+            $size     = $_FILES['performance_photo']['size'][$i]; // get size of the file for size validation
+            $type     = $_FILES['performance_photo']['type'][$i]; // get type of the file
+            $error     = $_FILES['performance_photo']['error'][$i]; // get the error (if any)
+
+            $handle = fopen($tmp_name, "r"); // set the file handle only for reading the file
+            $content = fread($handle, $size); // reading the file
+            fclose($handle);                 // close upon completion
+
+            $encoded_content = chunk_split(base64_encode($content));
+
+            //attachment
+            $body .= "--$boundary\r\n";
+            $body .="Content-Type: $type; name=".$name."\r\n";
+            $body .="Content-Disposition: attachment; filename=".$name."\r\n";
+            $body .="Content-Transfer-Encoding: base64\r\n";
+            $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+            $body .= $encoded_content; // Attaching the encoded file with email
+
+        }
+
+        $mail_result = mail($to, $subject, $body, $headers);
+
     }
-
-    $message .= include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/footer.php';
-
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= "Content-type: text/html; charset=utf-8 \r\n";
-    $headers .= "From: Support <sport.patriot.service@yandex.ru> \r\n";
-    //$headers .= "Reply-To: support@patriot-sport.ru";
-
-    $mail_result = mail($to, $subject, $message, $headers);
 
 }
 

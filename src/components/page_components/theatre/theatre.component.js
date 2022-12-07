@@ -71,22 +71,23 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         console.log(data);
 
         let form = new FormData();
-
-        for (let key in data) {
-            if(key === "performance_photo" || key === "performance_answer"){
-                form.append("files[]", data[key]);
-            }
-            else {
-                form.append(key, data[key]);
-            }
-        }
+        window.global.buildFormData(form, data);
 
         form.append("section", "2");
         form.append("org", school.org_name);
         form.append("theatre", theatre.title);
         form.append("direction", "«Школьная Мельпомена»");
 
-        const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
+        const response = await axios({
+            method: 'post',
+            url: window.global.baseUrl + 'php/email/festival.php',
+            data: form,
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
+            },
+        });
+
+        //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
         console.log(response.data);
     };
 
@@ -164,6 +165,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                 onMelpomenaFestivalRequestSubmit
                             )}
                             className="form"
+                            encType={"multipart/form-data"}
                         >
                             <fieldset className="form__section --content-info">
                                 <FieldInput

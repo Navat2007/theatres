@@ -101,6 +101,7 @@ const MainPage = () => {
                 >
                     <h2 className={commonStyles.title}>Спектакли</h2>
                     <iframe
+                        title={"Спектакли"}
                         width={"100%"}
                         height={400}
                         style={{border: 0}}
