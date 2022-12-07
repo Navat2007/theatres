@@ -4,6 +4,7 @@ import moment from "moment";
 import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 import useAuthStore from "../../../store/authStore";
 import useSchoolStore from "../../../store/user/schoolStore";
@@ -50,12 +51,43 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         );
     };
 
-    const onTaliaFestivalRequestSubmit = (data) => {
+    const onTaliaFestivalRequestSubmit = async (data) => {
         console.log(data);
+
+        let form = new FormData();
+
+        form.append("section", "1");
+        form.append("org", school.org_name);
+        form.append("theatre", theatre.title);
+        form.append("direction", "«Благосклонная Талия»");
+        form.append("count", data.count);
+
+        const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
+        console.log(response.data);
+
     };
 
-    const onMelpomenaFestivalRequestSubmit = (data) => {
+    const onMelpomenaFestivalRequestSubmit = async (data) => {
         console.log(data);
+
+        let form = new FormData();
+
+        for (let key in data) {
+            if(key === "performance_photo" || key === "performance_answer"){
+                form.append("files[]", data[key]);
+            }
+            else {
+                form.append(key, data[key]);
+            }
+        }
+
+        form.append("section", "2");
+        form.append("org", school.org_name);
+        form.append("theatre", theatre.title);
+        form.append("direction", "«Школьная Мельпомена»");
+
+        const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
+        console.log(response.data);
     };
 
     const handleFestivalRequestBtn = () => {
@@ -158,7 +190,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     layout="flex"
                                     size="small"
                                     disabled={true}
-                                    value={"«Благосклонная Талия»"}
+                                    value={"«Школьная Мельпомена»"}
                                 />
                                 <FieldInput
                                     label={"Название спектакля:"}
@@ -214,15 +246,15 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     defaultSelectItem={false}
                                     selectItems={[
                                         {
-                                            value: 1,
+                                            value: "учащиеся 1-5 классов",
                                             title: "учащиеся 1-5 классов",
                                         },
                                         {
-                                            value: 2,
+                                            value: "учащиеся 6-11 классов",
                                             title: "учащиеся 6-11 классов",
                                         },
                                         {
-                                            value: 3,
+                                            value: "учащиеся из разных возрастных групп",
                                             title: "учащиеся из разных возрастных групп",
                                         },
                                     ]}
