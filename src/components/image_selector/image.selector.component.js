@@ -7,7 +7,9 @@ import FieldInput from "../simple/field/field.input.component";
 const ImageSelector = ({ title, items, onChange, onError }) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
+    const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
     const inputRef = React.createRef();
+    const inputFileRef = React.createRef();
 
     React.useEffect(() => {
         setPhoto(items);
@@ -76,6 +78,44 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                 //console.log(err);
                 onError("Не удалось загрузить изображение по ссылке");
                 setPhotoAddBtnDisabled(false);
+            });
+    };
+
+    const handleAddFilePhoto = async (e) => {
+
+        const files = e.target.files;
+        console.log(files);
+
+        return;
+
+        setPhotoAddBtnDisabled(true);
+        setPhotoFileAddBtnDisabled(true);
+
+        const value = inputRef.current.value;
+        const link = value?.includes("http") ? value : "http://" + value;
+
+        await axios
+            .get(link)
+            .then((res) => {
+                if (res.status === 200) {
+                    setPhoto([
+                        ...photo,
+                        {
+                            main: photo.length === 0 ? 1 : 0,
+                            url: link,
+                            order: getOrderIndex(photo),
+                        },
+                    ]);
+
+                    setPhotoAddBtnDisabled(false);
+                    setPhotoFileAddBtnDisabled(false);
+                }
+            })
+            .catch((err) => {
+                //console.log(err);
+                onError("Не удалось загрузить изображение по ссылке");
+                setPhotoAddBtnDisabled(false);
+                setPhotoFileAddBtnDisabled(false);
             });
     };
 
@@ -212,13 +252,23 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                 <li className="gallery-form__download-block">
                     <p className="gallery-form__download-text">
                         Начните загружать изображения простым перетаскиванием в
-                        любое место окна прямо сейчас. Ограничение на размер
-                        изображения 10 MB.
+                        любое место этого окна. Ограничение на размер
+                        изображения 2 MB.
                         <span className="gallery-form__download-span">или</span>
                     </p>
                     <Button
                         type="button"
                         text="Выбрать файлы"
+                        disabled={photoFileAddBtnDisabled}
+                        onClick={() => inputFileRef.current.click()}
+                    />
+                    <input
+                        ref={inputFileRef}
+                        onChange={handleAddFilePhoto}
+                        hidden={true}
+                        type="file"
+                        accept="image/*"
+                        multiple={true}
                     />
                 </li>
             </ul>

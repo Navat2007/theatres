@@ -20,6 +20,7 @@ import commonStyles from "../../../pages/common.module.scss";
 import styles from "./theatre.module.scss";
 
 import no_photo_man from "../../../images/no_photo_man.png";
+import Notif from "../../notif/notif.component";
 
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
@@ -30,6 +31,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const { register, handleSubmit, reset } = useForm();
 
     const [preview, setPreview] = React.useState(<></>);
+    const [notif, setNotif] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
 
     React.useEffect(() => {
@@ -52,7 +54,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     };
 
     const onTaliaFestivalRequestSubmit = async (data) => {
-        console.log(data);
 
         let form = new FormData();
 
@@ -63,12 +64,30 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("count", data.count);
 
         const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
-        console.log(response.data);
+
+        if(response?.data?.mail_result)
+        {
+            setFestivalRequest(<></>);
+            setNotif(<Notif
+                text="Заявка успешно отправлена"
+                state="success"
+                timerInSeconds={3}
+                opened={true}
+                onClose={() => setNotif(<></>)}
+            />);
+        }
+        else {
+            setNotif(<Notif
+                text="При отправке заявки произошла ошибка"
+                state="error"
+                opened={true}
+                onClose={() => setNotif(<></>)}
+            />);
+        }
 
     };
 
     const onMelpomenaFestivalRequestSubmit = async (data) => {
-        console.log(data);
 
         let form = new FormData();
         window.global.buildFormData(form, data);
@@ -87,8 +106,26 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
             },
         });
 
-        //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
-        console.log(response.data);
+        if(response?.data?.mail_result)
+        {
+            setFestivalRequest(<></>);
+            setNotif(<Notif
+                text="Заявка успешно отправлена"
+                state="success"
+                timerInSeconds={3}
+                opened={true}
+                onClose={() => setNotif(<></>)}
+            />);
+        }
+        else {
+            setNotif(<Notif
+                text="При отправке заявки произошла ошибка"
+                state="error"
+                opened={true}
+                onClose={() => setNotif(<></>)}
+            />);
+        }
+
     };
 
     const handleFestivalRequestBtn = () => {
@@ -744,6 +781,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                 </Tab>
             </Tabs>
             {festivalRequest}
+            {notif}
         </>
     );
 };

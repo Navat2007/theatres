@@ -101,11 +101,13 @@ const MainPage = () => {
                 >
                     <h2 className={commonStyles.title}>Спектакли</h2>
                     <iframe
+                        seamless={true}
                         title={"Спектакли"}
                         width={"100%"}
                         height={400}
                         style={{border: 0}}
-                        src={"https://patriotsport.moscow/premery-spektaklej/"}
+                        //src={"https://patriotsport.moscow/premery-spektaklej/"}
+                        src={"https://razgovor.moscow/test.html"}
                     />
                     {/*<ul className={commonStyles.performancesList}>*/}
                     {/*    <li>*/}
