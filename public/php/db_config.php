@@ -1,9 +1,9 @@
 <?php        
 
 $DB_SERVER = "localhost";
-$DB_USER = "sport";
-$DB_PASSWORD = "EVEonline2007";
-$DB_DATABASE = "theatres";
+$DB_USER = "theatre";
+$DB_PASSWORD = 'VSTw5467wWV%$sdvfghbs#@2564';
+$DB_DATABASE = "theatre";
 
 $conn = new mysqli($DB_SERVER, $DB_USER, $DB_PASSWORD, $DB_DATABASE);
 $conn->set_charset("utf8");

@@ -86,6 +86,20 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
         const files = e.target.files;
         console.log(files);
 
+        let form = new FormData();
+        window.global.buildFormData(form, files);
+
+        form.append("section", "2");
+
+        const response = await axios({
+            method: 'post',
+            url: window.global.baseUrl + 'php/email/festival.php',
+            data: form,
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
+            },
+        });
+
         return;
 
         setPhotoAddBtnDisabled(true);

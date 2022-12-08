@@ -58,6 +58,8 @@ const useAuthStore = create(
 
                 const response = await axios.postForm(urlCheck, form);
 
+                console.log(response);
+
                 if (response.data.params && 'token' in response.data.params) {
 
                     window.localStorage.removeItem('login');

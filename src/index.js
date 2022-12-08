@@ -13,7 +13,7 @@ const baseConfig = () => {
         debugArea: {
             login: true,
         },
-        baseUrl: "https://theatres.patriot-sport.ru/",
+        baseUrl: "https://theatre.shkolamoskva.ru/",
     }
 
     window.global.makeid = (length) => {

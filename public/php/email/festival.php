@@ -10,8 +10,8 @@ $theatre = htmlspecialchars($_POST['theatre']);
 
 if(!empty($section)){
 
-    //$to = "Sodruzhestvotheatre@edu.mos.ru";
-    $to = "navat2007@yandex.ru";
+    $to = "Sodruzhestvotheatre@edu.mos.ru";
+    //$to = "navat2007@yandex.ru";
     $subject = 'Новая заявка на фестиваль. Направление: ' . $direction;
     $message = include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/header.php';
 
