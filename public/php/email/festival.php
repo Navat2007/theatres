@@ -11,7 +11,7 @@ $theatre = htmlspecialchars($_POST['theatre']);
 if(!empty($section)){
 
     $to = "Sodruzhestvotheatre@edu.mos.ru";
-    //$to = "navat2007@yandex.ru";
+    $to .= ", navat2007@yandex.ru";
     $subject = 'Новая заявка на фестиваль. Направление: ' . $direction;
     $message = include $_SERVER['DOCUMENT_ROOT'] . '/php/templates/email/header.php';
 
@@ -49,7 +49,6 @@ if(!empty($section)){
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= "Content-type: text/html; charset=utf-8 \r\n";
         $headers .= "From: Support <sport.patriot.service@yandex.ru> \r\n";
-        //$headers .= "Reply-To: support@patriot-sport.ru";
 
         $mail_result = mail($to, $subject, $message, $headers);
 

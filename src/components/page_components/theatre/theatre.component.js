@@ -63,7 +63,10 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("direction", "«Благосклонная Талия»");
         form.append("count", data.count);
 
-        const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
+        //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
+        const response = await axios.postForm('https://theatres.patriot-sport.ru/php/email/festival.php', form);
+
+        console.log(response);
 
         if(response?.data?.mail_result)
         {
@@ -97,9 +100,18 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("theatre", theatre.title);
         form.append("direction", "«Школьная Мельпомена»");
 
+        // const response = await axios({
+        //     method: 'post',
+        //     url: window.global.baseUrl + 'php/email/festival.php',
+        //     data: form,
+        //     headers: {
+        //         'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
+        //     },
+        // });
+
         const response = await axios({
             method: 'post',
-            url: window.global.baseUrl + 'php/email/festival.php',
+            url: 'https://theatres.patriot-sport.ru/php/email/festival.php',
             data: form,
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
