@@ -110,16 +110,16 @@ const PublicLayout = () => {
                             </ul>
                             {/* При нажатии добавляем еще класс styles.hamburgerOpened
                             Если Меню входит по ширине экрана - кнопку не выводим */}
-                            <button
-                                className={[
-                                    styles.hamburger,
-                                    // styles.hamburgerOpened,
-                                ].join(" ")}
-                                type="button"
-                                aria-label="Мобильное меню"
-                            >
-                                <div></div>
-                            </button>
+                            {/*<button*/}
+                            {/*    className={[*/}
+                            {/*        styles.hamburger,*/}
+                            {/*        // styles.hamburgerOpened,*/}
+                            {/*    ].join(" ")}*/}
+                            {/*    type="button"*/}
+                            {/*    aria-label="Мобильное меню"*/}
+                            {/*>*/}
+                            {/*    <div></div>*/}
+                            {/*</button>*/}
                         </nav>
                     </div>
                 </header>

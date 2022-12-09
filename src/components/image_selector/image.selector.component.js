@@ -5,9 +5,12 @@ import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
 
 const ImageSelector = ({ title, items, onChange, onError }) => {
+
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
+    const [photoInputKey, setPhotoInputKey] = React.useState("");
+
     const inputRef = React.createRef();
     const inputFileRef = React.createRef();
 
@@ -83,54 +86,29 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
 
     const handleAddFilePhoto = async (e) => {
 
-        const files = e.target.files;
-        console.log(files);
+        const [file] = e.target.files;
 
-        let form = new FormData();
-        window.global.buildFormData(form, files);
+        if(file){
 
-        form.append("section", "2");
+            const reader = new FileReader();
+            reader.onload = e => {
+                setPhoto([
+                    ...photo,
+                    {
+                        main: photo.length === 0 ? 1 : 0,
+                        url: e.target.result,
+                        file: file,
+                        order: getOrderIndex(photo),
+                    },
+                ]);
 
-        const response = await axios({
-            method: 'post',
-            url: window.global.baseUrl + 'php/email/festival.php',
-            data: form,
-            headers: {
-                'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
-            },
-        });
+                setPhotoInputKey(window.global.makeid(30));
 
-        return;
+            };
+            reader.readAsDataURL(file);
 
-        setPhotoAddBtnDisabled(true);
-        setPhotoFileAddBtnDisabled(true);
+        }
 
-        const value = inputRef.current.value;
-        const link = value?.includes("http") ? value : "http://" + value;
-
-        await axios
-            .get(link)
-            .then((res) => {
-                if (res.status === 200) {
-                    setPhoto([
-                        ...photo,
-                        {
-                            main: photo.length === 0 ? 1 : 0,
-                            url: link,
-                            order: getOrderIndex(photo),
-                        },
-                    ]);
-
-                    setPhotoAddBtnDisabled(false);
-                    setPhotoFileAddBtnDisabled(false);
-                }
-            })
-            .catch((err) => {
-                //console.log(err);
-                onError("Не удалось загрузить изображение по ссылке");
-                setPhotoAddBtnDisabled(false);
-                setPhotoFileAddBtnDisabled(false);
-            });
     };
 
     const handleMovePhoto = (elementOrder, toOrder) => {
@@ -267,7 +245,7 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                     <p className="gallery-form__download-text">
                         Начните загружать изображения простым перетаскиванием в
                         любое место этого окна. Ограничение на размер
-                        изображения 2 MB.
+                        изображения 5 MB.
                         <span className="gallery-form__download-span">или</span>
                     </p>
                     <Button
@@ -278,6 +256,7 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                     />
                     <input
                         ref={inputFileRef}
+                        key={photoInputKey}
                         onChange={handleAddFilePhoto}
                         hidden={true}
                         type="file"

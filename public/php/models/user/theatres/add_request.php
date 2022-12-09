@@ -52,6 +52,16 @@ if ((int)$theatreID !== 0) {
             }
         }
     }
+
+    $sql = "SELECT * FROM theatre_requests WHERE theatreID = '$theatreID'";
+    $sqls[] = $sql;
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $error = 1;
+        $error_text = "Заявка на редактирование данного театра уже существует в данной школе";
+    }
+
 }
 else{
     $sql = "SELECT * FROM theatres WHERE title = '$title' AND schoolID = '$schoolID' AND archive = 0";

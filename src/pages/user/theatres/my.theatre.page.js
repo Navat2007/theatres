@@ -73,7 +73,7 @@ const MyTheatrePage = () => {
         params.theatreID = id;
         params.schoolID = user.schoolID;
 
-        const result = await addTheatre(params);
+        const result = await editTheatre(params);
 
         if (!result.error) {
             navigate("/user/theatreRequests");

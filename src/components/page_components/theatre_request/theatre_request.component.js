@@ -222,6 +222,8 @@ function TheatreRequest({
         onSubmitDone(performData());
     });
 
+    console.log(performData());
+
     return (
         <>
             <form
@@ -238,27 +240,27 @@ function TheatreRequest({
 
                 кстате цвет процента тоже можно перекрашивать
                 */}
-                <div className={progresStyles.container}>
-                    <p className={progresStyles.title}>
-                        Процент заполнения информации по театру -{" "}
-                        <span
-                            className={progresStyles.span_accent}
-                            style={{ color: "var(--info)" }}
-                        >
-                            53%
-                        </span>
-                    </p>
-                    <div className={progresStyles.bar}>
-                        <div
-                            className={progresStyles.persent}
-                            style={{
-                                width: "53%",
-                                backgroundColor: "var(--info)",
-                            }}
-                        />
-                        <span className={progresStyles.count}>53 из 100</span>
-                    </div>
-                </div>
+                {/*<div className={progresStyles.container}>*/}
+                {/*    <p className={progresStyles.title}>*/}
+                {/*        Процент заполнения информации по театру -{" "}*/}
+                {/*        <span*/}
+                {/*            className={progresStyles.span_accent}*/}
+                {/*            style={{ color: "var(--info)" }}*/}
+                {/*        >*/}
+                {/*            53%*/}
+                {/*        </span>*/}
+                {/*    </p>*/}
+                {/*    <div className={progresStyles.bar}>*/}
+                {/*        <div*/}
+                {/*            className={progresStyles.persent}*/}
+                {/*            style={{*/}
+                {/*                width: "53%",*/}
+                {/*                backgroundColor: "var(--info)",*/}
+                {/*            }}*/}
+                {/*        />*/}
+                {/*        <span className={progresStyles.count}>53 из 100</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <Tabs>
                     <Tab
                         title={"Основная информация"}
