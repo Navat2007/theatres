@@ -3,13 +3,16 @@ import axios from "axios";
 
 import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
+import Notif from "../notif/notif.component";
+import Popup from "../popup/popup.component";
 
-const ImageSelector = ({ title, items, onChange, onError }) => {
+const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
 
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
     const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
     const [photoInputKey, setPhotoInputKey] = React.useState("");
+    const [notif, setNotif] = React.useState(<></>);
 
     const inputRef = React.createRef();
     const inputFileRef = React.createRef();
@@ -86,26 +89,83 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
 
     const handleAddFilePhoto = async (e) => {
 
-        const [file] = e.target.files;
+        let errorFiles = [];
 
-        if(file){
+        async function readFileAsDataURL(file) {
+            let result_base64 = await new Promise((resolve) => {
+                let fileReader = new FileReader();
+                fileReader.onload = (e) => resolve(fileReader.result);
+                fileReader.readAsDataURL(file);
+            });
 
-            const reader = new FileReader();
-            reader.onload = e => {
-                setPhoto([
-                    ...photo,
-                    {
-                        main: photo.length === 0 ? 1 : 0,
-                        url: e.target.result,
-                        file: file,
-                        order: getOrderIndex(photo),
-                    },
-                ]);
+            return result_base64;
+        }
 
-                setPhotoInputKey(window.global.makeid(30));
+        let tmp_array = [];
 
-            };
-            reader.readAsDataURL(file);
+        for (const file of e.target.files) {
+
+
+            if (file.type.match("image.*")) {
+                if (file.size <= 2000000) {
+                } else {
+                    errorFiles.push({
+                        title: file.name,
+                        text: "Файл больше 5 Мб."
+                    });
+                    continue;
+                }
+            } else {
+                errorFiles.push({
+                    title: file.name,
+                    text: "Файл должен быть изображением."
+                });
+                continue;
+            }
+
+            const result = await readFileAsDataURL(file);
+
+            tmp_array.push({
+                main: photo.length === 0 ? 1 : 0,
+                url: result,
+                file: file,
+                isFile: true,
+                isLoaded: false,
+                order: getOrderIndex(photo),
+            });
+
+
+        }
+
+        setPhoto([
+            ...photo,
+            ...tmp_array,
+        ]);
+
+        setPhotoInputKey(window.global.makeid(30));
+
+        if (errorFiles.length > 0) {
+
+            setNotif(
+                <Popup
+                    opened={true}
+                    onClose={() => setNotif(<></>)}
+                    title={"Не удалось добавить следующие файлы:"}
+                >
+                    <table>
+                        <tbody>
+                        {
+                            errorFiles.map(error => (
+                                <tr key={error.title}>
+                                    <td>{error.title}</td>
+                                    <td>{error.text}</td>
+                                </tr>
+                            ))
+                        }
+                        </tbody>
+                    </table>
+                </Popup>
+            );
 
         }
 
@@ -125,9 +185,38 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
     };
 
     const handleDeletePhoto = (itemOrder) => {
-        let array = [...photo].filter((item) => item.order !== itemOrder);
 
-        setPhoto(setNewOrder(array));
+        setNotif(<Notif
+            text={"Вы уверены что хотите удалить?"}
+            opened={true}
+            onClose={() => setNotif(<></>)}
+            buttons={
+                <>
+                    <Button
+                        type="button"
+                        size={"small"}
+                        text={"Нет"}
+                        theme="text"
+                        onClick={() => setNotif(<></>)}
+                    />
+                    <Button
+                        type="button"
+                        size={"small"}
+                        theme="info"
+                        text={"Да"}
+                        onClick={() => {
+                            let array = [...photo].filter((item) => item.order !== itemOrder);
+
+                            setPhoto(setNewOrder(array));
+
+                            setNotif(<></>)
+                        }}
+                    />
+                </>
+            }
+        />);
+
+
     };
 
     return (
@@ -241,7 +330,20 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
 
                 {/* Добавлен блок для загрузки изображений, если нужен будет инпут, скажешь.
                 А так к тебе задание, т.к. я хочу переместить блок gallery-form в модули, то компонент нужно доработать перенеся структуру из theatre.component.js (имеется ввиду такой же класс, т.к. структура там одинаковая) */}
-                <li className="gallery-form__download-block">
+                <li
+                    className="gallery-form__download-block"
+                    onDrop={(e) => {
+                        e.preventDefault();
+                        handleAddFilePhoto({
+                            target: {
+                                files: e.dataTransfer.files
+                            }
+                        });
+                    }}
+                    onDragOver={(e) => {
+                        e.preventDefault();
+                    }}
+                >
                     <p className="gallery-form__download-text">
                         Начните загружать изображения простым перетаскиванием в
                         любое место этого окна. Ограничение на размер
@@ -261,7 +363,7 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                         hidden={true}
                         type="file"
                         accept="image/*"
-                        multiple={true}
+                        multiple={multiFiles}
                     />
                 </li>
             </ul>
@@ -282,7 +384,7 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                     target={"_blank"}
                     rel="nofollow noreferer noopener"
                 >
-                    <span className="mdi mdi-open-in-new" />
+                    <span className="mdi mdi-open-in-new"/>
                 </a>
                 <Button
                     type="button"
@@ -296,6 +398,7 @@ const ImageSelector = ({ title, items, onChange, onError }) => {
                     onClick={handleAddPhoto}
                 />
             </div>
+            {notif}
         </>
     );
 };

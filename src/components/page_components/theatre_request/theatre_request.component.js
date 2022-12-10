@@ -549,6 +549,7 @@ function TheatreRequest({
                             <ImageSelector
                                 title="Фотографии театра"
                                 items={photo}
+                                multiFiles={true}
                                 onChange={(items) => setPhoto(items)}
                                 onError={(text) =>
                                     setPopup(
@@ -568,6 +569,7 @@ function TheatreRequest({
                             <ImageSelector
                                 title="Фотографии театра и спектаклей"
                                 items={photoVisit}
+                                multiFiles={true}
                                 onChange={(items) => setPhotoVisit(items)}
                                 onError={(text) =>
                                     setPopup(
@@ -860,7 +862,7 @@ function TheatreRequest({
                             <Button
                                 type="submit"
                                 theme="primary"
-                                text="Создать страницу театра"
+                                text="Сохранить страницу театра"
                             />
                             <Button
                                 type="button"

@@ -253,7 +253,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     })}
                                 />
                                 <FieldInput
-                                    label={"Автор:"}
+                                    label={"Автор литературного материала:"}
                                     layout="flex"
                                     size="small"
                                     required={true}
@@ -327,29 +327,27 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     })}
                                 />
                                 <FieldInput
-                                    label={"Афиша спектакля"}
+                                    label={"Афиша спектакля (прием до 15.02.2023)"}
                                     type="file"
                                     multiple="multiple"
                                     extraClass="form__field"
                                     layout="flex"
-                                    required={true}
+                                    accept="image/*"
                                     {...register("performance_photo")}
                                 />
                                 <FieldInput
-                                    label={"Ссылка на видеофрагмент"}
+                                    label={"Ссылка на видеофрагмент (прием до 15.02.2023)"}
                                     type="url"
                                     extraClass="form__field"
                                     placeholder="Введите url-адрес..."
                                     layout="flex"
-                                    required={true}
                                     {...register("performance_video")}
                                 />
                                 <FieldInput
-                                    label={"Ответы на вопросы"}
+                                    label={"Ответы на вопросы (прием до 15.02.2023)"}
                                     type="file"
                                     extraClass="form__field"
                                     layout="flex"
-                                    required={true}
                                     {...register("performance_answer")}
                                 />
                             </fieldset>
