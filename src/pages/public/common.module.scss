@@ -214,7 +214,6 @@
     align-items: center;
     padding: 1.875em;
     gap: 0.675em 1.25em;
-    grid-template-columns: auto 1fr;
 
     box-shadow: 0 0 15px rgba(black, 0.15);
     border-radius: 5px;
@@ -222,6 +221,10 @@
 
     &:hover {
         box-shadow: 0 0 15px rgba(black, 0.26);
+    }
+
+    @include media(sm) {
+        grid-template-columns: auto 1fr;
     }
 }
 .qouteImg {
