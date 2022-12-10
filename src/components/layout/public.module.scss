@@ -14,7 +14,7 @@
     @extend %main-width;
     padding: 0;
     display: flex;
-    align-items: center;
+    // align-items: center;
     color: var(--white);
 
     position: relative;
@@ -41,7 +41,66 @@
     padding-left: 0;
 
     display: flex;
-    align-items: center;
+    // align-items: center;
+
+    &PlaceHeader {
+        .menuList {
+            @media screen and (max-width: 87.5em) {
+                flex-direction: column;
+
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: var(--white);
+                box-shadow: 0 0 15px rgba(black, 0.15);
+                border-radius: 0 0 0 5px;
+                overflow: hidden;
+
+                transition: all 0.25s ease-in-out;
+                transform: translateY(-1em);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+
+                &Opened {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: unset;
+                }
+
+                .menuLink {
+                    text-align: left;
+                    display: flex;
+                    color: var(--dark);
+                    border-bottom: 1px solid var(--g200);
+                    transition-property: background-color, color;
+
+                    &:hover {
+                        color: var(--public-primary);
+                        background-color: rgba(
+                            map-get($colors, "primary"),
+                            0.1
+                        );
+                    }
+                }
+            }
+            @include media(sm, max) {
+                left: 0;
+                top: 0;
+                min-height: 100vh;
+                text-align: center;
+
+                .menuLink {
+                    display: inline-flex;
+                    font-size: 1.5em;
+                    text-align: center;
+                    align-self: center;
+                    border-bottom: none;
+                }
+            }
+        }
+    }
 
     &PlaceFooter {
         .menuList {
@@ -65,12 +124,14 @@
 }
 
 .menuLink {
-    display: inline-block;
+    height: 100%;
+    display: flex;
+    align-items: center;
     color: inherit;
     text-align: center;
     text-decoration: unset;
     font-size: min(1.75vmax, 1.25em);
-    font-weight: 600;
+    font-weight: 500;
     padding: min(1.5vmax, 1.25em);
     box-sizing: border-box;
     cursor: pointer;
@@ -79,9 +140,16 @@
     &:hover {
         color: var(--public-primary);
     }
+
+    &Opened {
+        color: var(--public-primary);
+        .dropDownArrow {
+            transform: scale(1, -1);
+        }
+    }
 }
 
-.menuListMobile {
+.dropDownMenuList {
     @extend %reset-list;
     position: absolute;
     top: 100%;
@@ -106,7 +174,7 @@
 
     .menuLink {
         text-align: left;
-        display: block;
+        // display: block;
         color: var(--dark);
         border-bottom: 1px solid var(--g200);
         transition-property: background-color, color;
@@ -119,6 +187,8 @@
 }
 
 .hamburger {
+    align-self: center;
+
     flex: none;
     margin: 0 1.5em 0 auto;
 
@@ -169,6 +239,7 @@
         }
 
         div {
+            background-color: var(--public-primary);
             transform: rotate(135deg);
 
             &::before,
@@ -178,11 +249,42 @@
             }
         }
     }
+
+    @media screen and (min-width: 87.5em) {
+        display: none;
+    }
+}
+
+.dropDownMenu {
+    position: relative;
+
+    .dropDownMenuList {
+        border-radius: 5px;
+
+        @media screen and (max-width: 87.5em) {
+            box-shadow: none;
+            padding-left: min(1.75vmax, 1.25em);
+
+            &Opened {
+                position: relative;
+            }
+        }
+
+        @include media(sm, max) {
+            padding-left: 0;
+        }
+    }
+}
+
+.dropDownArrow {
+    @include box(1.125em);
+    fill: currentColor;
 }
 
 .footer {
     background-color: var(--g600);
 }
+
 .footerWrap {
     @extend %main-width;
 }
@@ -193,7 +295,13 @@
     padding-bottom: 1.25em;
     color: var(--light);
     border-bottom: 1px solid var(--g500);
+
+    @include media(md, max) {
+        flex-direction: column;
+        gap: 1.25em;
+    }
 }
+
 .footerColumn {
     flex: auto;
 
@@ -201,8 +309,24 @@
     flex-direction: column;
     align-items: flex-start;
 
+    @include media(md, max) {
+        border-top: 1px solid var(--g500);
+        padding-top: min(1.75vmax, 1.5em);
+    }
+
+    &ContentNavigation {
+        @include media(md, max) {
+            border-top: unset;
+            padding-top: 0;
+        }
+    }
     &ContentContact {
-        flex-basis: 50%;
+        @include media(md) {
+            flex-basis: 50%;
+        }
+        @include media(md, max) {
+            order: 2;
+        }
     }
 }
 
@@ -219,6 +343,7 @@
     align-items: center;
     gap: 0.375em;
     font-size: min(1.75vmax, 1.25em);
+    font-weight: 500;
     color: var(--light);
     text-decoration: none;
     margin-bottom: 0.675rem;
@@ -244,7 +369,7 @@
 }
 
 .loginLink {
-    font-weight: 600;
+    font-weight: 500;
     color: var(--lightLow);
     text-decoration: none;
     margin-top: auto;
@@ -258,6 +383,6 @@
 .footerCopy {
     margin: 0;
     padding: 1.25em 0;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--lightLow);
 }

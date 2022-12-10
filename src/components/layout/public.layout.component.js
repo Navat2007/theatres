@@ -29,8 +29,18 @@ const PublicLayout = () => {
                                 alt="Логотип Содружества"
                             />
                         </NavLink>
-                        <nav className={styles.menu}>
-                            <ul className={styles.menuList}>
+                        <nav
+                            className={[
+                                styles.menu,
+                                styles.menuPlaceHeader,
+                            ].join(" ")}
+                        >
+                            <ul
+                                className={[
+                                    styles.menuList,
+                                    // styles.menuListOpened,
+                                ].join(" ")}
+                            >
                                 <li>
                                     <NavLink
                                         to={"/concord/"}
@@ -40,9 +50,52 @@ const PublicLayout = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <Link className={styles.menuLink}>
+                                    <Link
+                                        className={[
+                                            styles.menuLink,
+                                            // styles.menuLinkOpened,
+                                        ].join(" ")}
+                                    >
                                         Деятельность
+                                        {/*
+                                        <span className={styles.dropDownArrow}>
+                                            {AdminIcons.chevron_down}
+                                        </span>
+                                        */}
                                     </Link>
+                                    {/*
+                                    <div className={styles.dropDownMenu}>
+                                        <ul
+                                            className={[
+                                                styles.dropDownMenuList,
+                                                styles.dropDownMenuListOpened,
+                                            ].join(" ")}
+                                        >
+                                            <li>
+                                                <Link
+                                                    className={styles.menuLink}
+                                                >
+                                                    Клуб руководителей школьных
+                                                    театров
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    className={styles.menuLink}
+                                                >
+                                                    Консультация с наставником
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    className={styles.menuLink}
+                                                >
+                                                    Методическая поддержка
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    */}
                                 </li>
                                 <li>
                                     <NavLink
@@ -67,6 +120,7 @@ const PublicLayout = () => {
                                 </li>
                             </ul>
                             {/* Если не входит то добавляется этот список - выпадающее меню, как в школе. Туда переносятся все пункты с конца, которые не влезли по ширине */}
+                            {/*
                             <ul
                                 className={[
                                     styles.menuListMobile,
@@ -108,18 +162,19 @@ const PublicLayout = () => {
                                     </NavLink>
                                 </li>
                             </ul>
+                             */}
                             {/* При нажатии добавляем еще класс styles.hamburgerOpened
                             Если Меню входит по ширине экрана - кнопку не выводим */}
-                            {/*<button*/}
-                            {/*    className={[*/}
-                            {/*        styles.hamburger,*/}
-                            {/*        // styles.hamburgerOpened,*/}
-                            {/*    ].join(" ")}*/}
-                            {/*    type="button"*/}
-                            {/*    aria-label="Мобильное меню"*/}
-                            {/*>*/}
-                            {/*    <div></div>*/}
-                            {/*</button>*/}
+                            <button
+                                className={[
+                                    styles.hamburger,
+                                    // styles.hamburgerOpened,
+                                ].join(" ")}
+                                type="button"
+                                aria-label="Мобильное меню"
+                            >
+                                <div></div>
+                            </button>
                         </nav>
                     </div>
                 </header>
@@ -171,7 +226,10 @@ const PublicLayout = () => {
                                     Войти в Личный кабинет
                                 </NavLink>
                             </div>
-                            <div className={styles.footerColumn}>
+                            <div className={[
+                                    styles.footerColumn,
+                                    styles.footerColumnContentNavigation,
+                                ].join(" ")}>
                                 <h2 className={styles.footerColumnHeading}>
                                     Меню
                                 </h2>
