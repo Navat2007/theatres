@@ -5,12 +5,14 @@ import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
 import Notif from "../notif/notif.component";
 import Popup from "../popup/popup.component";
+import styles from "./image.module.scss";
+import { AdminIcons } from "../svgs.js";
 
-const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
-
+const ImageSelector = ({ title, items, multiFiles, onChange, onError }) => {
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
-    const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] = React.useState(false);
+    const [photoFileAddBtnDisabled, setPhotoFileAddBtnDisabled] =
+        React.useState(false);
     const [photoInputKey, setPhotoInputKey] = React.useState("");
     const [notif, setNotif] = React.useState(<></>);
 
@@ -88,7 +90,6 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
     };
 
     const handleAddFilePhoto = async (e) => {
-
         let errorFiles = [];
 
         async function readFileAsDataURL(file) {
@@ -104,21 +105,19 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
         let tmp_array = [];
 
         for (const file of e.target.files) {
-
-
             if (file.type.match("image.*")) {
                 if (file.size <= 2000000) {
                 } else {
                     errorFiles.push({
                         title: file.name,
-                        text: "Файл больше 5 Мб."
+                        text: "Файл больше 5 Мб.",
                     });
                     continue;
                 }
             } else {
                 errorFiles.push({
                     title: file.name,
-                    text: "Файл должен быть изображением."
+                    text: "Файл должен быть изображением.",
                 });
                 continue;
             }
@@ -133,42 +132,37 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                 isLoaded: false,
                 order: getOrderIndex(photo),
             });
-
-
         }
 
-        setPhoto([
-            ...photo,
-            ...tmp_array,
-        ]);
+        setPhoto([...photo, ...tmp_array]);
 
         setPhotoInputKey(window.global.makeid(30));
 
         if (errorFiles.length > 0) {
-
             setNotif(
                 <Popup
                     opened={true}
                     onClose={() => setNotif(<></>)}
-                    title={"Не удалось добавить следующие файлы:"}
+                    title={"Ошибка загрузки файлов"}
                 >
-                    <table>
-                        <tbody>
-                        {
-                            errorFiles.map(error => (
-                                <tr key={error.title}>
-                                    <td>{error.title}</td>
-                                    <td>{error.text}</td>
-                                </tr>
-                            ))
-                        }
-                        </tbody>
-                    </table>
+                    <h3 className={styles.errorCaption}>
+                        {AdminIcons.error} Не удалось добавить следующие файлы:
+                    </h3>
+                    <ol className={styles.errorList}>
+                        {errorFiles.map((error) => (
+                            <li key={error.title}>
+                                <p className={styles.errorText}>
+                                    {error.title}{" "}
+                                    <span className={styles.errorSpan}>
+                                        {error.text}
+                                    </span>
+                                </p>
+                            </li>
+                        ))}
+                    </ol>
                 </Popup>
             );
-
         }
-
     };
 
     const handleMovePhoto = (elementOrder, toOrder) => {
@@ -185,38 +179,39 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
     };
 
     const handleDeletePhoto = (itemOrder) => {
+        setNotif(
+            <Notif
+                text={"Вы уверены что хотите удалить?"}
+                opened={true}
+                onClose={() => setNotif(<></>)}
+                buttons={
+                    <>
+                        <Button
+                            type="button"
+                            size={"small"}
+                            text={"Нет"}
+                            theme="text"
+                            onClick={() => setNotif(<></>)}
+                        />
+                        <Button
+                            type="button"
+                            size={"small"}
+                            theme="info"
+                            text={"Да"}
+                            onClick={() => {
+                                let array = [...photo].filter(
+                                    (item) => item.order !== itemOrder
+                                );
 
-        setNotif(<Notif
-            text={"Вы уверены что хотите удалить?"}
-            opened={true}
-            onClose={() => setNotif(<></>)}
-            buttons={
-                <>
-                    <Button
-                        type="button"
-                        size={"small"}
-                        text={"Нет"}
-                        theme="text"
-                        onClick={() => setNotif(<></>)}
-                    />
-                    <Button
-                        type="button"
-                        size={"small"}
-                        theme="info"
-                        text={"Да"}
-                        onClick={() => {
-                            let array = [...photo].filter((item) => item.order !== itemOrder);
+                                setPhoto(setNewOrder(array));
 
-                            setPhoto(setNewOrder(array));
-
-                            setNotif(<></>)
-                        }}
-                    />
-                </>
-            }
-        />);
-
-
+                                setNotif(<></>);
+                            }}
+                        />
+                    </>
+                }
+            />
+        );
     };
 
     return (
@@ -336,8 +331,8 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         e.preventDefault();
                         handleAddFilePhoto({
                             target: {
-                                files: e.dataTransfer.files
-                            }
+                                files: e.dataTransfer.files,
+                            },
                         });
                     }}
                     onDragOver={(e) => {
@@ -384,7 +379,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                     target={"_blank"}
                     rel="nofollow noreferer noopener"
                 >
-                    <span className="mdi mdi-open-in-new"/>
+                    <span className="mdi mdi-open-in-new" />
                 </a>
                 <Button
                     type="button"
