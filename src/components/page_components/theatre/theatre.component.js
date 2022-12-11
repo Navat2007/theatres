@@ -595,7 +595,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.url}
+                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                                 alt="Изображение "
                                             />
                                             <div className="gallery-form__title">
@@ -615,7 +615,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.url}
+                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">
@@ -650,7 +650,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.url}
+                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                                 alt="Изображение "
                                             />
                                             <div className="gallery-form__title">
@@ -670,7 +670,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.url}
+                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">

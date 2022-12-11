@@ -251,7 +251,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         >
                             <img
                                 className="gallery-form__img"
-                                src={item.isFile === 1 && item.isLoaded === 1 ? window.global.baseUrl + item.url : item.url}
+                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                 alt={"Изображение " + item.url}
                             />
                             <div className="gallery-form__item-panel">
@@ -279,7 +279,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         >
                             <img
                                 className="gallery-form__img"
-                                src={item.isFile === 1 && item.isLoaded === 1 ? window.global.baseUrl + item.url : item.url}
+                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                 alt={"Изображение " + item.url}
                             />
                             <span className="gallery-form__current-position">
