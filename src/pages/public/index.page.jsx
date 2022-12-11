@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+import {Splide, SplideSlide} from "@splidejs/react-splide";
 
 import BannerSlider from "../../components/slider/banner.slider.component";
 
@@ -68,7 +69,7 @@ const MainPage = () => {
                                 alt="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
                             />
                             <p>
-                                <b>Дорогие друзья!</b> <br />
+                                <b>Дорогие друзья!</b> <br/>
                                 Мы рады приветствовать вас на портале
                                 «Содружество школьных театров города Москвы».
                             </p>
@@ -138,7 +139,7 @@ const MainPage = () => {
                         title={"Спектакли"}
                         width={"100%"}
                         height={400}
-                        style={{ border: 0 }}
+                        style={{border: 0}}
                         //src={"https://patriotsport.moscow/premery-spektaklej/"}
                         src={"https://razgovor.moscow/test.html"}
                     />
@@ -242,22 +243,40 @@ const MainPage = () => {
             <section className={commonStyles.section}>
                 <article className={commonStyles.wrap}>
                     <h2 className={commonStyles.title}>Друзья содружества</h2>
-                    <div className={commonStyles.qoute}>
-                        <img
-                            className={commonStyles.qouteImg}
-                            src={peoples[0].src}
-                            alt={peoples[0].name}
-                        />
-                        <h3 className={commonStyles.qouteTitle}>
-                            {peoples[0].name}
-                            <span className={commonStyles.qouteTitleSpan}>
-                                {peoples[0].position}
-                            </span>
-                        </h3>
-                        <blockquote className={commonStyles.qouteText}>
-                            {peoples[0].qoute}
-                        </blockquote>
-                    </div>
+                    <Splide
+                        options={{
+                            type: "loop",
+                            arrows: true,
+                            perPage: 3,
+                            perMove: 1,
+                            gap: "1rem",
+                            pagination: false,
+                            rewind: true,
+                        }}
+                    >
+                        {
+                            peoples.map((item, index) => (
+                                <SplideSlide key={index}>
+                                    <div className={commonStyles.qoute}>
+                                        <img
+                                            className={commonStyles.qouteImg}
+                                            src={item.url}
+                                            alt={item.name}
+                                        />
+                                        <h3 className={commonStyles.qouteTitle}>
+                                            {item.name}
+                                            <span className={commonStyles.qouteTitleSpan}>
+                                                {item.position}
+                                            </span>
+                                        </h3>
+                                        <blockquote className={commonStyles.qouteText}>
+                                            {item.qoute}
+                                        </blockquote>
+                                    </div>
+                                </SplideSlide>
+                            ))
+                        }
+                    </Splide>
                 </article>
             </section>
         </>
