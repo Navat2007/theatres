@@ -25,10 +25,14 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
         onChange(photo);
     }, [photo]);
 
-    function getOrderIndex(array) {
+    function getOrderIndex(array, tmpArray) {
         let index = 0;
 
         array.map((item) => {
+            if (item.order > index) index = item.order;
+        });
+
+        tmpArray.map((item) => {
             if (item.order > index) index = item.order;
         });
 
@@ -105,9 +109,8 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
 
         for (const file of e.target.files) {
 
-
             if (file.type.match("image.*")) {
-                if (file.size <= 2000000) {
+                if (file.size <= 5000000) {
                 } else {
                     errorFiles.push({
                         title: file.name,
@@ -129,9 +132,9 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                 main: photo.length === 0 ? 1 : 0,
                 url: result,
                 file: file,
-                isFile: true,
-                isLoaded: false,
-                order: getOrderIndex(photo),
+                isFile: 1,
+                isLoaded: 0,
+                order: getOrderIndex(photo, tmp_array),
             });
 
 
@@ -184,10 +187,10 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
         setPhoto(setNewOrder(array));
     };
 
-    const handleDeletePhoto = (itemOrder) => {
+    const handleDeletePhoto = (itemElement) => {
 
         setNotif(<Notif
-            text={"Вы уверены что хотите удалить?"}
+            text={"Вы уверены что хотите удалить? Файл сразу удалится с сервера и будет не доступен на публичной странице сайта!"}
             opened={true}
             onClose={() => setNotif(<></>)}
             buttons={
@@ -204,8 +207,20 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         size={"small"}
                         theme="info"
                         text={"Да"}
-                        onClick={() => {
-                            let array = [...photo].filter((item) => item.order !== itemOrder);
+                        onClick={async () => {
+
+                            if(itemElement.isFile === 1 && itemElement.isLoaded === 1)
+                            {
+
+                                let form = new FormData();
+                                window.global.buildFormData(form, itemElement);
+
+                                const response = await axios.postForm(process.env.REACT_APP_BASE_URL + 'php/models/files/remove_theatre_image.php', form);
+                                console.log(response);
+
+                            }
+
+                            let array = [...photo].filter((item) => item.order !== itemElement.order);
 
                             setPhoto(setNewOrder(array));
 
@@ -231,7 +246,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         >
                             <img
                                 className="gallery-form__img"
-                                src={item.url}
+                                src={item.isFile === 1 && item.isLoaded === 1 ? window.global.baseUrl + item.url : item.url}
                                 alt={"Изображение " + item.url}
                             />
                             <div className="gallery-form__item-panel">
@@ -244,7 +259,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                                     aria-label="Удалить"
                                     disabled={photoAddBtnDisabled}
                                     onClick={() =>
-                                        handleDeletePhoto(item.order)
+                                        handleDeletePhoto(item)
                                     }
                                 />
                             </div>
@@ -259,7 +274,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                         >
                             <img
                                 className="gallery-form__img"
-                                src={item.url}
+                                src={item.isFile === 1 && item.isLoaded === 1 ? window.global.baseUrl + item.url : item.url}
                                 alt={"Изображение " + item.url}
                             />
                             <span className="gallery-form__current-position">
@@ -286,7 +301,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                                     aria-label="Удалить"
                                     disabled={photoAddBtnDisabled}
                                     onClick={() =>
-                                        handleDeletePhoto(item.order)
+                                        handleDeletePhoto(item)
                                     }
                                 />
                             </div>

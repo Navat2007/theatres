@@ -252,6 +252,9 @@ function getPhoto($ID)
                 'url' => $row->url,
                 'main' => (int)$row->main,
                 'order' => (int)$row->photo_order,
+                'isFile' => (int)$row->file,
+                'isLoaded' => 1,
+
             ];
 
         }
@@ -285,6 +288,9 @@ function getPhotoVisit($ID)
                 'url' => $row->url,
                 'main' => (int)$row->main,
                 'order' => (int)$row->photo_order,
+                'isFile' => (int)$row->file,
+                'isLoaded' => 1,
+                'isVisit' => 1
 
             ];
 

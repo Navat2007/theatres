@@ -1,6 +1,4 @@
 import axios from "axios";
-import { isArray } from "lodash";
-
 import create from 'zustand'
 import { persist } from "zustand/middleware";
 

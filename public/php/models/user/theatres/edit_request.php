@@ -58,8 +58,9 @@ if ((int)$theatreID !== 0) {
     $sql = "SELECT * FROM theatre_requests WHERE theatreID = '$theatreID'";
     $sqls[] = $sql;
     $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_object($result);
 
-    if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0 && $row->ID != $id) {
         $error = 1;
         $error_text = "Заявка на редактирование данного театра уже существует в данной школе";
     }
@@ -171,19 +172,60 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
         }
 
-        $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
+        $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id' AND file = '0'";
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
-        foreach ($photo as $p) {
+        for ($i = 0; $i < count($photo); $i++) {
 
-            $url = $p['url'];
-            $main = $p['main'];
-            $order = $p['order'];
+            $url = $photo[$i]['url'];
+            $main = $photo[$i]['main'];
+            $order = $photo[$i]['order'];
+            $isFile = (int)$photo[$i]['isFile'];
+            $isLoaded = (int)$photo[$i]['isLoaded'];
+
+            if($isFile === 1 && $isLoaded === 0){
+
+                $url = "";
+
+                $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests";
+
+                if (!file_exists($baseDirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($baseDirName, 0777);
+                    umask($oldmask);
+                }
+
+                $temp_name = $_FILES['photo']['tmp_name'][$i]['file'];
+                $name = $_FILES['photo']['name'][$i]['file'];
+
+                $sqls[] = $temp_name;
+                $sqls[] = $name;
+
+                $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id;
+
+                if (!file_exists($dirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($dirName, 0777);
+                    umask($oldmask);
+                }
+
+                $file_token = time();
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
+
+                @unlink($path);
+
+                if(copy($temp_name, $path))
+                {
+                    $url = "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
+                }
+
+            }
 
             $sql = "
-            INSERT INTO theatre_request_photo (requestID, url, main, photo_order) 
-            VALUES ('$id', '$url', '$main', '$order')";
+            INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
+            VALUES ('$id', '$url', '$isFile', '$main', '$order')";
 
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
@@ -191,18 +233,61 @@ if ($error === 0) {
             unset($url);
             unset($main);
             unset($order);
+            unset($isFile);
+            unset($isLoaded);
 
         }
 
-        $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
+        $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id' AND file = '0'";
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
-        foreach ($photoVisit as $pv) {
+        for ($i = 0; $i < count($photoVisit); $i++) {
 
-            $url = $pv['url'];
-            $main = $pv['main'];
-            $order = $pv['order'];
+            $url = $photoVisit[$i]['url'];
+            $main = $photoVisit[$i]['main'];
+            $order = $photoVisit[$i]['order'];
+            $isFile = (int)$photoVisit[$i]['isFile'];
+            $isLoaded = (int)$photoVisit[$i]['isLoaded'];
+
+            if($isFile === 1 && $isLoaded === 0){
+
+                $url = "";
+
+                $baseDirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests";
+
+                if (!file_exists($baseDirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($baseDirName, 0777);
+                    umask($oldmask);
+                }
+
+                $temp_name = $_FILES['photoVisit']['tmp_name'][$i]['file'];
+                $name = $_FILES['photoVisit']['name'][$i]['file'];
+
+                $sqls[] = $temp_name;
+                $sqls[] = $name;
+
+                $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id;
+
+                if (!file_exists($dirName)) {
+                    $oldmask = umask(0);
+                    $mkdir_result = mkdir($dirName, 0777);
+                    umask($oldmask);
+                }
+
+                $file_token = time();
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
+
+                @unlink($path);
+
+                if(copy($temp_name, $path))
+                {
+                    $url = "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
+                }
+
+            }
 
             $sql = "
             INSERT INTO theatre_request_visit_photo (requestID, url, main, photo_order) 
@@ -214,6 +299,8 @@ if ($error === 0) {
             unset($url);
             unset($main);
             unset($order);
+            unset($isFile);
+            unset($isLoaded);
 
         }
 
@@ -324,7 +411,7 @@ if ($error === 0) {
         $error = 1;
         $error_text = mysqli_error($conn);
     } else {
-        $log->add($conn, $authorization[1], 'Отредактирована заявка ID: ' . $id . ' в школе ID: ' . $schoolID);
+        $log->add($conn, $authorization[1], 'Отозвана заявка ID: ' . $id . ' в школе ID: ' . $schoolID);
     }
 }
 

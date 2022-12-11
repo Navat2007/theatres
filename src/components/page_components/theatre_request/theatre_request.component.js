@@ -222,8 +222,6 @@ function TheatreRequest({
         onSubmitDone(performData());
     });
 
-    console.log(performData());
-
     return (
         <>
             <form
