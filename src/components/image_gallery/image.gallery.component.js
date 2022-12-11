@@ -30,7 +30,7 @@ const ImageGallery = ({title, items}) => {
                         >
                             <img
                                 className="gallery__img"
-                                src={item.url}
+                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
                                 alt=""
                             />
                         </li>
