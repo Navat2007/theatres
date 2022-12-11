@@ -222,10 +222,14 @@
     font-weight: bold;
     color: var(--dark);
 }
+
 .qoute {
-    display: inline-grid;
+    @include box(100%);
+
+    display: grid;
     align-items: center;
     padding: 1.875em;
+    box-sizing: border-box;
     gap: 0.675em 1.25em;
 
     box-shadow: 0 0 15px rgba(black, 0.15);
@@ -249,6 +253,8 @@
     object-fit: cover;
 }
 .qouteTitle {
+    align-self: end;
+
     margin: 0;
     font-size: min(1.75vmax, 1.25em);
     font-weight: 600;
@@ -261,6 +267,8 @@
 }
 
 .qouteText {
+    align-self: start;
+
     margin: 0;
     font-style: italic;
     max-width: 27.3125rem;

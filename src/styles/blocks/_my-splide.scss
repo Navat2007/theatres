@@ -1,0 +1,65 @@
+.my-splide {
+    .splide__track {
+        padding: 1em 0 3em;
+        @include media(md) {
+            position: relative;
+
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: 1;
+                width: 20%;
+                display: inline-block;
+            }
+
+            &:before {
+                left: 0;
+                background: linear-gradient(
+                    90deg,
+                    #ffffff 34.29%,
+                    rgba(255, 255, 255, 0) 96.07%
+                );
+            }
+
+            &:after {
+                right: 0;
+                background: linear-gradient(
+                    -90deg,
+                    #ffffff 34.29%,
+                    rgba(255, 255, 255, 0) 96.07%
+                );
+            }
+        }
+    }
+
+    .splide__arrows .splide__arrow {
+        @include box(3.3125em);
+        border-radius: 50%;
+        border: 3px solid var(--white);
+        background: var(--g100);
+        box-shadow: 0 0 15px 1px rgba(black, 0.24);
+
+        & svg {
+            fill: var(--primary);
+        }
+    }
+
+    .splide__pagination__page {
+        @include box(.675rem);
+        border: unset !important;
+        border-radius: 50%;
+        opacity: 1;
+        background-color: var(--g300);
+        cursor: pointer;
+        margin: .25em;
+
+        &.is-active {
+            border: unset !important;
+            background-color: var(--primary);
+            transform: scale(1);
+        }
+    }
+}
