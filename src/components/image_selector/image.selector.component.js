@@ -131,7 +131,7 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
             const result = await readFileAsDataURL(file);
 
             tmp_array.push({
-                main: photo.length === 0 ? 1 : 0,
+                main: photo.length === 0 && tmp_array.length === 0 ? 1 : 0,
                 url: result,
                 file: file,
                 isFile: 1,
