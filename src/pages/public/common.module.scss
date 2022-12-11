@@ -49,7 +49,7 @@
     font-size: 1.25em;
     line-height: 1.5;
     text-align: center;
-    padding: 0 1em;
+    padding: 0.25em 1.25em;
     border-radius: 5px;
     box-sizing: border-box;
     transition: background-color 0.15s ease-in;
@@ -72,7 +72,7 @@
 .concordImg {
     float: left;
     margin-right: 1.25em;
-    margin-bottom: 1.25em;
+    margin-bottom: 0.875em;
     width: min(27.25vmax, 27.25em);
     object-fit: contain;
 }
@@ -80,6 +80,10 @@
 .concordMainText {
     font-size: 1.25em;
     line-height: 1.4;
+
+    border-bottom: 1px solid var(--g200);
+    padding-bottom: 1.25em;
+    margin-bottom: 1.25em;
 }
 
 .news {
@@ -237,9 +241,18 @@
 }
 .qouteTitle {
     margin: 0;
+    font-size: min(1.75vmax, 1.25em);
+    font-weight: 600;
+    max-width: 27.3125rem;
 }
+
+.qouteTitleSpan {
+    display: block;
+    font-size: 1rem;
+}
+
 .qouteText {
     margin: 0;
     font-style: italic;
-    max-width: 17em;
+    max-width: 27.3125rem;
 }
