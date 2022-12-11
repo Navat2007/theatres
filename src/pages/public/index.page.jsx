@@ -61,12 +61,12 @@ const MainPage = () => {
                 >
                     <article className={commonStyles.concord}>
                         <h1 className={commonStyles.title}>О Содружестве</h1>
-                        <img
-                            className={commonStyles.concordImg}
-                            src="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
-                            alt="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
-                        />
                         <div className={commonStyles.concordMainText}>
+                            <img
+                                className={commonStyles.concordImg}
+                                src="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
+                                alt="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
+                            />
                             <p>
                                 <b>Дорогие друзья!</b> <br />
                                 Мы рады приветствовать вас на портале
