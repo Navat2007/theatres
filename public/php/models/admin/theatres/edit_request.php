@@ -318,6 +318,13 @@ if ($error === 0) {
 
             }
 
+            if($isFile === 1 && $isLoaded === 1){
+
+                $tmpUrl = explode('/', $url);
+                $url = "/files/theatre/" . $updateID . "/" . $tmpUrl[count($tmpUrl) - 1];
+
+            }
+
             $sql = "
             INSERT INTO theatres_photo (theatreID, url, file, main, photo_order) 
             VALUES ('$updateID', '$url', '$isFile', '$main', '$order')";
@@ -417,6 +424,13 @@ if ($error === 0) {
                 {
                     $url = "/files/theatre/" . $id . "/" . $file_token . "_" . $name;
                 }
+
+            }
+
+            if($isFile === 1 && $isLoaded === 1){
+
+                $tmpUrl = explode('/', $url);
+                $url = "/files/theatre/" . $updateID . "/" . $tmpUrl[count($tmpUrl) - 1];
 
             }
 
