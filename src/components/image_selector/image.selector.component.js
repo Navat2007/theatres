@@ -5,6 +5,8 @@ import Button from "../simple/button/button.component";
 import FieldInput from "../simple/field/field.input.component";
 import Notif from "../notif/notif.component";
 import Popup from "../popup/popup.component";
+import styles from "./image.module.scss";
+import { AdminIcons } from "../svgs.js";
 
 const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
 
@@ -153,20 +155,23 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                 <Popup
                     opened={true}
                     onClose={() => setNotif(<></>)}
-                    title={"Не удалось добавить следующие файлы:"}
+                    title={"Ошибка загрузки файлов"}
                 >
-                    <table>
-                        <tbody>
-                        {
-                            errorFiles.map(error => (
-                                <tr key={error.title}>
-                                    <td>{error.title}</td>
-                                    <td>{error.text}</td>
-                                </tr>
-                            ))
-                        }
-                        </tbody>
-                    </table>
+                    <h3 className={styles.errorCaption}>
+                        {AdminIcons.error} Не удалось добавить следующие файлы:
+                    </h3>
+                    <ol className={styles.errorList}>
+                        {errorFiles.map((error) => (
+                            <li key={error.title}>
+                                <p className={styles.errorText}>
+                                    {error.title}{" "}
+                                    <span className={styles.errorSpan}>
+                                        {error.text}
+                                    </span>
+                                </p>
+                            </li>
+                        ))}
+                    </ol>
                 </Popup>
             );
 
