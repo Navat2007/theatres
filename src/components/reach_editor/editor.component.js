@@ -15,7 +15,7 @@ const Editor = ({ control, name, readonly, placeholder, required, value, ...rest
         showWordsCounter: false,
         showXPathInStatusbar: false,
         minHeight: '500px',
-        buttons: "bold,italic,underline,ul,font,fontsize,align,|,undo,redo,fullsize,preview,print",
+        buttons: "bold,italic,underline,ul,fontsize,align,|,undo,redo,fullsize,preview,print",
         //preset: 'inline',
         placeholder: placeholder || 'Начните писать...'
     };
