@@ -1,7 +1,7 @@
 .my-splide {
     .splide__track {
         padding: 1em 0 3em;
-        @include media(md) {
+        @include media(xl) {
             position: relative;
 
             &:before,
