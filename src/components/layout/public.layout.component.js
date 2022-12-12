@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
+import useOnClickOutside from "../../hook/onClickOutside";
+
 import styles from "./public.module.scss";
 import logo from "../../images/logo.png";
 import { SocialIcons, AdminIcons } from "../svgs.js";
@@ -10,12 +12,21 @@ import { SocialIcons, AdminIcons } from "../svgs.js";
 const PublicLayout = () => {
     const { user } = useAuthStore();
     const location = useLocation();
+    const node = React.useRef();
 
     const [burgerOpened, setBurgerOpened] = React.useState(false);
 
     React.useEffect(() => {
         window.scrollTo(0, 0);
+        setBurgerOpened(false);
     }, [location]);
+
+    useOnClickOutside(node, () => {
+        // Only if menu is open
+        if (burgerOpened) {
+            setBurgerOpened(!burgerOpened);
+        }
+    });
 
     const menu = [
 
@@ -42,6 +53,7 @@ const PublicLayout = () => {
                             ].join(" ")}
                         >
                             <ul
+                                ref={node}
                                 className={[
                                     styles.menuList,
                                     burgerOpened ? styles.menuListOpened : "",
@@ -104,12 +116,11 @@ const PublicLayout = () => {
                                     */}
                                 </li>
                                 <li>
-                                    <NavLink
-                                        to={"/"}
+                                    <Link
                                         className={styles.menuLink}
                                     >
                                         Театры
-                                    </NavLink>
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link className={styles.menuLink}>
@@ -117,12 +128,11 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <NavLink
-                                        to={"/"}
+                                    <Link
                                         className={styles.menuLink}
                                     >
                                         Новости
-                                    </NavLink>
+                                    </Link>
                                 </li>
                             </ul>
                             {/* Если не входит то добавляется этот список - выпадающее меню, как в школе. Туда переносятся все пункты с конца, которые не влезли по ширине */}
