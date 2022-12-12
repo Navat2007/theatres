@@ -54,7 +54,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     };
 
     const onTaliaFestivalRequestSubmit = async (data) => {
-
         let form = new FormData();
 
         form.append("section", "1");
@@ -64,34 +63,37 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("count", data.count);
 
         //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
-        const response = await axios.postForm('https://theatres.patriot-sport.ru/php/email/festival.php', form);
+        const response = await axios.postForm(
+            "https://theatres.patriot-sport.ru/php/email/festival.php",
+            form
+        );
 
         console.log(response);
 
-        if(response?.data?.mail_result)
-        {
+        if (response?.data?.mail_result) {
             setFestivalRequest(<></>);
-            setNotif(<Notif
-                text="Заявка успешно отправлена"
-                state="success"
-                timerInSeconds={3}
-                opened={true}
-                onClose={() => setNotif(<></>)}
-            />);
+            setNotif(
+                <Notif
+                    text="Заявка успешно отправлена"
+                    state="success"
+                    timerInSeconds={3}
+                    opened={true}
+                    onClose={() => setNotif(<></>)}
+                />
+            );
+        } else {
+            setNotif(
+                <Notif
+                    text="При отправке заявки произошла ошибка"
+                    state="error"
+                    opened={true}
+                    onClose={() => setNotif(<></>)}
+                />
+            );
         }
-        else {
-            setNotif(<Notif
-                text="При отправке заявки произошла ошибка"
-                state="error"
-                opened={true}
-                onClose={() => setNotif(<></>)}
-            />);
-        }
-
     };
 
     const onMelpomenaFestivalRequestSubmit = async (data) => {
-
         let form = new FormData();
         window.global.buildFormData(form, data);
 
@@ -110,34 +112,35 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         // });
 
         const response = await axios({
-            method: 'post',
-            url: 'https://theatres.patriot-sport.ru/php/email/festival.php',
+            method: "post",
+            url: "https://theatres.patriot-sport.ru/php/email/festival.php",
             data: form,
             headers: {
-                'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
+                "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
             },
         });
 
-        if(response?.data?.mail_result)
-        {
+        if (response?.data?.mail_result) {
             setFestivalRequest(<></>);
-            setNotif(<Notif
-                text="Заявка успешно отправлена"
-                state="success"
-                timerInSeconds={3}
-                opened={true}
-                onClose={() => setNotif(<></>)}
-            />);
+            setNotif(
+                <Notif
+                    text="Заявка успешно отправлена"
+                    state="success"
+                    timerInSeconds={3}
+                    opened={true}
+                    onClose={() => setNotif(<></>)}
+                />
+            );
+        } else {
+            setNotif(
+                <Notif
+                    text="При отправке заявки произошла ошибка"
+                    state="error"
+                    opened={true}
+                    onClose={() => setNotif(<></>)}
+                />
+            );
         }
-        else {
-            setNotif(<Notif
-                text="При отправке заявки произошла ошибка"
-                state="error"
-                opened={true}
-                onClose={() => setNotif(<></>)}
-            />);
-        }
-
     };
 
     const handleFestivalRequestBtn = () => {
@@ -327,7 +330,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     })}
                                 />
                                 <FieldInput
-                                    label={"Афиша спектакля (прием до 15.02.2023)"}
+                                    label={
+                                        "Афиша спектакля (прием до 15.02.2023)"
+                                    }
                                     type="file"
                                     multiple="multiple"
                                     extraClass="form__field"
@@ -336,7 +341,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     {...register("performance_photo")}
                                 />
                                 <FieldInput
-                                    label={"Ссылка на видеофрагмент (прием до 15.02.2023)"}
+                                    label={
+                                        "Ссылка на видеофрагмент (прием до 15.02.2023)"
+                                    }
                                     type="url"
                                     extraClass="form__field"
                                     placeholder="Введите url-адрес..."
@@ -344,7 +351,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     {...register("performance_video")}
                                 />
                                 <FieldInput
-                                    label={"Ответы на вопросы (прием до 15.02.2023)"}
+                                    label={
+                                        "Ответы на вопросы (прием до 15.02.2023)"
+                                    }
                                     type="file"
                                     extraClass="form__field"
                                     layout="flex"
@@ -501,59 +510,62 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                 <h3 className={styles.label}>
                                     Фестиваль “Живая сцена”
                                 </h3>
-                                {/* Див для того, чтобы кнопка не растягивалась на весь экран, также можно если театр заявку подал, изменить состояние */}
-                                <div>
-                                    <Button
-                                        type="button"
-                                        text={"Подать заявку"}
-                                        onClick={handleFestivalRequestBtn}
-                                    />
-                                </div>
+                                <Button
+                                    style={{ maxWidth: "max-content" }}
+                                    type="button"
+                                    text={"Подать заявку"}
+                                    onClick={handleFestivalRequestBtn}
+                                />
                             </li>
                         )}
                     </ul>
                     <h2 className={styles.title}>Педагоги</h2>
-                    <ul className="teacher-list">
-                        {theatre.teachers.map((item) => {
-                            let teacher = teachersStore.teachers.find(
-                                (teacherInStore) =>
-                                    item.ID === teacherInStore.ID
-                            );
+                    {theatre.teachers.length === 0 ? (
+                        <p className={styles.description}>Данные не указаны</p>
+                    ) : (
+                        <ul className="teacher-list">
+                            {theatre.teachers.map((item) => {
+                                let teacher = teachersStore.teachers.find(
+                                    (teacherInStore) =>
+                                        item.ID === teacherInStore.ID
+                                );
 
-                            return (
-                                <NavLink
-                                    key={item.ID}
-                                    className={commonStyles.link}
-                                    to={"/admin/teachers/" + item.ID}
-                                >
-                                    <li className="teacher-list__item">
-                                        <img
-                                            className="teacher-list__img"
-                                            src={
-                                                teacher?.photo
-                                                    ? window.global.baseUrl +
-                                                      teacher.photo
-                                                    : no_photo_man
-                                            }
-                                            alt=""
-                                        />
-                                        <div className="teacher-list__info">
-                                            <h3 className="teacher-list__title">
-                                                <span className="teacher-list__span-accent">
-                                                    {teacher?.f}{" "}
-                                                </span>
-                                                {teacher?.i} {teacher?.o}
-                                            </h3>
-                                            <p className="teacher-list__text"></p>
-                                            <p className="teacher-list__description">
-                                                {teacher?.position}
-                                            </p>
-                                        </div>
-                                    </li>
-                                </NavLink>
-                            );
-                        })}
-                    </ul>
+                                return (
+                                    <NavLink
+                                        key={item.ID}
+                                        className={commonStyles.link}
+                                        to={"/admin/teachers/" + item.ID}
+                                    >
+                                        <li className="teacher-list__item">
+                                            <img
+                                                className="teacher-list__img"
+                                                src={
+                                                    teacher?.photo
+                                                        ? window.global
+                                                              .baseUrl +
+                                                          teacher.photo
+                                                        : no_photo_man
+                                                }
+                                                alt=""
+                                            />
+                                            <div className="teacher-list__info">
+                                                <h3 className="teacher-list__title">
+                                                    <span className="teacher-list__span-accent">
+                                                        {teacher?.f}{" "}
+                                                    </span>
+                                                    {teacher?.i} {teacher?.o}
+                                                </h3>
+                                                <p className="teacher-list__text"></p>
+                                                <p className="teacher-list__description">
+                                                    {teacher?.position}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </NavLink>
+                                );
+                            })}
+                        </ul>
+                    )}
                 </Tab>
                 <Tab title={"Краткое описание"}>
                     <div
@@ -595,7 +607,14 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
+                                                src={
+                                                    item.isFile === 1 &&
+                                                    item.isLoaded === 1
+                                                        ? process.env
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
+                                                        : item.url
+                                                }
                                                 alt="Изображение "
                                             />
                                             <div className="gallery-form__title">
@@ -615,7 +634,14 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
+                                                src={
+                                                    item.isFile === 1 &&
+                                                    item.isLoaded === 1
+                                                        ? process.env
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
+                                                        : item.url
+                                                }
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">
@@ -650,7 +676,14 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
+                                                src={
+                                                    item.isFile === 1 &&
+                                                    item.isLoaded === 1
+                                                        ? process.env
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
+                                                        : item.url
+                                                }
                                                 alt="Изображение "
                                             />
                                             <div className="gallery-form__title">
@@ -670,7 +703,14 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         >
                                             <img
                                                 className="gallery-form__img"
-                                                src={item.isFile === 1 && item.isLoaded === 1 ? process.env.REACT_APP_BASE_URL + item.url : item.url}
+                                                src={
+                                                    item.isFile === 1 &&
+                                                    item.isLoaded === 1
+                                                        ? process.env
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
+                                                        : item.url
+                                                }
                                                 alt="Изображение "
                                             />
                                             <span className="gallery-form__current-position">
