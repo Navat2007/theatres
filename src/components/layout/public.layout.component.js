@@ -11,9 +11,15 @@ const PublicLayout = () => {
     const { user } = useAuthStore();
     const location = useLocation();
 
+    const [burgerOpened, setBurgerOpened] = React.useState(false);
+
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
+
+    const menu = [
+
+    ];
 
     return (
         <>
@@ -38,7 +44,7 @@ const PublicLayout = () => {
                             <ul
                                 className={[
                                     styles.menuList,
-                                    // styles.menuListOpened,
+                                    burgerOpened ? styles.menuListOpened : "",
                                 ].join(" ")}
                             >
                                 <li>
@@ -168,10 +174,11 @@ const PublicLayout = () => {
                             <button
                                 className={[
                                     styles.hamburger,
-                                    // styles.hamburgerOpened,
+                                    burgerOpened ? styles.hamburgerOpened : "",
                                 ].join(" ")}
                                 type="button"
                                 aria-label="Мобильное меню"
+                                onClick={() => setBurgerOpened(!burgerOpened)}
                             >
                                 <div></div>
                             </button>
