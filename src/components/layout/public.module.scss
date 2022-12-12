@@ -44,6 +44,10 @@
     // align-items: center;
 
     &PlaceHeader {
+        @media screen and (max-width: 87.5em) {
+            flex: none;
+            margin-left: auto;
+        }
         .menuList {
             @media screen and (max-width: 87.5em) {
                 flex-direction: column;

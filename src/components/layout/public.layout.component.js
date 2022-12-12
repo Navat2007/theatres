@@ -47,13 +47,14 @@ const PublicLayout = () => {
                             />
                         </NavLink>
                         <nav
+                        ref={node}
                             className={[
                                 styles.menu,
                                 styles.menuPlaceHeader,
                             ].join(" ")}
                         >
                             <ul
-                                ref={node}
+
                                 className={[
                                     styles.menuList,
                                     burgerOpened ? styles.menuListOpened : "",
@@ -135,52 +136,6 @@ const PublicLayout = () => {
                                     </Link>
                                 </li>
                             </ul>
-                            {/* Если не входит то добавляется этот список - выпадающее меню, как в школе. Туда переносятся все пункты с конца, которые не влезли по ширине */}
-                            {/*
-                            <ul
-                                className={[
-                                    styles.menuListMobile,
-                                    // styles.menuListMobileOpened,
-                                ].join(" ")}
-                            >
-                                <li>
-                                    <NavLink
-                                        to={"/concord/"}
-                                        className={styles.menuLink}
-                                    >
-                                        О Содружестве
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <Link className={styles.menuLink}>
-                                        Деятельность
-                                    </Link>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to={"/"}
-                                        className={styles.menuLink}
-                                    >
-                                        Театры
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <Link className={styles.menuLink}>
-                                        Фестиваль - конкурс «Живая сцена»
-                                    </Link>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to={"/"}
-                                        className={styles.menuLink}
-                                    >
-                                        Новости
-                                    </NavLink>
-                                </li>
-                            </ul>
-                             */}
-                            {/* При нажатии добавляем еще класс styles.hamburgerOpened
-                            Если Меню входит по ширине экрана - кнопку не выводим */}
                             <button
                                 className={[
                                     styles.hamburger,
