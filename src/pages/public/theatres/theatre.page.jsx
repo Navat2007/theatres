@@ -57,7 +57,7 @@ function PublicTheatrePage() {
 
     if (id && !theatre) return <p>Театр не найден</p>;
 
-    // console.log(teachersStore);
+    console.log(theatre);
 
     return (
         <>
@@ -242,42 +242,47 @@ function PublicTheatrePage() {
             >
                 <article className={commonStyles.wrap + " contact"}>
                     <h2 className={commonStyles.title}>Контакты</h2>
-                    <div className="contact__map">
-                        <YMaps>
-                            <Map
-                                state={{
-                                    center: [
-                                        theatre.coordinates
-                                            .split(",")[0]
-                                            .trim(),
-                                        theatre.coordinates
-                                            .split(",")[1]
-                                            .trim(),
-                                    ],
-                                    zoom: 14,
-                                }}
-                                width="100%"
-                                height="100%"
-                            >
-                                <Placemark
-                                    geometry={[
-                                        theatre.coordinates
-                                            .split(",")[0]
-                                            .trim(),
-                                        theatre.coordinates
-                                            .split(",")[1]
-                                            .trim(),
-                                    ]}
-                                    properties={{
-                                        iconCaption: theatre.title,
+                    {
+                        theatre.coordinates
+                        &&
+                        <div className="contact__map">
+                            <YMaps>
+                                <Map
+                                    state={{
+                                        center: [
+                                            theatre.coordinates
+                                                .split(",")[0]
+                                                .trim(),
+                                            theatre.coordinates
+                                                .split(",")[1]
+                                                .trim(),
+                                        ],
+                                        zoom: 14,
                                     }}
-                                    options={{
-                                        preset: "islands#redDotIconWithCaption",
-                                    }}
-                                />
-                            </Map>
-                        </YMaps>
-                    </div>
+                                    width="100%"
+                                    height="100%"
+                                >
+                                    <Placemark
+                                        geometry={[
+                                            theatre.coordinates
+                                                .split(",")[0]
+                                                .trim(),
+                                            theatre.coordinates
+                                                .split(",")[1]
+                                                .trim(),
+                                        ]}
+                                        properties={{
+                                            iconCaption: theatre.title,
+                                        }}
+                                        options={{
+                                            preset: "islands#redDotIconWithCaption",
+                                        }}
+                                    />
+                                </Map>
+                            </YMaps>
+                        </div>
+                    }
+
                     <div className="contact__columns">
                         <div className="contact__column">
                             <h3

@@ -22,32 +22,14 @@ if(!empty($url))
     @unlink($photo_path);
 }
 
-if((int)$isTheatre === 1){
+if((int)$isVisit === 1){
 
-    if((int)$isVisit === 1){
-
-        $sql = "DELETE FROM theatres_visit_photo WHERE ID = '$ID'";
-
-    }
-    else{
-
-        $sql = "DELETE FROM theatres_photo WHERE ID = '$ID'";
-
-    }
+    $sql = "DELETE FROM theatre_request_visit_photo WHERE ID = '$ID'";
 
 }
 else{
 
-    if((int)$isVisit === 1){
-
-        $sql = "DELETE FROM theatre_request_visit_photo WHERE ID = '$ID'";
-
-    }
-    else{
-
-        $sql = "DELETE FROM theatre_request_photo WHERE ID = '$ID'";
-
-    }
+    $sql = "DELETE FROM theatre_request_photo WHERE ID = '$ID'";
 
 }
 
