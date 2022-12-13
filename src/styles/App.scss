@@ -17,9 +17,14 @@
     --ff-public: "Open Sans", sans-serif;
 
     --header-height: 4.125em;
+    --main-width: 100%;
 
     @include media(sm) {
         --menu-width: 15em;
+    }
+
+    @include media(md) {
+        --main-width: 90%;
     }
 }
 
