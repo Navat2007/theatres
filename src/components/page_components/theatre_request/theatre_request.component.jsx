@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import useAuthStore from "../../../store/authStore";
-import useTeachersStore from "./../../../store/admin/teachersStore";
+import useTeachersStore from "../../../store/admin/teachersStore";
 import useTheatresStore from "../../../store/user/theatresStore";
 import useSchoolStore from "../../../store/user/schoolStore";
 
