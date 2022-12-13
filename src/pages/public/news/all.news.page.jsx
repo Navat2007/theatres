@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
+import styles from "./news.module.scss";
 
 const AllNewsPage = () => {
     return (
-        <div>
-            Новости
-        </div>
+        <>
+            <section className={styles.section}>
+                <article className={styles.wrap}></article>
+            </section>
+        </>
     );
 };
 
