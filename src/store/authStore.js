@@ -38,15 +38,19 @@ const useAuthStore = create(
 
                 }
 
-                const response = await axios.post(urlEditPhoto, form);
+                const response = await axios.postForm(urlEditPhoto, form);
+
+                let photo = "";
 
                 if(response.data.params){
-                    set((state) => ({user: {...state.user, photo: response.data.params}, loading: false, error: true, errorText: response.data.error_text}));
-
-                    const tmpUser = JSON.parse(window.localStorage.getItem('user'));
-                    tmpUser.photo = response.data.params;
-                    window.localStorage.setItem('user', JSON.stringify(tmpUser));
+                    photo = response.data.params;
                 }
+
+                set((state) => ({user: {...state.user, photo: photo}, loading: false, error: true, errorText: response.data.error_text}));
+
+                const tmpUser = JSON.parse(window.localStorage.getItem('user'));
+                tmpUser.photo = photo;
+                window.localStorage.setItem('user', JSON.stringify(tmpUser));
 
             },
             login: async (params) => {
