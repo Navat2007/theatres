@@ -49,7 +49,40 @@ const RoutesList = () => {
 
     const {user} = useAuthStore();
 
-
+    const publicRoutes = <Route
+        path="/"
+        element={<PublicLayout/>}
+    >
+        <Route
+            index
+            element={<MainPage/>}
+        />
+        <Route
+            path="/concord"
+            exact={true}
+            element={<ConcordPage/>}
+        />
+        <Route
+            path="/theatre"
+            exact={true}
+            element={<PublicTheatresPage/>}
+        />
+        <Route
+            path="/theatre/:id"
+            exact={true}
+            element={<PublicTheatrePage/>}
+        />
+        <Route
+            path="/news"
+            exact={true}
+            element={<AllNewsPage/>}
+        />
+        <Route
+            path="/news/:id"
+            exact={true}
+            element={<NewsPage/>}
+        />
+    </Route>;
 
     React.useEffect(() => {
 
@@ -163,40 +196,7 @@ const RoutesList = () => {
                     exact={true}
                     element={<Navigate to="/admin/users"/>}
                 />
-                <Route
-                    path="/"
-                    element={<PublicLayout/>}
-                >
-                    <Route
-                        index
-                        element={<MainPage/>}
-                    />
-                    <Route
-                        path="/concord"
-                        exact={true}
-                        element={<ConcordPage/>}
-                    />
-                    <Route
-                        path="/theatre"
-                        exact={true}
-                        element={<PublicTheatresPage/>}
-                    />
-                    <Route
-                        path="/theatre/:id"
-                        exact={true}
-                        element={<PublicTheatrePage/>}
-                    />
-                    <Route
-                        path="/news"
-                        exact={true}
-                        element={<AllNewsPage/>}
-                    />
-                    <Route
-                        path="/news/:id"
-                        exact={true}
-                        element={<NewsPage/>}
-                    />
-                </Route>
+                {publicRoutes}
                 <Route
                     path="*"
                     element={<Page404/>}
@@ -293,40 +293,7 @@ const RoutesList = () => {
                     exact={true}
                     element={<Navigate to="/user/my_school"/>}
                 />
-                <Route
-                    path="/"
-                    element={<PublicLayout/>}
-                >
-                    <Route
-                        index
-                        element={<MainPage/>}
-                    />
-                    <Route
-                        path="/concord"
-                        exact={true}
-                        element={<ConcordPage/>}
-                    />
-                    <Route
-                        path="/theatre"
-                        exact={true}
-                        element={<PublicTheatresPage/>}
-                    />
-                    <Route
-                        path="/theatre/:id"
-                        exact={true}
-                        element={<PublicTheatrePage/>}
-                    />
-                    <Route
-                        path="/news"
-                        exact={true}
-                        element={<AllNewsPage/>}
-                    />
-                    <Route
-                        path="/news/:id"
-                        exact={true}
-                        element={<NewsPage/>}
-                    />
-                </Route>
+                {publicRoutes}
                 <Route
                     path="*"
                     element={<Page404/>}
@@ -337,40 +304,7 @@ const RoutesList = () => {
 
     return (
         <Routes>
-            <Route
-                path="/"
-                element={<PublicLayout/>}
-            >
-                <Route
-                    index
-                    element={<MainPage/>}
-                />
-                <Route
-                    path="/concord"
-                    exact={true}
-                    element={<ConcordPage/>}
-                />
-                <Route
-                    path="/theatre"
-                    exact={true}
-                    element={<PublicTheatresPage/>}
-                />
-                <Route
-                    path="/theatre/:id"
-                    exact={true}
-                    element={<PublicTheatrePage/>}
-                />
-                <Route
-                    path="/news"
-                    exact={true}
-                    element={<AllNewsPage/>}
-                />
-                <Route
-                    path="/news/:id"
-                    exact={true}
-                    element={<NewsPage/>}
-                />
-            </Route>
+            {publicRoutes}
             <Route
                 path="/login"
                 exact={true}
