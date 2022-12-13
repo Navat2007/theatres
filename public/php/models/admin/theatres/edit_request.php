@@ -159,11 +159,11 @@ if ($error === 0) {
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
 
-            $sql = "DELETE FROM theatres_photo WHERE theatreID = '$updateID' AND file = '0'";
+            $sql = "DELETE FROM theatres_photo WHERE theatreID = '$updateID'";
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
 
-            $sql = "DELETE FROM theatres_visit_photo WHERE theatreID = '$updateID' AND file = '0'";
+            $sql = "DELETE FROM theatres_visit_photo WHERE theatreID = '$updateID'";
             $sqls[] = $sql;
             mysqli_query($conn, $sql);
 
