@@ -100,7 +100,7 @@ const MyTheatreRequestPage = () => {
             setPopup(
                 <Notif
                     title=""
-                    text={"Спасибо. Ваши фотографии сохранены, ожидайте рассмотрения заявки"}
+                    text={"Спасибо. Ваши данные сохранены, ожидайте рассмотрения заявки"}
                     opened={true}
                     onClose={() => {
                         clearErrorText();
