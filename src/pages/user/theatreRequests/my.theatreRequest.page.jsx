@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import moment from "moment";
 
 import useTheatresStore from "../../../store/user/theatresStore";
@@ -14,10 +14,10 @@ import JoditEditor from "jodit-react";
 import commonStyles from "../../common.module.scss";
 
 const MyTheatreRequestPage = () => {
-    let { id } = useParams();
+    let {id} = useParams();
     const navigate = useNavigate();
 
-    const { user } = useAuthStore();
+    const {user} = useAuthStore();
     const {
         theatreRequest,
         loadTheatreRequest,
@@ -33,8 +33,8 @@ const MyTheatreRequestPage = () => {
     const [edit, setEdit] = React.useState(false);
 
     const fetchData = async () => {
-        await loadTheatreRequest({ id });
-        await teachersStore.loadTeachers({ schoolID: user.schoolID });
+        await loadTheatreRequest({id});
+        await teachersStore.loadTeachers({schoolID: user.schoolID});
 
         console.clear();
         console.log(theatreRequest);
@@ -97,7 +97,18 @@ const MyTheatreRequestPage = () => {
         const result = await editTheatre(params);
 
         if (!result.error) {
-            back();
+            setPopup(
+                <Notif
+                    title=""
+                    text={"Спасибо. Ваши фотографии сохранены, ожидайте рассмотрения заявки"}
+                    opened={true}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopup(<></>);
+                        back();
+                    }}
+                />
+            );
         }
     };
 

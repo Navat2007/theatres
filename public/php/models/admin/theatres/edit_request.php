@@ -231,6 +231,7 @@ if ($error === 0) {
             mysqli_query($conn, $sql);
         }
 
+        // Photo
         $sql = "SELECT * FROM theatre_request_photo WHERE requestID = '$id' AND file = '1'";
         $sqls[] = $sql;
         $result = mysqli_query($conn, $sql);
@@ -340,6 +341,11 @@ if ($error === 0) {
 
         }
 
+        $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
+        // Visit photo
         $sql = "SELECT * FROM theatre_request_visit_photo WHERE requestID = '$id' AND file = '1'";
         $sqls[] = $sql;
         $result = mysqli_query($conn, $sql);
@@ -448,6 +454,11 @@ if ($error === 0) {
             unset($isLoaded);
 
         }
+
+        $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
 
         foreach ($video as $v) {
 

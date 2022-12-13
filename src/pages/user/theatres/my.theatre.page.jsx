@@ -65,7 +65,18 @@ const MyTheatrePage = () => {
         const result = await addTheatre(params);
 
         if (!result.error) {
-            navigate("/user/theatreRequests");
+            setPopup(
+                <Notif
+                    title=""
+                    text={"Спасибо. Ваши фотографии сохранены, ожидайте рассмотрения заявки"}
+                    opened={true}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopup(<></>);
+                        navigate("/user/theatreRequests");
+                    }}
+                />
+            );
         }
     };
 
@@ -76,7 +87,20 @@ const MyTheatrePage = () => {
         const result = await addTheatre(params);
 
         if (!result.error) {
-            navigate("/user/theatreRequests");
+
+            setPopup(
+                <Notif
+                    title=""
+                    text={"Спасибо. Ваши фотографии сохранены, ожидайте рассмотрения заявки"}
+                    opened={true}
+                    onClose={() => {
+                        clearErrorText();
+                        setPopup(<></>);
+                        navigate("/user/theatreRequests");
+                    }}
+                />
+            );
+
         }
     };
 
