@@ -184,6 +184,16 @@ const RoutesList = () => {
                         exact={true}
                         element={<PublicTheatrePage/>}
                     />
+                    <Route
+                        path="/news"
+                        exact={true}
+                        element={<AllNewsPage/>}
+                    />
+                    <Route
+                        path="/news/:id"
+                        exact={true}
+                        element={<NewsPage/>}
+                    />
                 </Route>
                 <Route
                     path="*"
@@ -303,6 +313,16 @@ const RoutesList = () => {
                         path="/theatre/:id"
                         exact={true}
                         element={<PublicTheatrePage/>}
+                    />
+                    <Route
+                        path="/news"
+                        exact={true}
+                        element={<AllNewsPage/>}
+                    />
+                    <Route
+                        path="/news/:id"
+                        exact={true}
+                        element={<NewsPage/>}
                     />
                 </Route>
                 <Route
