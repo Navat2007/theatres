@@ -243,9 +243,13 @@ const PublicLayout = () => {
                             {/*    </a>*/}
                             {/*</div>*/}
                         </div>
-                        <p className={styles.footerCopy}>
+                        <a
+                            href={"https://patriotsport.moscow/"}
+                            target={"_blank"}
+                            className={styles.footerCopy}
+                        >
                             © 2023г. «Московский центр «Патриот.Спорт»
-                        </p>
+                        </a>
                     </div>
                 </footer>
             </div>
