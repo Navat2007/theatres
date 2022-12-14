@@ -195,5 +195,6 @@ $content = (object)[
     'to' => $to,
     'subject' => $subject,
     'mail_result' => $mail_result,
+    'message' => $message,
 ];
 echo json_encode($content);

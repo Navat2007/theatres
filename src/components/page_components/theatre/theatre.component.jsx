@@ -64,7 +64,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
         //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
         const response = await axios.postForm(
-            "https://theatres.patriot-sport.ru/php/email/festival.php",
+            process.env.REACT_APP_BASE_URL + "php/email/festival.php",
             form
         );
 
@@ -106,7 +106,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
         const response = await axios({
             method: "post",
-            url: "https://theatres.patriot-sport.ru/php/email/festival.php",
+            url: process.env.REACT_APP_BASE_URL + "php/email/festival.php",
             data: form,
             headers: {
                 "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
