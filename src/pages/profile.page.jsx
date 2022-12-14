@@ -178,7 +178,6 @@ const ProfilePage = () => {
 
     React.useEffect(() => {
         setPhone(formatPhone(user.phone));
-        console.log(user);
     }, [user]);
 
     return (

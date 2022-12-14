@@ -19,7 +19,7 @@ if((int)$ID === 1 || (int)$ID === 1519){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET archive = '1' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET archive = '1', token = '' WHERE ID = '$ID' AND archive = '0'";
     mysqli_query($conn, $sql);
 
     $log->add($conn, $authorization[1], 'Пользователь отправлен в архив #' . $ID);

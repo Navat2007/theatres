@@ -13,7 +13,7 @@ $sqls = array();
 $params = array();
 
 $sql = "SELECT 
-            account.ID, account.login, account.email, account.active, account.fio, account.phone, s.org_short_name as org_name
+            account.ID, account.login, account.email, account.active, account.fio, account.phone, account.position, s.org_short_name as org_name
         FROM 
              accounts as account
         LEFT JOIN schools as s on s.ID = account.schoolID

@@ -61,7 +61,7 @@ if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 3)){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', position = '$position', org_name = '$org_name', active = '$active' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', position = '$position', org_name = '$org_name', active = '$active', token = '' WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);

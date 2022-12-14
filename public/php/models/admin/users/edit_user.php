@@ -55,7 +55,7 @@ if($admin_row->email != $email){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', fio = '$fio', phone = '$phone', position = '$position', active = '$active', schoolID = '$schoolID' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET email = '$email', login = '$login', fio = '$fio', phone = '$phone', position = '$position', active = '$active', schoolID = '$schoolID', token = '' WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
