@@ -49,7 +49,7 @@ const PublicLayout = () => {
         },
         {
             ext: false,
-            url: "/",
+            url: "/festivals/",
             title: "Фестиваль «Живая сцена»",
             submenu: []
         },

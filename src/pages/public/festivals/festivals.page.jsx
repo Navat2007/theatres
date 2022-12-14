@@ -1,9 +1,10 @@
 import React from 'react';
+import commonStyles from "../common.module.scss";
 
 const FestivalsPage = () => {
     return (
-        <section>
-            <h2>Фестиваль «Живая сцена»</h2>
+        <section className={commonStyles.wrap}>
+            <h2 className={commonStyles.title}>Фестиваль «Живая сцена»</h2>
             <iframe
                 seamless={true}
                 title={"Фестиваль"}
@@ -11,7 +12,7 @@ const FestivalsPage = () => {
                 height={800}
                 style={{ border: 0 }}
                 //src={"https://patriotsport.moscow/premery-spektaklej/"}
-                src={"https://razgovor.moscow/test.html"}
+                src={"https://razgovor.moscow/live-stage.html"}
             />
         </section>
     );

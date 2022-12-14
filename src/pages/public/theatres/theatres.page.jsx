@@ -12,7 +12,7 @@ const TheatresPage = () => {
                 height={800}
                 style={{ border: 0 }}
                 //src={"https://patriotsport.moscow/premery-spektaklej/"}
-                src={"https://razgovor.moscow/test.html"}
+                src={"https://razgovor.moscow/theatre_.html"}
             />
         </section>
     );
