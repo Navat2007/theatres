@@ -102,15 +102,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("theatre", theatre.title);
         form.append("direction", "«Школьная Мельпомена»");
 
-        // const response = await axios({
-        //     method: 'post',
-        //     url: window.global.baseUrl + 'php/email/festival.php',
-        //     data: form,
-        //     headers: {
-        //         'Content-Type': `multipart/form-data; boundary=${form._boundary}`,
-        //     },
-        // });
-
         const response = await axios({
             method: "post",
             url: "https://theatres.patriot-sport.ru/php/email/festival.php",
@@ -327,6 +318,15 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     required={true}
                                     {...register("performance_length", {
                                         value: 0,
+                                    })}
+                                />
+                                <FieldInput
+                                    label={"Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):"}
+                                    layout="flex"
+                                    size="small"
+                                    required={true}
+                                    {...register("performance_nomination", {
+                                        value: "",
                                     })}
                                 />
                                 <FieldInput

@@ -63,6 +63,7 @@ if(!empty($section)){
         $performance_count = htmlspecialchars($_POST['performance_count']);
         $performance_length = htmlspecialchars($_POST['performance_length']);
         $performance_producer = htmlspecialchars($_POST['performance_producer']);
+        $performance_nomination = htmlspecialchars($_POST['performance_nomination']);
         $performance_title = htmlspecialchars($_POST['performance_title']);
         $performance_video = htmlspecialchars($_POST['performance_video']);
 
@@ -119,6 +120,9 @@ if(!empty($section)){
                                     </p>
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Возрастная категория:
                                         <b style="box-sizing: border-box;">' . $performance_age . '</b>
+                                    </p>
+                                    <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):
+                                        <b style="box-sizing: border-box;">' . $performance_nomination . '</b>
                                     </p>
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Продолжительность спектакля (мин):
                                         <b style="box-sizing: border-box;">' . $performance_length . '</b>
