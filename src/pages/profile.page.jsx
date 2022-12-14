@@ -67,10 +67,12 @@ const ProfilePage = () => {
         setPhone(formatPhone(user.phone));
     }, [user]);
 
+    console.log(user);
+
     return (
         <>
             <div className={commonStyles.title_block}>
-                <h1 className={commonStyles.title}>Информация о профиле</h1>
+                <h1 className={commonStyles.title}>{user?.role === "user" ? "Информация о руководителе школьного театра" : "Информация о профиле"}</h1>
             </div>
             <div className={commonStyles.profile}>
                 <div className={commonStyles.profile_img_block}>
