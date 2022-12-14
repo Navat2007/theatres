@@ -157,6 +157,13 @@ const AdminUsersPage = () => {
                                     value: admin.org_name,
                                 })}
                             />
+                            <FieldInput
+                                label={"Должность"}
+                                placeholder={"Введите должность..."}
+                                layout="flex"
+                                required={true}
+                                {...register("position", { value: admin.position })}
+                            />
                         </fieldset>
                         <fieldset className="form__section">
                             <h2 className="form__title">Безопасность</h2>

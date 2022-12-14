@@ -53,6 +53,13 @@ const UsersPage = () => {
             sorting: true,
         },
         {
+            header: "Должность",
+            key: "position",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
             header: "Роль",
             key: "role",
             type: "string",
@@ -99,6 +106,13 @@ const UsersPage = () => {
         {
             header: "Телефон",
             key: "phone",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Должность",
+            key: "position",
             type: "string",
             filter: "string",
             sorting: true,
