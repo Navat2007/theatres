@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 import BannerSlider from "../../components/slider/banner.slider.component";
-
+import concordImage from "../../images/concord/concord.jpg";
+import newImage from "../../images/concord/new_1.jpg";
 import commonStyles from "./common.module.scss";
 
 const MainPage = () => {
@@ -99,8 +100,8 @@ const MainPage = () => {
                         <div className={commonStyles.concordMainText}>
                             <img
                                 className={commonStyles.concordImg}
-                                src="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
-                                alt="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
+                                src={concordImage}
+                                alt="Содружество школьных театров города Москвы"
                             />
                             <p>
                                 <b>Дорогие друзья!</b> <br />
@@ -129,20 +130,25 @@ const MainPage = () => {
                             <li>
                                 <img
                                     className={commonStyles.newImg}
-                                    src="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
-                                    alt="https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"
+                                    src={newImage}
+                                    alt="Мастера театрального искусства в помощь
+                                    школьным театрам"
                                 />
                                 <p className={commonStyles.newDate}>
-                                    15.11.2022г.
+                                    14.12.2022
                                 </p>
                                 <h3 className={commonStyles.newTitle}>
-                                    Название новости
+                                    Мастера театрального искусства в помощь
+                                    школьным театрам
                                 </h3>
                                 <p className={commonStyles.newPharagraph}>
-                                    На прошлой неделе в школе прошел школьный
-                                    конкурс «Театральные подмостки». В нем
-                                    приняли участие многие ученики нашей
-                                    огромной
+                                    Нужна помощь в открытии школьного театра или
+                                    подборе литературного материала для
+                                    постановки, а может быть вы готовитесь к
+                                    театральному фестивалю и нужен
+                                    профессиональный взгляд со стороны? Тогда
+                                    консультанты-наставники Содружества идут к
+                                    вам!
                                 </p>
                             </li>
                         </ul>
