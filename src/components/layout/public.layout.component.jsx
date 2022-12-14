@@ -69,7 +69,9 @@ const PublicLayout = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <Link
+                                    <a
+                                        href="https://patriotsport.moscow/shkolnyj-teatr/"
+                                        target="_blank"
                                         className={[
                                             styles.menuLink,
                                             // styles.menuLinkOpened,
@@ -81,7 +83,7 @@ const PublicLayout = () => {
                                             {AdminIcons.chevron_down}
                                         </span>
                                         */}
-                                    </Link>
+                                    </a>
                                     {/*
                                     <div className={styles.dropDownMenu}>
                                         <ul
@@ -125,7 +127,7 @@ const PublicLayout = () => {
                                 </li>
                                 <li>
                                     <Link className={styles.menuLink}>
-                                        Фестиваль - конкурс «Живая сцена»
+                                        Фестиваль «Живая сцена»
                                     </Link>
                                 </li>
                                 <li>
