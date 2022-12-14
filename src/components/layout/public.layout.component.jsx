@@ -243,13 +243,17 @@ const PublicLayout = () => {
                             {/*    </a>*/}
                             {/*</div>*/}
                         </div>
-                        <a
-                            href={"https://patriotsport.moscow/"}
-                            target={"_blank"}
+                        <p
                             className={styles.footerCopy}
                         >
-                            © 2023г. «Московский центр «Патриот.Спорт»
-                        </a>
+                            <a
+                                href={"https://patriotsport.moscow/"}
+                                target={"_blank"}
+                            >
+                                © 2023г. «Московский центр «Патриот.Спорт»
+                            </a>
+
+                        </p>
                     </div>
                 </footer>
             </div>
