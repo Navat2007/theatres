@@ -1,8 +1,5 @@
 import axios from "axios";
-import { isArray } from "lodash";
-
 import create from 'zustand'
-import { persist } from "zustand/middleware";
 
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/public/theatres/load.php';
 const urlLoadTheatre = process.env.REACT_APP_BASE_URL + 'php/models/public/theatres/load_by_id.php';

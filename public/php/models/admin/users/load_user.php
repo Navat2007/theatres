@@ -39,6 +39,7 @@ if(mysqli_num_rows($result) > 0)
             'schoolID' => $row->schoolID,
             'fio' => $row->fio,
             'phone' => $row->phone,
+            'position' => $row->position,
 
         ];
 

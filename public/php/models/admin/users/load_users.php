@@ -34,6 +34,7 @@ if (mysqli_num_rows($result) > 0) {
             'org_name' => htmlspecialchars_decode($row->org_name),
             'fio' => $row->fio,
             'phone' => $row->phone,
+            'position' => $row->position,
 
         ];
 

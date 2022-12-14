@@ -29,6 +29,7 @@ if(mysqli_num_rows($result) > 0)
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'role' => $row->role == "superadmin" ? "Главный администратор":"Администратор",
             'fio' => $row->fio,
+            'position' => $row->position,
 
         ];
 

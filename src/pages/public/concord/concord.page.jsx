@@ -2,6 +2,8 @@ import React from "react";
 
 import useAuthStore from "../../../store/authStore";
 
+import Button from "../../../components/simple/button/button.component";
+
 import commonStyles from "../common.module.scss";
 import styles from "./concord.module.scss";
 
@@ -11,10 +13,31 @@ import quote_3 from "../../../images/concord/quote_3.png";
 import quote_4 from "../../../images/concord/quote_4.png";
 import quote_5 from "../../../images/concord/quote_5.png";
 import quote_6 from "../../../images/concord/quote_6.png";
-import Button from "../../../components/simple/button/button.component";
 
 const ConcordPage = () => {
     const { user } = useAuthStore();
+    const ref = React.useRef();
+
+    const [iframeHeight, setIframeHeight] = React.useState("700px");
+
+    React.useEffect(() => {
+
+    }, []);
+
+    return (
+        <section className={commonStyles.wrap}>
+            <iframe
+                ref={ref}
+                seamless={true}
+                title={"Содружестве"}
+                width={"100%"}
+                height={iframeHeight}
+                style={{ border: 0 }}
+                //src={"https://patriotsport.moscow/premery-spektaklej/"}
+                src={"https://razgovor.moscow/osodruzhestve.html"}
+            />
+        </section>
+    );
 
     return (
         <>
