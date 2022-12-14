@@ -64,6 +64,8 @@ const useAuthStore = create(
 
                 const response = await axios.postForm(urlEditUser, form);
 
+                console.log(response);
+
                 set((state) => ({user: {...state.user, fio: params.fio, phone: params.phone, position: params.position}, loading: false, error: true, errorText: response.data.error_text}));
 
                 const tmpUser = JSON.parse(window.localStorage.getItem('user'));

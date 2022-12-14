@@ -23,6 +23,9 @@ $sql = "UPDATE
                 ID = '$id'";
 $sqls[] = $sql;
 mysqli_query($conn, $sql);
+$error_text = mysqli_error($conn);
+
+$log->add($conn, $authorization[1], 'Пользователь ID: ' . $id . ' изменил данные профиля');
 
 $content = (object)[
 

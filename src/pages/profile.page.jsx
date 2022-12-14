@@ -14,7 +14,7 @@ import no_photo_man from "../images/no_photo_man.png";
 
 const ProfilePage = () => {
 
-    const { user, fetchEditPhoto } = useAuthStore();
+    const { user, fetchEditPhoto, fetchEditUser } = useAuthStore();
     const { register, handleSubmit, reset } = useForm();
 
     const [phone, setPhone] = React.useState();
@@ -76,11 +76,15 @@ const ProfilePage = () => {
         }
     };
 
-    const onSchoolEditSubmit = async (params) => {
+    const onUserEditSubmit = async (params) => {
 
         params.id = user.schoolID;
 
         console.log(params);
+
+        await fetchEditUser(params);
+
+        setPopup(<></>);
 
     };
 
@@ -95,7 +99,7 @@ const ProfilePage = () => {
                 }}
             >
                 <form
-                    onSubmit={handleSubmit(onSchoolEditSubmit)}
+                    onSubmit={handleSubmit(onUserEditSubmit)}
                     className="form"
                 >
                     <fieldset className="form__section --content-info">
@@ -104,6 +108,7 @@ const ProfilePage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
+                            required={true}
                             {...register("fio", {
                                 value: user.fio,
                             })}
@@ -114,6 +119,7 @@ const ProfilePage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
+                            required={true}
                             {...register("phone", {
                                 value: user.phone,
                             })}
@@ -123,6 +129,7 @@ const ProfilePage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
+                            required={true}
                             {...register("position", { value: user.position })}
                         />
                     </fieldset>
