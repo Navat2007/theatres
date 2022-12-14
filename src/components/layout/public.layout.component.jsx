@@ -29,7 +29,36 @@ const PublicLayout = () => {
     });
 
     const menu = [
-
+        {
+            ext: false,
+            url: "/concord/",
+            title: "О Содружестве",
+            submenu: []
+        },
+        {
+            ext: true,
+            url: "https://patriotsport.moscow/shkolnyj-teatr/",
+            title: "Деятельность",
+            submenu: []
+        },
+        {
+            ext: false,
+            url: "/theatre/",
+            title: "Театры",
+            submenu: []
+        },
+        {
+            ext: false,
+            url: "/",
+            title: "Фестиваль «Живая сцена»",
+            submenu: []
+        },
+        {
+            ext: false,
+            url: "/news/",
+            title: "Новости",
+            submenu: []
+        },
     ];
 
     return (
@@ -60,83 +89,30 @@ const PublicLayout = () => {
                                     burgerOpened ? styles.menuListOpened : "",
                                 ].join(" ")}
                             >
-                                <li>
-                                    <NavLink
-                                        to={"/concord/"}
-                                        className={styles.menuLink}
-                                    >
-                                        О Содружестве
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://patriotsport.moscow/shkolnyj-teatr/"
-                                        target="_blank"
-                                        className={[
-                                            styles.menuLink,
-                                            // styles.menuLinkOpened,
-                                        ].join(" ")}
-                                    >
-                                        Деятельность
-                                        {/*
-                                        <span className={styles.dropDownArrow}>
-                                            {AdminIcons.chevron_down}
-                                        </span>
-                                        */}
-                                    </a>
-                                    {/*
-                                    <div className={styles.dropDownMenu}>
-                                        <ul
-                                            className={[
-                                                styles.dropDownMenuList,
-                                                styles.dropDownMenuListOpened,
-                                            ].join(" ")}
-                                        >
-                                            <li>
-                                                <Link
-                                                    className={styles.menuLink}
-                                                >
-                                                    Клуб руководителей школьных
-                                                    театров
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    className={styles.menuLink}
-                                                >
-                                                    Консультация с наставником
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    className={styles.menuLink}
-                                                >
-                                                    Методическая поддержка
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    */}
-                                </li>
-                                <li>
-                                    <Link
-                                        className={styles.menuLink}
-                                    >
-                                        Театры
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className={styles.menuLink}>
-                                        Фестиваль «Живая сцена»
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        className={styles.menuLink}
-                                    >
-                                        Новости
-                                    </Link>
-                                </li>
+                                {
+                                    menu.map(item => (
+                                        <li key={item.title}>
+                                            {
+                                                item.ext
+                                                    ?
+                                                    <a
+                                                        href={item.url}
+                                                        target={"_blank"}
+                                                        className={styles.menuLink}
+                                                    >
+                                                        {item.title}
+                                                    </a>
+                                                    :
+                                                    <NavLink
+                                                        to={item.url}
+                                                        className={styles.menuLink}
+                                                    >
+                                                        {item.title}
+                                                    </NavLink>
+                                            }
+                                        </li>
+                                    ))
+                                }
                             </ul>
                             <button
                                 className={[
@@ -214,66 +190,61 @@ const PublicLayout = () => {
                                     ].join(" ")}
                                 >
                                     <ul className={styles.menuList}>
-                                        <li>
-                                            <NavLink
-                                                to={"/concord/"}
-                                                className={styles.menuLink}
-                                            >
-                                                О Содружестве
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <Link className={styles.menuLink}>
-                                                Деятельность
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className={styles.menuLink}>
-                                                Театры
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className={styles.menuLink}>
-                                                Фестиваль - конкурс «Живая
-                                                сцена»
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className={styles.menuLink}>
-                                                Новости
-                                            </Link>
-                                        </li>
+                                        {
+                                            menu.map(item => (
+                                                <li key={item.title}>
+                                                    {
+                                                        item.ext
+                                                            ?
+                                                            <a
+                                                                href={item.url}
+                                                                target={"_blank"}
+                                                                className={styles.menuLink}
+                                                            >
+                                                                {item.title}
+                                                            </a>
+                                                            :
+                                                            <NavLink
+                                                                to={item.url}
+                                                                className={styles.menuLink}
+                                                            >
+                                                                {item.title}
+                                                            </NavLink>
+                                                    }
+                                                </li>
+                                            ))
+                                        }
                                     </ul>
                                 </nav>
                             </div>
-                            <div className={styles.footerColumn}>
-                                <h2 className={styles.footerColumnHeading}>
-                                    Соцсети
-                                </h2>
-                                <a
-                                    className={styles.link}
-                                    href="#"
-                                    rel="nofollow noopener noreferer"
-                                >
-                                    <span className={styles.linkIcon}>
-                                        {SocialIcons.vk}
-                                    </span>{" "}
-                                    ВКонтакте
-                                </a>
-                                <a
-                                    className={styles.link}
-                                    href="#"
-                                    rel="nofollow noopener noreferer"
-                                >
-                                    <span className={styles.linkIcon}>
-                                        {SocialIcons.t}
-                                    </span>{" "}
-                                    Телеграм
-                                </a>
-                            </div>
+                            {/*<div className={styles.footerColumn}>*/}
+                            {/*    <h2 className={styles.footerColumnHeading}>*/}
+                            {/*        Соцсети*/}
+                            {/*    </h2>*/}
+                            {/*    <a*/}
+                            {/*        className={styles.link}*/}
+                            {/*        href="#"*/}
+                            {/*        rel="nofollow noopener noreferer"*/}
+                            {/*    >*/}
+                            {/*        <span className={styles.linkIcon}>*/}
+                            {/*            {SocialIcons.vk}*/}
+                            {/*        </span>{" "}*/}
+                            {/*        ВКонтакте*/}
+                            {/*    </a>*/}
+                            {/*    <a*/}
+                            {/*        className={styles.link}*/}
+                            {/*        href="#"*/}
+                            {/*        rel="nofollow noopener noreferer"*/}
+                            {/*    >*/}
+                            {/*        <span className={styles.linkIcon}>*/}
+                            {/*            {SocialIcons.t}*/}
+                            {/*        </span>{" "}*/}
+                            {/*        Телеграм*/}
+                            {/*    </a>*/}
+                            {/*</div>*/}
                         </div>
                         <p className={styles.footerCopy}>
-                            © 2022г. «Московский центр «Патриот.Спорт»
+                            © 2023г. «Московский центр «Патриот.Спорт»
                         </p>
                     </div>
                 </footer>
@@ -283,3 +254,54 @@ const PublicLayout = () => {
 };
 
 export default PublicLayout;
+
+// <li>
+//     <a
+//         href="https://patriotsport.moscow/shkolnyj-teatr/"
+//         target="_blank"
+//         className={[
+//             styles.menuLink,
+//             // styles.menuLinkOpened,
+//         ].join(" ")}
+//     >
+//         Деятельность
+//         {/*
+//                                         <span className={styles.dropDownArrow}>
+//                                             {AdminIcons.chevron_down}
+//                                         </span>
+//                                         */}
+//     </a>
+//     {/*
+//                                     <div className={styles.dropDownMenu}>
+//                                         <ul
+//                                             className={[
+//                                                 styles.dropDownMenuList,
+//                                                 styles.dropDownMenuListOpened,
+//                                             ].join(" ")}
+//                                         >
+//                                             <li>
+//                                                 <Link
+//                                                     className={styles.menuLink}
+//                                                 >
+//                                                     Клуб руководителей школьных
+//                                                     театров
+//                                                 </Link>
+//                                             </li>
+//                                             <li>
+//                                                 <Link
+//                                                     className={styles.menuLink}
+//                                                 >
+//                                                     Консультация с наставником
+//                                                 </Link>
+//                                             </li>
+//                                             <li>
+//                                                 <Link
+//                                                     className={styles.menuLink}
+//                                                 >
+//                                                     Методическая поддержка
+//                                                 </Link>
+//                                             </li>
+//                                         </ul>
+//                                     </div>
+//                                     */}
+// </li>

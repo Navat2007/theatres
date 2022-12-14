@@ -1,13 +1,12 @@
-import React from "react";
-import styles from "./news.module.scss";
+import React from 'react';
 
-const AllNewsPage = () => {
+const FestivalsPage = () => {
     return (
-        <section className={styles.section}>
-            <h2>Новости</h2>
+        <section>
+            <h2>Фестиваль «Живая сцена»</h2>
             <iframe
                 seamless={true}
-                title={"Новости"}
+                title={"Фестиваль"}
                 width={"100%"}
                 height={800}
                 style={{ border: 0 }}
@@ -18,4 +17,4 @@ const AllNewsPage = () => {
     );
 };
 
-export default AllNewsPage;
+export default FestivalsPage;
