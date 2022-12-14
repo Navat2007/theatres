@@ -11,6 +11,7 @@ $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
 $fio = htmlspecialchars($_POST["fio"]);
 $phone = htmlspecialchars($_POST["phone"]);
+$position = htmlspecialchars($_POST["position"]);
 $org_name = htmlspecialchars($_POST["org_name"]);
 $active = htmlspecialchars($_POST["active"]) === "true" ? 1 : 0;
 $role = htmlspecialchars($_POST["superadmin"]) === "true" ? "superadmin" : "admin";
@@ -60,7 +61,7 @@ if((int)$authorization[1] !== (int)$ID && ((int)$ID === 1 || (int)$ID === 3)){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', org_name = '$org_name', active = '$active' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET email = '$email', login = '$login', role = '$role', fio = '$fio', phone = '$phone', position = '$position', org_name = '$org_name', active = '$active', token = '' WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);

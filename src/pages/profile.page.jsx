@@ -1,21 +1,26 @@
 import React from "react";
+import {useForm} from "react-hook-form";
 
 import useAuthStore from "../store/authStore";
 
 import Button from "../components/simple/button/button.component";
 import Notif from "../components/notif/notif.component";
+import Popup from "../components/popup/popup.component";
+import FieldInput from "../components/simple/field/field.input.component";
 
-import no_photo_man from "../images/no_photo_man.png";
 import commonStyles from "./common.module.scss";
 import { AdminIcons } from "../components/svgs.js";
+import no_photo_man from "../images/no_photo_man.png";
 
 const ProfilePage = () => {
-    const { user, fetchEditPhoto } = useAuthStore();
+
+    const { user, fetchEditPhoto, fetchEditUser } = useAuthStore();
+    const { register, handleSubmit, reset } = useForm();
 
     const [phone, setPhone] = React.useState();
-    const [error, setError] = React.useState(false);
-    const [popupOpened, setPopupOpened] = React.useState(false);
-    const [popupErrorOpened, setPopupErrorOpened] = React.useState(false);
+    const [popup, setPopup] = React.useState(<></>);
+    const [imageInputKey, setImageInputKey] = React.useState("");
+    const [sending, setSending] = React.useState(false);
 
     const formatPhone = (value) => {
         if (value === "") return "";
@@ -49,25 +54,131 @@ const ProfilePage = () => {
                 if (file.size <= 1500000) {
                     await fetchEditPhoto({ id: user.ID, photo: file });
                 } else {
-                    setError("Файл больше 1,5 Мб.");
-                    setPopupErrorOpened(true);
+                    setPopup(
+                        <Notif
+                            text={"Файл больше 1,5 Мб."}
+                            opened={true}
+                            onClose={() => setPopup(<></>)}
+                        />
+                    );
                 }
             } else {
-                setError("Файл должен быть изображением.");
-                setPopupErrorOpened(true);
+                setPopup(
+                    <Notif
+                        text={"Файл должен быть изображением."}
+                        opened={true}
+                        onClose={() => setPopup(<></>)}
+                    />
+                );
             }
+
+            setImageInputKey(window.global.makeid(30));
         }
     };
 
-    const onDeleteSubmit = async () => {
-        await fetchEditPhoto({ id: user.ID, delete: 1 });
+    const onUserEditSubmit = async (params) => {
+
+        params.id = user.ID;
+
+        console.log(params);
+
+        await fetchEditUser(params);
+
+        setPopup(<></>);
+
+    };
+
+    const onEditBtnClick = () => {
+        setPopup(
+            <Popup
+                title={"Редактирование данных"}
+                opened={true}
+                onClose={() => {
+                    reset();
+                    setPopup(<></>);
+                }}
+            >
+                <form
+                    onSubmit={handleSubmit(onUserEditSubmit)}
+                    className="form"
+                >
+                    <fieldset className="form__section --content-info">
+                        <FieldInput
+                            label={"ФИО:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("fio", {
+                                value: user.fio,
+                            })}
+                        />
+                        <FieldInput
+                            label={"Телефон:"}
+                            type={"phone"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("phone", {
+                                value: user.phone,
+                            })}
+                        />
+                        <FieldInput
+                            label={"Должность:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("position", { value: user.position })}
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={sending}
+                            style={{ marginLeft: "auto", display: "block" }}
+                        />
+                    </div>
+                </form>
+            </Popup>
+        );
+
+    };
+
+    const onDeleteBtnClick = () => {
+        setPopup(
+            <Notif
+                text={"Вы уверены что хотите удалить?"}
+                opened={true}
+                onClose={() => setPopup(<></>)}
+                buttons={
+                    <>
+                        <Button
+                            text={"Нет"}
+                            theme="text"
+                            size={"small"}
+                            onClick={() => setPopup(<></>)}
+                        />
+                        <Button
+                            text={"Да"}
+                            theme="info"
+                            onClick={async () => {
+                                await fetchEditPhoto({ id: user.ID, delete: 1 });
+                                setPopup(<></>);
+                            }}
+                        />
+                    </>
+                }
+            />
+        );
+
     };
 
     React.useEffect(() => {
         setPhone(formatPhone(user.phone));
     }, [user]);
-
-    console.log(user);
 
     return (
         <>
@@ -108,9 +219,7 @@ const ProfilePage = () => {
                                     isIconBtn={true}
                                     iconClass="mdi mdi-delete"
                                     aria-label="Удалить фото"
-                                    onClick={(e) => {
-                                        setPopupOpened(true);
-                                    }}
+                                    onClick={onDeleteBtnClick}
                                 />
                             </>
                         )}
@@ -134,6 +243,7 @@ const ProfilePage = () => {
                         className={commonStyles.profile_img_input}
                         id="img-profile"
                         type="file"
+                        key={imageInputKey}
                         onChange={handlePhotoChange}
                     />
                 </div>
@@ -148,15 +258,28 @@ const ProfilePage = () => {
                                 E-mail (логин)
                             </p>
                         </li>
-                        {/*<li>*/}
-                        {/*    <h3 className={commonStyles.profile_text}>*/}
-                        {/*        {user?.role_title}*/}
-                        {/*    </h3>*/}
-                        {/*    <p className={commonStyles.profile_description}>*/}
-                        {/*        Роль*/}
-                        {/*    </p>*/}
-                        {/*</li>*/}
+                        {
+                            user.position
+                            &&
+                            <li>
+                                <h3 className={commonStyles.profile_text}>
+                                    {user.position}
+                                </h3>
+                                <p className={commonStyles.profile_description}>
+                                    Должность
+                                </p>
+                            </li>
+                        }
                     </ul>
+                    <Button
+                        theme="outline"
+                        iconClass={"mdi mdi-pencil"}
+                        size="small"
+                        type="button"
+                        text="Редактировать"
+                        extraClass={commonStyles.profile_edit_btn}
+                        onClick={onEditBtnClick}
+                    />
                 </div>
                 <ul
                     className={
@@ -227,36 +350,7 @@ const ProfilePage = () => {
                         )}
                 </ul>
             </div>
-            <Notif
-                text={"Вы уверены что хотите удалить?"}
-                opened={popupOpened}
-                onClose={() => setPopupOpened(false)}
-                buttons={
-                    <>
-                        <Button
-                            text={"Нет"}
-                            theme="text"
-                            size={"small"}
-                            onClick={() => setPopupOpened(false)}
-                        />
-                        <Button
-                            text={"Да"}
-                            theme="info"
-                            onClick={() => {
-                                setPopupOpened(false);
-                                onDeleteSubmit();
-                            }}
-                        />
-                    </>
-                }
-            />
-            <Notif
-                title={"Ошибка!"}
-                state="error"
-                text={error}
-                opened={popupErrorOpened}
-                onClose={() => setPopupErrorOpened(false)}
-            />
+            {popup}
         </>
     );
 };

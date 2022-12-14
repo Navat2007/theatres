@@ -6,12 +6,14 @@ import {persist} from "zustand/middleware";
 
 const urlCheck = process.env.REACT_APP_BASE_URL + 'php/models/login/check.php';
 const urlEditPhoto = process.env.REACT_APP_BASE_URL + 'php/models/profile/change_photo.php';
+const urlEditUser = process.env.REACT_APP_BASE_URL + 'php/models/profile/change_user.php';
 
 const useAuthStore = create(
     persist(
         (set, get) => ({
             user: {},
             loading: false,
+
             error: false,
             errorText: "",
             setErrorText: (text) => {
@@ -20,9 +22,11 @@ const useAuthStore = create(
             clearErrorText: () => {
                 set({error: false, errorText: ""});
             },
+
             setUser: (user) => {
                 set({user: user, loading: false, error: false, errorText: ""});
             },
+
             fetchEditPhoto: async (params) => {
 
                 let form = new FormData();
@@ -53,6 +57,25 @@ const useAuthStore = create(
                 window.localStorage.setItem('user', JSON.stringify(tmpUser));
 
             },
+            fetchEditUser: async (params) => {
+
+                let form = new FormData();
+                window.global.buildFormData(form, params);
+
+                const response = await axios.postForm(urlEditUser, form);
+
+                console.log(response);
+
+                set((state) => ({user: {...state.user, fio: params.fio, phone: params.phone, position: params.position}, loading: false, error: true, errorText: response.data.error_text}));
+
+                const tmpUser = JSON.parse(window.localStorage.getItem('user'));
+                tmpUser.fio = params.fio;
+                tmpUser.phone = params.phone;
+                tmpUser.position = params.position;
+                window.localStorage.setItem('user', JSON.stringify(tmpUser));
+
+            },
+
             login: async (params) => {
 
                 set({ loading: true });

@@ -13,7 +13,7 @@ $sqls = array();
 $params = null;
 
 $sql = "SELECT 
-            account.ID, account.login, account.email, account.active, account.fio, account.phone, account.photo, account.schoolID, account.role, s.org_short_name as org_name
+            account.ID, account.login, account.email, account.active, account.fio, account.phone, account.position, account.photo, account.schoolID, account.role, s.org_short_name as org_name
         FROM 
              accounts as account
         LEFT JOIN schools as s on s.ID = account.schoolID
@@ -39,6 +39,7 @@ if(mysqli_num_rows($result) > 0)
             'schoolID' => $row->schoolID,
             'fio' => $row->fio,
             'phone' => $row->phone,
+            'position' => $row->position,
 
         ];
 

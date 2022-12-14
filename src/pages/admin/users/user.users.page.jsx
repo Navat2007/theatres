@@ -155,6 +155,13 @@ const UserUsersPage = () => {
                                 })}
                             />
                             <FieldInput
+                                label={"Должность"}
+                                placeholder={"Введите должность..."}
+                                layout="flex"
+                                required={true}
+                                {...register("position", { value: user.position })}
+                            />
+                            <FieldInput
                                 label={"Школа"}
                                 type={"select"}
                                 defaultSelectItem={{

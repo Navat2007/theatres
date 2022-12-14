@@ -11,6 +11,7 @@ $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
 $fio = htmlspecialchars($_POST["fio"]);
 $phone = htmlspecialchars($_POST["phone"]);
+$position = htmlspecialchars($_POST["position"]);
 $schoolID = htmlspecialchars($_POST["schoolID"]);
 $active = htmlspecialchars($_POST["active"]) === "true" ? 1 : 0;
 
@@ -54,7 +55,7 @@ if($admin_row->email != $email){
 
 if($error === 0){
 
-    $sql = "UPDATE accounts SET email = '$email', login = '$login', fio = '$fio', phone = '$phone', active = '$active', schoolID = '$schoolID' WHERE ID = '$ID' AND archive = '0'";
+    $sql = "UPDATE accounts SET email = '$email', login = '$login', fio = '$fio', phone = '$phone', position = '$position', active = '$active', schoolID = '$schoolID', token = '' WHERE ID = '$ID' AND archive = '0'";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);

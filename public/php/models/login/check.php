@@ -129,6 +129,7 @@ function get_all_info($row, $conn): object
         'phone' => $row->phone,
         'photo' => $row->photo,
         'fio' => $row->fio,
+        'position' => $row->position,
         'create_time' => $row->create_time,
         'role' => $row->role,
         'role_title' => $roleTitle,

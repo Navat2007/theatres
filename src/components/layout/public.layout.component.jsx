@@ -43,7 +43,7 @@ const PublicLayout = () => {
         },
         {
             ext: false,
-            url: "/theatre/",
+            url: "/theatres/",
             title: "Театры",
             submenu: []
         },
@@ -143,25 +143,25 @@ const PublicLayout = () => {
                                 <h2 className={styles.footerColumnHeading}>
                                     Контакты
                                 </h2>
+                                {/*<a*/}
+                                {/*    className={styles.link}*/}
+                                {/*    href="tel:84956926572"*/}
+                                {/*    rel="nofollow noopener noreferer"*/}
+                                {/*>*/}
+                                {/*    <span className={styles.linkIcon}>*/}
+                                {/*        {AdminIcons.phone}*/}
+                                {/*    </span>{" "}*/}
+                                {/*    +7 (495) 692-65-72*/}
+                                {/*</a>*/}
                                 <a
                                     className={styles.link}
-                                    href="tel:84956926572"
-                                    rel="nofollow noopener noreferer"
-                                >
-                                    <span className={styles.linkIcon}>
-                                        {AdminIcons.phone}
-                                    </span>{" "}
-                                    +7 (495) 692-65-72
-                                </a>
-                                <a
-                                    className={styles.link}
-                                    href="mailto:test@mail.ru"
+                                    href="mailto:sodruzhestvotheatre@edu.mos.ru"
                                     rel="nofollow noopener noreferer"
                                 >
                                     <span className={styles.linkIcon}>
                                         {AdminIcons.email}
                                     </span>{" "}
-                                    test@mail.ru
+                                    sodruzhestvotheatre@edu.mos.ru
                                 </a>
                                 <NavLink
                                     to={

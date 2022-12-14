@@ -10,6 +10,7 @@ $email = htmlspecialchars($_POST["email"]);
 $password = htmlspecialchars($_POST["password"]);
 $fio = htmlspecialchars($_POST["fio"]);
 $phone = htmlspecialchars($_POST["phone"]);
+$position = htmlspecialchars($_POST["position"]);
 $org_name = htmlspecialchars($_POST["org_name"]);
 $active = htmlspecialchars($_POST["active"]) === "true" ? 1 : 0;
 $role = htmlspecialchars($_POST["superadmin"]) === "true" ? "superadmin" : "admin";
@@ -43,7 +44,7 @@ if($error === 0){
 
     $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO accounts (email, login, pwd, role, fio, phone, org_name, active) VALUES ('$email', '$login', '$new_password', '$role', '$fio', '$phone', '$org_name', '$active')";
+    $sql = "INSERT INTO accounts (email, login, pwd, role, fio, phone, position, org_name, active) VALUES ('$email', '$login', '$new_password', '$role', '$fio', '$phone', '$position', '$org_name', '$active')";
     $sqls[] = $sql;
     mysqli_query($conn, $sql);
     $lastID = mysqli_insert_id($conn);
