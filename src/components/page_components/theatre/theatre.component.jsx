@@ -408,7 +408,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <p className={styles.description}>
                                 <NavLink
                                     className={commonStyles.link}
-                                    to={"/theatre/" + id}
+                                    to={"/theatres/" + id}
                                     target={"_blank"}
                                     rel="noopener nofollow noreferer"
                                 >
