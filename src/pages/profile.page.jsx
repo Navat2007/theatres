@@ -148,15 +148,26 @@ const ProfilePage = () => {
                                 E-mail (логин)
                             </p>
                         </li>
-                        {/*<li>*/}
-                        {/*    <h3 className={commonStyles.profile_text}>*/}
-                        {/*        {user?.role_title}*/}
-                        {/*    </h3>*/}
-                        {/*    <p className={commonStyles.profile_description}>*/}
-                        {/*        Роль*/}
-                        {/*    </p>*/}
-                        {/*</li>*/}
+                        <li>
+                            <h3 className={commonStyles.profile_text}>
+                                {user?.position}
+                            </h3>
+                            <p className={commonStyles.profile_description}>
+                                Должность
+                            </p>
+                        </li>
                     </ul>
+                    <Button
+                        theme="outline"
+                        iconClass={"mdi mdi-pencil"}
+                        size="small"
+                        type="button"
+                        text="Редактировать"
+                        extraClass={commonStyles.profile_edit_btn}
+                        onClick={() => {
+
+                        }}
+                    />
                 </div>
                 <ul
                     className={

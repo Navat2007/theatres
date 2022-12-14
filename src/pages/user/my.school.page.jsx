@@ -310,7 +310,7 @@ const MySchoolPage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
-                            required={true}
+                            disabled={true}
                             {...register("org_name", {
                                 value: school.org_name,
                             })}
@@ -322,37 +322,9 @@ const MySchoolPage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
-                            required={true}
+                            disabled={true}
                             {...register("org_short_name", {
                                 value: school.org_short_name,
-                            })}
-                        />
-                        <FieldInput
-                            label={"ФИО директора/руководителя:"}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            required={true}
-                            {...register("dir_fio", { value: school.dir_fio })}
-                        />
-                        <FieldInput
-                            label={"Телефон директора/руководителя школы:"}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            required={true}
-                            {...register("dir_phone", {
-                                value: school.dir_phone,
-                            })}
-                        />
-                        <FieldInput
-                            label={"Email директора/руководителя школы:"}
-                            placeholder={"..."}
-                            layout="flex"
-                            size="small"
-                            required={true}
-                            {...register("dir_email", {
-                                value: school.dir_email,
                             })}
                         />
                         <FieldInput
@@ -362,8 +334,36 @@ const MySchoolPage = () => {
                             placeholder={"..."}
                             layout="flex"
                             size="small"
-                            required={true}
+                            disabled={true}
                             {...register("address", { value: school.address })}
+                        />
+                        <FieldInput
+                            label={"ФИО руководителя театра:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("dir_fio", { value: school.dir_fio })}
+                        />
+                        <FieldInput
+                            label={"Телефон руководителя театра:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("dir_phone", {
+                                value: school.dir_phone,
+                            })}
+                        />
+                        <FieldInput
+                            label={"Email руководителя театра:"}
+                            placeholder={"..."}
+                            layout="flex"
+                            size="small"
+                            required={true}
+                            {...register("dir_email", {
+                                value: school.dir_email,
+                            })}
                         />
                     </fieldset>
                     <div className="form__controls">

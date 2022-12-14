@@ -43,7 +43,7 @@ const PublicLayout = () => {
         },
         {
             ext: false,
-            url: "/theatre/",
+            url: "/theatres/",
             title: "Театры",
             submenu: []
         },

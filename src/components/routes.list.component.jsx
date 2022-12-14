@@ -63,12 +63,12 @@ const RoutesList = () => {
             element={<ConcordPage/>}
         />
         <Route
-            path="/theatre"
+            path="/theatres"
             exact={true}
             element={<PublicTheatresPage/>}
         />
         <Route
-            path="/theatre/:id"
+            path="/theatres/:id"
             exact={true}
             element={<PublicTheatrePage/>}
         />
