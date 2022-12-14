@@ -146,14 +146,14 @@ const ProfilePage = () => {
                                 E-mail (логин)
                             </p>
                         </li>
-                        <li>
-                            <h3 className={commonStyles.profile_text}>
-                                {user?.role_title}
-                            </h3>
-                            <p className={commonStyles.profile_description}>
-                                Должность
-                            </p>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <h3 className={commonStyles.profile_text}>*/}
+                        {/*        {user?.role_title}*/}
+                        {/*    </h3>*/}
+                        {/*    <p className={commonStyles.profile_description}>*/}
+                        {/*        Роль*/}
+                        {/*    </p>*/}
+                        {/*</li>*/}
                     </ul>
                 </div>
                 <ul
