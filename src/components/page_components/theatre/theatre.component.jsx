@@ -102,6 +102,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("theatre", theatre.title);
         form.append("direction", "«Школьная Мельпомена»");
 
+        console.log(data);
+
         const response = await axios({
             method: "post",
             url: "https://theatres.patriot-sport.ru/php/email/festival.php",
@@ -110,6 +112,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                 "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
             },
         });
+
+        console.log(response);
 
         if (response?.data?.mail_result) {
             setFestivalRequest(<></>);

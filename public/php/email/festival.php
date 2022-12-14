@@ -142,27 +142,7 @@ if(!empty($section)){
         $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
         $body .= chunk_split(base64_encode($message));
 
-        //attachment
-        $body .= "--$boundary\r\n";
-        $body .="Content-Type: $type; name=".$name."\r\n";
-        $body .="Content-Disposition: attachment; filename=".$name."\r\n";
-        $body .="Content-Transfer-Encoding: base64\r\n";
-        $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
-        $body .= $encoded_content; // Attaching the encoded file with email
-
-        for ($i = 0; $i < count($_FILES['performance_photo']['name']); $i++){
-
-            $tmp_name = $_FILES['performance_photo']['tmp_name'][$i]; // get the temporary file name of the file on the server
-            $name     = $_FILES['performance_photo']['name'][$i]; // get the name of the file
-            $size     = $_FILES['performance_photo']['size'][$i]; // get size of the file for size validation
-            $type     = $_FILES['performance_photo']['type'][$i]; // get type of the file
-            $error     = $_FILES['performance_photo']['error'][$i]; // get the error (if any)
-
-            $handle = fopen($tmp_name, "r"); // set the file handle only for reading the file
-            $content = fread($handle, $size); // reading the file
-            fclose($handle);                 // close upon completion
-
-            $encoded_content = chunk_split(base64_encode($content));
+        if(count($_FILES) > 0){
 
             //attachment
             $body .= "--$boundary\r\n";
@@ -172,7 +152,32 @@ if(!empty($section)){
             $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
             $body .= $encoded_content; // Attaching the encoded file with email
 
+            for ($i = 0; $i < count($_FILES['performance_photo']['name']); $i++){
+
+                $tmp_name = $_FILES['performance_photo']['tmp_name'][$i]; // get the temporary file name of the file on the server
+                $name     = $_FILES['performance_photo']['name'][$i]; // get the name of the file
+                $size     = $_FILES['performance_photo']['size'][$i]; // get size of the file for size validation
+                $type     = $_FILES['performance_photo']['type'][$i]; // get type of the file
+                $error     = $_FILES['performance_photo']['error'][$i]; // get the error (if any)
+
+                $handle = fopen($tmp_name, "r"); // set the file handle only for reading the file
+                $content = fread($handle, $size); // reading the file
+                fclose($handle);                 // close upon completion
+
+                $encoded_content = chunk_split(base64_encode($content));
+
+                //attachment
+                $body .= "--$boundary\r\n";
+                $body .="Content-Type: $type; name=".$name."\r\n";
+                $body .="Content-Disposition: attachment; filename=".$name."\r\n";
+                $body .="Content-Transfer-Encoding: base64\r\n";
+                $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+                $body .= $encoded_content; // Attaching the encoded file with email
+
+            }
+
         }
+
 
         $mail_result = mail($to, $subject, $body, $headers);
 

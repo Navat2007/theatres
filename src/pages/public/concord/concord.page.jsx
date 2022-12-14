@@ -23,7 +23,7 @@ const ConcordPage = () => {
 
     }, []);
 
-    // return (
+    return (
         <section className={commonStyles.wrap}>
             <iframe
                 ref={ref}
@@ -36,7 +36,7 @@ const ConcordPage = () => {
                 src={"https://razgovor.moscow/osodruzhestve.html"}
             />
         </section>
-    // );
+    );
 
     return (
         <>
