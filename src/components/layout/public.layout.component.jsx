@@ -33,31 +33,31 @@ const PublicLayout = () => {
             ext: false,
             url: "/concord/",
             title: "О Содружестве",
-            submenu: []
+            submenu: [],
         },
         {
             ext: true,
             url: "https://patriotsport.moscow/shkolnyj-teatr/",
             title: "Деятельность",
-            submenu: []
+            submenu: [],
         },
         {
             ext: false,
             url: "/theatres/",
             title: "Театры",
-            submenu: []
+            submenu: [],
         },
         {
             ext: false,
             url: "/festivals/",
             title: "Фестиваль «Живая сцена»",
-            submenu: []
+            submenu: [],
         },
         {
             ext: false,
             url: "/news/",
             title: "Новости",
-            submenu: []
+            submenu: [],
         },
     ];
 
@@ -76,43 +76,38 @@ const PublicLayout = () => {
                             />
                         </NavLink>
                         <nav
-                        ref={node}
+                            ref={node}
                             className={[
                                 styles.menu,
                                 styles.menuPlaceHeader,
                             ].join(" ")}
                         >
                             <ul
-
                                 className={[
                                     styles.menuList,
                                     burgerOpened ? styles.menuListOpened : "",
                                 ].join(" ")}
                             >
-                                {
-                                    menu.map(item => (
-                                        <li key={item.title}>
-                                            {
-                                                item.ext
-                                                    ?
-                                                    <a
-                                                        href={item.url}
-                                                        target={"_blank"}
-                                                        className={styles.menuLink}
-                                                    >
-                                                        {item.title}
-                                                    </a>
-                                                    :
-                                                    <NavLink
-                                                        to={item.url}
-                                                        className={styles.menuLink}
-                                                    >
-                                                        {item.title}
-                                                    </NavLink>
-                                            }
-                                        </li>
-                                    ))
-                                }
+                                {menu.map((item) => (
+                                    <li key={item.title}>
+                                        {item.ext ? (
+                                            <a
+                                                href={item.url}
+                                                target={"_blank"}
+                                                className={styles.menuLink}
+                                            >
+                                                {item.title}
+                                            </a>
+                                        ) : (
+                                            <NavLink
+                                                to={item.url}
+                                                className={styles.menuLink}
+                                            >
+                                                {item.title}
+                                            </NavLink>
+                                        )}
+                                    </li>
+                                ))}
                             </ul>
                             <button
                                 className={[
@@ -176,10 +171,12 @@ const PublicLayout = () => {
                                     Войти в Личный кабинет
                                 </NavLink>
                             </div>
-                            <div className={[
+                            <div
+                                className={[
                                     styles.footerColumn,
                                     styles.footerColumnContentNavigation,
-                                ].join(" ")}>
+                                ].join(" ")}
+                            >
                                 <h2 className={styles.footerColumnHeading}>
                                     Меню
                                 </h2>
@@ -190,30 +187,30 @@ const PublicLayout = () => {
                                     ].join(" ")}
                                 >
                                     <ul className={styles.menuList}>
-                                        {
-                                            menu.map(item => (
-                                                <li key={item.title}>
-                                                    {
-                                                        item.ext
-                                                            ?
-                                                            <a
-                                                                href={item.url}
-                                                                target={"_blank"}
-                                                                className={styles.menuLink}
-                                                            >
-                                                                {item.title}
-                                                            </a>
-                                                            :
-                                                            <NavLink
-                                                                to={item.url}
-                                                                className={styles.menuLink}
-                                                            >
-                                                                {item.title}
-                                                            </NavLink>
-                                                    }
-                                                </li>
-                                            ))
-                                        }
+                                        {menu.map((item) => (
+                                            <li key={item.title}>
+                                                {item.ext ? (
+                                                    <a
+                                                        href={item.url}
+                                                        target={"_blank"}
+                                                        className={
+                                                            styles.menuLink
+                                                        }
+                                                    >
+                                                        {item.title}
+                                                    </a>
+                                                ) : (
+                                                    <NavLink
+                                                        to={item.url}
+                                                        className={
+                                                            styles.menuLink
+                                                        }
+                                                    >
+                                                        {item.title}
+                                                    </NavLink>
+                                                )}
+                                            </li>
+                                        ))}
                                     </ul>
                                 </nav>
                             </div>
@@ -243,17 +240,13 @@ const PublicLayout = () => {
                             {/*    </a>*/}
                             {/*</div>*/}
                         </div>
-                        <p
+                        <a
                             className={styles.footerCopy}
+                            href={"https://patriotsport.moscow/"}
+                            target={"_blank"}
                         >
-                            <a
-                                href={"https://patriotsport.moscow/"}
-                                target={"_blank"}
-                            >
-                                © 2023г. «Московский центр «Патриот.Спорт»
-                            </a>
-
-                        </p>
+                            © 2023г. «Московский центр «Патриот.Спорт»
+                        </a>
                     </div>
                 </footer>
             </div>
