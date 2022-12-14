@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
     const onUserEditSubmit = async (params) => {
 
-        params.id = user.schoolID;
+        params.id = user.ID;
 
         console.log(params);
 
