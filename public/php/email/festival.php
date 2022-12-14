@@ -121,7 +121,7 @@ if(!empty($section)){
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Возрастная категория:
                                         <b style="box-sizing: border-box;">' . $performance_age . '</b>
                                     </p>
-                                    <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):
+                                    <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Номинация:
                                         <b style="box-sizing: border-box;">' . $performance_nomination . '</b>
                                     </p>
                                     <p style="box-sizing: border-box; font-size: 87.5%; margin: 0; margin-bottom: .4285em;">Продолжительность спектакля (мин):
