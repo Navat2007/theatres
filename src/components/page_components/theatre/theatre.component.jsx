@@ -62,13 +62,10 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("direction", "«Благосклонная Талия»");
         form.append("count", data.count);
 
-        //const response = await axios.postForm(window.global.baseUrl + 'php/email/festival.php', form);
         const response = await axios.postForm(
             process.env.REACT_APP_BASE_URL + "php/email/festival.php",
             form
         );
-
-        console.log(response);
 
         if (response?.data?.mail_result) {
             setFestivalRequest(<></>);
@@ -102,8 +99,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         form.append("theatre", theatre.title);
         form.append("direction", "«Школьная Мельпомена»");
 
-        console.log(data);
-
         const response = await axios({
             method: "post",
             url: process.env.REACT_APP_BASE_URL + "php/email/festival.php",
@@ -112,8 +107,6 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                 "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
             },
         });
-
-        console.log(response);
 
         if (response?.data?.mail_result) {
             setFestivalRequest(<></>);
