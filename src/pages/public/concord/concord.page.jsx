@@ -3,26 +3,15 @@ import React from "react";
 import useAuthStore from "../../../store/authStore";
 
 import Button from "../../../components/simple/button/button.component";
+import FieldInputComponent from "../../../components/simple/field/field.input.component";
 
 import commonStyles from "../common.module.scss";
 import styles from "./concord.module.scss";
 
-<<<<<<< HEAD
 import pushkin from "../../../images/concord/Pushkin.jpg";
 import gogol from "../../../images/concord/Gogol.jpg";
 import ford from "../../../images/concord/Ford.jpg";
 import stanislavsky from "../../../images/concord/Stanislavsky.jpg";
-
-import Button from "../../../components/simple/button/button.component";
-import FieldInputComponent from "../../../components/simple/field/field.input.component";
-=======
-import quote_1 from "../../../images/concord/quote_1.png";
-import quote_2 from "../../../images/concord/quote_2.png";
-import quote_3 from "../../../images/concord/quote_3.png";
-import quote_4 from "../../../images/concord/quote_4.png";
-import quote_5 from "../../../images/concord/quote_5.png";
-import quote_6 from "../../../images/concord/quote_6.png";
->>>>>>> 190935934c89822ae5facef73a98208e2fef4c9d
 
 const ConcordPage = () => {
     const { user } = useAuthStore();
@@ -34,7 +23,7 @@ const ConcordPage = () => {
 
     }, []);
 
-    return (
+    // return (
         <section className={commonStyles.wrap}>
             <iframe
                 ref={ref}
@@ -47,7 +36,7 @@ const ConcordPage = () => {
                 src={"https://razgovor.moscow/osodruzhestve.html"}
             />
         </section>
-    );
+    // );
 
     return (
         <>
