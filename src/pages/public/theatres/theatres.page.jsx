@@ -1,8 +1,9 @@
 import React from 'react';
+import commonStyles from "../common.module.scss";
 
 const TheatresPage = () => {
     return (
-        <section>
+        <section className={commonStyles.wrap}>
             <h2>Театры</h2>
             <iframe
                 seamless={true}

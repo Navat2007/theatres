@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "./news.module.scss";
+// import styles from "./news.module.scss";
+import commonStyles from "../common.module.scss";
 
 const AllNewsPage = () => {
     return (
-        <section className={styles.section}>
-            <h2>Новости</h2>
+        <section className={commonStyles.wrap}>
+            <h2 className={commonStyles.title}>Новости</h2>
             <iframe
                 seamless={true}
                 title={"Новости"}
