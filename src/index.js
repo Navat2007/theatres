@@ -50,6 +50,8 @@ const baseConfig = () => {
             return SocialIcons.vk;
         else if (text.includes("ok.ru/"))
             return SocialIcons.ok;
+        else if (text.includes("my.mail.ru/"))
+            return SocialIcons.myMail;
         else if (text.includes("facebook.com/") || text.includes("fb.com/"))
             return SocialIcons.facebook;
         else if (text.includes("plus.google.com/"))
