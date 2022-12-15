@@ -9,7 +9,7 @@ const TheatresPage = () => {
                 seamless={true}
                 title={"Театры"}
                 width={"100%"}
-                height={800}
+                height={4600}
                 style={{ border: 0 }}
                 //src={"https://patriotsport.moscow/premery-spektaklej/"}
                 src={"https://razgovor.moscow/theatre_.html"}

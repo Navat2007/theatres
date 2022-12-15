@@ -10,7 +10,7 @@ const AllNewsPage = () => {
                 seamless={true}
                 title={"Новости"}
                 width={"100%"}
-                height={800}
+                height={4600}
                 style={{ border: 0 }}
                 //src={"https://patriotsport.moscow/premery-spektaklej/"}
                 src={"https://razgovor.moscow/theater-news.html"}

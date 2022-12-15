@@ -17,7 +17,7 @@ const ConcordPage = () => {
     const { user } = useAuthStore();
     const ref = React.useRef();
 
-    const [iframeHeight, setIframeHeight] = React.useState("700px");
+    const [iframeHeight, setIframeHeight] = React.useState("8000px");
 
     React.useEffect(() => {
 
