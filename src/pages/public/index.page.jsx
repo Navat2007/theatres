@@ -100,8 +100,7 @@ const MainPage = () => {
                         <div className={commonStyles.concordMainText}>
                             <img
                                 className={commonStyles.concordImg}
-                                // src={concordImage}
-                                src={"https://kprf.ru/m/900/700/t/img/2016/09/713431_ssi_8962_novyi-razmer.jpg"}
+                                src={concordImage}
                                 alt="Содружество школьных театров города Москвы"
                             />
                             <p>
