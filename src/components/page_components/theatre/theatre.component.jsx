@@ -775,7 +775,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </>
                     )}
                 </Tab>
-                <Tab title={"Описания (рецензии)"}>
+                <Tab title={"Описания (рецензии)"} hidden={true}>
                     <h2 className={styles.title}>
                         РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
                     </h2>
