@@ -18,12 +18,12 @@ const UserLayout = () => {
             link: "/user/my_school",
         },
         {
-            title: "Мои театры",
+            title: "Мой театр",
             icon: MenuIcons.theatres,
             link: "/user/theatres",
         },
         {
-            title: "Заявки на театры",
+            title: "Заявки на модерации",
             icon: MenuIcons.requests,
             link: "/user/theatreRequests",
         },
@@ -32,11 +32,11 @@ const UserLayout = () => {
             icon: MenuIcons.users,
             link: "/user/teachers",
         },
-        {
-            title: "Афиши",
-            icon: MenuIcons.poster,
-            link: "/user/posters",
-        },
+        // {
+        //     title: "Афиши",
+        //     icon: MenuIcons.poster,
+        //     link: "/user/posters",
+        // },
     ];
 
     const handleBurgerMenu = () => {

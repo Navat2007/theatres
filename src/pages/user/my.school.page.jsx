@@ -195,17 +195,17 @@ const MySchoolPage = () => {
                             </p>
                         </li>
                     </ul>
-                    <Button
-                        theme="outline"
-                        iconClass={"mdi mdi-pencil"}
-                        size="small"
-                        type="button"
-                        text="Редактировать"
-                        extraClass={commonStyles.profile_edit_btn}
-                        onClick={() => {
-                            setPopupSchoolEditOpened(true);
-                        }}
-                    />
+                    {/*<Button*/}
+                    {/*    theme="outline"*/}
+                    {/*    iconClass={"mdi mdi-pencil"}*/}
+                    {/*    size="small"*/}
+                    {/*    type="button"*/}
+                    {/*    text="Редактировать"*/}
+                    {/*    extraClass={commonStyles.profile_edit_btn}*/}
+                    {/*    onClick={() => {*/}
+                    {/*        setPopupSchoolEditOpened(true);*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                 </div>
                 <ul
                     className={
@@ -224,7 +224,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    ФИО ответственного за проект "Школьный театр"
+                                    ФИО директора
                                 </span>
                             </p>
                         </li>
@@ -247,7 +247,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    Телефон ответственного за проект "Школьный театр"
+                                    Телефон директора
                                 </span>
                             </a>
                         </li>
@@ -268,7 +268,7 @@ const MySchoolPage = () => {
                                 <span
                                     className={commonStyles.profile_description}
                                 >
-                                    Email ответственного за проект "Школьный театр"
+                                    Email директора
                                 </span>
                             </a>
                         </li>

@@ -521,7 +521,7 @@ function TheatreRequest({
                         extraClass="form__tab"
                     >
                         <div className="form__editor-block">
-                            <p className="form__label">Краткое описание</p>
+                            <p className="form__label">Краткая информация о Вашем театре</p>
                             <Editor
                                 control={control}
                                 name="editorShortDescription"
@@ -564,7 +564,7 @@ function TheatreRequest({
                                 }
                             />
                         </fieldset>
-                        <fieldset className="form__section">
+                        <fieldset className="form__section --hide">
                             <ImageSelector
                                 title="Фотографии театра и спектаклей"
                                 items={photoVisit}
@@ -591,7 +591,7 @@ function TheatreRequest({
                     >
                         <fieldset className="form__section">
                             <h2 className="form__title">
-                                Видео визитка школьного театра
+                                Видеовизитка школьного театра
                             </h2>
                             <div className="form__group-block">
                                 <FieldInput
@@ -626,7 +626,7 @@ function TheatreRequest({
                         </fieldset>
                         <fieldset className="form__section">
                             <h2 className="form__title">
-                                Видео лучших фрагментов
+                                Видео лучших фрагментов спектаклей
                             </h2>
                             {video.map((item) => (
                                 <div
@@ -706,6 +706,7 @@ function TheatreRequest({
                         </fieldset>
                     </Tab>
                     <Tab
+                        hidden={true}
                         title={"Описания (рецензии)"}
                         extraClass="form__tab"
                     >

@@ -27,6 +27,7 @@ const Tabs = ({ extraClass, children }) => {
                             (index === activeTab
                                 ? ` ` + styles.item_actived
                                 : "")
+                            + (child.props.hidden ? " --hide" : "")
                         }
                     >
                         {child.props.title}

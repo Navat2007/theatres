@@ -188,7 +188,7 @@ const TeacherPage = () => {
                                 })}
                             />
                             <FieldInput
-                                label={"Описание"}
+                                label={"О себе"}
                                 type={"textarea"}
                                 rows={5}
                                 placeholder={"Введите описание..."}
@@ -279,7 +279,7 @@ const TeacherPage = () => {
                     aria-label="Назад"
                     onClick={back}
                 />
-                <h1 className={commonStyles.title}>Создание пользователя</h1>
+                <h1 className={commonStyles.title}>Создание педагога</h1>
             </div>
             <form
                 onSubmit={handleSubmit(onAddSubmit)}
@@ -331,7 +331,7 @@ const TeacherPage = () => {
                             {...register("experience")}
                         />
                         <FieldInput
-                            label={"Описание"}
+                            label={"О себе"}
                             type={"textarea"}
                             rows={5}
                             placeholder={"Введите описание..."}
@@ -341,11 +341,13 @@ const TeacherPage = () => {
                         />
                     </fieldset>
                     <fieldset className="form__section">
-                        <h2 className="form__title">Безопасность</h2>
+                        <h2 className="form__title">Отображение</h2>
                         <FieldInput
-                            label={"Активировать учетную запись?"}
+                            label={"Доступен для выбора?"}
                             type={"checkbox_variant"}
-                            {...register("active", { value: true })}
+                            {...register("active", {
+                                value: true,
+                            })}
                         />
                     </fieldset>
                 </div>
