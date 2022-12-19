@@ -52,16 +52,16 @@ const ConcordPage = () => {
                             >
                                 О Содружестве
                             </h1>
-                            <blockquote className={styles.cardImgBlock}>
-                                <p className={styles.cardQuote}>
+                            <figure className={styles.cardFigure}>
+                                <figcaption className={styles.cardFigcaption}>
                                     Друзья мои <br /> прекрасен наш союз!
-                                </p>
+                                </figcaption>
                                 <img
                                     className={styles.cardImg}
                                     src={pushkin}
                                     alt="Пушкин"
                                 />
-                            </blockquote>
+                            </figure>
                             <p className={styles.pharagraphBorder}>
                                 «Содружество школьных театров Москвы» — это
                                 объединение детских и молодежных театров,
@@ -79,18 +79,18 @@ const ConcordPage = () => {
                             >
                                 Участники Содружества
                             </h2>
-                            <blockquote className={styles.cardImgBlock}>
-                                <p className={styles.cardQuote}>
+                            <figure className={styles.cardFigure}>
+                                <figcaption className={styles.cardFigcaption}>
                                     Театр — это такая кафедра, <br />
                                     с которой можно много <br />
                                     сказать миру добра
-                                </p>
+                                </figcaption>
                                 <img
                                     className={styles.cardImg}
                                     src={gogol}
                                     alt="Гоголь"
                                 />
-                            </blockquote>
+                            </figure>
                             <ol className={styles.listBigNumbers}>
                                 <li>
                                     театры на базе общеобразовательных
@@ -115,18 +115,18 @@ const ConcordPage = () => {
                             >
                                 Как театру стать участником Содружества
                             </h2>
-                            <blockquote className={styles.cardImgBlock}>
-                                <p className={styles.cardQuote}>
+                            <figure className={styles.cardFigure}>
+                                <figcaption className={styles.cardFigcaption}>
                                     Собраться вместе есть начало. <br />
                                     Держаться вместе есть прогресс. <br />
                                     Работать вместе есть успех
-                                </p>
+                                </figcaption>
                                 <img
                                     className={styles.cardImg}
                                     src={ford}
                                     alt="Форд"
                                 />
-                            </blockquote>
+                            </figure>
                             <div>
                                 <p className={styles.pharagraph}>
                                     Для вступления в Содружество театрам в лице
@@ -166,17 +166,17 @@ const ConcordPage = () => {
                             >
                                 Что для нас важно
                             </h2>
-                            <blockquote className={styles.cardImgBlock}>
-                                <p className={styles.cardQuote}>
+                            <figure className={styles.cardFigure}>
+                                <figcaption className={styles.cardFigcaption}>
                                     Театр – искусство прекрасное. <br />
                                     Оно облагораживает, воспитывает человека
-                                </p>
+                                </figcaption>
                                 <img
                                     className={styles.cardImg}
                                     src={stanislavsky}
                                     alt="Станиславский"
                                 />
-                            </blockquote>
+                            </figure>
                             <p className={styles.pharagraphJustify}>
                                 Наш проект направлен, в первую очередь, на
                                 решение педагогических задач. <br />{" "}
@@ -478,8 +478,8 @@ const ConcordPage = () => {
                                     </h3>
                                     <p className={styles.pharagraph}>
                                         В рамках работы Клуба проводятся
-                                        мастер-классы, встречи с
-                                        деятелями культуры, актерами,
+                                        мастер-классы, встречи с
+                                        деятелями культуры, актерами,
                                         режиссерами. Посещаются сценические
                                         площадки московских театров. Члены клуба
                                         имеют возможность принять участие в
@@ -573,7 +573,7 @@ const ConcordPage = () => {
                                                 rel="nofollow noopener"
                                                 href="mailto:sodruzhestvo@edu.mos.ru"
                                             >
-                                                sodruzhestvo@edu.mos.ru
+                                                sodruzhestvo&shy;@edu.mos.ru
                                             </a>
                                         </li>
                                         <li>
