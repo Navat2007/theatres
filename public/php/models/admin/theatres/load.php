@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
             'title' => htmlspecialchars_decode($row->title),
             'active' => (int)$row->active == 1 ? "Активен" : "Отключен",
             'last_user_changed' => (int)$row->last_user_changed,
-            'school_title' => $row->school_title,
+            'school_title' => htmlspecialchars_decode($row->school_title),
         ];
 
         $params[] = $types;

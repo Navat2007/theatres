@@ -1,6 +1,5 @@
 import axios from "axios";
 import create from 'zustand'
-import { persist } from "zustand/middleware";
 
 const urlLoadTheatres = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load.php';
 const urlLoadTheatreRequests = process.env.REACT_APP_BASE_URL + 'php/models/user/theatres/load_requests.php';

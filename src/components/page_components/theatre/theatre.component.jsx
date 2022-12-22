@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import shallow from "zustand/shallow";
 
 import useAuthStore from "../../../store/authStore";
 import useSchoolStore from "../../../store/user/schoolStore";
@@ -25,8 +26,11 @@ import Notif from "../../notif/notif.component";
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
-    const { user } = useAuthStore();
-    const { school, loadSchool } = useSchoolStore();
+    const { user } = useAuthStore(shallow);
+    const { school, loadSchool } = useSchoolStore((state) => ({
+        school: state.school,
+        loadSchool: state.loadSchool
+    }), shallow);
 
     const { register, handleSubmit, reset } = useForm();
 

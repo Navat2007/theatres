@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) > 0) {
             'userID' => (int)$row->userID,
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
-            'title' => $row->title,
+            'title' => htmlspecialchars_decode($row->title),
             'address' => $row->address,
             'coordinates' => $row->coordinates,
             'status' => getStatusText($row->status),
@@ -62,7 +62,7 @@ if (mysqli_num_rows($result) > 0) {
             'last_user_changed' => (int)$row->last_user_changed,
             'school' => (object)[
 
-                'title' => $row->school_title,
+                'title' => htmlspecialchars_decode($row->school_title),
                 'msrd' => $row->school_msrd,
                 'photo' => $row->school_photo,
                 'dir_fio' => $row->school_dir_fio,

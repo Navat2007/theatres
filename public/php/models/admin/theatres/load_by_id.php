@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
             'schoolID' => (int)$row->schoolID,
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
-            'title' => $row->title,
+            'title' => htmlspecialchars_decode($row->title),
             'address' => $row->address,
             'coordinates' => $row->coordinates,
             'foundation_date' => $row->foundation_date,

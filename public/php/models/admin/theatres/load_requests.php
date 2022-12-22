@@ -27,7 +27,7 @@ if (mysqli_num_rows($result) > 0) {
         $types = (object)[
 
             'ID' => (int)$row->ID,
-            'title' => $row->title,
+            'title' => htmlspecialchars_decode($row->title),
             'address' => $row->address,
             'create_time' => $row->create_time,
             'update_time' => $row->update_time,
