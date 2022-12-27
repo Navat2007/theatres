@@ -409,7 +409,7 @@ if ($error === 0) {
 
     if (!$result) {
         $error = 1;
-        $error_text = mysqli_error($conn);
+        $error_text = "Edit request: " . mysqli_error($conn);
     } else {
         $log->add($conn, $authorization[1], 'Отозвана заявка ID: ' . $id . ' в школе ID: ' . $schoolID);
     }

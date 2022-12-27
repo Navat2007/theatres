@@ -80,7 +80,7 @@ $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     $error = 1;
-    $error_text = "Заявка на создание театра с таким названием уже существует в данной школе, отредактируйте существующую заявку в разделе \"Заявки на театры\"";
+    $error_text = "Заявка на создание театра с таким названием уже существует в данной школе, отредактируйте существующую заявку в разделе \"Заявки на модерации\"";
 }
 
 if ($error === 0) {
@@ -303,7 +303,7 @@ if ($error === 0) {
 
     if (!$result) {
         $error = 1;
-        $error_text = mysqli_error($conn);
+        $error_text = "Add request: " .  mysqli_error($conn);
     } else {
         $log->add($conn, $userID, 'Добавлена заявка ID: ' . $lastID . ' на театр: ' . $title . ' в школе ID: ' . $schoolID);
     }
