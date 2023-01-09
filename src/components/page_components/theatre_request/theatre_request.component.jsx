@@ -264,7 +264,7 @@ function TheatreRequest({
                 {/*</div>*/}
                 <Tabs>
                     <Tab
-                        title={"Основная информация"}
+                        title={"Основные сведения"}
                         extraClass="form__tab form__container --view-two-columns"
                     >
                         <fieldset className="form__section">
