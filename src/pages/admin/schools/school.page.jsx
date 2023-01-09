@@ -88,18 +88,39 @@ const SchoolPage = () => {
                     <div className="form__container --view-one-column">
                         <fieldset className="form__section">
                             <h2 className="form__title">Основная информация</h2>
+                            {/* Фото педагога - новый блок со сменой фото */}
                             <div className="form__multy-block">
                                 <p className="form__label">Фото</p>
-                                <img
-                                    className="form__profile-img "
-                                    src={
-                                        school?.photo !== ""
-                                            ? window.global.baseUrl +
-                                              school?.photo
-                                            : ""
-                                    }
-                                    alt={"Логотип школы"}
-                                />
+                                <div className="form__profile-img-block">
+                                    <img
+                                        className="form__profile-img"
+                                        src={
+                                            school?.photo !== ""
+                                                ? window.global.baseUrl +
+                                                  school?.photo
+                                                : ""
+                                        }
+                                        alt={"Логотип школы"}
+                                    />
+                                    <div className="form__profile-img-panel">
+                                        <Button
+                                            size={"smaller"}
+                                            theme={"text"}
+                                            isIconBtn={"true"}
+                                            iconClass={"mdi mdi-refresh"}
+                                            aria-label={"Обновить фото"}
+                                            title={"Обновить фото"}
+                                        />
+                                        <Button
+                                            size={"smaller"}
+                                            theme={"text"}
+                                            isIconBtn={"true"}
+                                            iconClass={"mdi mdi-close"}
+                                            aria-label={"Удалить фото"}
+                                            title={"Удалить фото"}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <FieldInput
                                 label={"Полное наименование организации"}

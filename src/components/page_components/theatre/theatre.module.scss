@@ -31,12 +31,17 @@
     flex-direction: column;
 }
 
+// .logoBlock { }
+
 .logo {
     display: block;
     width: 100%;
     min-width: 8em;
     max-width: 8em;
     object-fit: contain;
+}
+.logoPanel {
+    text-align: center;
 }
 
 .title {

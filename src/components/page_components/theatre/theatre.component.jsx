@@ -1,9 +1,9 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import moment from "moment";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import createDOMPurify from "dompurify";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import shallow from "zustand/shallow";
 
@@ -23,22 +23,20 @@ import styles from "./theatre.module.scss";
 import no_photo_man from "../../../images/no_photo_man.png";
 import Notif from "../../notif/notif.component";
 
-import {EventIcons} from "../../svgs.js";
+import { EventIcons } from "../../svgs.js";
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
 
-const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
+const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
-    const {user} = useAuthStore();
-    const {school, loadSchool} = useSchoolStore(
-        (state) => ({
-            school: state.school,
-            loadSchool: state.loadSchool,
-        })
-    );
+    const { user } = useAuthStore();
+    const { school, loadSchool } = useSchoolStore((state) => ({
+        school: state.school,
+        loadSchool: state.loadSchool,
+    }));
 
-    const {register, handleSubmit, reset} = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const [preview, setPreview] = React.useState(<></>);
     const [notif, setNotif] = React.useState(<></>);
@@ -70,7 +68,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            await loadSchool({id: user.schoolID});
+            await loadSchool({ id: user.schoolID });
         };
 
         fetchData();
@@ -217,7 +215,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("count", {value: 0})}
+                                    {...register("count", { value: 0 })}
                                 />
                             </fieldset>
                             <div className="form__controls">
@@ -444,14 +442,34 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     <ul className={styles.list}>
                         <li
                             className={styles.item}
-                            style={{alignItems: "center"}}
+                            style={{ alignItems: "center" }}
                         >
                             <h3 className={styles.label}>Эмблема театра</h3>
-                            <img
-                                className={styles.logo}
-                                src="https://cherepah.ru/wp-content/uploads/0/e/8/0e8c5f2e9358a5402ec02eece0041a6d.jpe"
-                                alt={"Эмблема театра"}
-                            />
+                            <div className={styles.logoBlock}>
+                                <img
+                                    className={styles.logo}
+                                    src="https://cherepah.ru/wp-content/uploads/0/e/8/0e8c5f2e9358a5402ec02eece0041a6d.jpe"
+                                    alt={"Эмблема театра"}
+                                />
+                                <div className={styles.logoPanel}>
+                                    <Button
+                                        size={"smaller"}
+                                        theme={"text"}
+                                        isIconBtn={"true"}
+                                        iconClass={"mdi mdi-refresh"}
+                                        aria-label={"Обновить фото"}
+                                        title={"Обновить фото"}
+                                    />
+                                    <Button
+                                        size={"smaller"}
+                                        theme={"text"}
+                                        isIconBtn={"true"}
+                                        iconClass={"mdi mdi-close"}
+                                        aria-label={"Удалить фото"}
+                                        title={"Удалить фото"}
+                                    />
+                                </div>
+                            </div>
                         </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>Публичная страница</h3>
@@ -463,7 +481,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new"/>
+                                    <span className="mdi mdi-open-in-new" />
                                 </NavLink>
                             </p>
                         </li>
@@ -487,7 +505,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                         rel="noopener nofollow noreferer"
                                     >
                                         {theatre.coordinates}{" "}
-                                        <span className="mdi mdi-open-in-new"/>
+                                        <span className="mdi mdi-open-in-new" />
                                     </a>
                                 ) : (
                                     "Не заданы"
@@ -568,7 +586,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new"/>
+                                    <span className="mdi mdi-open-in-new" />
                                 </a>
                             </p>
                         </li>
@@ -578,7 +596,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     Фестиваль “Живая сцена”
                                 </h3>
                                 <Button
-                                    style={{maxWidth: "max-content"}}
+                                    style={{ maxWidth: "max-content" }}
                                     type="button"
                                     text={"Подать заявку"}
                                     onClick={handleFestivalRequestBtn}
@@ -601,7 +619,14 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     <NavLink
                                         key={item.ID}
                                         className={commonStyles.link}
-                                        to={"/" + (user?.role === "user" ? "user" : "admin") + "/teachers/" + item.ID}
+                                        to={
+                                            "/" +
+                                            (user?.role === "user"
+                                                ? "user"
+                                                : "admin") +
+                                            "/teachers/" +
+                                            item.ID
+                                        }
                                     >
                                         <li className="teacher-list__item">
                                             <img
@@ -609,8 +634,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                 src={
                                                     teacher?.photo
                                                         ? window.global
-                                                            .baseUrl +
-                                                        teacher.photo
+                                                              .baseUrl +
+                                                          teacher.photo
                                                         : no_photo_man
                                                 }
                                                 alt=""
@@ -681,8 +706,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                     item.isFile === 1 &&
                                                     item.isLoaded === 1
                                                         ? process.env
-                                                            .REACT_APP_BASE_URL +
-                                                        item.url
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
                                                         : item.url
                                                 }
                                                 alt="Изображение "
@@ -708,8 +733,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                     item.isFile === 1 &&
                                                     item.isLoaded === 1
                                                         ? process.env
-                                                            .REACT_APP_BASE_URL +
-                                                        item.url
+                                                              .REACT_APP_BASE_URL +
+                                                          item.url
                                                         : item.url
                                                 }
                                                 alt="Изображение "
@@ -751,8 +776,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
+                                                                  .REACT_APP_BASE_URL +
+                                                              item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
@@ -778,8 +803,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
+                                                                  .REACT_APP_BASE_URL +
+                                                              item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
@@ -868,17 +893,17 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                 {
                                     ID: 1,
                                     title: "Visit 1",
-                                    date: "2000-01-01"
+                                    date: "2000-01-01",
                                 },
                                 {
                                     ID: 2,
                                     title: "Visit 2",
-                                    date: "2003-07-11"
+                                    date: "2003-07-11",
                                 },
                                 {
                                     ID: 3,
                                     title: "Visit 3",
-                                    date: "2027-12-31"
+                                    date: "2027-12-31",
                                 },
                             ]}
                             itemsConfig={itemConfig}
@@ -888,12 +913,14 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             withFilter={false}
                         />
                     </Accordion>
-                    <Accordion title={"Участие в фестивалях, конкурсах"}>
-
-                    </Accordion>
-                    <Accordion title={"Проведение собственных фестивалей в образовательной организации"}>
-
-                    </Accordion>
+                    <Accordion
+                        title={"Участие в фестивалях, конкурсах"}
+                    ></Accordion>
+                    <Accordion
+                        title={
+                            "Проведение собственных фестивалей в образовательной организации"
+                        }
+                    ></Accordion>
                 </Tab>
                 <Tab
                     title={"Описания (рецензии)"}

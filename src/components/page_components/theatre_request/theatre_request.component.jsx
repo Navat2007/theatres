@@ -267,6 +267,13 @@ function TheatreRequest({
                     >
                         <fieldset className="form__section">
                             <FieldInput
+                                label={"Эмблема театра"}
+                                type="file"
+                                placeholder={"Выберите фото..."}
+                                layout={"flex"}
+                                {...register("photo")}
+                            />
+                            <FieldInput
                                 label={"Название театра *"}
                                 type="text"
                                 layout="flex"
