@@ -453,7 +453,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
             </div>
             <Tabs>
                 <Tab
-                    title={"Основная информация"}
+                    title={"Основные сведения"}
                     event={"supportive_waist"}
                 >
                     <ul className={styles.list}>
@@ -676,7 +676,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         </ul>
                     )}
                 </Tab>
-                <Tab title={"Краткое описание"}>
+                <Tab title={"Информация о театре"}>
                     <div
                         className={styles.editor}
                         dangerouslySetInnerHTML={{
@@ -686,7 +686,10 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         }}
                     />
                 </Tab>
-                <Tab title={"Обращение режиссёра"}>
+                <Tab
+                    title={"Обращение режиссёра"}
+                    hidden={true}
+                >
                     <div
                         className={styles.editor}
                         dangerouslySetInnerHTML={{

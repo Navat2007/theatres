@@ -563,6 +563,7 @@ function TheatreRequest({
                     <Tab
                         title={"Обращение режиссёра"}
                         extraClass="form__tab"
+                        hidden={true}
                     >
                         <div className="form__editor-block">
                             <p className="form__label">Обращение режиссёра</p>
