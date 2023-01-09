@@ -1,4 +1,6 @@
 import React from 'react';
+import {useForm} from "react-hook-form";
+
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
 import Button from "../../button/button.component";
@@ -7,7 +9,6 @@ import FieldInput from "../../field/field.input.component";
 import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
-import {useForm} from "react-hook-form";
 
 const TheatreActivityComponent = () => {
 
