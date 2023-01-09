@@ -46,11 +46,11 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
     const [preview, setPreview] = React.useState(<></>);
     const [notif, setNotif] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
-    const [activity, setActivity] = React.useState(false);
+    const [activityEvents, setActivityEvents] = React.useState(false);
 
-    const [photo, setPhoto] = React.useState([]);
-    const [video, setVideo] = React.useState([]);
-    const itemConfig = [
+    const [photoActivityEvents, setPhotoActivityEvents] = React.useState([]);
+    const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
+    const itemActivityEventsConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -423,6 +423,9 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
         //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
 
         reset();
+        setActivityEvents(false);
+        setPhotoActivityEvents([]);
+        setVideoActivityEvents([]);
 
     }
 
@@ -452,10 +455,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                 )}
             </div>
             <Tabs>
-                <Tab
-                    title={"Основные сведения"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Основные сведения"} event={"supportive_waist"}>
                     <ul className={styles.list}>
                         <li
                             className={styles.item}
@@ -686,10 +686,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         }}
                     />
                 </Tab>
-                <Tab
-                    title={"Обращение режиссёра"}
-                    hidden={true}
-                >
+                <Tab title={"Обращение режиссёра"} hidden={true}>
                     <div
                         className={styles.editor}
                         dangerouslySetInnerHTML={{
@@ -699,10 +696,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         }}
                     />
                 </Tab>
-                <Tab
-                    title={"Фотографии"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Фотографии"} event={"supportive_waist"}>
                     <h2 className={styles.title}>Фото театра</h2>
                     {theatre.photo && theatre.photo.length > 0 ? (
                         <>
@@ -846,10 +840,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
 
                     {preview}
                 </Tab>
-                <Tab
-                    title={"Видео"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Видео"} event={"supportive_waist"}>
                     <h2 className={styles.title}>
                         Видеовизитка школьного театра
                     </h2>
@@ -901,10 +892,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         </>
                     )}
                 </Tab>
-                <Tab
-                    title={"Активность театра"}
-                    event={"supportive_waist"}
-                >
+                <Tab title={"Активность театра"} event={"supportive_waist"}>
                     <Accordion title={"Посещение события"}>
                         <Table
                             title={"Таблица событий в городе"}
@@ -926,7 +914,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     date: "2027-12-31",
                                 },
                             ]}
-                            itemsConfig={itemConfig}
+                            itemsConfig={itemActivityEventsConfig}
                             onItemClick={() => {
                                 console.log("item");
                             }}
@@ -939,7 +927,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                 text="Добавить"
                                 aria-label="Добавить событие"
                                 onClick={() => {
-                                    setActivity(true);
+                                    setActivityEvents(true);
                                 }}
                             />
                         </Table>
@@ -953,10 +941,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         }
                     ></Accordion>
                 </Tab>
-                <Tab
-                    title={"Описания (рецензии)"}
-                    hidden={true}
-                >
+                <Tab title={"Описания (рецензии)"} hidden={true}>
                     <h2 className={styles.title}>
                         РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
                     </h2>
@@ -1009,12 +994,13 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                 </Tab>
             </Tabs>
 
+            {/* Посещение события */}
             <Popup
                 title={"Посещение события"}
-                opened={activity}
+                opened={activityEvents}
                 onClose={() => {
                     reset();
-                    setActivity(false);
+                    setActivityEvents(false);
                 }}
             >
                 <form onSubmit={handleSubmit(onSendSubmit)} className='form'>
@@ -1038,7 +1024,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             </p>
                             <Editor
                                 control={control}
-                                name="editorShortDescription"
+                                name="editorReview"
                                 minHeight={250}
                             />
                         </div>
@@ -1046,9 +1032,9 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     <fieldset className="form__section">
                         <ImageSelector
                             title="Фотографии события"
-                            items={photo}
+                            items={photoActivityEvents}
                             multiFiles={true}
-                            onChange={(items) => setPhoto(items)}
+                            onChange={(items) => setPhotoActivityEvents(items)}
                             onError={(text) =>
                                 setNotif(
                                     <Notif
@@ -1067,7 +1053,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                         <h2 className="form__title">
                             Видео (интервью с участниками спектакля, режиссером, зрителями)
                         </h2>
-                        {video.map((item) => (
+                        {videoActivityEvents.map((item) => (
                             <div
                                 className="form__group-block"
                                 key={item.id}
@@ -1080,8 +1066,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                         value: item.url,
                                     })}
                                     onBlur={(event) => {
-                                        setVideo(
-                                            video.map((link) => {
+                                        setVideoActivityEvents(
+                                            videoActivityEvents.map((link) => {
                                                 if (link.id === item.id) {
                                                     link.url =
                                                         event.target.value;
@@ -1122,11 +1108,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                                     isIconBtn="true"
                                     aria-label="Удалить поле"
                                     onClick={() => {
-                                        setVideo(
-                                            video.filter(
-                                                (link) =>
-                                                    link.id !== item.id
-                                            )
+                                        setVideoActivityEvents(
+                                            videoActivityEvents.filter((link) => link.id !== item.id)
                                         );
                                     }}
                                 />
@@ -1141,7 +1124,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                             isIconBtn="true"
                             aria-label="Добавить поле"
                             onClick={() => {
-                                setVideo([...video, {id: window.global.makeid(12), url: ""}]);
+                                setVideoActivityEvents([...videoActivityEvents, {id: window.global.makeid(12), url: ""}]);
                             }}
                         />
                     </fieldset>
