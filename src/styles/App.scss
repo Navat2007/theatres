@@ -1,5 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Marck+Script&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Open+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap);
 @import url(https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css);
 @import "_assets/variables";
 @import "_assets/mixins";
@@ -11,7 +11,7 @@
     }
 
     // FONT
-    --ff-banner: "Marck Script", cursive;
+    // --ff-banner: "Marck Script", cursive;
     --ff-firm: "Oswald", sans-serif;
     --ff-base: "Montserrat", sans-serif;
     --ff-public: "Open Sans", sans-serif;

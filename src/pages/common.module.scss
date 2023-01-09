@@ -11,8 +11,10 @@
 }
 
 .title {
-    margin: 0 0 0.375rem;
-    font-family: var(--ff-firm);
+    // margin: 0 0 0.375rem;
+    margin: 0;
+    // font-family: var(--ff-firm);
+    font-family: var(--ff-base);
     font-size: min(3.25vmax, 1.875em);
     font-weight: 600;
 }

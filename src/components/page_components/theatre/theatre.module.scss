@@ -14,7 +14,8 @@
     display: grid;
     gap: 0 1.25em;
     align-items: baseline;
-    grid-template-columns: min(35%, 20em) 1fr;
+    justify-content: start;
+    grid-template-columns: min(35%, 20em) auto;
 }
 .label {
     flex: 0 0 15em;
@@ -24,11 +25,18 @@
     color: var(--darkLow);
 }
 .description {
-    width: max-content;
     margin: 0;
     font-weight: 500;
     display: flex;
     flex-direction: column;
+}
+
+.logo {
+    display: block;
+    width: 100%;
+    min-width: 8em;
+    max-width: 8em;
+    object-fit: contain;
 }
 
 .title {
@@ -43,6 +51,7 @@
     display: flex;
     gap: 0.675em;
 }
+
 .socialLink {
     text-decoration: unset;
     border-radius: 50%;
@@ -62,4 +71,19 @@
 
 .editor {
     max-width: 50em;
+}
+
+.eventIcon {
+    position: relative;
+    width: 1em;
+    margin-left: 0.25em;
+    display: inline-block;
+    svg {
+        position: absolute;
+        right: 0;
+        bottom: -0.25em;
+
+        width: 1em;
+        fill: var(--primary);
+    }
 }

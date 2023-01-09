@@ -4,6 +4,7 @@ const Tab = ({
     index,
     title,
     extraClass,
+    event,
     children,
 }) => {
     return (

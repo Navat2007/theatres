@@ -23,14 +23,19 @@ import styles from "./theatre.module.scss";
 import no_photo_man from "../../../images/no_photo_man.png";
 import Notif from "../../notif/notif.component";
 
+import { EventIcons } from "../../svgs.js";
+
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
     const { user } = useAuthStore(shallow);
-    const { school, loadSchool } = useSchoolStore((state) => ({
-        school: state.school,
-        loadSchool: state.loadSchool
-    }), shallow);
+    const { school, loadSchool } = useSchoolStore(
+        (state) => ({
+            school: state.school,
+            loadSchool: state.loadSchool,
+        }),
+        shallow
+    );
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -322,7 +327,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     })}
                                 />
                                 <FieldInput
-                                    label={"Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):"}
+                                    label={
+                                        "Номинация (Драматический спектакль/музыкальный спектакль/спектакль на иностранном языке):"
+                                    }
                                     layout="flex"
                                     size="small"
                                     required={true}
@@ -405,8 +412,22 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                 )}
             </div>
             <Tabs>
-                <Tab title={"Основная информация"}>
+                <Tab
+                    title={"Основная информация"}
+                    event={"supportive_waist"}
+                >
                     <ul className={styles.list}>
+                        <li
+                            className={styles.item}
+                            style={{ alignItems: "center" }}
+                        >
+                            <h3 className={styles.label}>Эмблема театра</h3>
+                            <img
+                                className={styles.logo}
+                                src="https://cherepah.ru/wp-content/uploads/0/e/8/0e8c5f2e9358a5402ec02eece0041a6d.jpe"
+                                alt={"Эмблема театра"}
+                            />
+                        </li>
                         <li className={styles.item}>
                             <h3 className={styles.label}>Публичная страница</h3>
                             <p className={styles.description}>
@@ -430,18 +451,22 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         <li className={styles.item}>
                             <h3 className={styles.label}>Координаты</h3>
                             <p className={styles.description}>
-                                <a
-                                    className={commonStyles.link}
-                                    href={
-                                        "http://maps.yandex.ru/?text=" +
-                                        theatre.coordinates
-                                    }
-                                    target={"_blank"}
-                                    rel="noopener nofollow noreferer"
-                                >
-                                    {theatre.coordinates}{" "}
-                                    <span className="mdi mdi-open-in-new" />
-                                </a>
+                                {theatre.coordinates ? (
+                                    <a
+                                        className={commonStyles.link}
+                                        href={
+                                            "http://maps.yandex.ru/?text=" +
+                                            theatre.coordinates
+                                        }
+                                        target={"_blank"}
+                                        rel="noopener nofollow noreferer"
+                                    >
+                                        {theatre.coordinates}{" "}
+                                        <span className="mdi mdi-open-in-new" />
+                                    </a>
+                                ) : (
+                                    "Не заданы"
+                                )}
                             </p>
                         </li>
                         <li className={styles.item}>
@@ -473,7 +498,16 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             </p>
                         </li>
                         <li className={styles.item}>
-                            <h3 className={styles.label}>Соцсети</h3>
+                            <h3 className={styles.label}>
+                                Соцсети
+                                <span
+                                    className={styles.eventIcon}
+                                    aria-label="Благославенная талия"
+                                    title="Благославенная талия"
+                                >
+                                    {EventIcons.supportive_waist}
+                                </span>
+                            </h3>
                             <ul className={styles.social}>
                                 {theatre.social_links.map((link) => (
                                     <li key={link}>
@@ -493,6 +527,13 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <h3 className={styles.label}>
                                 Страница театра на сайте образовательной
                                 организации
+                                <span
+                                    className={styles.eventIcon}
+                                    aria-label="Благославенная талия"
+                                    title="Благославенная талия"
+                                >
+                                    {EventIcons.supportive_waist}
+                                </span>
                             </h3>
                             <p className={styles.description}>
                                 <a
@@ -588,7 +629,10 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         }}
                     />
                 </Tab>
-                <Tab title={"Фотографии"}>
+                <Tab
+                    title={"Фотографии"}
+                    event={"supportive_waist"}
+                >
                     <h2 className={styles.title}>Фото театра</h2>
                     {theatre.photo && theatre.photo.length > 0 ? (
                         <>
@@ -682,8 +726,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
+                                                                  .REACT_APP_BASE_URL +
+                                                              item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
@@ -709,15 +753,15 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
+                                                                  .REACT_APP_BASE_URL +
+                                                              item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
                                                 />
                                                 <span className="gallery-form__current-position">
-                                                {item.order}
-                                            </span>
+                                                    {item.order}
+                                                </span>
                                             </li>
                                         )
                                     )}
@@ -732,7 +776,10 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
                     {preview}
                 </Tab>
-                <Tab title={"Видео"}>
+                <Tab
+                    title={"Видео"}
+                    event={"supportive_waist"}
+                >
                     <h2 className={styles.title}>
                         Видеовизитка школьного театра
                     </h2>
@@ -784,7 +831,19 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </>
                     )}
                 </Tab>
-                <Tab title={"Описания (рецензии)"} hidden={true}>
+                <Tab
+                    title={"Активности"}
+                    event={"supportive_waist"}
+                >
+                    <h2 className={styles.title}>Посещения событий в городе</h2>
+                    <h2 className={styles.title}>Посещения театра Содружества Школьных театров Москвы</h2>
+                    <h2 className={styles.title}>Участия в фестивалях, конкурсах</h2>
+                    <h2 className={styles.title}>Проведения собственных фестивалей в образовательной органиазации</h2>
+                </Tab>
+                <Tab
+                    title={"Описания (рецензии)"}
+                    hidden={true}
+                >
                     <h2 className={styles.title}>
                         РАССКАЗ О ДРУГИХ ШКОЛЬНЫХ ТЕАТРАХ
                     </h2>
