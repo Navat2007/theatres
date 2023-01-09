@@ -15,6 +15,8 @@ import Tabs from "../../tabs/tabs.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
 
+import noImage from "../../../images/no_image.png";
+
 import progresStyles from "../../progress-bar/progress-bar.module.scss";
 
 function TheatreRequest({
@@ -266,13 +268,34 @@ function TheatreRequest({
                         extraClass="form__tab form__container --view-two-columns"
                     >
                         <fieldset className="form__section">
-                            <FieldInput
-                                label={"Эмблема театра"}
-                                type="file"
-                                placeholder={"Выберите фото..."}
-                                layout={"flex"}
-                                {...register("photo")}
-                            />
+                            <div className="form__multy-block">
+                                <p className="form__label">Эмблема театра</p>
+                                <div className="form__profile-img-block">
+                                    <img
+                                        className="form__profile-img"
+                                        src={noImage}
+                                        alt={"Нет фото"}
+                                    />
+                                    <div className="form__profile-img-panel">
+                                        <Button
+                                            size={"smaller"}
+                                            theme={"text"}
+                                            isIconBtn={"true"}
+                                            iconClass={"mdi mdi-refresh"}
+                                            aria-label={"Обновить фото"}
+                                            title={"Обновить фото"}
+                                        />
+                                        <Button
+                                            size={"smaller"}
+                                            theme={"text"}
+                                            isIconBtn={"true"}
+                                            iconClass={"mdi mdi-close"}
+                                            aria-label={"Удалить фото"}
+                                            title={"Удалить фото"}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <FieldInput
                                 label={"Название театра *"}
                                 type="text"

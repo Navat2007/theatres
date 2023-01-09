@@ -106,12 +106,16 @@ const AdminUsersPage = () => {
                                     <img
                                         className="form__profile-img"
                                         src={
-                                            admin.photo !== ""
+                                            admin.photo
                                                 ? window.global.baseUrl +
                                                   admin.photo
                                                 : no_photo_man
                                         }
-                                        alt={""}
+                                        alt={
+                                            admin.photo
+                                                ? admin.photo
+                                                : "Нет фото"
+                                        }
                                     />
                                     <div className="form__profile-img-panel">
                                         <Button
@@ -183,7 +187,9 @@ const AdminUsersPage = () => {
                                 placeholder={"Введите должность..."}
                                 layout="flex"
                                 required={true}
-                                {...register("position", { value: admin.position })}
+                                {...register("position", {
+                                    value: admin.position,
+                                })}
                             />
                         </fieldset>
                         <fieldset className="form__section">

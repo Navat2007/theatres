@@ -10,6 +10,8 @@ import FieldInput from "../../../components/field/field.input.component";
 import Notif from "../../../components/notif/notif.component";
 import commonStyles from "../../common.module.scss";
 
+import noPhoto from "../../../images/no_photo_man.png";
+
 const TeacherPage = () => {
     const navigate = useNavigate();
 
@@ -134,10 +136,16 @@ const TeacherPage = () => {
                                     <img
                                         className="form__profile-img"
                                         src={
-                                            window.global.baseUrl +
                                             teacher.photo
+                                                ? window.global.baseUrl +
+                                                  teacher.photo
+                                                : noPhoto
                                         }
-                                        alt={"Фото педагога"}
+                                        alt={
+                                            teacher.photo
+                                                ? teacher.photo
+                                                : "Нет фото"
+                                        }
                                     />
                                     <div className="form__profile-img-panel">
                                         <Button

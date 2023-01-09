@@ -8,6 +8,7 @@ import Button from "../../../components/button/button.component";
 import FieldInput from "../../../components/field/field.input.component";
 import Notif from "../../../components/notif/notif.component";
 import commonStyles from "../../common.module.scss";
+import noImage from "../../../images/no_image.png";
 
 const SchoolPage = () => {
     const navigate = useNavigate();
@@ -95,12 +96,16 @@ const SchoolPage = () => {
                                     <img
                                         className="form__profile-img"
                                         src={
-                                            school?.photo !== ""
+                                            school.photo
                                                 ? window.global.baseUrl +
-                                                  school?.photo
-                                                : ""
+                                                  school.photo
+                                                : noImage
                                         }
-                                        alt={"Логотип школы"}
+                                        alt={
+                                            school.photo
+                                                ? school.photo
+                                                : "Нет фото"
+                                        }
                                     />
                                     <div className="form__profile-img-panel">
                                         <Button

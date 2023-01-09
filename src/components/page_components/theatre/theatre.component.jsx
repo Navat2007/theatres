@@ -27,6 +27,8 @@ import { EventIcons } from "../../svgs.js";
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
 
+import noImage from "../../../images/no_image.png";
+
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
@@ -448,7 +450,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                             <div className={styles.logoBlock}>
                                 <img
                                     className={styles.logo}
-                                    src="https://cherepah.ru/wp-content/uploads/0/e/8/0e8c5f2e9358a5402ec02eece0041a6d.jpe"
+                                    src={noImage}
                                     alt={"Эмблема театра"}
                                 />
                                 <div className={styles.logoPanel}>

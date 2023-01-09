@@ -160,6 +160,7 @@
     }
 
     &__profile-img {
+        @extend %alt-text-on-after;
         @include box(8em);
         min-width: 8em;
         max-width: 8em;
