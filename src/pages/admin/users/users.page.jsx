@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 import Table from "../../../components/table/table.component";
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 
 import useUsersStore from "../../../store/admin/usersStore";
 

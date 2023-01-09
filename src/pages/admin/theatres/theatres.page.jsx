@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useTheatresStore from "../../../store/admin/theatresStore";
 
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 import Table from "../../../components/table/table.component";
 import Tab from "../../../components/tabs/tab.component";
 import Tabs from "../../../components/tabs/tabs.component";

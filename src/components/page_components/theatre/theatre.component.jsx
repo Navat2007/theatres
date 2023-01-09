@@ -10,11 +10,11 @@ import shallow from "zustand/shallow";
 import useAuthStore from "../../../store/authStore";
 import useSchoolStore from "../../../store/user/schoolStore";
 
-import Button from "../../simple/button/button.component";
+import Button from "../../button/button.component";
 import Tabs from "../../tabs/tabs.component";
 import Tab from "../../tabs/tab.component";
 import ImagePreview from "../../image_preview/image.preview.component";
-import FieldInput from "../../simple/field/field.input.component";
+import FieldInput from "../../field/field.input.component";
 import Popup from "../../popup/popup.component";
 
 import commonStyles from "../../../pages/common.module.scss";
@@ -24,17 +24,18 @@ import no_photo_man from "../../../images/no_photo_man.png";
 import Notif from "../../notif/notif.component";
 
 import { EventIcons } from "../../svgs.js";
+import Accordion from "../../accordion/accordion.component";
+import Table from "../../table/table.component";
 
 const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const DOMPurify = createDOMPurify(window);
 
-    const { user } = useAuthStore(shallow);
+    const { user } = useAuthStore();
     const { school, loadSchool } = useSchoolStore(
         (state) => ({
             school: state.school,
             loadSchool: state.loadSchool,
-        }),
-        shallow
+        })
     );
 
     const { register, handleSubmit, reset } = useForm();
@@ -42,6 +43,37 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
     const [preview, setPreview] = React.useState(<></>);
     const [notif, setNotif] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
+
+    const itemConfig = [
+        {
+            header: "ID",
+            key: "ID",
+            type: "int",
+            filter: "number",
+            sorting: true,
+        },
+        {
+            header: "Название театра",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Школа",
+            key: "school_title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Статус",
+            key: "active",
+            type: "string",
+            filter: "select",
+            sorting: true,
+        },
+    ];
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -576,7 +608,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     <NavLink
                                         key={item.ID}
                                         className={commonStyles.link}
-                                        to={"/admin/teachers/" + item.ID}
+                                        to={"/" + (user?.role === "user" ? "user" : "admin") + "/teachers/" + item.ID}
                                     >
                                         <li className="teacher-list__item">
                                             <img
@@ -832,13 +864,27 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     )}
                 </Tab>
                 <Tab
-                    title={"Активности"}
+                    title={"Активность театра"}
                     event={"supportive_waist"}
                 >
-                    <h2 className={styles.title}>Посещения событий в городе</h2>
-                    <h2 className={styles.title}>Посещения театра Содружества Школьных театров Москвы</h2>
-                    <h2 className={styles.title}>Участия в фестивалях, конкурсах</h2>
-                    <h2 className={styles.title}>Проведения собственных фестивалей в образовательной органиазации</h2>
+                    <Accordion title={"Посещение события"}>
+                        <Table
+                            title={"Таблица событий в городе"}
+                            loading={false}
+                            items={[]}
+                            itemsConfig={itemConfig}
+                            onItemClick={() => {
+                                console.log("item");
+                            }}
+                            withFilter={false}
+                        />
+                    </Accordion>
+                    <Accordion title={"Участие в фестивалях, конкурсах"}>
+
+                    </Accordion>
+                    <Accordion title={"Проведение собственных фестивалей в образовательной организации"}>
+
+                    </Accordion>
                 </Tab>
                 <Tab
                     title={"Описания (рецензии)"}

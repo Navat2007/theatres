@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import useAuthStore from "../../../store/authStore";
 import useTeachersStore from "../../../store/admin/teachersStore";
 
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 import Popup from "../../../components/popup/popup.component";
-import FieldInput from "../../../components/simple/field/field.input.component";
+import FieldInput from "../../../components/field/field.input.component";
 import Notif from "../../../components/notif/notif.component";
 import commonStyles from "../../common.module.scss";
 

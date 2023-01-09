@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 
-import Button from "../simple/button/button.component";
-import FieldInput from "../simple/field/field.input.component";
+import Button from "../button/button.component";
+import FieldInput from "../field/field.input.component";
 import Notif from "../notif/notif.component";
 import Popup from "../popup/popup.component";
 import styles from "./image.module.scss";

@@ -10,7 +10,7 @@ import useSchoolStore from "../../../store/public/schoolsStore";
 
 import VideoSlider from "../../../components/slider/video.slider.component";
 import ImageGallery from "../../../components/image_gallery/image.gallery.component";
-import ShowMore from "../../../components/simple/show_more/show.more.component";
+import ShowMore from "../../../components/show_more/show.more.component";
 import BannerSlider from "../../../components/slider/banner.slider.component";
 
 import { MedalIcons } from "../../../components/svgs.js";

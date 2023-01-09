@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 
 import useSchoolsStore from "../../../store/admin/schoolsStore";
 
-import Button from "../../../components/simple/button/button.component";
-import FieldInput from "../../../components/simple/field/field.input.component";
+import Button from "../../../components/button/button.component";
+import FieldInput from "../../../components/field/field.input.component";
 import Notif from "../../../components/notif/notif.component";
 import commonStyles from "../../common.module.scss";
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../store/authStore";
 
-import Button from "../simple/button/button.component";
+import Button from "../button/button.component";
 import Notif from '../notif/notif.component';
 
 import styles from './profile.module.scss';

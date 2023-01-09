@@ -7,7 +7,7 @@ import useTeachersStore from "../../../store/admin/teachersStore";
 import useSchoolStore from "../../../store/user/schoolStore";
 
 import Notif from "../../../components/notif/notif.component";
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 import TheatreRequest from "../../../components/page_components/theatre_request/theatre_request.component";
 import commonStyles from "../../common.module.scss";
 

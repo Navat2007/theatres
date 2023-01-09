@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import logo from "../../images/logo.png";
-import Button from "../simple/button/button.component";
+import Button from "../button/button.component";
 
 import styles from "./menu.module.scss";
 

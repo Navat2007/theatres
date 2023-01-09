@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 import styles from "./field.module.scss";
-import { AdminIcons } from "../../svgs.js";
+import { AdminIcons } from "../svgs.js";
 
 // Добавлен параметр hasTooltip - добавляет иконку для отображения подсказки
 const FieldInput = (

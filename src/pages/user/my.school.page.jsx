@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import Button from "../../components/simple/button/button.component";
+import Button from "../../components/button/button.component";
 import Popup from "../../components/popup/popup.component";
-import FieldInput from "../../components/simple/field/field.input.component";
+import FieldInput from "../../components/field/field.input.component";
 
 import useAuthStore from "../../store/authStore";
 import useSchoolStore from "../../store/user/schoolStore";

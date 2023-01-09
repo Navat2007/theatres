@@ -6,13 +6,13 @@ import { useForm } from "react-hook-form";
 import useTeachersStore from "../../../store/admin/teachersStore";
 import useTheatresStore from "../../../store/admin/theatresStore";
 
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 import TheatreRequest from "../../../components/page_components/theatre_request/theatre_request.component";
 import Notif from "../../../components/notif/notif.component";
 import Popup from "../../../components/popup/popup.component";
 
 import Editor from "../../../components/reach_editor/editor.component";
-import Accordion from "../../../components/simple/accordion/accordion.component";
+import Accordion from "../../../components/accordion/accordion.component";
 import JoditEditor from "jodit-react";
 import commonStyles from "../../common.module.scss";
 import { AdminIcons } from "../../../components/svgs.js";

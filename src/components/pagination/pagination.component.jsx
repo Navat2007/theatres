@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import _ from "lodash";
-import Button from "../simple/button/button.component";
+import Button from "../button/button.component";
 import styles from "./pagination.module.scss";
 
 const Pagination = ({ pageCount, minCount = 10, setPageCallback }) => {

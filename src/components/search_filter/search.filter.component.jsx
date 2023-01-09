@@ -4,8 +4,8 @@ import moment from "moment";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./search.module.scss";
 
-import Button from "../simple/button/button.component";
-import FieldInput from "../simple/field/field.input.component";
+import Button from "../button/button.component";
+import FieldInput from "../field/field.input.component";
 
 const SearchFilter = ({ config, onSubmit, items, children }) => {
     const [opened, setOpened] = React.useState(false);

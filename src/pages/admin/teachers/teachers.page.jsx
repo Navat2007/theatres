@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useTeachersStore from "../../../store/admin/teachersStore";
 
 import Table from "../../../components/table/table.component";
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 
 const TeachersPage = () => {
     const navigate = useNavigate();

@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import useUsersStore from "../../../store/admin/usersStore";
 import useSchoolsStore from "../../../store/admin/schoolsStore";
 
-import Button from "../../../components/simple/button/button.component";
-import FieldInput from "../../../components/simple/field/field.input.component";
+import Button from "../../../components/button/button.component";
+import FieldInput from "../../../components/field/field.input.component";
 import Popup from "../../../components/popup/popup.component";
 
 import no_photo_man from "../../../images/no_photo_man.png";

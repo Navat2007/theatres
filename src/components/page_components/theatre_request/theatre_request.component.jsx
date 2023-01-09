@@ -8,8 +8,8 @@ import useSchoolStore from "../../../store/user/schoolStore";
 
 import MultiSelect from "../../multi_select/multi_select.component";
 import Editor from "../../reach_editor/editor.component";
-import Button from "../../simple/button/button.component";
-import FieldInput from "../../simple/field/field.input.component";
+import Button from "../../button/button.component";
+import FieldInput from "../../field/field.input.component";
 import Tab from "../../tabs/tab.component";
 import Tabs from "../../tabs/tabs.component";
 import ImageSelector from "../../image_selector/image.selector.component";

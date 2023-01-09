@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useAuthStore from "../../../store/authStore";
 
-import Button from "../../../components/simple/button/button.component";
+import Button from "../../../components/button/button.component";
 import Table from "../../../components/table/table.component";
 
 const MyPostersPage = () => {

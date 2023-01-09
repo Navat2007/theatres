@@ -2,8 +2,8 @@ import React from "react";
 
 import useAuthStore from "../../../store/authStore";
 
-import Button from "../../../components/simple/button/button.component";
-import FieldInputComponent from "../../../components/simple/field/field.input.component";
+import Button from "../../../components/button/button.component";
+import FieldInputComponent from "../../../components/field/field.input.component";
 
 import commonStyles from "../common.module.scss";
 import styles from "./concord.module.scss";

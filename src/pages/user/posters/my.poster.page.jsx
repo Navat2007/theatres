@@ -9,8 +9,8 @@ import useAuthStore from "../../../store/authStore";
 import usePostersStore from "../../../store/user/postersStore";
 import useTheatresStore from "../../../store/user/theatresStore";
 
-import Button from "../../../components/simple/button/button.component";
-import FieldInput from "../../../components/simple/field/field.input.component";
+import Button from "../../../components/button/button.component";
+import FieldInput from "../../../components/field/field.input.component";
 import Tabs from "../../../components/tabs/tabs.component";
 import Tab from "../../../components/tabs/tab.component";
 import commonStyles from "../../common.module.scss";

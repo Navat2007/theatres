@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./accordion.module.scss";
-import { AdminIcons } from "../../svgs.js";
+import { AdminIcons } from "../svgs.js";
 
 const Accordion = ({
     theme = "text",
