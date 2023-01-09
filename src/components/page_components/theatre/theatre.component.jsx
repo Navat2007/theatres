@@ -1,9 +1,9 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import moment from "moment";
-import { NavLink, useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import createDOMPurify from "dompurify";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import axios from "axios";
 import shallow from "zustand/shallow";
 
@@ -23,36 +23,34 @@ import styles from "./theatre.module.scss";
 import no_photo_man from "../../../images/no_photo_man.png";
 import Notif from "../../notif/notif.component";
 
-import { EventIcons } from "../../svgs.js";
+import {EventIcons} from "../../svgs.js";
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
+import Editor from "../../reach_editor/editor.component";
 
 import noImage from "../../../images/no_image.png";
+import ImageSelector from "../../image_selector/image.selector.component";
 
-const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
+const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
     const DOMPurify = createDOMPurify(window);
     const navigate = useNavigate();
 
-    const { user } = useAuthStore();
-    const { school, loadSchool } = useSchoolStore((state) => ({
+    const {user} = useAuthStore();
+    const {school, loadSchool} = useSchoolStore((state) => ({
         school: state.school,
         loadSchool: state.loadSchool,
     }));
 
-    const { register, handleSubmit, reset } = useForm();
+    const {register, handleSubmit, reset, control, getValues, setValue, watch} = useForm();
 
     const [preview, setPreview] = React.useState(<></>);
     const [notif, setNotif] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
+    const [activity, setActivity] = React.useState(false);
 
+    const [photo, setPhoto] = React.useState([]);
+    const [video, setVideo] = React.useState([]);
     const itemConfig = [
-        {
-            header: "ID",
-            key: "ID",
-            type: "int",
-            filter: "number",
-            sorting: true,
-        },
         {
             header: "Название мероприятия",
             key: "title",
@@ -71,7 +69,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            await loadSchool({ id: user.schoolID });
+            await loadSchool({id: user.schoolID});
         };
 
         fetchData();
@@ -218,7 +216,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     layout="flex"
                                     size="small"
                                     required={true}
-                                    {...register("count", { value: 0 })}
+                                    {...register("count", {value: 0})}
                                 />
                             </fieldset>
                             <div className="form__controls">
@@ -412,6 +410,22 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
         );
     };
 
+    const onSendSubmit = async (params) => {
+
+        console.log(params);
+
+        let form = new FormData();
+
+        for (let key in params) {
+            form.append(key, params[key]);
+        }
+
+        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+
+        reset();
+
+    }
+
     return (
         <>
             <div className={commonStyles.title_block}>
@@ -445,7 +459,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     <ul className={styles.list}>
                         <li
                             className={styles.item}
-                            style={{ alignItems: "center" }}
+                            style={{alignItems: "center"}}
                         >
                             <h3 className={styles.label}>Эмблема театра</h3>
                             <div className={styles.logoBlock}>
@@ -484,7 +498,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    <span className="mdi mdi-open-in-new"/>
                                 </NavLink>
                             </p>
                         </li>
@@ -508,7 +522,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                         rel="noopener nofollow noreferer"
                                     >
                                         {theatre.coordinates}{" "}
-                                        <span className="mdi mdi-open-in-new" />
+                                        <span className="mdi mdi-open-in-new"/>
                                     </a>
                                 ) : (
                                     "Не заданы"
@@ -589,7 +603,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     rel="noopener nofollow noreferer"
                                 >
                                     На страницу{" "}
-                                    <span className="mdi mdi-open-in-new" />
+                                    <span className="mdi mdi-open-in-new"/>
                                 </a>
                             </p>
                         </li>
@@ -599,7 +613,7 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                     Фестиваль “Живая сцена”
                                 </h3>
                                 <Button
-                                    style={{ maxWidth: "max-content" }}
+                                    style={{maxWidth: "max-content"}}
                                     type="button"
                                     text={"Подать заявку"}
                                     onClick={handleFestivalRequestBtn}
@@ -637,8 +651,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                 src={
                                                     teacher?.photo
                                                         ? window.global
-                                                              .baseUrl +
-                                                          teacher.photo
+                                                            .baseUrl +
+                                                        teacher.photo
                                                         : no_photo_man
                                                 }
                                                 alt=""
@@ -709,8 +723,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                     item.isFile === 1 &&
                                                     item.isLoaded === 1
                                                         ? process.env
-                                                              .REACT_APP_BASE_URL +
-                                                          item.url
+                                                            .REACT_APP_BASE_URL +
+                                                        item.url
                                                         : item.url
                                                 }
                                                 alt="Изображение "
@@ -736,8 +750,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                     item.isFile === 1 &&
                                                     item.isLoaded === 1
                                                         ? process.env
-                                                              .REACT_APP_BASE_URL +
-                                                          item.url
+                                                            .REACT_APP_BASE_URL +
+                                                        item.url
                                                         : item.url
                                                 }
                                                 alt="Изображение "
@@ -779,8 +793,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                  .REACT_APP_BASE_URL +
-                                                              item.url
+                                                                .REACT_APP_BASE_URL +
+                                                            item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
@@ -806,8 +820,8 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                                         item.isFile === 1 &&
                                                         item.isLoaded === 1
                                                             ? process.env
-                                                                  .REACT_APP_BASE_URL +
-                                                              item.url
+                                                                .REACT_APP_BASE_URL +
+                                                            item.url
                                                             : item.url
                                                     }
                                                     alt="Изображение "
@@ -919,9 +933,11 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                                 type="button"
                                 iconClass={"mdi mdi-plus"}
                                 size="small"
-                                text="Создать"
-                                aria-label="Добавить театр"
-                                onClick={() => navigate("/user/theatres/new")}
+                                text="Добавить"
+                                aria-label="Добавить событие"
+                                onClick={() => {
+                                    setActivity(true);
+                                }}
                             />
                         </Table>
                     </Accordion>
@@ -989,6 +1005,188 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                     )}
                 </Tab>
             </Tabs>
+
+            <Popup
+                title={"Посещение события"}
+                opened={activity}
+                onClose={() => {
+                    reset();
+                    setActivity(false);
+                }}
+            >
+                <form onSubmit={handleSubmit(onSendSubmit)} className='form'>
+                    <fieldset className='form__section --content-info'>
+                        <FieldInput
+                            label={"Название мероприятия"}
+                            placeholder={"Введите название..."}
+                            required={true}
+                            {...register("eventTitle")}
+                        />
+                        <FieldInput
+                            label={"Дата события"}
+                            type="date"
+                            layout="flex"
+                            required={true}
+                            {...register("eventDate")}
+                        />
+                        <div className="form__editor-block">
+                            <p className="form__label">
+                                Рецензия (впечатления, отчет о посещении) о спектакле, музее, событии
+                            </p>
+                            <Editor
+                                control={control}
+                                name="editorShortDescription"
+                                minHeight={250}
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset className="form__section">
+                        <ImageSelector
+                            title="Фотографии события"
+                            items={photo}
+                            multiFiles={true}
+                            onChange={(items) => setPhoto(items)}
+                            onError={(text) =>
+                                setNotif(
+                                    <Notif
+                                        title="Ошибка!"
+                                        text={text}
+                                        opened={true}
+                                        onClose={() => {
+                                            setNotif(<></>);
+                                        }}
+                                    />
+                                )
+                            }
+                        />
+                    </fieldset>
+                    <fieldset className="form__section">
+                        <h2 className="form__title">
+                            Видео (интервью с участниками спектакля, режиссером, зрителями)
+                        </h2>
+                        {video.map((item) => (
+                            <div
+                                className="form__group-block"
+                                key={item.id}
+                            >
+                                <FieldInput
+                                    type="text"
+                                    extraClass="form__field"
+                                    placeholder="Введите url-адрес..."
+                                    {...register("video_" + item.id, {
+                                        value: item.url,
+                                    })}
+                                    onBlur={(event) => {
+                                        setVideo(
+                                            video.map((link) => {
+                                                if (link.id === item.id) {
+                                                    link.url =
+                                                        event.target.value;
+                                                }
+
+                                                return link;
+                                            })
+                                        );
+                                        setValue(
+                                            "video_" + item.id,
+                                            event.target.value
+                                        );
+                                    }}
+                                    required={true}
+                                />
+                                {item.url && (
+                                    <a
+                                        className="form__social-link"
+                                        href={
+                                            item.url.includes("http")
+                                                ? item.url
+                                                : "http://" + item.url
+                                        }
+                                        aria-label="Открыть в новой вкладке"
+                                        title="Открыть в новой вкладке"
+                                        target={"_blank"}
+                                        rel="nofollow noreferer noopener"
+                                    >
+                                        <span className="mdi mdi-open-in-new"/>
+                                    </a>
+                                )}
+                                <Button
+                                    type="button"
+                                    theme="text"
+                                    size="smaller"
+                                    extraClass="form__icon-btn"
+                                    iconClass={"mdi mdi-close"}
+                                    isIconBtn="true"
+                                    aria-label="Удалить поле"
+                                    onClick={() => {
+                                        setVideo(
+                                            video.filter(
+                                                (link) =>
+                                                    link.id !== item.id
+                                            )
+                                        );
+                                    }}
+                                />
+                            </div>
+                        ))}
+                        <Button
+                            type="button"
+                            theme="text"
+                            size="small"
+                            extraClass="form__icon-btn"
+                            iconClass={"mdi mdi-plus"}
+                            isIconBtn="true"
+                            aria-label="Добавить поле"
+                            onClick={() => {
+                                setVideo([...video, {id: window.global.makeid(12), url: ""}]);
+                            }}
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="button"
+                            theme={"outline"}
+                            text={"Удалить"}
+                            onClick={() => {
+                                setNotif(
+                                    <Notif
+                                        text={"Вы уверены что хотите удалить?"}
+                                        opened={true}
+                                        onClose={() => setNotif(<></>)}
+                                        buttons={
+                                            <>
+                                                <Button
+                                                    type="button"
+                                                    text="Нет"
+                                                    size={"small"}
+                                                    theme="text"
+                                                    onClick={() => setNotif(<></>)}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    text="Да"
+                                                    theme={"info"}
+                                                    size={"small"}
+                                                    onClick={() => {
+                                                        setNotif(<></>)
+                                                        //onDeleteSubmit();
+                                                    }}
+                                                />
+                                            </>
+                                        }
+                                    />
+                                );
+                            }}
+                        />
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={false}
+                            style={{marginLeft: 'auto', display: 'block'}}
+                        />
+                    </div>
+                </form>
+            </Popup>
             {festivalRequest}
             {notif}
         </>

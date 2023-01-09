@@ -8,7 +8,7 @@ import Popup from "../popup/popup.component";
 import styles from "./image.module.scss";
 import { AdminIcons } from "../svgs.js";
 
-const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
+const ImageSelector = ({title, items, multiFiles, withLinks, onChange, onError}) => {
 
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
@@ -387,37 +387,41 @@ const ImageSelector = ({title, items, multiFiles, onChange, onError}) => {
                     />
                 </li>
             </ul>
-            <div className="form__group-block">
-                <FieldInput
-                    ref={inputRef}
-                    label={"Ссылка на фото"}
-                    type="url"
-                    extraClass="form__field"
-                    placeholder="Введите url-адрес..."
-                    layout="flex"
-                />
-                <a
-                    className="form__social-link --hide"
-                    href=""
-                    aria-label="Открыть в новой вкладке"
-                    title="Открыть в новой вкладке"
-                    target={"_blank"}
-                    rel="nofollow noreferer noopener"
-                >
-                    <span className="mdi mdi-open-in-new"/>
-                </a>
-                <Button
-                    type="button"
-                    theme="text"
-                    size="small"
-                    extraClass="form__icon-btn"
-                    iconClass={"mdi mdi-plus"}
-                    isIconBtn="true"
-                    aria-label="Добавить поле"
-                    disabled={photoAddBtnDisabled}
-                    onClick={handleAddPhoto}
-                />
-            </div>
+            {
+                withLinks
+                &&
+                <div className="form__group-block">
+                    <FieldInput
+                        ref={inputRef}
+                        label={"Ссылка на фото"}
+                        type="url"
+                        extraClass="form__field"
+                        placeholder="Введите url-адрес..."
+                        layout="flex"
+                    />
+                    <a
+                        className="form__social-link --hide"
+                        href=""
+                        aria-label="Открыть в новой вкладке"
+                        title="Открыть в новой вкладке"
+                        target={"_blank"}
+                        rel="nofollow noreferer noopener"
+                    >
+                        <span className="mdi mdi-open-in-new"/>
+                    </a>
+                    <Button
+                        type="button"
+                        theme="text"
+                        size="small"
+                        extraClass="form__icon-btn"
+                        iconClass={"mdi mdi-plus"}
+                        isIconBtn="true"
+                        aria-label="Добавить поле"
+                        disabled={photoAddBtnDisabled}
+                        onClick={handleAddPhoto}
+                    />
+                </div>
+            }
             {notif}
         </>
     );
