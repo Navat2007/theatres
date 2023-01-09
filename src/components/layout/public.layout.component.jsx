@@ -49,8 +49,14 @@ const PublicLayout = () => {
         },
         {
             ext: false,
+            url: "/posters/",
+            title: "Афиши",
+            submenu: [],
+        },
+        {
+            ext: false,
             url: "/festivals/",
-            title: "Фестиваль «Живая сцена»",
+            title: "«Живая сцена»",
             submenu: [],
         },
         {
