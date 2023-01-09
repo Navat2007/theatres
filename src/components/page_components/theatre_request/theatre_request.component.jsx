@@ -547,12 +547,12 @@ function TheatreRequest({
                         </fieldset>
                     </Tab>
                     <Tab
-                        title={"Краткое описание"}
+                        title={"Информация о театре"}
                         extraClass="form__tab"
                     >
                         <div className="form__editor-block">
                             <p className="form__label">
-                                Краткая информация о Вашем театре
+                                Информация о театре
                             </p>
                             <Editor
                                 control={control}
