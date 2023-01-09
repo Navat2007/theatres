@@ -835,6 +835,9 @@ const Theatre = ({ id, theatre, teachersStore, onBack, onEdit }) => {
                         </>
                     )}
                 </Tab>
+                <Tab title={"Активность театра"}>
+
+                </Tab>
             </Tabs>
             {festivalRequest}
             {notif}
