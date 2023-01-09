@@ -173,7 +173,7 @@ const MainPage = () => {
                         commonStyles.performances,
                     ].join(" ")}
                 >
-                    <h2 className={commonStyles.title}>Спектакли</h2>
+                    <h2 className={commonStyles.title}>Репертуар школьных театров</h2>
                     <iframe
                         seamless={true}
                         title={"Спектакли"}
