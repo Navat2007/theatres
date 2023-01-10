@@ -13,6 +13,44 @@
     @extend %padding-section;
 }
 
+.bubbleCard {
+    padding-top: min(3.25vmax, 2.5em);
+    padding-bottom: min(3.25vmax, 2.5em);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(black, 0.15);
+
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: -10vw;
+        right: -10vw;
+        width: 35vw;
+        height: 35vw;
+        border-radius: 50%;
+        background-color: #eef2f6;
+    }
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        bottom: -7vw;
+        left: -5vw;
+        width: 20vw;
+        height: 20vw;
+        border-radius: 50%;
+        background-color: #eef2f6;
+    }
+}
+
 .title {
     margin: 0;
     margin-bottom: min(6.25vmax, 3.125rem);

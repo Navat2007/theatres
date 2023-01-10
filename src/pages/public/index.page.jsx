@@ -284,7 +284,7 @@ const MainPage = () => {
                 <article className={commonStyles.wrap}>
                     <h2 className={commonStyles.title}>Друзья содружества</h2>
                     <Splide
-                        className="my-splide my-splide_linear-gradient"
+                        className="my-splide my-splide_linear-gradient my-splide_arrow_primary"
                         options={{
                             type: "loop",
                             arrows: false,
