@@ -1,38 +1,47 @@
 .my-splide {
-    .splide__track {
-        padding: 1em 0 3em;
-        @include media(xl) {
-            position: relative;
+    &_linear-gradient {
+        .splide__track {
+            @include media(xl) {
+                position: relative;
 
-            &:before,
-            &:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                z-index: 1;
-                width: 20%;
-                display: inline-block;
-            }
+                &:before,
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    z-index: 1;
+                    width: 20%;
+                    display: inline-block;
+                }
 
-            &:before {
-                left: 0;
-                background: linear-gradient(
-                    90deg,
-                    #ffffff 34.29%,
-                    rgba(255, 255, 255, 0) 96.07%
-                );
-            }
+                &:before {
+                    left: 0;
+                    background: linear-gradient(
+                        90deg,
+                        #ffffff 34.29%,
+                        rgba(255, 255, 255, 0) 96.07%
+                    );
+                }
 
-            &:after {
-                right: 0;
-                background: linear-gradient(
-                    -90deg,
-                    #ffffff 34.29%,
-                    rgba(255, 255, 255, 0) 96.07%
-                );
+                &:after {
+                    right: 0;
+                    background: linear-gradient(
+                        -90deg,
+                        #ffffff 34.29%,
+                        rgba(255, 255, 255, 0) 96.07%
+                    );
+                }
             }
         }
+    }
+
+    &_border-radius .splide__slide {
+        border-radius: 25px;
+    }
+
+    .splide__track {
+        padding: 1em 0 3em;
     }
 
     .splide__arrows .splide__arrow {
@@ -48,13 +57,13 @@
     }
 
     .splide__pagination__page {
-        @include box(.675rem);
+        @include box(0.675rem);
         border: unset !important;
         border-radius: 50%;
         opacity: 1;
         background-color: var(--g300);
         cursor: pointer;
-        margin: .25em;
+        margin: 0.25em;
 
         &.is-active {
             border: unset !important;
