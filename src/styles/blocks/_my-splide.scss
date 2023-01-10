@@ -40,6 +40,10 @@
         border-radius: 25px;
     }
 
+    &_border-radius-sm .splide__slide {
+        border-radius: 5px;
+    }
+
     &_arrow_line .splide__arrows .splide__arrow {
         background-color: transparent;
 

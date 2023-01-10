@@ -39,7 +39,10 @@ const SpectaclesPage = () => {
                 )}
             >
                 <h2
-                    className={[commonStyles.title, styles.pageTitle].join(" ")}
+                    className={[
+                        commonStyles.title,
+                        commonStyles.title_underline,
+                    ].join(" ")}
                 >
                     репертуар школьных театров
                 </h2>
@@ -57,7 +60,6 @@ const SpectaclesPage = () => {
                         perMove: 1,
                         gap: "2.5em",
                         rewind: true,
-                        updateOnMove: true,
                         pauseOnHover: true,
                         autoplay: true,
                         mediaQuery: "min",
@@ -119,7 +121,10 @@ const SpectaclesPage = () => {
                 )}
             >
                 <h2
-                    className={[commonStyles.title, styles.pageTitle].join(" ")}
+                    className={[
+                        commonStyles.title,
+                        commonStyles.title_underline,
+                    ].join(" ")}
                 >
                     топ спектаклей
                     <span className={styles.titleIcon}>

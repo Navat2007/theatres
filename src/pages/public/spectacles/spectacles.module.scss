@@ -2,14 +2,6 @@
 @import "../../../styles/_assets/mixins";
 @import "../../../styles/_assets/extends";
 
-.pageTitle::after {
-    content: "";
-    display: block;
-    margin-top: 10px;
-    max-width: 5.5em;
-    border-bottom: 2px solid var(--public-accent);
-}
-
 .titleIcon {
     width: 1.5rem;
     margin-left: 0.25rem;
