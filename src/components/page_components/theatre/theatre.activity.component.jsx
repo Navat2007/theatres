@@ -22,7 +22,7 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const DOMPurify = createDOMPurify(window);
 
-    const {register, handleSubmit, reset, control, setValue} = useForm();
+    const {register, handleSubmit, reset, control, setValue, getValues} = useForm();
     const [notif, setNotif] = React.useState(<></>);
 
     const [loading, setLoading] = React.useState(false);
@@ -244,7 +244,16 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const onReset = () => {
 
-        reset(null);
+        let resetObject = {};
+
+        for (let prop in getValues()) {
+
+            if(!prop.includes("video"))
+                resetObject[prop] = null;
+
+        }
+
+        reset(resetObject);
 
         setActivityEvents(false);
         setActivityEventsView(false);
@@ -863,6 +872,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                     </fieldset>
                     <fieldset className="form__section">
                         <ImageSelector
+                            maxFileSize={1}
                             title="Фотографии награждения, дипломов, сертификатов, участия"
                             items={photoActivityOwnFestival}
                             multiFiles={true}
@@ -986,12 +996,16 @@ const TheatreActivityComponent = ({theatreID}) => {
                                 {own?.title}
                             </p>
                         </li>
-                        <li className={styles.item}>
-                            <h3 className={styles.label}>Положение о фестивале</h3>
-                            <p className={styles.description}>
-                                {event?.file}
-                            </p>
-                        </li>
+                        {
+                            own?.file
+                            &&
+                            <li className={styles.item}>
+                                <h3 className={styles.label}>Положение о фестивале</h3>
+                                <p className={styles.description}>
+                                    <a target={"_blank"} href={own?.file.includes("http") ? own.file : process.env.REACT_APP_BASE_URL + own.file}>Скачать</a>
+                                </p>
+                            </li>
+                        }
                         <li className={styles.item}>
                             <h3 className={styles.label}>Дата мероприятия</h3>
                             <p className={styles.description}>

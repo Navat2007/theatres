@@ -8,7 +8,7 @@ import Popup from "../popup/popup.component";
 import styles from "./image.module.scss";
 import { AdminIcons } from "../svgs.js";
 
-const ImageSelector = ({title, items, multiFiles, withLinks, onChange, onError}) => {
+const ImageSelector = ({title, items, multiFiles, withLinks, maxFileSize = 5, onChange, onError}) => {
 
     const [photo, setPhoto] = React.useState([]);
     const [photoAddBtnDisabled, setPhotoAddBtnDisabled] = React.useState(false);
@@ -119,11 +119,11 @@ const ImageSelector = ({title, items, multiFiles, withLinks, onChange, onError})
         for (const file of e.target.files) {
 
             if (file.type.match("image.*")) {
-                if (file.size <= 5000000) {
+                if (file.size <= maxFileSize * 1000000) {
                 } else {
                     errorFiles.push({
                         title: file.name,
-                        text: "Файл больше 5 Мб."
+                        text: "Файл больше " + maxFileSize + " Мб."
                     });
                     continue;
                 }

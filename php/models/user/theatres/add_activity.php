@@ -154,7 +154,7 @@ switch ($place){
         $updateID = mysqli_insert_id($conn);
 
         $temp_name = $_FILES['ownFile']['tmp_name'][0];
-        $name = $_FILES['photo']['name'][0];
+        $name = $_FILES['ownFile']['name'][0];
         $file_token = time();
 
         $path = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre/" . $theatreID . "/" . $file_token . "_" . $name;
