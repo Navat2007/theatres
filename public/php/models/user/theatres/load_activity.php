@@ -12,6 +12,9 @@ $error = 0;
 $error_text = "";
 $sqls = array();
 $params = (object)[];
+$events = [];
+$visits = [];
+$own = [];
 
 $sql = "SELECT 
             event.*
@@ -20,13 +23,10 @@ $sql = "SELECT
         WHERE 
             event.theatreID = '$theatreID'";
 
-
 $sqls[] = $sql;
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
-
-    $events = [];
 
     while ($row = mysqli_fetch_object($result)) {
 
@@ -34,9 +34,9 @@ if (mysqli_num_rows($result) > 0) {
 
             'ID' => (int)$row->ID,
             'theatreID' => (int)$row->theatreID,
-            'title' => $row->title,
-            'eventType' => $row->eventType,
-            'review' => $row->review,
+            'title' => htmlspecialchars_decode($row->title),
+            'eventType' => htmlspecialchars_decode($row->eventType),
+            'review' => htmlspecialchars_decode($row->review),
             'date' => $row->date,
 
         ];
@@ -44,9 +44,71 @@ if (mysqli_num_rows($result) > 0) {
         $events[] = $types;
     }
 
-    $params->events = $events;
+}
+
+$sql = "SELECT 
+            event.*
+        FROM 
+            theatre_activity_visit_festival as event 
+        WHERE 
+            event.theatreID = '$theatreID'";
+
+$sqls[] = $sql;
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+
+    while ($row = mysqli_fetch_object($result)) {
+
+        $types = (object)[
+
+            'ID' => (int)$row->ID,
+            'theatreID' => (int)$row->theatreID,
+            'title' => htmlspecialchars_decode($row->title),
+            'review' => htmlspecialchars_decode($row->review),
+            'result' => htmlspecialchars_decode($row->result),
+            'date' => $row->date,
+
+        ];
+
+        $visits[] = $types;
+    }
 
 }
+
+$sql = "SELECT 
+            event.*
+        FROM 
+            theatre_activity_own_festival as event 
+        WHERE 
+            event.theatreID = '$theatreID'";
+
+$sqls[] = $sql;
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+
+    while ($row = mysqli_fetch_object($result)) {
+
+        $types = (object)[
+
+            'ID' => (int)$row->ID,
+            'theatreID' => (int)$row->theatreID,
+            'title' => htmlspecialchars_decode($row->title),
+            'review' => htmlspecialchars_decode($row->review),
+            'file' => $row->file,
+            'date' => $row->date,
+
+        ];
+
+        $own[] = $types;
+    }
+
+}
+
+$params->events = $events;
+$params->visits = $visits;
+$params->own = $own;
 
 $content = (object)[
 

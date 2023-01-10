@@ -17,6 +17,8 @@ const TheatreActivityComponent = ({theatreID}) => {
     const {register, handleSubmit, reset, control, setValue} = useForm();
     const [notif, setNotif] = React.useState(<></>);
 
+    const [loading, setLoading] = React.useState(false);
+
     const [activityEvents, setActivityEvents] = React.useState(false);
     const [activityVisitFestival, setVisitFestival] = React.useState(false);
     const [activityOwnFestival, setOwnFestival] = React.useState(false);
@@ -24,7 +26,7 @@ const TheatreActivityComponent = ({theatreID}) => {
     const [photoActivityEvents, setPhotoActivityEvents] = React.useState([]);
     const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
 
-    const itemActivityEventsConfig = [
+    const eventsItemsConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -47,7 +49,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             sorting: true,
         },
     ];
-    const itemActivityVisitFestivalConfig = [
+    const visitFestivalItemsConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -63,7 +65,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             sorting: true,
         },
     ];
-    const itemActivityOwnFestivalConfig = [
+    const ownFestivalItemsConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -79,6 +81,10 @@ const TheatreActivityComponent = ({theatreID}) => {
             sorting: true,
         },
     ];
+
+    const [eventsItems, setEventsItems] = React.useState([]);
+    const [visitFestivalItems, setVisitFestivalItems] = React.useState([]);
+    const [ownFestivalItems, setOwnFestivalItems] = React.useState([]);
 
     React.useEffect(() => {
 
@@ -88,12 +94,18 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const fetchData = async () => {
 
+        setLoading(true);
+
         let form = new FormData();
         window.global.buildFormData(form, {theatreID});
 
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/load_activity.php', form);
 
         console.log(result);
+
+        setEventsItems(result.data.params.events);
+
+        setLoading(false);
 
     }
 
@@ -164,26 +176,10 @@ const TheatreActivityComponent = ({theatreID}) => {
         <>
             <Accordion title={"Посещение события"}>
                 <Table
-                    title={"Таблица событий в городе"}
-                    loading={false}
-                    items={[
-                        {
-                            ID: 1,
-                            title: "Visit 1",
-                            date: "2000-01-01",
-                        },
-                        {
-                            ID: 2,
-                            title: "Visit 2",
-                            date: "2003-07-11",
-                        },
-                        {
-                            ID: 3,
-                            title: "Visit 3",
-                            date: "2027-12-31",
-                        },
-                    ]}
-                    itemsConfig={itemActivityEventsConfig}
+                    title={"Таблица событий"}
+                    loading={loading}
+                    items={eventsItems}
+                    itemsConfig={eventsItemsConfig}
                     onItemClick={() => {
                         console.log("item");
                     }}
