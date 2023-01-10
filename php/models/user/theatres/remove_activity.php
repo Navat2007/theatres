@@ -74,7 +74,7 @@ switch ($place){
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_object($result);
 
-        $oldFile = $_SERVER['DOCUMENT_ROOT'] .  $row->url;
+        $oldFile = $_SERVER['DOCUMENT_ROOT'] .  $row->file;
         @unlink($oldFile);
 
         $sql = "DELETE FROM theatre_activity_own_festival WHERE ID = '$id'";
