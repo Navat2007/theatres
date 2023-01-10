@@ -16,10 +16,45 @@ const TheatreActivityComponent = () => {
     const [notif, setNotif] = React.useState(<></>);
 
     const [activityEvents, setActivityEvents] = React.useState(false);
+    const [activityVisitFestival, setVisitFestival] = React.useState(false);
+    const [activityOwnFestival, setOwnFestival] = React.useState(false);
 
     const [photoActivityEvents, setPhotoActivityEvents] = React.useState([]);
     const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
+
     const itemActivityEventsConfig = [
+        {
+            header: "Название мероприятия",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Дата посещения",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+        },
+    ];
+    const itemActivityVisitFestivalConfig = [
+        {
+            header: "Название мероприятия",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Дата посещения",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+        },
+    ];
+    const itemActivityOwnFestivalConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -52,6 +87,40 @@ const TheatreActivityComponent = () => {
         setActivityEvents(false);
         setPhotoActivityEvents([]);
         setVideoActivityEvents([]);
+
+    }
+
+    const onActivityVisitFestivalSendSubmit = async (params) => {
+
+        console.log(params);
+
+        let form = new FormData();
+
+        for (let key in params) {
+            form.append(key, params[key]);
+        }
+
+        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+
+        reset();
+        setVisitFestival(false);
+
+    }
+
+    const onActivityOwnFestivalSendSubmit = async (params) => {
+
+        console.log(params);
+
+        let form = new FormData();
+
+        for (let key in params) {
+            form.append(key, params[key]);
+        }
+
+        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+
+        reset();
+        setOwnFestival(false);
 
     }
 
@@ -96,14 +165,12 @@ const TheatreActivityComponent = () => {
                     />
                 </Table>
             </Accordion>
-            <Accordion
-                title={"Участие в фестивалях, конкурсах"}
-            ></Accordion>
-            <Accordion
-                title={
-                    "Проведение собственных фестивалей в образовательной организации"
-                }
-            ></Accordion>
+            <Accordion title={"Участие в фестивалях, конкурсах"}>
+
+            </Accordion>
+            <Accordion title={"Проведение собственных фестивалей в образовательной организации"}>
+
+            </Accordion>
 
             {/* Посещение события */}
             <Popup

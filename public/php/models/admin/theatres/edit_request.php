@@ -622,14 +622,14 @@ if ($error === 0) {
                     $url = "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
                 }
 
+                $sql = "
+                INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
+                VALUES ('$id', '$url', '$isFile', '$main', '$order')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+
             }
-
-            $sql = "
-            INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
-            VALUES ('$id', '$url', '$isFile', '$main', '$order')";
-
-            $sqls[] = $sql;
-            mysqli_query($conn, $sql);
 
             unset($url);
             unset($main);
