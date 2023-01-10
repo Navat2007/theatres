@@ -40,11 +40,29 @@
         border-radius: 25px;
     }
 
-    .splide__track {
-        padding: 1em 0 3em;
+    &_arrow_line .splide__arrows .splide__arrow {
+        background-color: transparent;
+
+        &.splide__arrow--prev {
+            left: 0.5em;
+        }
+        &.splide__arrow--next {
+            right: 0.5em;
+        }
+
+        & svg {
+            @include box(1.5em);
+            fill: var(--light);
+        }
     }
 
-    .splide__arrows .splide__arrow {
+    &_spectacles {
+        @include media(md) {
+            margin-right: calc(min(2.25vmax, 3em) * -1);
+        }
+    }
+
+    &_arrow_primary .splide__arrows .splide__arrow {
         @include box(3.3125em);
         border-radius: 50%;
         border: 3px solid var(--white);
@@ -55,6 +73,12 @@
             fill: var(--primary);
         }
     }
+
+    .splide__track {
+        padding: 1em 0 3em;
+    }
+
+    // .splide__arrows .splide__arrow {}
 
     .splide__pagination__page {
         @include box(0.675rem);
