@@ -10,6 +10,17 @@
     border-bottom: 2px solid var(--public-accent);
 }
 
+.titleIcon {
+    width: 1.5rem;
+    margin-left: 0.25rem;
+    display: inline-block;
+    vertical-align: middle;
+    & svg {
+        @include box(100%);
+        fill: var(--public-primary);
+    }
+}
+
 .topList {
     @extend %reset-list;
     display: grid;
@@ -82,6 +93,10 @@
 
         .list {
             margin-left: 1.5rem;
+        }
+
+        .item {
+            color: var(--darkLow);
         }
     }
 

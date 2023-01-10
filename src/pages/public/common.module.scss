@@ -25,6 +25,12 @@
     z-index: 1;
     overflow: hidden;
 
+    &:first-child {
+        margin-top: min(4.375vmax, 4.375em);
+    }
+    &:last-child {
+        margin-bottom: min(4.375vmax, 4.375em);
+    }
     &::before {
         content: "";
         display: block;

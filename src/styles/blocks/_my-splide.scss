@@ -43,8 +43,15 @@
     &_arrow_line .splide__arrows .splide__arrow {
         background-color: transparent;
 
+        &.splide__arrow--prev {
+            left: 0.5em;
+        }
+        &.splide__arrow--next {
+            right: 0.5em;
+        }
+
         & svg {
-            @include box(3.3125em);
+            @include box(1.5em);
             fill: var(--light);
         }
     }

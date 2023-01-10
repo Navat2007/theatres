@@ -5,6 +5,7 @@ import styles from "./spectacles.module.scss";
 import commonStyles from "../common.module.scss";
 import Button from "../../../components/button/button.component";
 import FieldInputComponent from "../../../components/field/field.input.component";
+import { AdminIcons } from "../../../components/svgs.js";
 
 const SpectaclesPage = () => {
     const spectacles = [
@@ -60,6 +61,8 @@ const SpectaclesPage = () => {
                         pauseOnHover: true,
                         autoplay: true,
                         mediaQuery: "min",
+                        arrowPath:
+                            "M9.5 38l-1.6-2 20.3-16.7L8 4l1.4-2 22.7 17.1L9.5 38z",
                         breakpoints: {
                             768: {
                                 perPage: 1.3,
@@ -118,7 +121,10 @@ const SpectaclesPage = () => {
                 <h2
                     className={[commonStyles.title, styles.pageTitle].join(" ")}
                 >
-                    топ спектаклей &gt;
+                    топ спектаклей
+                    <span className={styles.titleIcon}>
+                        {AdminIcons.arrow_right_thin}
+                    </span>
                 </h2>
                 <ul className={styles.topList}>
                     {spectacles.map((item, index) => (
