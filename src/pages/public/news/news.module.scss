@@ -1,3 +1,42 @@
 @import "../../../styles/_assets/variables";
 @import "../../../styles/_assets/mixins";
 @import "../../../styles/_assets/extends";
+
+.list {
+    @extend %reset-list;
+
+    display: flex;
+    flex-direction: column;
+    gap: min(2.5vmax, 1.25em);
+}
+
+// .card {}
+
+.title {
+    font-size: min(2.5vmax, 1.5em);
+    line-height: 1.4;
+    margin: min(2.5vmax, 1.25rem) 0;
+    max-width: 25em;
+    text-transform: uppercase;
+
+    &::after {
+        content: "";
+        display: block;
+        margin-top: 10px;
+        max-width: 5.5em;
+        border-bottom: 2px solid var(--public-accent);
+    }
+}
+.date {
+    font-size: min(2.5vmax, 1.5em);
+    margin: min(2.5vmax, 1.25rem) 0;
+    color: var(--public-primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.description {
+    font-size: min(2.5vmax, 1.5em);
+    line-height: 1.45;
+    margin-bottom: min(2.5vmax, 1.25em);
+}
