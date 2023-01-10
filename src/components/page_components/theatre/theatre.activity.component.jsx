@@ -1,5 +1,6 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
+import axios from "axios";
 
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
@@ -73,15 +74,22 @@ const TheatreActivityComponent = () => {
 
     const onActivityEventsSendSubmit = async (params) => {
 
-        console.log(params);
+        let sendObject = { ...params };
+
+        sendObject["photo"] = photoActivityEvents;
+
+        if (videoActivityEvents.length > 0)
+            sendObject["video"] = Array.from(
+                videoActivityEvents.filter((link) => link.url !== "").map((link) => link.url)
+            );
+
+        console.log(sendObject);
 
         let form = new FormData();
+        window.global.buildFormData(form, sendObject);
 
-        for (let key in params) {
-            form.append(key, params[key]);
-        }
-
-        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', sendObject);
+        console.log(result);
 
         reset();
         setActivityEvents(false);
@@ -172,7 +180,6 @@ const TheatreActivityComponent = () => {
 
             </Accordion>
 
-            {/* Посещение события */}
             <Popup
                 title={"Посещение события"}
                 opened={activityEvents}

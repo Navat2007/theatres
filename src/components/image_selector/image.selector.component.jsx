@@ -24,6 +24,13 @@ const ImageSelector = ({title, items, multiFiles, withLinks, onChange, onError})
     }, []);
 
     React.useEffect(() => {
+
+        if(items.length === 0 && photo.length > 0)
+            setPhoto([]);
+
+    }, [items]);
+
+    React.useEffect(() => {
         onChange(photo);
     }, [photo]);
 
