@@ -39,6 +39,7 @@ const TheatreActivityComponent = ({theatreID}) => {
     const [photoActivityOwnFestival, setPhotoActivityOwnFestival] = React.useState([]);
 
     const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
+    const [videoActivityOwnFestival, setVideoActivityOwnFestival] = React.useState([]);
 
     const [event, setEvent] = React.useState(null);
     const [visit, setVisit] = React.useState(null);
@@ -206,8 +207,17 @@ const TheatreActivityComponent = ({theatreID}) => {
 
         sendObject["theatreID"] = theatreID;
         sendObject["place"] = "own";
+        sendObject["eventTitle"] = params.ownTitle;
+        sendObject["eventDate"] = params.ownDate;
+        sendObject["eventResult"] = params.ownResult.value;
+        sendObject["editorReview"] = params.ownReview ? params.ownReview : "";
         sendObject["photo"] = photoActivityOwnFestival;
-        sendObject["editorReview"] = params.editorReview ? params.editorReview.value : "";
+        sendObject["eventFile"] = params.ownFile;
+
+        if (videoActivityOwnFestival.length > 0)
+            sendObject["video"] = Array.from(
+                videoActivityOwnFestival.filter((link) => link.url !== "").map((link) => link.url)
+            );
 
         let form = new FormData();
         window.global.buildFormData(form, sendObject);
@@ -218,6 +228,7 @@ const TheatreActivityComponent = ({theatreID}) => {
         reset();
         setOwnFestival(false);
         setPhotoActivityOwnFestival([]);
+        setVideoActivityOwnFestival([]);
 
         await fetchData();
 
@@ -236,6 +247,8 @@ const TheatreActivityComponent = ({theatreID}) => {
         setActivityEvents(false);
         setVisitFestival(false);
         setOwnFestival(false);
+
+        await fetchData();
 
     }
 
@@ -537,6 +550,8 @@ const TheatreActivityComponent = ({theatreID}) => {
                     {
                         event?.photo
                         &&
+                        event.photo.length > 0
+                        &&
                         <fieldset className="form__section">
                             <h2 className="form__title">
                                 Фотографии события
@@ -546,6 +561,8 @@ const TheatreActivityComponent = ({theatreID}) => {
                     }
                     {
                         event?.video
+                        &&
+                        event.video.length > 0
                         &&
                         <fieldset className="form__section">
                             <h2 className="form__title">
@@ -675,7 +692,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                         </div>
                         <fieldset className="form__section">
                             <ImageSelector
-                                title="Фотографии мероприятия"
+                                title="Фотографии награждения, дипломов, сертификатов, участия"
                                 items={photoActivityVisitFestival}
                                 multiFiles={true}
                                 onChange={(items) => setPhotoActivityVisitFestival(items)}
@@ -741,7 +758,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                         &&
                         <fieldset className="form__section">
                             <h2 className="form__title">
-                                Рецензия (впечатления, отчет о посещении) о спектакле, музее, событии
+                                Описание мероприятия
                             </h2>
                             <div
                                 className={styles.editor}
@@ -754,11 +771,293 @@ const TheatreActivityComponent = ({theatreID}) => {
                     {
                         visit?.photo
                         &&
+                        visit.photo.length > 0
+                        &&
                         <fieldset className="form__section">
                             <h2 className="form__title">
-                                Фотографии мероприятия
+                                Фотографии награждения, дипломов, сертификатов, участия
                             </h2>
                             <ImageGallery front={false} items={visit?.photo} />
+                        </fieldset>
+                    }
+                    <div className="form__controls">
+                        <Button
+                            type="button"
+                            theme={"outline"}
+                            text={"Удалить"}
+                            style={{marginLeft: 'auto', display: 'block'}}
+                            onClick={() => {
+                                setNotif(
+                                    <Notif
+                                        text={"Вы уверены что хотите удалить?"}
+                                        opened={true}
+                                        onClose={() => setNotif(<></>)}
+                                        buttons={
+                                            <>
+                                                <Button
+                                                    type="button"
+                                                    text="Нет"
+                                                    size={"small"}
+                                                    theme="text"
+                                                    onClick={() => setNotif(<></>)}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    text="Да"
+                                                    theme={"info"}
+                                                    size={"small"}
+                                                    onClick={() => {
+                                                        setNotif(<></>)
+                                                        onDeleteSubmit(visit?.ID, "visit");
+                                                    }}
+                                                />
+                                            </>
+                                        }
+                                    />
+                                );
+                            }}
+                        />
+                    </div>
+                </form>
+            </Popup>
+            <Popup
+                title={"Новое проведение собственного фестиваля"}
+                opened={activityOwnFestival}
+                onClose={() => {
+                    reset();
+                    setOwnFestival(false);
+                }}
+            >
+                <form onSubmit={handleSubmit(onActivityOwnFestivalSendSubmit)} className='form'>
+                    <fieldset className='form__section --content-info'>
+                        <FieldInput
+                            label={"Название мероприятия"}
+                            placeholder={"Введите название..."}
+                            required={true}
+                            {...register("ownTitle")}
+                        />
+                        <FieldInput
+                            label={"Положение о фестивале"}
+                            type="file"
+                            placeholder={"Выберите файл..."}
+                            layout={"flex"}
+                            {...register("ownFile")}
+                        />
+                        <FieldInput
+                            label={"Дата события"}
+                            type="date"
+                            layout="flex"
+                            required={true}
+                            {...register("ownDate")}
+                        />
+                        <div className="form__editor-block">
+                            <p className="form__label">
+                                Описание мероприятия
+                            </p>
+                            <Editor
+                                control={control}
+                                name="owmReview"
+                                minHeight={250}
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset className="form__section">
+                        <ImageSelector
+                            title="Фотографии награждения, дипломов, сертификатов, участия"
+                            items={photoActivityOwnFestival}
+                            multiFiles={true}
+                            onChange={(items) => setPhotoActivityOwnFestival(items)}
+                            onError={(text) =>
+                                setNotif(
+                                    <Notif
+                                        title="Ошибка!"
+                                        text={text}
+                                        opened={true}
+                                        onClose={() => {
+                                            setNotif(<></>);
+                                        }}
+                                    />
+                                )
+                            }
+                        />
+                    </fieldset>
+                    <fieldset className="form__section">
+                        <h2 className="form__title">
+                            Видеоотчет о событии
+                        </h2>
+                        {videoActivityOwnFestival.map((item) => (
+                            <div
+                                className="form__group-block"
+                                key={item.id}
+                            >
+                                <FieldInput
+                                    type="text"
+                                    extraClass="form__field"
+                                    placeholder="Введите url-адрес..."
+                                    {...register("video_" + item.id, {
+                                        value: item.url,
+                                    })}
+                                    onBlur={(event) => {
+                                        setVideoActivityOwnFestival(
+                                            videoActivityOwnFestival.map((link) => {
+                                                if (link.id === item.id) {
+                                                    link.url =
+                                                        event.target.value;
+                                                }
+
+                                                return link;
+                                            })
+                                        );
+                                        setValue(
+                                            "video_" + item.id,
+                                            event.target.value
+                                        );
+                                    }}
+                                    required={true}
+                                />
+                                {item.url && (
+                                    <a
+                                        className="form__social-link"
+                                        href={
+                                            item.url.includes("http")
+                                                ? item.url
+                                                : "http://" + item.url
+                                        }
+                                        aria-label="Открыть в новой вкладке"
+                                        title="Открыть в новой вкладке"
+                                        target={"_blank"}
+                                        rel="nofollow noreferer noopener"
+                                    >
+                                        <span className="mdi mdi-open-in-new"/>
+                                    </a>
+                                )}
+                                <Button
+                                    type="button"
+                                    theme="text"
+                                    size="smaller"
+                                    extraClass="form__icon-btn"
+                                    iconClass={"mdi mdi-close"}
+                                    isIconBtn="true"
+                                    aria-label="Удалить поле"
+                                    onClick={() => {
+                                        setVideoActivityOwnFestival(
+                                            videoActivityOwnFestival.filter((link) => link.id !== item.id)
+                                        );
+                                    }}
+                                />
+                            </div>
+                        ))}
+                        <Button
+                            type="button"
+                            theme="text"
+                            size="small"
+                            extraClass="form__icon-btn"
+                            iconClass={"mdi mdi-plus"}
+                            isIconBtn="true"
+                            aria-label="Добавить поле"
+                            onClick={() => {
+                                setVideoActivityOwnFestival([...videoActivityOwnFestival, {
+                                    id: window.global.makeid(12),
+                                    url: ""
+                                }]);
+                            }}
+                        />
+                    </fieldset>
+                    <div className="form__controls">
+                        <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={false}
+                            style={{marginLeft: 'auto', display: 'block'}}
+                        />
+                    </div>
+                </form>
+            </Popup>
+            <Popup
+                title={"Проведение собственного фестиваля в образовательной организации"}
+                opened={activityOwnFestivalView}
+                onClose={() => {
+                    setOwnFestivalView(false);
+                    setOwn(null);
+                }}
+            >
+                <form className='form'>
+                    <ul className={styles.list}>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Название мероприятия</h3>
+                            <p className={styles.description}>
+                                {own?.title}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Положение о фестивале</h3>
+                            <p className={styles.description}>
+                                {event?.file}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Дата мероприятия</h3>
+                            <p className={styles.description}>
+                                {moment(own?.date).format(
+                                    "DD.MM.YYYY"
+                                )}
+                            </p>
+                        </li>
+
+                    </ul>
+                    {
+                        own?.review
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Описание мероприятия
+                            </h2>
+                            <div
+                                className={styles.editor}
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(own?.review),
+                                }}
+                            />
+                        </fieldset>
+                    }
+                    {
+                        own?.photo
+                        &&
+                        own.photo.length > 0
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Фотографии награждения, дипломов, сертификатов, участия
+                            </h2>
+                            <ImageGallery front={false} items={own?.photo} />
+                        </fieldset>
+                    }
+                    {
+                        own?.video
+                        &&
+                        own.video.length > 0
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Видеоотчет о событии
+                            </h2>
+                            <ul className="gallery-form --content-video">
+                                {own.video.map((item) => (
+                                    <li
+                                        key={item}
+                                        className="gallery-form__item"
+                                    >
+                                        <ReactPlayer
+                                            width="100%"
+                                            height={"auto"}
+                                            className="video__react-player"
+                                            url={item.url}
+                                            playing={false}
+                                            controls={true}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         </fieldset>
                     }
                     <div className="form__controls">
