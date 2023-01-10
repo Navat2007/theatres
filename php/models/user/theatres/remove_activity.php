@@ -41,6 +41,10 @@ switch ($place){
 
         }
 
+        $sql = "DELETE FROM theatre_activity_city_event_photo WHERE activityID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
+
         break;
 
     case "visit":
@@ -64,6 +68,10 @@ switch ($place){
             }
 
         }
+
+        $sql = "DELETE FROM theatre_activity_visit_festival_photo WHERE activityID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
 
         break;
 
@@ -100,6 +108,10 @@ switch ($place){
             }
 
         }
+
+        $sql = "DELETE FROM theatre_activity_own_festival_photo WHERE activityID = '$id'";
+        $sqls[] = $sql;
+        mysqli_query($conn, $sql);
 
         break;
 
