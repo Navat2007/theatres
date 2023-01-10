@@ -101,9 +101,11 @@ const TheatreActivityComponent = ({theatreID}) => {
 
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/load_activity.php', form);
 
-        console.log(result);
+        console.log(result.data);
 
         setEventsItems(result.data.params.events);
+        setVisitFestivalItems(result.data.params.visits);
+        setOwnFestivalItems(result.data.params.own);
 
         setLoading(false);
 
@@ -198,10 +200,50 @@ const TheatreActivityComponent = ({theatreID}) => {
                 </Table>
             </Accordion>
             <Accordion title={"Участие в фестивалях, конкурсах"}>
-
+                <Table
+                    title={"Таблица фестивалей"}
+                    loading={loading}
+                    items={visitFestivalItems}
+                    itemsConfig={visitFestivalItemsConfig}
+                    onItemClick={() => {
+                        console.log("item");
+                    }}
+                    withFilter={true}
+                >
+                    <Button
+                        type="button"
+                        iconClass={"mdi mdi-plus"}
+                        size="small"
+                        text="Добавить"
+                        aria-label="Добавить событие"
+                        onClick={() => {
+                            setVisitFestival(true);
+                        }}
+                    />
+                </Table>
             </Accordion>
             <Accordion title={"Проведение собственных фестивалей в образовательной организации"}>
-
+                <Table
+                    title={"Таблица собственных фестивалей"}
+                    loading={loading}
+                    items={ownFestivalItems}
+                    itemsConfig={ownFestivalItemsConfig}
+                    onItemClick={() => {
+                        console.log("item");
+                    }}
+                    withFilter={true}
+                >
+                    <Button
+                        type="button"
+                        iconClass={"mdi mdi-plus"}
+                        size="small"
+                        text="Добавить"
+                        aria-label="Добавить событие"
+                        onClick={() => {
+                            setOwnFestival(true);
+                        }}
+                    />
+                </Table>
             </Accordion>
 
             <Popup
