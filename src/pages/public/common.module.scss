@@ -65,6 +65,14 @@
     font-size: min(4vmax, 2.75em);
     text-transform: uppercase;
     color: var(--public-primary);
+
+    &_underline::after {
+        content: "";
+        display: block;
+        margin-top: 10px;
+        max-width: 5.5em;
+        border-bottom: 2px solid var(--public-accent);
+    }
 }
 
 .subtitle {
