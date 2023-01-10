@@ -143,7 +143,7 @@ switch ($place){
 
     case "own":
 
-        $file = $_POST["eventFile"];
+        $file = $_POST["ownFile"];
 
         $sql = "
             INSERT INTO theatre_activity_own_festival (theatreID, title, review, file, date) 
@@ -152,6 +152,27 @@ switch ($place){
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
         $updateID = mysqli_insert_id($conn);
+
+        $temp_name = $_FILES['ownFile']['tmp_name'][0];
+        $name = $_FILES['photo']['name'][0];
+        $file_token = time();
+
+        $path = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre/" . $theatreID . "/" . $file_token . "_" . $name;
+
+        @unlink($path);
+
+        if(copy($temp_name, $path))
+        {
+            $url = "/files/theatre/" . $theatreID . "/" . $file_token . "_" . $name;
+
+            $add_sql = "UPDATE 
+                            theatre_activity_own_festival
+                        SET
+                            file = '$url'
+                        WHERE 
+                            ID = '$updateID'";
+            mysqli_query($conn, $add_sql);
+        }
 
         for ($i = 0; $i < count($photo); $i++) {
 

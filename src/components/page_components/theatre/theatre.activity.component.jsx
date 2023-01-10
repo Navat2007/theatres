@@ -166,10 +166,7 @@ const TheatreActivityComponent = ({theatreID}) => {
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
         console.log(result);
 
-        reset();
-        setActivityEvents(false);
-        setPhotoActivityEvents([]);
-        setVideoActivityEvents([]);
+        onReset();
 
         await fetchData();
 
@@ -193,9 +190,7 @@ const TheatreActivityComponent = ({theatreID}) => {
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
         console.log(result);
 
-        reset();
-        setVisitFestival(false);
-        setPhotoActivityVisitFestival([]);
+        onReset();
 
         await fetchData();
 
@@ -209,10 +204,8 @@ const TheatreActivityComponent = ({theatreID}) => {
         sendObject["place"] = "own";
         sendObject["eventTitle"] = params.ownTitle;
         sendObject["eventDate"] = params.ownDate;
-        sendObject["eventResult"] = params.ownResult.value;
-        sendObject["editorReview"] = params.ownReview ? params.ownReview : "";
+        sendObject["editorReview"] = params.owmReview ? params.owmReview : "";
         sendObject["photo"] = photoActivityOwnFestival;
-        sendObject["eventFile"] = params.ownFile;
 
         if (videoActivityOwnFestival.length > 0)
             sendObject["video"] = Array.from(
@@ -225,10 +218,7 @@ const TheatreActivityComponent = ({theatreID}) => {
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
         console.log(result);
 
-        reset();
-        setOwnFestival(false);
-        setPhotoActivityOwnFestival([]);
-        setVideoActivityOwnFestival([]);
+        onReset();
 
         await fetchData();
 
@@ -244,11 +234,36 @@ const TheatreActivityComponent = ({theatreID}) => {
         const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/remove_activity.php', form);
         console.log(result);
 
-        setActivityEvents(false);
-        setVisitFestival(false);
-        setOwnFestival(false);
+        setActivityEventsView(false);
+        setVisitFestivalView(false);
+        setOwnFestivalView(false);
 
         await fetchData();
+
+    }
+
+    const onReset = () => {
+
+        reset(null);
+
+        setActivityEvents(false);
+        setActivityEventsView(false);
+        setEvent(null);
+
+        setPhotoActivityEvents([]);
+        setVideoActivityEvents([]);
+
+        setVisitFestival(false);
+        setVisitFestivalView(false);
+        setVisit(null);
+
+        setPhotoActivityVisitFestival([]);
+
+        setOwnFestivalView(false);
+        setOwn(null);
+        setOwnFestival(false);
+        setPhotoActivityOwnFestival([]);
+        setVideoActivityOwnFestival([]);
 
     }
 
@@ -306,8 +321,8 @@ const TheatreActivityComponent = ({theatreID}) => {
                     loading={loading}
                     items={ownFestivalItems}
                     itemsConfig={ownFestivalItemsConfig}
-                    onItemClick={() => {
-                        console.log("item");
+                    onItemClick={(itemID) => {
+                        setOwn(ownFestivalItems.find(item => item.ID === itemID));
                     }}
                     withFilter={true}
                 >
@@ -327,10 +342,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             <Popup
                 title={"Новое событие"}
                 opened={activityEvents}
-                onClose={() => {
-                    reset();
-                    setActivityEvents(false);
-                }}
+                onClose={onReset}
             >
                 <form onSubmit={handleSubmit(onActivityEventsSendSubmit)} className='form'>
                     <fieldset className='form__section --content-info'>
@@ -503,10 +515,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             <Popup
                 title={"Посещение события"}
                 opened={activityEventsView}
-                onClose={() => {
-                    setActivityEventsView(false);
-                    setEvent(null);
-                }}
+                onClose={onReset}
             >
                 <form className='form'>
                     <ul className={styles.list}>
@@ -630,10 +639,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             <Popup
                 title={"Новое участие в мероприятии"}
                 opened={activityVisitFestival}
-                onClose={() => {
-                    reset();
-                    setVisitFestival(false);
-                }}
+                onClose={onReset}
             >
                 <form onSubmit={handleSubmit(onActivityVisitFestivalSendSubmit)} className='form'>
                     <fieldset className='form__section --content-info'>
@@ -724,10 +730,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             <Popup
                 title={"Участие в фестивалях, конкурсах"}
                 opened={activityVisitFestivalView}
-                onClose={() => {
-                    setVisitFestivalView(false);
-                    setVisit(null);
-                }}
+                onClose={onReset}
             >
                 <form className='form'>
                     <ul className={styles.list}>
@@ -823,10 +826,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             <Popup
                 title={"Новое проведение собственного фестиваля"}
                 opened={activityOwnFestival}
-                onClose={() => {
-                    reset();
-                    setOwnFestival(false);
-                }}
+                onClose={onReset}
             >
                 <form onSubmit={handleSubmit(onActivityOwnFestivalSendSubmit)} className='form'>
                     <fieldset className='form__section --content-info'>
@@ -974,12 +974,9 @@ const TheatreActivityComponent = ({theatreID}) => {
                 </form>
             </Popup>
             <Popup
-                title={"Проведение собственного фестиваля в образовательной организации"}
+                title={"Собственный фестиваль"}
                 opened={activityOwnFestivalView}
-                onClose={() => {
-                    setOwnFestivalView(false);
-                    setOwn(null);
-                }}
+                onClose={onReset}
             >
                 <form className='form'>
                     <ul className={styles.list}>
