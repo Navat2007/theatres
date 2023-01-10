@@ -5,7 +5,7 @@ header('Access-Control-Allow-Headers: Origin, Authorization, Content-Type, X-Aut
 require $_SERVER['DOCUMENT_ROOT'] . '/php/include.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/php/auth.php';
 
-$id = htmlspecialchars($_POST["id"]);
+$id = htmlspecialchars($_POST["ID"]);
 $place = htmlspecialchars($_POST["place"]);
 
 $error = 0;
