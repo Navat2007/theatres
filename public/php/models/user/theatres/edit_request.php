@@ -397,13 +397,48 @@ if ($error === 0) {
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
+        $sql = "SELECT * FROM theatre_request_photo WHERE requestID = '$id' AND file = '1'";
+        $sqls[] = $sql;
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_object($result))
+            {
+
+                $oldFilePlace = $_SERVER['DOCUMENT_ROOT'] .  $row->url;
+                @unlink($oldFilePlace);
+
+            }
+
+        }
+
         $sql = "DELETE FROM theatre_request_photo WHERE requestID = '$id'";
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
+        $sql = "SELECT * FROM theatre_request_visit_photo WHERE requestID = '$id' AND file = '1'";
+        $sqls[] = $sql;
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_object($result))
+            {
+
+                $oldFilePlace = $_SERVER['DOCUMENT_ROOT'] .  $row->url;
+                @unlink($oldFilePlace);
+
+            }
+
+        }
+
         $sql = "DELETE FROM theatre_request_visit_photo WHERE requestID = '$id'";
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
+
+        $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id;
+        @unlink($dirName);
 
         $sql = "DELETE FROM theatre_requests_video WHERE requestID = '$id'";
         $sqls[] = $sql;
