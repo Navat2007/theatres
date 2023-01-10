@@ -16,7 +16,6 @@
 .caption {
     font-size: min(3vmax, 1.5em);
     color: var(--lightLow);
-    display: inline-flex;
 }
 
 .eventIcon {
@@ -46,10 +45,16 @@
 
         display: grid;
         gap: 1.25em;
-        grid-template-columns: 1fr auto;
+
+        @include media(md) {
+            grid-template-columns: 1fr auto;
+        }
     }
     &Posters {
-        flex: 0 1 min(20vmax, 18.75em);
+        flex: auto;
+        @include media(md) {
+            flex: 0 1 min(20vmax, 18.75em);
+        }
     }
 }
 
@@ -60,8 +65,10 @@
     gap: 1.5em;
 
     align-self: flex-start;
-    padding-top: 11em;
-    box-sizing: border-box;
+    @include media(md) {
+        padding-top: 11em;
+        box-sizing: border-box;
+    }
 }
 
 .tiketItem {
