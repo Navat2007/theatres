@@ -579,6 +579,7 @@ if ($error === 0) {
 
         for ($i = 0; $i < count($photo); $i++) {
 
+            $file_id = $photo[$i]['ID'];
             $url = $photo[$i]['url'];
             $main = $photo[$i]['main'];
             $order = $photo[$i]['order'];
@@ -622,15 +623,34 @@ if ($error === 0) {
                     $url = "/files/theatre_requests/" . $id . "/" . $file_token . "_" . $name;
                 }
 
+                $sql = "
+                INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
+                VALUES ('$id', '$url', '$isFile', '$main', '$order')";
+
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+
             }
 
-            $sql = "
-            INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
-            VALUES ('$id', '$url', '$isFile', '$main', '$order')";
+            if($isFile === 1 && $isLoaded === 1){
+                $sql = "UPDATE theatre_request_photo
+                    SET
+                        main = '$main',
+                        photo_order = '$order'                        
+                    WHERE 
+                        ID = '$file_id'";
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
 
-            $sqls[] = $sql;
-            mysqli_query($conn, $sql);
+            if($isFile === 0){
+                $sql = "INSERT INTO theatre_request_photo (requestID, url, file, main, photo_order) 
+                    VALUES ('$id', '$url', '$isFile', '$main', '$order')";
+                $sqls[] = $sql;
+                mysqli_query($conn, $sql);
+            }
 
+            unset($file_id);
             unset($url);
             unset($main);
             unset($order);

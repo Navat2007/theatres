@@ -1,5 +1,6 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
+import axios from "axios";
 
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
@@ -9,17 +10,62 @@ import FieldInput from "../../field/field.input.component";
 import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
+import MultiSelect from "../../multi_select/multi_select.component";
 
-const TheatreActivityComponent = () => {
+const TheatreActivityComponent = ({theatreID}) => {
 
     const {register, handleSubmit, reset, control, setValue} = useForm();
     const [notif, setNotif] = React.useState(<></>);
 
+    const [loading, setLoading] = React.useState(false);
+
     const [activityEvents, setActivityEvents] = React.useState(false);
+    const [activityVisitFestival, setVisitFestival] = React.useState(false);
+    const [activityOwnFestival, setOwnFestival] = React.useState(false);
 
     const [photoActivityEvents, setPhotoActivityEvents] = React.useState([]);
     const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
-    const itemActivityEventsConfig = [
+
+    const eventsItemsConfig = [
+        {
+            header: "Название мероприятия",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Тип события",
+            key: "eventType",
+            type: "string",
+            filter: "select",
+            sorting: true,
+        },
+        {
+            header: "Дата посещения",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+        },
+    ];
+    const visitFestivalItemsConfig = [
+        {
+            header: "Название мероприятия",
+            key: "title",
+            type: "string",
+            filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Дата посещения",
+            key: "date",
+            type: "date",
+            filter: "date",
+            sorting: true,
+        },
+    ];
+    const ownFestivalItemsConfig = [
         {
             header: "Название мероприятия",
             key: "title",
@@ -36,7 +82,65 @@ const TheatreActivityComponent = () => {
         },
     ];
 
+    const [eventsItems, setEventsItems] = React.useState([]);
+    const [visitFestivalItems, setVisitFestivalItems] = React.useState([]);
+    const [ownFestivalItems, setOwnFestivalItems] = React.useState([]);
+
+    React.useEffect(() => {
+
+        fetchData();
+
+    }, []);
+
+    const fetchData = async () => {
+
+        setLoading(true);
+
+        let form = new FormData();
+        window.global.buildFormData(form, {theatreID});
+
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/load_activity.php', form);
+
+        console.log(result.data);
+
+        setEventsItems(result.data.params.events);
+        setVisitFestivalItems(result.data.params.visits);
+        setOwnFestivalItems(result.data.params.own);
+
+        setLoading(false);
+
+    }
+
     const onActivityEventsSendSubmit = async (params) => {
+
+        let sendObject = { ...params };
+
+        sendObject["theatreID"] = theatreID;
+        sendObject["place"] = "event";
+        sendObject["photo"] = photoActivityEvents;
+        sendObject["eventType"] = params.eventType.value;
+
+        if (videoActivityEvents.length > 0)
+            sendObject["video"] = Array.from(
+                videoActivityEvents.filter((link) => link.url !== "").map((link) => link.url)
+            );
+
+        console.log(sendObject);
+
+        let form = new FormData();
+        window.global.buildFormData(form, sendObject);
+
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
+        console.log(result);
+
+        reset();
+        setActivityEvents(false);
+        setPhotoActivityEvents([]);
+        setVideoActivityEvents([]);
+
+    }
+
+    const onActivityVisitFestivalSendSubmit = async (params) => {
 
         console.log(params);
 
@@ -49,9 +153,24 @@ const TheatreActivityComponent = () => {
         //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
 
         reset();
-        setActivityEvents(false);
-        setPhotoActivityEvents([]);
-        setVideoActivityEvents([]);
+        setVisitFestival(false);
+
+    }
+
+    const onActivityOwnFestivalSendSubmit = async (params) => {
+
+        console.log(params);
+
+        let form = new FormData();
+
+        for (let key in params) {
+            form.append(key, params[key]);
+        }
+
+        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+
+        reset();
+        setOwnFestival(false);
 
     }
 
@@ -59,26 +178,10 @@ const TheatreActivityComponent = () => {
         <>
             <Accordion title={"Посещение события"}>
                 <Table
-                    title={"Таблица событий в городе"}
-                    loading={false}
-                    items={[
-                        {
-                            ID: 1,
-                            title: "Visit 1",
-                            date: "2000-01-01",
-                        },
-                        {
-                            ID: 2,
-                            title: "Visit 2",
-                            date: "2003-07-11",
-                        },
-                        {
-                            ID: 3,
-                            title: "Visit 3",
-                            date: "2027-12-31",
-                        },
-                    ]}
-                    itemsConfig={itemActivityEventsConfig}
+                    title={"Таблица событий"}
+                    loading={loading}
+                    items={eventsItems}
+                    itemsConfig={eventsItemsConfig}
                     onItemClick={() => {
                         console.log("item");
                     }}
@@ -96,16 +199,53 @@ const TheatreActivityComponent = () => {
                     />
                 </Table>
             </Accordion>
-            <Accordion
-                title={"Участие в фестивалях, конкурсах"}
-            ></Accordion>
-            <Accordion
-                title={
-                    "Проведение собственных фестивалей в образовательной организации"
-                }
-            ></Accordion>
+            <Accordion title={"Участие в фестивалях, конкурсах"}>
+                <Table
+                    title={"Таблица фестивалей"}
+                    loading={loading}
+                    items={visitFestivalItems}
+                    itemsConfig={visitFestivalItemsConfig}
+                    onItemClick={() => {
+                        console.log("item");
+                    }}
+                    withFilter={true}
+                >
+                    <Button
+                        type="button"
+                        iconClass={"mdi mdi-plus"}
+                        size="small"
+                        text="Добавить"
+                        aria-label="Добавить событие"
+                        onClick={() => {
+                            setVisitFestival(true);
+                        }}
+                    />
+                </Table>
+            </Accordion>
+            <Accordion title={"Проведение собственных фестивалей в образовательной организации"}>
+                <Table
+                    title={"Таблица собственных фестивалей"}
+                    loading={loading}
+                    items={ownFestivalItems}
+                    itemsConfig={ownFestivalItemsConfig}
+                    onItemClick={() => {
+                        console.log("item");
+                    }}
+                    withFilter={true}
+                >
+                    <Button
+                        type="button"
+                        iconClass={"mdi mdi-plus"}
+                        size="small"
+                        text="Добавить"
+                        aria-label="Добавить событие"
+                        onClick={() => {
+                            setOwnFestival(true);
+                        }}
+                    />
+                </Table>
+            </Accordion>
 
-            {/* Посещение события */}
             <Popup
                 title={"Посещение события"}
                 opened={activityEvents}
@@ -122,6 +262,36 @@ const TheatreActivityComponent = () => {
                             required={true}
                             {...register("eventTitle")}
                         />
+                        <div className="form__multy-block">
+                            <p className="form__label">
+                                Тип события
+                            </p>
+                            <MultiSelect
+                                required={true}
+                                control={control}
+                                isMulti={false}
+                                name={"eventType"}
+                                closeMenuOnSelect={true}
+                                options={[
+                                    {
+                                        label: "Профессиональный театр",
+                                        value: "Профессиональный театр",
+                                    },
+                                    {
+                                        label: "Театральный музей",
+                                        value: "Театральный музей",
+                                    },
+                                    {
+                                        label: "Театральный мастер-класс",
+                                        value: "Театральный мастер-класс",
+                                    },
+                                    {
+                                        label: "Школьный театр",
+                                        value: "Школьный театр",
+                                    },
+                                ]}
+                            />
+                        </div>
                         <FieldInput
                             label={"Дата события"}
                             type="date"

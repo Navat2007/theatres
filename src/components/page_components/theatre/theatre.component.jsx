@@ -16,6 +16,7 @@ import ImagePreview from "../../image_preview/image.preview.component";
 import FieldInput from "../../field/field.input.component";
 import Popup from "../../popup/popup.component";
 import Notif from "../../notif/notif.component";
+import ImageGallery from "../../image_gallery/image.gallery.component";
 import TheatreActivityComponent from "./theatre.activity.component";
 
 import commonStyles from "../../../pages/common.module.scss";
@@ -35,7 +36,6 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
 
     const {register, handleSubmit} = useForm();
 
-    const [preview, setPreview] = React.useState(<></>);
     const [notif, setNotif] = React.useState(<></>);
     const [festivalRequest, setFestivalRequest] = React.useState(<></>);
 
@@ -46,17 +46,6 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
 
         fetchData();
     }, []);
-
-    const handleOpenPreview = (slideIndex, items) => {
-        setPreview(
-            <ImagePreview
-                open={true}
-                index={slideIndex}
-                items={items}
-                onClose={() => setPreview(<></>)}
-            />
-        );
-    };
 
     const onTaliaFestivalRequestSubmit = async (data) => {
         let form = new FormData();
@@ -650,148 +639,8 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     />
                 </Tab>
                 <Tab title={"Фотографии"} event={"supportive_waist"}>
-                    <h2 className={styles.title}>Фото театра</h2>
-                    {theatre.photo && theatre.photo.length > 0 ? (
-                        <>
-                            {/* Этот блок следует переместить в компонент, чтобы можно было подключить стили модулем. Возможно создать в папке image_selector, например, доп файл imageView (Кстате, а почему они имеют расширение js а не jsx? ) */}
-                            <ul className="gallery-form">
-                                {theatre.photo.map((item) =>
-                                    item.order === 1 ? (
-                                        <li
-                                            key={item.url}
-                                            className="gallery-form__item"
-                                            onClick={() =>
-                                                handleOpenPreview(
-                                                    item.order - 1,
-                                                    theatre.photo
-                                                )
-                                            }
-                                        >
-                                            <img
-                                                className="gallery-form__img"
-                                                src={
-                                                    item.isFile === 1 &&
-                                                    item.isLoaded === 1
-                                                        ? process.env
-                                                            .REACT_APP_BASE_URL +
-                                                        item.url
-                                                        : item.url
-                                                }
-                                                alt="Изображение "
-                                            />
-                                            <div className="gallery-form__title">
-                                                1. Главная
-                                            </div>
-                                        </li>
-                                    ) : (
-                                        <li
-                                            key={item.url}
-                                            className="gallery-form__item"
-                                            onClick={() =>
-                                                handleOpenPreview(
-                                                    item.order - 1,
-                                                    theatre.photo
-                                                )
-                                            }
-                                        >
-                                            <img
-                                                className="gallery-form__img"
-                                                src={
-                                                    item.isFile === 1 &&
-                                                    item.isLoaded === 1
-                                                        ? process.env
-                                                            .REACT_APP_BASE_URL +
-                                                        item.url
-                                                        : item.url
-                                                }
-                                                alt="Изображение "
-                                            />
-                                            <span className="gallery-form__current-position">
-                                                {item.order}
-                                            </span>
-                                        </li>
-                                    )
-                                )}
-                            </ul>
-                        </>
-                    ) : (
-                        <>
-                            <p>Нет фото</p>
-                        </>
-                    )}
-                    <div className={"--hide"}>
-                        <h2 className={styles.title}>Фото посещения театра</h2>
-                        {theatre.photoVisit && theatre.photoVisit.length > 0 ? (
-                            <>
-                                {/* И этот тоже */}
-                                <ul className="gallery-form">
-                                    {theatre.photoVisit.map((item) =>
-                                        item.order === 1 ? (
-                                            <li
-                                                key={item.url}
-                                                className="gallery-form__item"
-                                                onClick={() =>
-                                                    handleOpenPreview(
-                                                        item.order - 1,
-                                                        theatre.photoVisit
-                                                    )
-                                                }
-                                            >
-                                                <img
-                                                    className="gallery-form__img"
-                                                    src={
-                                                        item.isFile === 1 &&
-                                                        item.isLoaded === 1
-                                                            ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
-                                                            : item.url
-                                                    }
-                                                    alt="Изображение "
-                                                />
-                                                <div className="gallery-form__title">
-                                                    1. Главная
-                                                </div>
-                                            </li>
-                                        ) : (
-                                            <li
-                                                key={item.url}
-                                                className="gallery-form__item"
-                                                onClick={() =>
-                                                    handleOpenPreview(
-                                                        item.order - 1,
-                                                        theatre.photoVisit
-                                                    )
-                                                }
-                                            >
-                                                <img
-                                                    className="gallery-form__img"
-                                                    src={
-                                                        item.isFile === 1 &&
-                                                        item.isLoaded === 1
-                                                            ? process.env
-                                                                .REACT_APP_BASE_URL +
-                                                            item.url
-                                                            : item.url
-                                                    }
-                                                    alt="Изображение "
-                                                />
-                                                <span className="gallery-form__current-position">
-                                                    {item.order}
-                                                </span>
-                                            </li>
-                                        )
-                                    )}
-                                </ul>
-                            </>
-                        ) : (
-                            <>
-                                <p>Нет фото</p>
-                            </>
-                        )}
-                    </div>
-
-                    {preview}
+                    <ImageGallery title={"Фото театра"} items={theatre.photo} front={false} />
+                    {/*<ImageGallery title={"Фото посещения театра"} items={theatre.photoVisit} front={false} />*/}
                 </Tab>
                 <Tab title={"Видео"} event={"supportive_waist"}>
                     <h2 className={styles.title}>
@@ -846,7 +695,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     )}
                 </Tab>
                 <Tab title={"Активность театра"} event={"supportive_waist"}>
-                    <TheatreActivityComponent />
+                    <TheatreActivityComponent theatreID={theatre.ID} />
                 </Tab>
                 <Tab title={"Описания (рецензии)"} hidden={true}>
                     <h2 className={styles.title}>

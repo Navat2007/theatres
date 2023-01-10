@@ -48,7 +48,7 @@ const ImagePreview = ({
                     <SplideSlide key={index}>
                         <img
                             className={styles.image}
-                            src={item.url}
+                            src={item.url.includes("htpp") ? item.url : process.env.REACT_APP_BASE_URL + item.url}
                             alt={item.url}
                         />
                     </SplideSlide>
