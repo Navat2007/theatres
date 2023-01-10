@@ -275,6 +275,7 @@ function TheatreRequest({
                                     />
                                     <div className="form__profile-img-panel">
                                         <Button
+                                            type="button"
                                             size={"smaller"}
                                             theme={"text"}
                                             isIconBtn={"true"}
@@ -283,6 +284,7 @@ function TheatreRequest({
                                             title={"Обновить фото"}
                                         />
                                         <Button
+                                            type="button"
                                             size={"smaller"}
                                             theme={"text"}
                                             isIconBtn={"true"}

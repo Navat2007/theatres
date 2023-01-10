@@ -10,8 +10,9 @@ import FieldInput from "../../field/field.input.component";
 import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
+import MultiSelect from "../../multi_select/multi_select.component";
 
-const TheatreActivityComponent = () => {
+const TheatreActivityComponent = ({theatreID}) => {
 
     const {register, handleSubmit, reset, control, setValue} = useForm();
     const [notif, setNotif] = React.useState(<></>);
@@ -29,6 +30,13 @@ const TheatreActivityComponent = () => {
             key: "title",
             type: "string",
             filter: "string",
+            sorting: true,
+        },
+        {
+            header: "Тип события",
+            key: "eventType",
+            type: "string",
+            filter: "select",
             sorting: true,
         },
         {
@@ -72,11 +80,31 @@ const TheatreActivityComponent = () => {
         },
     ];
 
+    React.useEffect(() => {
+
+        fetchData();
+
+    }, []);
+
+    const fetchData = async () => {
+
+        let form = new FormData();
+        window.global.buildFormData(form, {theatreID});
+
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/load_activity.php', form);
+
+        console.log(result);
+
+    }
+
     const onActivityEventsSendSubmit = async (params) => {
 
         let sendObject = { ...params };
 
+        sendObject["theatreID"] = theatreID;
+        sendObject["place"] = "event";
         sendObject["photo"] = photoActivityEvents;
+        sendObject["eventType"] = params.eventType.value;
 
         if (videoActivityEvents.length > 0)
             sendObject["video"] = Array.from(
@@ -88,7 +116,7 @@ const TheatreActivityComponent = () => {
         let form = new FormData();
         window.global.buildFormData(form, sendObject);
 
-        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', sendObject);
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
         console.log(result);
 
         reset();
@@ -196,6 +224,36 @@ const TheatreActivityComponent = () => {
                             required={true}
                             {...register("eventTitle")}
                         />
+                        <div className="form__multy-block">
+                            <p className="form__label">
+                                Тип события
+                            </p>
+                            <MultiSelect
+                                required={true}
+                                control={control}
+                                isMulti={false}
+                                name={"eventType"}
+                                closeMenuOnSelect={true}
+                                options={[
+                                    {
+                                        label: "Профессиональный театр",
+                                        value: "Профессиональный театр",
+                                    },
+                                    {
+                                        label: "Театральный музей",
+                                        value: "Театральный музей",
+                                    },
+                                    {
+                                        label: "Театральный мастер-класс",
+                                        value: "Театральный мастер-класс",
+                                    },
+                                    {
+                                        label: "Школьный театр",
+                                        value: "Школьный театр",
+                                    },
+                                ]}
+                            />
+                        </div>
                         <FieldInput
                             label={"Дата события"}
                             type="date"

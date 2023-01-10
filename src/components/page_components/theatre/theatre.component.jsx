@@ -846,7 +846,7 @@ const Theatre = ({id, theatre, teachersStore, onBack, onEdit}) => {
                     )}
                 </Tab>
                 <Tab title={"Активность театра"} event={"supportive_waist"}>
-                    <TheatreActivityComponent />
+                    <TheatreActivityComponent theatreID={theatre.ID} />
                 </Tab>
                 <Tab title={"Описания (рецензии)"} hidden={true}>
                     <h2 className={styles.title}>
