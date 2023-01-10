@@ -24,7 +24,11 @@ const ImageGallery = ({title, items, front = true}) => {
                 front
                 &&
                 <article className="public-content__wrap gallery">
-                    <h2 className="section-title">{title}</h2>
+                    {
+                        title
+                        &&
+                        <h2 className="section-title">{title}</h2>
+                    }
                     <ul className="gallery__card-deck">
                         {items.map((item, index) => (
                             <li
@@ -64,12 +68,7 @@ const ImageGallery = ({title, items, front = true}) => {
                                         <img
                                             className="gallery-form__img"
                                             src={
-                                                item.isFile === 1 &&
-                                                item.isLoaded === 1
-                                                    ? process.env
-                                                        .REACT_APP_BASE_URL +
-                                                    item.url
-                                                    : item.url
+                                                item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url
                                             }
                                             alt="Изображение "
                                         />
@@ -91,12 +90,7 @@ const ImageGallery = ({title, items, front = true}) => {
                                         <img
                                             className="gallery-form__img"
                                             src={
-                                                item.isFile === 1 &&
-                                                item.isLoaded === 1
-                                                    ? process.env
-                                                        .REACT_APP_BASE_URL +
-                                                    item.url
-                                                    : item.url
+                                                item.url.includes("http") ? item.url : process.env.REACT_APP_BASE_URL + item.url
                                             }
                                             alt="Изображение "
                                         />
