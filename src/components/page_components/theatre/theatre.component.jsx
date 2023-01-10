@@ -12,7 +12,6 @@ import useSchoolStore from "../../../store/user/schoolStore";
 import Button from "../../button/button.component";
 import Tabs from "../../tabs/tabs.component";
 import Tab from "../../tabs/tab.component";
-import ImagePreview from "../../image_preview/image.preview.component";
 import FieldInput from "../../field/field.input.component";
 import Popup from "../../popup/popup.component";
 import Notif from "../../notif/notif.component";

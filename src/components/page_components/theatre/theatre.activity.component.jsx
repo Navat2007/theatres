@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import createDOMPurify from "dompurify";
 
 import Accordion from "../../accordion/accordion.component";
 import Table from "../../table/table.component";
@@ -11,8 +12,16 @@ import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
 import MultiSelect from "../../multi_select/multi_select.component";
+import styles from "./theatre.module.scss";
+import noImage from "../../../images/no_image.png";
+import {NavLink} from "react-router-dom";
+import commonStyles from "../../../pages/common.module.scss";
+import moment from "moment";
+import {EventIcons} from "../../svgs";
 
 const TheatreActivityComponent = ({theatreID}) => {
+
+    const DOMPurify = createDOMPurify(window);
 
     const {register, handleSubmit, reset, control, setValue} = useForm();
     const [notif, setNotif] = React.useState(<></>);
@@ -20,11 +29,21 @@ const TheatreActivityComponent = ({theatreID}) => {
     const [loading, setLoading] = React.useState(false);
 
     const [activityEvents, setActivityEvents] = React.useState(false);
+    const [activityEventsView, setActivityEventsView] = React.useState(false);
     const [activityVisitFestival, setVisitFestival] = React.useState(false);
+    const [activityVisitFestivalView, setVisitFestivalView] = React.useState(false);
     const [activityOwnFestival, setOwnFestival] = React.useState(false);
+    const [activityOwnFestivalView, setOwnFestivalView] = React.useState(false);
 
     const [photoActivityEvents, setPhotoActivityEvents] = React.useState([]);
+    const [photoActivityVisitFestival, setPhotoActivityVisitFestival] = React.useState([]);
+    const [photoActivityOwnFestival, setPhotoActivityOwnFestival] = React.useState([]);
+
     const [videoActivityEvents, setVideoActivityEvents] = React.useState([]);
+
+    const [event, setEvent] = React.useState(null);
+    const [visit, setVisit] = React.useState(null);
+    const [own, setOwn] = React.useState(null);
 
     const eventsItemsConfig = [
         {
@@ -92,6 +111,19 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     }, []);
 
+    React.useEffect(() => {
+
+        if (event !== null)
+            setActivityEventsView(true);
+
+        if (visit !== null)
+            setVisitFestivalView(true);
+
+        if (own !== null)
+            setOwnFestivalView(true);
+
+    }, [event, visit, own]);
+
     const fetchData = async () => {
 
         setLoading(true);
@@ -113,7 +145,7 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const onActivityEventsSendSubmit = async (params) => {
 
-        let sendObject = { ...params };
+        let sendObject = {...params};
 
         sendObject["theatreID"] = theatreID;
         sendObject["place"] = "event";
@@ -138,38 +170,67 @@ const TheatreActivityComponent = ({theatreID}) => {
         setPhotoActivityEvents([]);
         setVideoActivityEvents([]);
 
+        await fetchData();
+
     }
 
     const onActivityVisitFestivalSendSubmit = async (params) => {
 
-        console.log(params);
+        let sendObject = {...params};
+
+        sendObject["theatreID"] = theatreID;
+        sendObject["place"] = "visit";
+        sendObject["eventResult"] = params.eventResult.value;
+        sendObject["photo"] = photoActivityVisitFestival;
 
         let form = new FormData();
+        window.global.buildFormData(form, sendObject);
 
-        for (let key in params) {
-            form.append(key, params[key]);
-        }
-
-        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
+        console.log(result);
 
         reset();
         setVisitFestival(false);
+        setPhotoActivityVisitFestival([]);
+
+        await fetchData();
 
     }
 
     const onActivityOwnFestivalSendSubmit = async (params) => {
 
-        console.log(params);
+        let sendObject = {...params};
+
+        sendObject["theatreID"] = theatreID;
+        sendObject["place"] = "own";
+        sendObject["photo"] = photoActivityOwnFestival;
 
         let form = new FormData();
+        window.global.buildFormData(form, sendObject);
 
-        for (let key in params) {
-            form.append(key, params[key]);
-        }
-
-        //await axios.post(window.global.baseUrl + 'php/models/support/send.php', form);
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/add_activity.php', form);
+        console.log(result);
 
         reset();
+        setOwnFestival(false);
+        setPhotoActivityOwnFestival([]);
+
+        await fetchData();
+
+    }
+
+    const onDeleteSubmit = async (ID, place) => {
+
+        let form = new FormData();
+        window.global.buildFormData(form, {
+            ID, place
+        });
+
+        const result = await axios.postForm(window.global.baseUrl + 'php/models/user/theatres/remove_activity.php', form);
+        console.log(result);
+
+        setActivityEvents(false);
+        setVisitFestival(false);
         setOwnFestival(false);
 
     }
@@ -182,8 +243,8 @@ const TheatreActivityComponent = ({theatreID}) => {
                     loading={loading}
                     items={eventsItems}
                     itemsConfig={eventsItemsConfig}
-                    onItemClick={() => {
-                        console.log("item");
+                    onItemClick={(itemID) => {
+                        setEvent(eventsItems.find(item => item.ID === itemID));
                     }}
                     withFilter={true}
                 >
@@ -247,7 +308,7 @@ const TheatreActivityComponent = ({theatreID}) => {
             </Accordion>
 
             <Popup
-                title={"Посещение события"}
+                title={"Новое событие"}
                 opened={activityEvents}
                 onClose={() => {
                     reset();
@@ -405,15 +466,94 @@ const TheatreActivityComponent = ({theatreID}) => {
                             isIconBtn="true"
                             aria-label="Добавить поле"
                             onClick={() => {
-                                setVideoActivityEvents([...videoActivityEvents, {id: window.global.makeid(12), url: ""}]);
+                                setVideoActivityEvents([...videoActivityEvents, {
+                                    id: window.global.makeid(12),
+                                    url: ""
+                                }]);
                             }}
                         />
                     </fieldset>
                     <div className="form__controls">
                         <Button
+                            type="submit"
+                            text="Отправить"
+                            spinnerActive={false}
+                            style={{marginLeft: 'auto', display: 'block'}}
+                        />
+                    </div>
+                </form>
+            </Popup>
+            <Popup
+                title={"Посещение события"}
+                opened={activityEventsView}
+                onClose={() => {
+                    setActivityEventsView(false);
+                    setEvent(null);
+                }}
+            >
+                <form className='form'>
+                    <ul className={styles.list}>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Название мероприятия</h3>
+                            <p className={styles.description}>
+                                {event?.title}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Тип события</h3>
+                            <p className={styles.description}>
+                                {event?.eventType}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Дата события</h3>
+                            <p className={styles.description}>
+                                {moment(event?.date).format(
+                                    "DD.MM.YYYY"
+                                )}
+                            </p>
+                        </li>
+
+                    </ul>
+                    {
+                        event?.review
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Рецензия (впечатления, отчет о посещении) о спектакле, музее, событии
+                            </h2>
+                            <div
+                                className={styles.editor}
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(event?.review),
+                                }}
+                            />
+                        </fieldset>
+                    }
+                    {
+                        event?.photo
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Фотографии события
+                            </h2>
+                        </fieldset>
+                    }
+                    {
+                        event?.video
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Видео (интервью с участниками спектакля, режиссером, зрителями)
+                            </h2>
+                        </fieldset>
+                    }
+                    <div className="form__controls">
+                        <Button
                             type="button"
                             theme={"outline"}
                             text={"Удалить"}
+                            style={{marginLeft: 'auto', display: 'block'}}
                             onClick={() => {
                                 setNotif(
                                     <Notif
@@ -436,7 +576,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                                                     size={"small"}
                                                     onClick={() => {
                                                         setNotif(<></>)
-                                                        //onDeleteSubmit();
+                                                        onDeleteSubmit(event?.ID, "event");
                                                     }}
                                                 />
                                             </>
@@ -445,6 +585,94 @@ const TheatreActivityComponent = ({theatreID}) => {
                                 );
                             }}
                         />
+                    </div>
+                </form>
+            </Popup>
+            <Popup
+                title={"Новое участие в мероприятии"}
+                opened={activityVisitFestival}
+                onClose={() => {
+                    reset();
+                    setVisitFestival(false);
+                }}
+            >
+                <form onSubmit={handleSubmit(onActivityVisitFestivalSendSubmit)} className='form'>
+                    <fieldset className='form__section --content-info'>
+                        <FieldInput
+                            label={"Название мероприятия"}
+                            placeholder={"Введите название..."}
+                            required={true}
+                            {...register("eventTitle")}
+                        />
+                        <div className="form__multy-block">
+                            <p className="form__label">
+                                Результативность участия
+                            </p>
+                            <MultiSelect
+                                required={true}
+                                control={control}
+                                isMulti={false}
+                                name={"eventResult"}
+                                closeMenuOnSelect={true}
+                                options={[
+                                    {
+                                        label: "Участник",
+                                        value: "Участник",
+                                    },
+                                    {
+                                        label: "Лауреат",
+                                        value: "Лауреат",
+                                    },
+                                    {
+                                        label: "Призер",
+                                        value: "Призер",
+                                    },
+                                    {
+                                        label: "Победитель",
+                                        value: "Победитель",
+                                    },
+                                ]}
+                            />
+                        </div>
+                        <FieldInput
+                            label={"Дата мероприятия"}
+                            type="date"
+                            layout="flex"
+                            required={true}
+                            {...register("eventDate")}
+                        />
+                        <div className="form__editor-block">
+                            <p className="form__label">
+                                Описание мероприятия
+                            </p>
+                            <Editor
+                                control={control}
+                                name="editorReview"
+                                minHeight={250}
+                            />
+                        </div>
+                        <fieldset className="form__section">
+                            <ImageSelector
+                                title="Фотографии события"
+                                items={photoActivityVisitFestival}
+                                multiFiles={true}
+                                onChange={(items) => setPhotoActivityVisitFestival(items)}
+                                onError={(text) =>
+                                    setNotif(
+                                        <Notif
+                                            title="Ошибка!"
+                                            text={text}
+                                            opened={true}
+                                            onClose={() => {
+                                                setNotif(<></>);
+                                            }}
+                                        />
+                                    )
+                                }
+                            />
+                        </fieldset>
+                    </fieldset>
+                    <div className="form__controls">
                         <Button
                             type="submit"
                             text="Отправить"

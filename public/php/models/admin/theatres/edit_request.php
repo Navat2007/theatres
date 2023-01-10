@@ -317,6 +317,7 @@ if ($error === 0) {
                     $url = "/files/theatre/" . $id . "/" . $file_token . "_" . $name;
                 }
 
+
             }
 
             if($isFile === 1 && $isLoaded === 1){
@@ -459,6 +460,8 @@ if ($error === 0) {
         $sqls[] = $sql;
         mysqli_query($conn, $sql);
 
+        $dirName = $_SERVER['DOCUMENT_ROOT'] . "/files/theatre_requests/" . $id;
+        @unlink($dirName);
 
         foreach ($video as $v) {
 
