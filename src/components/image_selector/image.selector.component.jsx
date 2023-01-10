@@ -201,48 +201,55 @@ const ImageSelector = ({title, items, multiFiles, withLinks, onChange, onError})
 
     const handleDeletePhoto = (itemElement) => {
 
-        setNotif(<Notif
-            text={"Вы уверены что хотите удалить? Файл сразу удалится с сервера и будет не доступен на публичной странице сайта!"}
-            opened={true}
-            onClose={() => setNotif(<></>)}
-            buttons={
-                <>
-                    <Button
-                        type="button"
-                        size={"small"}
-                        text={"Нет"}
-                        theme="text"
-                        onClick={() => setNotif(<></>)}
-                    />
-                    <Button
-                        type="button"
-                        size={"small"}
-                        theme="info"
-                        text={"Да"}
-                        onClick={async () => {
+        if(itemElement.isLoaded === 1){
+            setNotif(<Notif
+                text={"Вы уверены что хотите удалить? Файл сразу удалится с сервера и будет не доступен на публичной странице сайта!"}
+                opened={true}
+                onClose={() => setNotif(<></>)}
+                buttons={
+                    <>
+                        <Button
+                            type="button"
+                            size={"small"}
+                            text={"Нет"}
+                            theme="text"
+                            onClick={() => setNotif(<></>)}
+                        />
+                        <Button
+                            type="button"
+                            size={"small"}
+                            theme="info"
+                            text={"Да"}
+                            onClick={async () => {
 
-                            if(itemElement.isFile === 1 && itemElement.isLoaded === 1)
-                            {
+                                if(itemElement.isFile === 1 && itemElement.isLoaded === 1)
+                                {
 
-                                let form = new FormData();
-                                window.global.buildFormData(form, itemElement);
+                                    let form = new FormData();
+                                    window.global.buildFormData(form, itemElement);
 
-                                const response = await axios.postForm(process.env.REACT_APP_BASE_URL + 'php/models/files/remove_theatre_image.php', form);
-                                console.log(response);
+                                    const response = await axios.postForm(process.env.REACT_APP_BASE_URL + 'php/models/files/remove_theatre_image.php', form);
+                                    //console.log(response);
 
-                            }
+                                }
 
-                            let array = [...photo].filter((item) => item.order !== itemElement.order);
+                                let array = [...photo].filter((item) => item.order !== itemElement.order);
 
-                            setPhoto(setNewOrder(array));
+                                setPhoto(setNewOrder(array));
 
-                            setNotif(<></>)
-                        }}
-                    />
-                </>
-            }
-        />);
+                                setNotif(<></>)
+                            }}
+                        />
+                    </>
+                }
+            />);
+        }
+        else
+        {
+            let array = [...photo].filter((item) => item.order !== itemElement.order);
 
+            setPhoto(setNewOrder(array));
+        }
 
     };
 
