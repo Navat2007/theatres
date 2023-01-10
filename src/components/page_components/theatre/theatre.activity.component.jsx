@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import moment from "moment";
 import createDOMPurify from "dompurify";
 
 import Accordion from "../../accordion/accordion.component";
@@ -12,12 +13,8 @@ import Editor from "../../reach_editor/editor.component";
 import ImageSelector from "../../image_selector/image.selector.component";
 import Notif from "../../notif/notif.component";
 import MultiSelect from "../../multi_select/multi_select.component";
+
 import styles from "./theatre.module.scss";
-import noImage from "../../../images/no_image.png";
-import {NavLink} from "react-router-dom";
-import commonStyles from "../../../pages/common.module.scss";
-import moment from "moment";
-import {EventIcons} from "../../svgs";
 
 const TheatreActivityComponent = ({theatreID}) => {
 
@@ -145,12 +142,15 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const onActivityEventsSendSubmit = async (params) => {
 
+        console.log(params);
+
         let sendObject = {...params};
 
         sendObject["theatreID"] = theatreID;
         sendObject["place"] = "event";
         sendObject["photo"] = photoActivityEvents;
         sendObject["eventType"] = params.eventType.value;
+        sendObject["editorReview"] = params.editorReview ? params.editorReview : "";
 
         if (videoActivityEvents.length > 0)
             sendObject["video"] = Array.from(
@@ -158,6 +158,8 @@ const TheatreActivityComponent = ({theatreID}) => {
             );
 
         console.log(sendObject);
+
+        return;
 
         let form = new FormData();
         window.global.buildFormData(form, sendObject);
@@ -180,7 +182,10 @@ const TheatreActivityComponent = ({theatreID}) => {
 
         sendObject["theatreID"] = theatreID;
         sendObject["place"] = "visit";
-        sendObject["eventResult"] = params.eventResult.value;
+        sendObject["eventTitle"] = params.visitTitle;
+        sendObject["eventDate"] = params.visitDate;
+        sendObject["eventResult"] = params.visitResult.value;
+        sendObject["editorReview"] = params.visitReview ? params.visitReview : "";
         sendObject["photo"] = photoActivityVisitFestival;
 
         let form = new FormData();
@@ -204,6 +209,7 @@ const TheatreActivityComponent = ({theatreID}) => {
         sendObject["theatreID"] = theatreID;
         sendObject["place"] = "own";
         sendObject["photo"] = photoActivityOwnFestival;
+        sendObject["editorReview"] = params.editorReview ? params.editorReview.value : "";
 
         let form = new FormData();
         window.global.buildFormData(form, sendObject);
@@ -602,7 +608,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                             label={"Название мероприятия"}
                             placeholder={"Введите название..."}
                             required={true}
-                            {...register("eventTitle")}
+                            {...register("visitTitle")}
                         />
                         <div className="form__multy-block">
                             <p className="form__label">
@@ -612,7 +618,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                                 required={true}
                                 control={control}
                                 isMulti={false}
-                                name={"eventResult"}
+                                name={"visitResult"}
                                 closeMenuOnSelect={true}
                                 options={[
                                     {
@@ -639,7 +645,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                             type="date"
                             layout="flex"
                             required={true}
-                            {...register("eventDate")}
+                            {...register("visitDate")}
                         />
                         <div className="form__editor-block">
                             <p className="form__label">
@@ -647,7 +653,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                             </p>
                             <Editor
                                 control={control}
-                                name="editorReview"
+                                name="visitReview"
                                 minHeight={250}
                             />
                         </div>
