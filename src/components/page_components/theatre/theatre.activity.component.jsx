@@ -1099,7 +1099,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                                                     size={"small"}
                                                     onClick={() => {
                                                         setNotif(<></>)
-                                                        onDeleteSubmit(event?.ID, "event");
+                                                        onDeleteSubmit(own?.ID, "own");
                                                     }}
                                                 />
                                             </>
