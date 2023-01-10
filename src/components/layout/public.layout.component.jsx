@@ -129,7 +129,7 @@ const PublicLayout = () => {
                         </nav>
                     </div>
                 </header>
-                <main>
+                <main className={styles.main}>
                     <Outlet />
                 </main>
                 <footer className={styles.footer}>
