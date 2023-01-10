@@ -15,6 +15,8 @@ import Notif from "../../notif/notif.component";
 import MultiSelect from "../../multi_select/multi_select.component";
 
 import styles from "./theatre.module.scss";
+import ImageGallery from "../../image_gallery/image.gallery.component";
+import ReactPlayer from "react-player";
 
 const TheatreActivityComponent = ({theatreID}) => {
 
@@ -142,8 +144,6 @@ const TheatreActivityComponent = ({theatreID}) => {
 
     const onActivityEventsSendSubmit = async (params) => {
 
-        console.log(params);
-
         let sendObject = {...params};
 
         sendObject["theatreID"] = theatreID;
@@ -158,8 +158,6 @@ const TheatreActivityComponent = ({theatreID}) => {
             );
 
         console.log(sendObject);
-
-        return;
 
         let form = new FormData();
         window.global.buildFormData(form, sendObject);
@@ -272,8 +270,8 @@ const TheatreActivityComponent = ({theatreID}) => {
                     loading={loading}
                     items={visitFestivalItems}
                     itemsConfig={visitFestivalItemsConfig}
-                    onItemClick={() => {
-                        console.log("item");
+                    onItemClick={(itemID) => {
+                        setVisit(visitFestivalItems.find(item => item.ID === itemID));
                     }}
                     withFilter={true}
                 >
@@ -543,6 +541,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                             <h2 className="form__title">
                                 Фотографии события
                             </h2>
+                            <ImageGallery front={false} items={event?.photo} />
                         </fieldset>
                     }
                     {
@@ -552,6 +551,23 @@ const TheatreActivityComponent = ({theatreID}) => {
                             <h2 className="form__title">
                                 Видео (интервью с участниками спектакля, режиссером, зрителями)
                             </h2>
+                            <ul className="gallery-form --content-video">
+                                {event.video.map((item) => (
+                                    <li
+                                        key={item}
+                                        className="gallery-form__item"
+                                    >
+                                        <ReactPlayer
+                                            width="100%"
+                                            height={"auto"}
+                                            className="video__react-player"
+                                            url={item.url}
+                                            playing={false}
+                                            controls={true}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         </fieldset>
                     }
                     <div className="form__controls">
@@ -659,7 +675,7 @@ const TheatreActivityComponent = ({theatreID}) => {
                         </div>
                         <fieldset className="form__section">
                             <ImageSelector
-                                title="Фотографии события"
+                                title="Фотографии мероприятия"
                                 items={photoActivityVisitFestival}
                                 multiFiles={true}
                                 onChange={(items) => setPhotoActivityVisitFestival(items)}
@@ -684,6 +700,103 @@ const TheatreActivityComponent = ({theatreID}) => {
                             text="Отправить"
                             spinnerActive={false}
                             style={{marginLeft: 'auto', display: 'block'}}
+                        />
+                    </div>
+                </form>
+            </Popup>
+            <Popup
+                title={"Участие в фестивалях, конкурсах"}
+                opened={activityVisitFestivalView}
+                onClose={() => {
+                    setVisitFestivalView(false);
+                    setVisit(null);
+                }}
+            >
+                <form className='form'>
+                    <ul className={styles.list}>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Название мероприятия</h3>
+                            <p className={styles.description}>
+                                {visit?.title}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Результативность участия</h3>
+                            <p className={styles.description}>
+                                {visit?.result}
+                            </p>
+                        </li>
+                        <li className={styles.item}>
+                            <h3 className={styles.label}>Дата мероприятия</h3>
+                            <p className={styles.description}>
+                                {moment(visit?.date).format(
+                                    "DD.MM.YYYY"
+                                )}
+                            </p>
+                        </li>
+
+                    </ul>
+                    {
+                        visit?.review
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Рецензия (впечатления, отчет о посещении) о спектакле, музее, событии
+                            </h2>
+                            <div
+                                className={styles.editor}
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(visit?.review),
+                                }}
+                            />
+                        </fieldset>
+                    }
+                    {
+                        visit?.photo
+                        &&
+                        <fieldset className="form__section">
+                            <h2 className="form__title">
+                                Фотографии мероприятия
+                            </h2>
+                            <ImageGallery front={false} items={visit?.photo} />
+                        </fieldset>
+                    }
+                    <div className="form__controls">
+                        <Button
+                            type="button"
+                            theme={"outline"}
+                            text={"Удалить"}
+                            style={{marginLeft: 'auto', display: 'block'}}
+                            onClick={() => {
+                                setNotif(
+                                    <Notif
+                                        text={"Вы уверены что хотите удалить?"}
+                                        opened={true}
+                                        onClose={() => setNotif(<></>)}
+                                        buttons={
+                                            <>
+                                                <Button
+                                                    type="button"
+                                                    text="Нет"
+                                                    size={"small"}
+                                                    theme="text"
+                                                    onClick={() => setNotif(<></>)}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    text="Да"
+                                                    theme={"info"}
+                                                    size={"small"}
+                                                    onClick={() => {
+                                                        setNotif(<></>)
+                                                        onDeleteSubmit(event?.ID, "event");
+                                                    }}
+                                                />
+                                            </>
+                                        }
+                                    />
+                                );
+                            }}
                         />
                     </div>
                 </form>
