@@ -4,9 +4,18 @@
 
 .content {
     font-family: var(--ff-public);
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: auto;
 }
 
 .header {
+    flex: none;
     background-color: var(--g600);
 }
 
@@ -286,6 +295,7 @@
 }
 
 .footer {
+    flex: none;
     background-color: var(--g600);
 }
 
