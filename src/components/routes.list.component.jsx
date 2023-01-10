@@ -45,6 +45,8 @@ import NewsPage from "../pages/public/news/news.page";
 import PublicTheatrePage from "../pages/public/theatres/theatre.page";
 import PublicTheatresPage from "../pages/public/theatres/theatres.page";
 import FestivalsPage from "../pages/public/festivals/festivals.page";
+import SpectaclePage from "../pages/public/spectacles/spectacle.page";
+import SpectaclesPage from "../pages/public/spectacles/spectacles.page";
 
 const RoutesList = () => {
 
@@ -87,6 +89,16 @@ const RoutesList = () => {
             path="/news/:id"
             exact={true}
             element={<NewsPage/>}
+        />
+        <Route
+            path="/spectacles"
+            exact={true}
+            element={<SpectaclesPage/>}
+        />
+        <Route
+            path="/spectacles/:id"
+            exact={true}
+            element={<SpectaclePage/>}
         />
     </Route>;
 

@@ -36,7 +36,7 @@ const TheatreActivityComponent = () => {
         },
     ];
 
-    const onSendSubmit = async (params) => {
+    const onActivityEventsSendSubmit = async (params) => {
 
         console.log(params);
 
@@ -114,7 +114,7 @@ const TheatreActivityComponent = () => {
                     setActivityEvents(false);
                 }}
             >
-                <form onSubmit={handleSubmit(onSendSubmit)} className='form'>
+                <form onSubmit={handleSubmit(onActivityEventsSendSubmit)} className='form'>
                     <fieldset className='form__section --content-info'>
                         <FieldInput
                             label={"Название мероприятия"}
