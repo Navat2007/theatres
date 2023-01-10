@@ -263,10 +263,7 @@ function TheatreRequest({
                 {/*    </div>*/}
                 {/*</div>*/}
                 <Tabs>
-                    <Tab
-                        title={"Основные сведения"}
-                        extraClass="form__tab form__container --view-two-columns"
-                    >
+                    <Tab title={"Основные сведения"} extraClass="form__tab form__container --view-two-columns">
                         <fieldset className="form__section">
                             <div className="form__multy-block">
                                 <p className="form__label">Эмблема театра</p>
@@ -546,10 +543,7 @@ function TheatreRequest({
                             />
                         </fieldset>
                     </Tab>
-                    <Tab
-                        title={"Информация о театре"}
-                        extraClass="form__tab"
-                    >
+                    <Tab title={"Информация о театре"} extraClass="form__tab">
                         <div className="form__editor-block">
                             <p className="form__label">
                                 Информация о театре
@@ -560,11 +554,7 @@ function TheatreRequest({
                             />
                         </div>
                     </Tab>
-                    <Tab
-                        title={"Обращение режиссёра"}
-                        extraClass="form__tab"
-                        hidden={true}
-                    >
+                    <Tab title={"Обращение режиссёра"} extraClass="form__tab" hidden={true}>
                         <div className="form__editor-block">
                             <p className="form__label">Обращение режиссёра</p>
                             <Editor
@@ -573,10 +563,7 @@ function TheatreRequest({
                             />
                         </div>
                     </Tab>
-                    <Tab
-                        title={"Фотографии"}
-                        extraClass="form__tab"
-                    >
+                    <Tab title={"Фотографии"} extraClass="form__tab">
                         <fieldset className="form__section">
                             <ImageSelector
                                 title="Фотографии театра"
