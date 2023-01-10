@@ -13,6 +13,12 @@
     padding-left: 0.25em;
 }
 
+.caption {
+    font-size: min(3vmax, 1.5em);
+    color: var(--lightLow);
+    display: inline-flex;
+}
+
 .eventIcon {
     position: relative;
     width: 1.5rem;
@@ -33,6 +39,7 @@
     flex-wrap: wrap;
     gap: 1.25em;
 }
+
 .column {
     &Description {
         flex: 1 0 50%;
@@ -68,9 +75,11 @@
 
         .tiketDate {
             border-color: var(--g500);
+            color: var(--dark);
         }
     }
 }
+
 .tiketStatus {
     flex: 0 0 40%;
     min-width: 40%;
@@ -82,23 +91,20 @@
     padding: 1rem 0.5rem 1rem 1.25rem;
     box-sizing: border-box;
 }
+
 .tiketDate {
     flex: 0 0 60%;
     min-width: 60%;
     max-width: 60%;
     margin: 0;
     font-weight: 600;
+    color: var(--light);
     text-transform: uppercase;
     border-left: 1px solid var(--light);
     padding: 1rem 1.25rem 1rem 0.5rem;
     box-sizing: border-box;
     text-align: right;
     align-self: stretch;
-}
-
-.caption {
-    font-size: min(3vmax, 1.5em);
-    color: var(--lightLow);
 }
 
 .poster {
